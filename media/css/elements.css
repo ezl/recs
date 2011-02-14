@@ -1,0 +1,166 @@
+p { margin: .5em 0; }
+.bold { font-weight: bold; }
+.big { font-size: 1.5em; }
+.huge { font-size: 2em; }
+.center { text-align: center; }
+.right { text-align: right; }
+.highlight {
+    background: #ff9;
+    padding: 3px;
+}
+a, a:visited, a:active {
+    color: #36f;
+}
+a:hover {
+    color: #f63;
+}
+a.no-underline, a.no-underline:active, a.no-underline:hover, a.no-underline:visited{
+    text-decoration: none;
+}
+button, .button{
+    border: 2px solid #ccc;
+    margin-top: 5px;
+    background: #f0f0f0 url(../img/button-gradient.png) repeat-x 0 -10px;
+    font-weight: bold;
+    padding: 4px 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+}
+a.button, a.button:visited, a.button:active{
+    color: #000;
+    text-decoration: none;
+}
+.add-button, .edit-button, .upload-button, .delete-button, .find-button, .show-button{
+    padding: 3px 10px 3px 20px;
+    text-align: left;
+    margin-bottom: 10px;
+    border: 0;
+    font-weight: bold;
+}
+.completed{
+    text-decoration:line-through;    
+}
+span.add-button{
+    padding: 3px 10px 3px 25px;
+}
+span.find-button{
+    padding: 3px 10px 3px 25px;
+}
+span.show-button{
+    padding: 3px 10px 3px 25px;
+}
+
+
+.add-button{
+    background: url(../img/icons/Add_16x16_new.png) no-repeat 0px 3px;
+}
+.edit-button{
+    background: url(../img/icons/Save_16x16.png) no-repeat 0px 3px;
+}
+.upload-button{
+    background: url(../img/icons/Upload_16x16.png) no-repeat 0 3px;
+}
+.delete-button{
+    background: url(../img/icons/Delete_16x16.png) no-repeat 0 3px;
+}
+.find-button{
+    background: url(../img/icons/Search_16x16.png) no-repeat 0px 3px;
+}
+.show-button{
+    background: url(../img/icons/Properties_16x16.png) no-repeat 0px 3px;
+}
+
+
+button:active, .button:active{
+    background: #f0f0f0 url(../img/button-gradient.png) repeat-x 0 -22px;
+    text-shadow: #ccc -5px 2px 2px;
+}
+form {
+    margin-bottom: 10px;
+}
+.form-container{
+    background: #eee;
+    margin-bottom: 3em;
+    padding: 1em;
+    border: 2px solid #ccc;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+.label_field-container{
+    margin-bottom: 1em;
+}
+
+#login-form-container{
+    margin-top: 120px;
+}
+.form-header{
+    margin-bottom: 5px;
+}
+input.text{
+    margin: 0!important;
+}
+input:active{
+    margin:2px solid green;
+}
+.form_field {
+    padding: 2px 0;
+}
+.add_button {
+    font-size: 1.2em;
+    margin-right: 10px;
+}
+.find_button {
+    font-size: 1.2em;
+    margin-right: 10px;
+}
+.show_button {
+    font-size: 1.2em;
+    margin-right: 10px;
+}
+
+
+h1 {font-size:2em;margin-bottom:0.75em;}
+h2 {font-size:1.5em;line-height:1;margin-bottom:1em;}
+h3 {font-size:1.2em;line-height:1.25;margin-bottom:1.25em;}
+h4 {font-size:1em;margin-bottom:1.5em;}
+h5 {font-size:1em;font-weight:bold;}
+
+ul.messages{
+    list-style-type: none;
+    
+}
+ul.errorlist{
+    list-style-type: none;
+}
+ul.errorlist{
+    padding: 0px 0px 0px 25px;
+    background-image: url(../img/icons/Error_16x16.png);
+    background-repeat: no-repeat;
+    background-position: 0px 0px;
+    background-color: #fbe3e4;
+}
+.user_info_box, .inactive_user_info_box {
+    height: 7.5em;
+    margin: 2px!important;
+    margin-left: 0!important;
+    margin-top: 0!important;
+}
+.user_info_box{
+    background: #e5ecf9 url(../img/icons/User_48x48.png) no-repeat 100% 10px;
+}
+.admin_user_info_box{
+    background: #e5ecf9 url(../img/icons/Admin_48x48.png) no-repeat 98% 10px;
+}
+.inactive_user_info_box {
+    background: #eee;
+    color: #ccc;
+}
+.user_info_box p, .inactive_user_info_box p{
+    margin-left: 15px;
+}
+.sidebar-folder{
+    padding-bottom: 20px;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}

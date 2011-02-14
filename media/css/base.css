@@ -1,0 +1,162 @@
+p.trade {margin:0 0 .2em;}
+p.summary {
+    font-weight: bold;
+    color: red;
+}
+#header{
+    background: #f0f0f0;
+}
+.row1{
+    background: #def;
+    display: table-row;
+}
+.row2{
+    background: #eee;
+    display: table-row;
+}
+#rentallist{
+
+}
+#applicationlist{
+
+}
+#applicationdisplay{
+
+}
+.rowheader{
+    display:table-row;
+    font-weight: bold;
+}
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+h1#site_name {
+    margin: 2px 0 5px 0;
+    font-size: 2em;
+    color: #fff;
+}
+#site_name a {
+    text-decoration: none;
+}
+#sitelogo_container {
+    text-align: right;   
+}
+#wrapper {
+    min-height: 100%;
+    position: relative;
+/*    margin-bottom: 5px;*/
+}
+#top_bar {
+    background: #003663;
+    color: #fff;
+}
+#right_top_bar {
+    text-align: right;
+}
+#top_bar a, #top_bar a:visited {
+    color: #fff;
+    padding: 5px;
+}
+#top_bar a:hover {
+    background: #000;
+}
+#tab_bar {
+    background: #0b4e82;
+    padding: 0;
+}
+#right_tabs {
+    text-align: right;
+}
+#left_tabs {
+    text-align: left;
+}
+#tabs ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 20px 0 0px 0;
+}
+#tabs ul li {
+    list-style: none;
+    display: inline;
+}
+#left_tabs ul li{
+    margin: 0 2px 0 0;
+}
+#right_tabs ul li{
+    margin: 0 0 0 2px;    
+}
+#tabs a, #tabs a:visited {
+    padding: 10px 15px 4px 15px;
+    line-height: 25px;
+    background: #0c5a97;
+    color: #fff;
+    font-weight: bold;
+}
+#tabs a:hover {
+    background: #003663;
+    color: #fff;
+    border-bottom: 1px solid #003663!important;
+}
+#right_tabs a.active, #left_tabs a.active,
+#right_tabs a.active:hover, #left_tabs a.active:hover {
+    border-bottom: 1px solid #eee!important;
+    color: #333!important;
+    padding-left: 30px;
+}
+.dashboard-active{
+    background: #eee url(../img/icons/Settings_16x16.png) no-repeat 5px 10px!important;
+}
+.applications-active{
+    background: #eee url(../img/icons/User_16x16.png) no-repeat 5px 10px!important;
+}
+.rental_units-active{
+    background: #eee url(../img/icons/Folder_16x16.png) no-repeat 5px 10px!important;
+}
+
+#header_bar {
+    background: #eee;
+    border-bottom: 1px solid #ccc;
+    min-height: 60px;
+    padding: 30px 0 5px 0;
+}
+#header_bar p{
+    margin: 0;
+}
+#header_bar h1{
+    margin: 0;
+    margin-top: 10px;
+    font-weight: bold;
+}
+#header_bar a, #header_bar a:visited{
+    color: #666;
+}
+#main {
+    padding-top: 20px;
+    padding-bottom: 160px;
+    overflow: auto;
+}
+#footer {
+    margin-top: -155px; /* negative value of footer height */
+    height: 150px;
+    clear:both;
+    background: #222;
+    color: #fff;
+    border-top: 5px solid #ccc;
+    position: relative;
+}
+#footer a, #footer a:visited {
+    text-decoration:none;
+}
+#footer h5{
+    margin: 0;
+    margin-top: 20px;
+    font-weight: normal;
+    color: #fff;
+}
+
+#sitelogo{
+    text-align: right;
+    margin: 0;
+}

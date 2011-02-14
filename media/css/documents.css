@@ -1,0 +1,53 @@
+.document_folder {
+  font-weight: bold;
+  font-size: 1.5em;
+  color: #999;
+}
+.document_box {
+  min-height: 110px;
+  height: auto!important;
+  padding: 1.1em .7em;
+}
+a, a:visited, a:active {
+    color: #36f;
+}
+a:hover {
+    color: #f63;
+}
+input#id_name{
+    width: 12em;
+}
+input#id_file{
+    width: 12em;
+}
+h2{
+    margin: 0 0 5px 0;
+}
+.document_folder a, .document_folder a:visited{
+    color: inherit;
+    text-decoration: inherit;
+}
+.document_folder a:hover{
+    color: #f63;    
+}
+p.document-meta{
+    font-size: .75em;
+}
+.sidebar-folder-list ul{
+    list-style-type: none;
+    font-weight: normal;
+    padding: 0;
+    padding-left: 20px;
+}
+.sidebar-folder-list p{
+    font-weight: normal;
+    font-size: .8em;
+    margin-left: 20px;
+}
+#permissions-instructions p{
+    margin-bottom: 10px;
+}
+#permissions-instructions h5{
+    margin-bottom: 0;
+    padding: 0;
+}
