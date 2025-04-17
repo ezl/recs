@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Flask Starter App{% endblock %}</title>
+    <title>{% block title %}WorkFlow | Enterprise SaaS Solution{% endblock %}</title>
     
     <!-- Tailwind CSS 4 via CDN -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
@@ -11,40 +11,53 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+    
     {% block head_extras %}{% endblock %}
 </head>
-<body class="min-h-screen bg-gray-100">
-    <header class="bg-white shadow">
+<body class="min-h-screen bg-gray-50 text-gray-800">
+    <header class="bg-white border-b border-gray-200">
         <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="{{ url_for('main.index') }}" class="text-xl font-bold">Flask Starter</a>
-            <div class="space-x-4">
-                <a href="{{ url_for('main.index') }}" class="hover:text-blue-600">Home</a>
+            <a href="{{ url_for('main.index') }}" class="text-xl font-bold text-blue-700">WorkFlow</a>
+            <div class="space-x-6">
+                <a href="{{ url_for('main.index') }}" class="text-gray-600 hover:text-blue-700 font-medium">Home</a>
+                <a href="#" class="text-gray-600 hover:text-blue-700 font-medium">Features</a>
+                <a href="#" class="text-gray-600 hover:text-blue-700 font-medium">Pricing</a>
                 {% if session.get('user_id') %}
-                    <a href="{{ url_for('auth.dashboard') }}" class="hover:text-blue-600">Dashboard</a>
-                    <a href="{{ url_for('auth.logout') }}" class="hover:text-blue-600">Logout</a>
+                    <a href="{{ url_for('auth.dashboard') }}" class="text-gray-600 hover:text-blue-700 font-medium">Dashboard</a>
+                    <a href="{{ url_for('auth.logout') }}" class="text-gray-600 hover:text-blue-700 font-medium">Logout</a>
                 {% else %}
-                    <a href="{{ url_for('auth.login') }}" class="hover:text-blue-600">Login</a>
+                    <a href="{{ url_for('auth.login') }}" class="px-4 py-2 bg-blue-600 text-white font-medium rounded hover:bg-blue-700 transition">Login</a>
                 {% endif %}
             </div>
         </nav>
     </header>
 
-    <main class="container mx-auto px-4 py-8">
+    <main>
         <!-- Flash messages -->
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
-                <div class="mb-6">
+                <div class="container mx-auto px-4 py-4">
                     {% for category, message in messages %}
-                        {% set alert_color = 'bg-blue-100 text-blue-800' %}
+                        {% set alert_color = 'bg-blue-100 text-blue-800 border-blue-300' %}
                         {% if category == 'error' %}
-                            {% set alert_color = 'bg-red-100 text-red-800' %}
+                            {% set alert_color = 'bg-red-100 text-red-800 border-red-300' %}
                         {% elif category == 'success' %}
-                            {% set alert_color = 'bg-green-100 text-green-800' %}
+                            {% set alert_color = 'bg-green-100 text-green-800 border-green-300' %}
                         {% elif category == 'warning' %}
-                            {% set alert_color = 'bg-yellow-100 text-yellow-800' %}
+                            {% set alert_color = 'bg-yellow-100 text-yellow-800 border-yellow-300' %}
                         {% endif %}
                         
-                        <div class="p-4 mb-3 rounded-md {{ alert_color }}">
+                        <div class="p-4 mb-3 rounded border {{ alert_color }}">
                             {{ message }}
                         </div>
                     {% endfor %}
@@ -55,9 +68,41 @@
         {% block content %}{% endblock %}
     </main>
 
-    <footer class="bg-white shadow py-4 mt-8">
-        <div class="container mx-auto px-4 text-center text-gray-500">
-            &copy; {% block year %}{{ now.year }}{% endblock %} Flask Starter App
+    <footer class="bg-gray-100 text-gray-600 py-8 mt-10 border-t border-gray-200">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-lg font-bold text-gray-800 mb-4">WorkFlow</h3>
+                    <p class="text-sm">Enterprise solutions for efficient business operations and team collaboration.</p>
+                </div>
+                <div>
+                    <h4 class="text-gray-800 font-semibold mb-4">Product</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-blue-600 transition">Features</a></li>
+                        <li><a href="#" class="hover:text-blue-600 transition">Pricing</a></li>
+                        <li><a href="#" class="hover:text-blue-600 transition">Integrations</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-gray-800 font-semibold mb-4">Resources</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-blue-600 transition">Documentation</a></li>
+                        <li><a href="#" class="hover:text-blue-600 transition">Support</a></li>
+                        <li><a href="#" class="hover:text-blue-600 transition">Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-gray-800 font-semibold mb-4">Company</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-blue-600 transition">About</a></li>
+                        <li><a href="#" class="hover:text-blue-600 transition">Contact</a></li>
+                        <li><a href="#" class="hover:text-blue-600 transition">Legal</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-gray-300 text-center text-sm">
+                &copy; {% block year %}{{ now.year }}{% endblock %} WorkFlow Inc. All rights reserved.
+            </div>
         </div>
     </footer>
 
