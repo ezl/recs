@@ -10,114 +10,19 @@
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/components/recording.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pages/recommendations.css') }}">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f9fafb;
-        }
-        textarea {
-            background-color: #f9fafb;
-        }
-        textarea::placeholder {
-            color: #CBD5E0;
-        }
-        
-        #record-btn.recording {
-            animation: pulse 2s infinite;
-            box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7);
-        }
-        
-        @keyframes pulse {
-            0% {
-              transform: scale(1);
-              box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7);
-            }
-            
-            70% {
-              transform: scale(1.1);
-              box-shadow: 0 0 0 15px rgba(220, 38, 38, 0);
-            }
-            
-            100% {
-              transform: scale(1);
-              box-shadow: 0 0 0 0 rgba(220, 38, 38, 0);
-            }
-        }
-        
-        .mic-animation {
-            position: relative;
-        }
-        
-        .mic-waves {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            opacity: 0;
-            pointer-events: none;
-        }
-        
-        .mic-wave-1, .mic-wave-2, .mic-wave-3 {
-            position: absolute;
-            border: 2px solid rgba(239, 68, 68, 0.5);
-            border-radius: 50%;
-            width: 100%;
-            height: 100%;
-        }
-        
-        .mic-wave-1 {
-            animation: wave 2s infinite 0.1s;
-        }
-        
-        .mic-wave-2 {
-            animation: wave 2s infinite 0.5s;
-        }
-        
-        .mic-wave-3 {
-            animation: wave 2s infinite 0.9s;
-        }
-        
-        @keyframes wave {
-            0% {
-                transform: scale(1);
-                opacity: 0.8;
-            }
-            100% {
-                transform: scale(2);
-                opacity: 0;
-            }
-        }
-        
-        .error-toast {
-            animation: slide-up 0.3s ease forwards, slide-down 0.3s ease forwards 5s;
-            transform: translateY(100%);
-        }
-        
-        @keyframes slide-up {
-            0% { transform: translateY(100%); }
-            100% { transform: translateY(0); }
-        }
-        
-        @keyframes slide-down {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(100%); }
-        }
-    </style>
 </head>
-<body class="min-h-screen bg-gray-50 text-gray-800">
+<body class="min-h-screen bg-gray-50 text-gray-800 recommendation-page">
     <main>
         <div class="flex flex-col h-screen">
             <div class="flex-grow flex flex-col px-4 pt-10 pb-24 w-full">
-                <div class="w-full max-w-[80%] mx-auto">
+                <div class="recommendation-container">
                     <div class="flex items-center justify-between mb-8">
                         <h1 class="text-3xl font-semibold text-gray-900 text-left">
                             {{ trip.traveler_name }} is going to {{ trip.destination }}. Where should they go?
@@ -126,8 +31,11 @@
                                 <span id="audio-mode-label">Speak instead</span>
                             </button>
                         </h1>
-
                     </div>
+                    
+                    <!-- Hidden data elements for JS -->
+                    <div id="trip-data" data-slug="{{ trip.slug }}" class="hidden"></div>
+                    <div id="destination-data" data-destination="{{ trip.destination }}" class="hidden"></div>
                     
                     <form id="step1-form" method="POST" action="{{ url_for('main.process_recommendation', slug=trip.slug) }}" class="w-full">
                         <div class="w-full">
@@ -141,7 +49,7 @@
                                 ></textarea>
                             </div>
                             
-                            <div id="audio-input-container" class="hidden flex flex-col items-center justify-center h-64 bg-gray-50 rounded-lg p-4">
+                            <div id="audio-input-container" class="hidden audio-input-container">
                                 <input type="hidden" id="audio-recommendations" name="audio_recommendations">
                                 
                                 <div id="audio-controls" class="flex flex-col items-center">
@@ -184,8 +92,8 @@
             </div>
             
             <!-- Fixed Footer -->
-            <div id="footer" class="fixed bottom-0 left-0 w-full bg-gray-50 py-4">
-                <div class="w-full max-w-[80%] mx-auto flex justify-between items-center">
+            <div id="footer" class="recommendation-footer">
+                <div class="recommendation-container flex justify-between items-center">
                     <p class="text-gray-500 text-sm italic px-4">Don't worry about structure or spelling or anything, just be freeform and we'll help tidy it up later!</p>
                     <button id="submit-button" type="submit" form="step1-form" class="px-6 py-3 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition flex items-center" disabled>
                         <span>Continue</span>
@@ -201,7 +109,7 @@
             </div>
             
             <!-- Error Message Toast -->
-            <div id="error-toast" class="fixed bottom-0 left-0 w-full flex justify-center mb-4 z-50 pointer-events-none hidden">
+            <div id="error-toast" class="error-message-toast hidden">
                 <div class="bg-red-50 border border-red-200 text-red-700 px-6 py-3 rounded-lg shadow-md flex items-center max-w-md error-toast">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-red-500" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
@@ -213,366 +121,7 @@
     </main>
 
     <!-- Custom JavaScript -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Auto focus the textarea
-            document.getElementById('text-recommendations').focus();
-            
-            // Form elements
-            const form = document.getElementById('step1-form');
-            const submitButton = document.getElementById('submit-button');
-            const buttonText = submitButton.querySelector('span');
-            const arrowIcon = submitButton.querySelector('svg:not(#spinner)');
-            const spinner = document.getElementById('spinner');
-            const footer = document.getElementById('footer');
-            const errorToast = document.getElementById('error-toast');
-            const errorMessage = document.getElementById('error-message');
-            
-            // Input toggle
-            const toggleBtn = document.getElementById('toggle-input-btn');
-            const textModeLabel = document.getElementById('text-mode-label');
-            const audioModeLabel = document.getElementById('audio-mode-label');
-            const textInputContainer = document.getElementById('text-input-container');
-            const audioInputContainer = document.getElementById('audio-input-container');
-            const textRecommendations = document.getElementById('text-recommendations');
-            const audioRecommendations = document.getElementById('audio-recommendations');
-            
-            // Audio recording elements
-            const recordBtn = document.getElementById('record-btn');
-            const micWaves = document.querySelector('.mic-waves');
-            const recordingStatus = document.getElementById('recording-status');
-            const recordingTime = document.getElementById('recording-time');
-            const minutesDisplay = document.getElementById('minutes');
-            const secondsDisplay = document.getElementById('seconds');
-            const audioPlayerContainer = document.getElementById('audio-player-container');
-            const audioPlayback = document.getElementById('audio-playback');
-            const transcriptionStatus = document.getElementById('transcription-status');
-            
-            // Variables for recording
-            let mediaRecorder;
-            let audioChunks = [];
-            let recording = false;
-            let timer;
-            let seconds = 0;
-            let blob;
-            let audioMode = false;
-            let recognitionTimeout;
-            let errorTimeout;
-
-            // Show error toast
-            function showError(message) {
-                // Clear any existing timeout
-                if (errorTimeout) {
-                    clearTimeout(errorTimeout);
-                    errorToast.classList.add('hidden');
-                }
-                
-                // Update error message
-                errorMessage.textContent = message;
-                
-                // Show the toast
-                errorToast.classList.remove('hidden');
-                
-                // Force a reflow to restart the animation
-                errorToast.offsetHeight;
-                
-                // Set timeout to hide the toast after animation completes
-                errorTimeout = setTimeout(() => {
-                    errorToast.classList.add('hidden');
-                }, 6000); // Animation duration + display time
-            }
-
-            // Enable/disable submit button based on input
-            function updateSubmitButton() {
-                if (audioMode) {
-                    // In audio mode, enable if audio is recorded
-                    submitButton.disabled = !audioPlayback.src;
-                } else {
-                    // In text mode, enable if text is entered
-                    submitButton.disabled = !textRecommendations.value.trim();
-                }
-            }
-            
-            // Initialize to disabled
-            submitButton.disabled = true;
-            
-            // Listen for text input
-            textRecommendations.addEventListener('input', updateSubmitButton);
-            
-            // Add Alt+Enter keyboard shortcut to submit form
-            textRecommendations.addEventListener('keydown', function(e) {
-                // Check if Alt+Enter was pressed
-                if (e.key === 'Enter' && e.altKey && !submitButton.disabled) {
-                    e.preventDefault(); // Prevent default behavior (newline)
-                    form.submit(); // Submit the form
-                    
-                    // Update UI to show submission is in progress
-                    submitButton.disabled = true;
-                    submitButton.classList.add('opacity-75', 'cursor-not-allowed');
-                    arrowIcon.classList.add('hidden');
-                    spinner.classList.remove('hidden');
-                    buttonText.textContent = 'Processing...';
-                }
-            });
-            
-            // Toggle between text and audio modes
-            toggleBtn.addEventListener('click', function() {
-                audioMode = !audioMode;
-                
-                if (audioMode) {
-                    textInputContainer.classList.add('hidden');
-                    audioInputContainer.classList.remove('hidden');
-                    textModeLabel.classList.remove('hidden');
-                    audioModeLabel.classList.add('hidden');
-                    footer.classList.add('hidden');
-                    
-                    // Automatically start recording
-                    startRecording();
-                } else {
-                    textInputContainer.classList.remove('hidden');
-                    audioInputContainer.classList.add('hidden');
-                    textModeLabel.classList.add('hidden');
-                    audioModeLabel.classList.remove('hidden');
-                    footer.classList.remove('hidden');
-                    
-                    // Stop recording if active
-                    if (recording) {
-                        stopRecording();
-                    }
-                }
-                
-                updateSubmitButton();
-            });
-            
-            // Audio recording functionality
-            recordBtn.addEventListener('click', toggleRecording);
-            
-            function toggleRecording() {
-                if (!recording) {
-                    startRecording();
-                } else {
-                    stopRecording();
-                }
-            }
-            
-            async function startRecording() {
-                try {
-                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                    mediaRecorder = new MediaRecorder(stream);
-                    
-                    // Start recording
-                    audioChunks = [];
-                    mediaRecorder.start();
-                    recording = true;
-                    
-                    // Update UI
-                    recordBtn.classList.add('recording');
-                    micWaves.classList.remove('hidden');
-                    recordingStatus.textContent = 'Recording... Press button to finish.';
-                    
-                    // Hide player and reset if there was a previous recording
-                    audioPlayerContainer.classList.add('hidden');
-                    audioPlayback.src = '';
-                    
-                    // Start timer
-                    startTimer();
-                    
-                    // Handle data
-                    mediaRecorder.addEventListener('dataavailable', function(e) {
-                        audioChunks.push(e.data);
-                    });
-                    
-                    mediaRecorder.addEventListener('stop', function() {
-                        // Create audio blob
-                        blob = new Blob(audioChunks, { type: 'audio/webm' });
-                        
-                        // Create URL for playback (still needed for submission but not shown)
-                        const audioURL = URL.createObjectURL(blob);
-                        audioPlayback.src = audioURL;
-                        
-                        // Process for transcription
-                        processAudioForTranscription(blob);
-                    });
-                } catch (err) {
-                    console.error('Error accessing microphone:', err);
-                    showError('Unable to access your microphone. Please ensure it is connected and you have granted permission.');
-                }
-            }
-            
-            function stopRecording() {
-                if (mediaRecorder && recording) {
-                    mediaRecorder.stop();
-                    recording = false;
-                    
-                    // Update UI
-                    recordBtn.classList.remove('recording');
-                    micWaves.classList.add('hidden');
-                    recordingStatus.textContent = 'Processing...';
-                    
-                    // Stop timer
-                    clearInterval(timer);
-                }
-            }
-            
-            function startTimer() {
-                seconds = 0;
-                updateTimerDisplay();
-                
-                timer = setInterval(function() {
-                    seconds++;
-                    updateTimerDisplay();
-                    
-                    // Auto-stop after 5 minutes (300 seconds)
-                    if (seconds >= 300) {
-                        stopRecording();
-                    }
-                    
-                    // Auto-stop after 3 seconds of silence (simplified version)
-                    if (seconds >= 5 && seconds % 5 === 0) {
-                        // This is a simplified check that would be replaced by actual silence detection
-                        // For now, we'll use a crude timeout-based approach
-                        checkSilence();
-                    }
-                }, 1000);
-            }
-            
-            // Simple function to check for silence - in a real app, this would analyze audio levels
-            function checkSilence() {
-                // Clear any existing timeout
-                if (recognitionTimeout) clearTimeout(recognitionTimeout);
-                
-                // Set a new timeout - if nothing happens in 3 seconds, stop recording
-                recognitionTimeout = setTimeout(() => {
-                    if (recording && seconds > 10) { // Only auto-stop if we've recorded at least 10 seconds
-                        stopRecording();
-                    }
-                }, 3000);
-            }
-            
-            function updateTimerDisplay() {
-                const minutes = Math.floor(seconds / 60);
-                const remainingSeconds = seconds % 60;
-                
-                minutesDisplay.textContent = minutes.toString().padStart(2, '0');
-                secondsDisplay.textContent = remainingSeconds.toString().padStart(2, '0');
-            }
-            
-            async function processAudioForTranscription(audioBlob) {
-                // Show transcription status
-                transcriptionStatus.classList.remove('hidden');
-                
-                // Create a FormData object to send the file
-                const formData = new FormData();
-                formData.append('audio', audioBlob, 'recording.webm');
-                formData.append('destination', '{{ trip.destination }}');
-                
-                try {
-                    // Use fetch to send the audio file to the server for transcription
-                    const response = await fetch('/api/transcribe', {
-                        method: 'POST',
-                        body: formData
-                    });
-                    
-                    if (!response.ok) {
-                        throw new Error('Failed to transcribe audio');
-                    }
-                    
-                    const data = await response.json();
-                    
-                    // Store the transcribed text in a hidden field to be submitted with the form
-                    if (data.recommendations) {
-                        // Store the recommendations in the hidden input
-                        audioRecommendations.value = JSON.stringify(data.recommendations);
-                        
-                        // Allow form submission
-                        submitButton.disabled = false;
-                        
-                        // Automatically submit the form
-                        submitForm();
-                    }
-                } catch (error) {
-                    console.error('Error processing audio:', error);
-                    showError('There was an error processing your audio. Please try again or use text input instead.');
-                    
-                    // Switch back to text mode
-                    audioMode = true; // Needs to be true before toggle changes it
-                    toggleBtn.click();
-                } finally {
-                    // Hide transcription status
-                    transcriptionStatus.classList.add('hidden');
-                }
-            }
-
-            // Function to submit the form
-            function submitForm() {
-                // If in audio mode and we have processed audio data
-                if (audioMode && audioRecommendations.value) {
-                    // Disable button
-                    submitButton.disabled = true;
-                    submitButton.classList.add('opacity-75', 'cursor-not-allowed');
-                    
-                    // Hide arrow icon, show spinner
-                    arrowIcon.classList.add('hidden');
-                    spinner.classList.remove('hidden');
-                    
-                    // Change text
-                    buttonText.textContent = 'Processing...';
-                    
-                    // Post the audio recommendations directly
-                    fetch(`/trip/${encodeURIComponent('{{ trip.slug }}')}/process-audio`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: audioRecommendations.value
-                    })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        // Redirect to the confirmation page
-                        window.location.href = data.redirect_url;
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        showError('There was an error processing your audio. Please try again.');
-                        
-                        // Re-enable button
-                        submitButton.disabled = false;
-                        submitButton.classList.remove('opacity-75', 'cursor-not-allowed');
-                        arrowIcon.classList.remove('hidden');
-                        spinner.classList.add('hidden');
-                        buttonText.textContent = 'Continue';
-                    });
-                }
-            }
-
-            // Form submission for text input
-            form.addEventListener('submit', function(e) {
-                if (!form.checkValidity()) {
-                    return;
-                }
-                
-                // For text mode, just disable the button and show spinner
-                if (!audioMode) {
-                    submitButton.disabled = true;
-                    submitButton.classList.add('opacity-75', 'cursor-not-allowed');
-                    
-                    // Hide arrow icon, show spinner
-                    arrowIcon.classList.add('hidden');
-                    spinner.classList.remove('hidden');
-                    
-                    // Change text
-                    buttonText.textContent = 'Processing...';
-                } else {
-                    // For audio mode, prevent default form submission as we handle it separately
-                    e.preventDefault();
-                }
-            });
-        });
-    </script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/pages/add_recommendation.js') }}"></script>
 </body>
 </html> 

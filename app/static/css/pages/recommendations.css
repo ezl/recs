@@ -1,0 +1,46 @@
+/* Recommendation pages styles */
+
+/* Base styles */
+body.recommendation-page {
+  font-family: 'Inter', sans-serif;
+  background-color: #f9fafb;
+}
+
+.recommendation-page textarea {
+  background-color: #f9fafb;
+}
+
+.recommendation-page textarea::placeholder {
+  color: #CBD5E0;
+}
+
+/* Layout */
+.recommendation-container {
+  width: 100%;
+  max-width: 80%;
+  margin: 0 auto;
+}
+
+/* Fixed footer */
+.recommendation-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #f9fafb;
+  padding: 1rem 0;
+  z-index: 10;
+}
+
+/* Error message styles */
+.error-message-toast {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+  z-index: 50;
+  pointer-events: none;
+} 
