@@ -1,5 +1,7 @@
 from datetime import datetime
 from app.database import db
+import re
+from slugify import slugify
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -14,6 +16,8 @@ class User(db.Model):
     
     posts = db.relationship('Post', backref='author', lazy=True)
     auth_tokens = db.relationship('AuthToken', backref='user', lazy=True, cascade='all, delete-orphan')
+    trips = db.relationship('Trip', backref='user', lazy=True)
+    recommendations = db.relationship('Recommendation', backref='author', lazy=True)
     
     def __repr__(self):
         return f'<User {self.email}>'
@@ -66,4 +70,53 @@ class Post(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     
     def __repr__(self):
-        return f'<Post {self.title}>' 
+        return f'<Post {self.title}>'
+
+class Trip(db.Model):
+    __tablename__ = 'trips'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    destination = db.Column(db.String(255), nullable=False)
+    traveler_name = db.Column(db.String(100), nullable=True)
+    share_token = db.Column(db.String(64), unique=True, nullable=False, index=True)
+    slug = db.Column(db.String(255), unique=True, nullable=False, index=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    recommendations = db.relationship('Recommendation', backref='trip', lazy=True, cascade='all, delete-orphan')
+    
+    def __repr__(self):
+        return f'<Trip {self.destination}>'
+    
+    @staticmethod
+    def generate_slug(destination, traveler_name, created_at=None):
+        """Generate a URL-friendly slug for the trip"""
+        if not created_at:
+            created_at = datetime.utcnow()
+            
+        # Get month and year
+        month = created_at.strftime('%b').lower()
+        year = created_at.strftime('%Y')
+        
+        # Create base slug
+        base_slug = f"{destination.lower()}-{month}-{year}"
+        
+        # Slugify to handle special characters and spaces
+        return slugify(base_slug)
+
+class Recommendation(db.Model):
+    __tablename__ = 'recommendations'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255), nullable=False)
+    description = db.Column(db.Text, nullable=True)  # Changed to nullable=True
+    place_type = db.Column(db.String(50), nullable=True)
+    website_url = db.Column(db.String(255), nullable=True)
+    author_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    trip_id = db.Column(db.Integer, db.ForeignKey('trips.id'), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    def __repr__(self):
+        return f'<Recommendation {self.name}>' 

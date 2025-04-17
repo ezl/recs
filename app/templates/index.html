@@ -1,143 +1,77 @@
 {% extends "base.html" %}
 
-{% block title %}WorkFlow | Enterprise SaaS Solution{% endblock %}
-
-{% block head_extras %}
-{% endblock %}
+{% block title %}Get Trip Recommendations From Friends | Recs{% endblock %}
 
 {% block content %}
-<!-- Hero Section -->
-<div class="bg-gray-50 border-b border-gray-200">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-16 md:py-24">
-    <div class="md:flex md:items-center md:justify-between">
-      <div class="md:w-1/2 mb-10 md:mb-0 md:pr-10">
-        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-          Streamline your business operations
-        </h1>
-        
-        <p class="text-lg md:text-xl text-gray-600 mb-8">
-          A comprehensive platform designed to help your team collaborate efficiently and meet business objectives.
-        </p>
-        
-        <div class="flex flex-col sm:flex-row gap-4">
-          <a href="{{ url_for('auth.login') }}" class="px-6 py-3 bg-blue-600 text-white font-medium rounded hover:bg-blue-700 transition text-center">
-            Start Free Trial
-          </a>
-          <a href="#features" class="px-6 py-3 bg-white text-blue-600 border border-blue-600 font-medium rounded hover:bg-blue-50 transition text-center">
-            Learn More
-          </a>
-        </div>
-      </div>
-      
-      <div class="md:w-1/2">
-        <div class="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200">
-          <div class="h-6 bg-gray-100 border-b border-gray-200 flex items-center px-4">
-            <div class="flex space-x-2">
-              <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
-              <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
-              <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
-            </div>
-          </div>
-          <div class="p-4">
-            <div class="h-64 md:h-72 bg-gray-100 rounded flex items-center justify-center">
-              <p class="text-gray-500 font-medium">Dashboard Preview</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+<div class="max-w-3xl mx-auto px-4 py-16">
+  <div class="text-center mb-12">
+    <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+      Get Recommendations From Your Friends When You're Going Somewhere
+    </h1>
+    <p class="text-lg text-gray-600 mb-8">
+      Going on a trip? Get personalized recommendations from the people who know you best - your friends. 
+      No account needed, just enter your destination and share the link.
+    </p>
   </div>
-</div>
-
-<!-- Features Section -->
-<div id="features" class="py-16 bg-white">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6">
-    <h2 class="text-3xl font-bold text-center mb-12 text-gray-900">
-      Key Features
-    </h2>
-    
-    <div class="grid md:grid-cols-3 gap-8">
-      <!-- Feature 1 -->
-      <div class="bg-gray-50 rounded-lg p-6 border border-gray-200">
-        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-          </svg>
-        </div>
-        <h3 class="text-xl font-semibold text-gray-900 mb-2">Efficient Workflows</h3>
-        <p class="text-gray-600">Automate routine tasks and streamline business processes to improve productivity.</p>
+  
+  <div class="bg-white rounded-lg shadow-md p-8 border border-gray-200">
+    <form action="{{ url_for('main.create_trip') }}" method="POST" class="space-y-6">
+      <div>
+        <label for="name" class="block text-gray-700 font-medium mb-2">Your Name</label>
+        <input 
+          type="text" 
+          id="name" 
+          name="name" 
+          class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+          placeholder="Enter your name"
+          required
+        >
       </div>
       
-      <!-- Feature 2 -->
-      <div class="bg-gray-50 rounded-lg p-6 border border-gray-200">
-        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-          </svg>
-        </div>
-        <h3 class="text-xl font-semibold text-gray-900 mb-2">Enterprise Security</h3>
-        <p class="text-gray-600">Secure authentication and data protection that meets industry compliance standards.</p>
+      <div>
+        <label for="destination" class="block text-gray-700 font-medium mb-2">Where are you going?</label>
+        <input 
+          type="text" 
+          id="destination" 
+          name="destination" 
+          class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+          placeholder="Enter a city or location"
+          required
+        >
       </div>
       
-      <!-- Feature 3 -->
-      <div class="bg-gray-50 rounded-lg p-6 border border-gray-200">
-        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-          </svg>
-        </div>
-        <h3 class="text-xl font-semibold text-gray-900 mb-2">Team Collaboration</h3>
-        <p class="text-gray-600">Integrated tools for seamless communication and project management across departments.</p>
+      <div class="flex justify-center">
+        <button type="submit" class="px-6 py-3 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition">
+          Get Recommendations
+        </button>
       </div>
-    </div>
+    </form>
   </div>
-</div>
-
-<!-- Testimonials -->
-<div class="py-16 bg-gray-50 border-t border-gray-200">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6">
-    <h2 class="text-3xl font-bold text-center mb-12 text-gray-900">
-      Client Testimonials
-    </h2>
-    
-    <div class="grid md:grid-cols-2 gap-8">
-      <!-- Testimonial 1 -->
-      <div class="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
-        <div class="flex items-center mb-4">
-          <div class="w-12 h-12 bg-gray-200 rounded-full"></div>
-          <div class="ml-4">
-            <h4 class="text-gray-900 font-semibold">Alexandra Klein</h4>
-            <p class="text-gray-500 text-sm">Director of Operations, TechCorp Inc.</p>
-          </div>
-        </div>
-        <p class="text-gray-600">"This platform has significantly improved our operational efficiency. The workflow automation tools have reduced processing time by 45% and improved accuracy across departments."</p>
+  
+  <div class="mt-16 grid md:grid-cols-3 gap-6 text-center">
+    <div class="p-6">
+      <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+        <span class="text-blue-600 text-xl font-bold">1</span>
       </div>
-      
-      <!-- Testimonial 2 -->
-      <div class="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
-        <div class="flex items-center mb-4">
-          <div class="w-12 h-12 bg-gray-200 rounded-full"></div>
-          <div class="ml-4">
-            <h4 class="text-gray-900 font-semibold">James Thompson</h4>
-            <p class="text-gray-500 text-sm">CEO, Innovative Solutions Ltd.</p>
-          </div>
-        </div>
-        <p class="text-gray-600">"We've been using this solution for over a year now, and it has transformed how our teams collaborate. The security features give us peace of mind while handling sensitive client data."</p>
-      </div>
+      <h3 class="text-lg font-semibold mb-2">Enter Your Destination</h3>
+      <p class="text-gray-600">Simply type in where you're planning to go</p>
     </div>
-  </div>
-</div>
-
-<!-- CTA Section -->
-<div class="py-16 bg-white border-t border-gray-200">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 text-center">
-    <h2 class="text-3xl font-bold text-gray-900 mb-4">Ready to optimize your business operations?</h2>
-    <p class="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">Join over 500 businesses that trust our platform for their operational needs.</p>
     
-    <a href="{{ url_for('auth.login') }}" class="inline-block px-6 py-3 bg-blue-600 text-white font-medium rounded hover:bg-blue-700 transition">
-      Request a Demo
-    </a>
-    <p class="text-gray-500 mt-4">No credit card required • 30-day free trial</p>
+    <div class="p-6">
+      <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+        <span class="text-blue-600 text-xl font-bold">2</span>
+      </div>
+      <h3 class="text-lg font-semibold mb-2">Share With Friends</h3>
+      <p class="text-gray-600">Send the link to friends who know the area</p>
+    </div>
+    
+    <div class="p-6">
+      <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+        <span class="text-blue-600 text-xl font-bold">3</span>
+      </div>
+      <h3 class="text-lg font-semibold mb-2">Collect Recommendations</h3>
+      <p class="text-gray-600">Get personalized suggestions all in one place</p>
+    </div>
   </div>
 </div>
 {% endblock %} 

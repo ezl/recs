@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}My Trips | Recs{% endblock %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto px-4 py-10">
+  <h1 class="text-3xl font-bold text-gray-900 mb-8">
+    My Trips
+  </h1>
+  
+  {% if trips %}
+    <div class="mb-8">
+      <div class="grid gap-6">
+        {% for trip in trips %}
+          <div class="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
+            <div class="sm:flex sm:justify-between sm:items-center mb-4">
+              <h2 class="text-xl font-semibold text-gray-900 mb-2 sm:mb-0">
+                {{ trip.destination }}
+              </h2>
+              <span class="text-gray-500 text-sm">
+                Created {{ trip.created_at.strftime('%b %d, %Y') }}
+              </span>
+            </div>
+            
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">
+                {{ trip.recommendations|length }} recommendation{% if trip.recommendations|length != 1 %}s{% endif %}
+              </span>
+            </div>
+            
+            <div class="flex flex-col sm:flex-row gap-3">
+              <a href="{{ url_for('main.view_trip', slug=trip.slug) }}" class="px-4 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition text-center">
+                View Recommendations
+              </a>
+              <button 
+                onclick="copyToClipboard('share-link-{{ trip.id }}')" 
+                class="px-4 py-2 bg-white text-blue-600 border border-blue-600 font-medium rounded-md hover:bg-blue-50 transition text-center"
+              >
+                Copy Share Link
+              </button>
+              <input 
+                type="text" 
+                id="share-link-{{ trip.id }}" 
+                value="{{ url_for('main.view_trip', slug=trip.slug, _external=True) }}" 
+                class="hidden"
+              >
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% else %}
+    <div class="bg-gray-50 rounded-lg p-8 border border-gray-200 text-center">
+      <h2 class="text-xl font-semibold text-gray-700 mb-3">No trips yet</h2>
+      <p class="text-gray-600 mb-6">Start by creating a new trip to collect recommendations!</p>
+      <a href="{{ url_for('main.index') }}" class="px-6 py-3 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition">
+        Create New Trip
+      </a>
+    </div>
+  {% endif %}
+  
+  {% if trips %}
+    <div class="mt-8 text-center">
+      <a href="{{ url_for('main.index') }}" class="px-6 py-3 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition">
+        Create New Trip
+      </a>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  function copyToClipboard(elementId) {
+    const element = document.getElementById(elementId);
+    const text = element.value;
+    
+    // Create temporary element
+    const temp = document.createElement('textarea');
+    temp.value = text;
+    document.body.appendChild(temp);
+    
+    // Select and copy
+    temp.select();
+    document.execCommand('copy');
+    
+    // Remove temporary element
+    document.body.removeChild(temp);
+    
+    // Show feedback
+    const button = document.querySelector(`button[onclick="copyToClipboard('${elementId}')"]`);
+    const originalText = button.innerText;
+    button.innerText = 'Copied!';
+    
+    setTimeout(() => {
+      button.innerText = originalText;
+    }, 2000);
+  }
+</script>
+{% endblock %} 

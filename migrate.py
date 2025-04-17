@@ -8,6 +8,13 @@ from app.database import db, migrate
 from flask_migrate import init, migrate as migrate_cmd, upgrade, current
 import os
 import sys
+import importlib
+from datetime import datetime
+
+# Add the current directory to the path so we can import modules from the app
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+from app.database.models import User, Post, AuthToken, Trip, Recommendation
 
 app = create_app()
 
@@ -40,6 +47,63 @@ def apply_migrations():
         rev = current(directory='migrations')
         print(f"Current database revision: {rev}")
 
+def run_migrations():
+    with app.app_context():
+        # Check if tables exist
+        engine = db.engine
+        inspector = db.inspect(engine)
+        tables = inspector.get_table_names()
+        
+        # Create or update tables
+        if not tables:
+            print("No tables found. Creating all tables...")
+            db.create_all()
+            print("Tables created successfully!")
+        else:
+            print("Tables exist. Running migrations...")
+            
+            # Check if the users table exists
+            if 'users' not in tables:
+                print("Creating users table...")
+                User.__table__.create(engine)
+            
+            # Check if the posts table exists
+            if 'posts' not in tables:
+                print("Creating posts table...")
+                Post.__table__.create(engine)
+            
+            # Check if the auth_tokens table exists
+            if 'auth_tokens' not in tables:
+                print("Creating auth_tokens table...")
+                AuthToken.__table__.create(engine)
+                
+            # Check if the trips table exists
+            if 'trips' not in tables:
+                print("Creating trips table...")
+                Trip.__table__.create(engine)
+                
+            # Check if the recommendations table exists
+            if 'recommendations' not in tables:
+                print("Creating recommendations table...")
+                Recommendation.__table__.create(engine)
+            
+            # Add additional migrations here when needed
+            
+            print("Migrations completed successfully!")
+        
+        # Print all tables
+        print("\nCurrent database tables:")
+        tables = inspector.get_table_names()
+        for table in tables:
+            print(f"- {table}")
+            
+            # Print columns for debugging
+            columns = inspector.get_columns(table)
+            for column in columns:
+                print(f"  - {column['name']} ({column['type']})")
+            
+            print("")
+
 def main():
     """Main function to handle command line arguments."""
     if len(sys.argv) < 2:
@@ -63,4 +127,6 @@ def main():
         print("Usage: python migrate.py [init|create|upgrade]")
         
 if __name__ == '__main__':
-    main() 
+    print(f"Starting migrations at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    run_migrations()
+    print(f"Completed migrations at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}") 

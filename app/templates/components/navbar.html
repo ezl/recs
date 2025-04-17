@@ -1,12 +1,11 @@
 <header class="bg-white border-b border-gray-200">
     <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
-        <a href="{{ url_for('main.index') }}" class="text-xl font-bold text-blue-700">WorkFlow</a>
+        <a href="{{ url_for('main.index') }}" class="text-xl font-bold text-blue-700">Recs</a>
         <div class="space-x-6">
             <a href="{{ url_for('main.index') }}" class="text-gray-600 hover:text-blue-700 font-medium">Home</a>
-            <a href="#" class="text-gray-600 hover:text-blue-700 font-medium">Features</a>
-            <a href="#" class="text-gray-600 hover:text-blue-700 font-medium">Pricing</a>
+            <a href="#" class="text-gray-600 hover:text-blue-700 font-medium">How It Works</a>
             {% if session.get('user_id') %}
-                <a href="{{ url_for('auth.dashboard') }}" class="text-gray-600 hover:text-blue-700 font-medium">Dashboard</a>
+                <a href="{{ url_for('main.my_recommendations') }}" class="text-gray-600 hover:text-blue-700 font-medium">My Recommendations</a>
                 <a href="{{ url_for('auth.logout') }}" class="text-gray-600 hover:text-blue-700 font-medium">Logout</a>
             {% else %}
                 <a href="{{ url_for('auth.login') }}" class="px-4 py-2 bg-blue-600 text-white font-medium rounded hover:bg-blue-700 transition">Login</a>
