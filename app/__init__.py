@@ -21,4 +21,14 @@ def create_app():
     from app.routes import main
     app.register_blueprint(main)
     
+    # Register auth blueprint
+    from app.auth import auth
+    app.register_blueprint(auth)
+    
+    # Add context processor for template variables
+    from datetime import datetime
+    @app.context_processor
+    def inject_now():
+        return {'now': datetime.now()}
+    
     return app 
