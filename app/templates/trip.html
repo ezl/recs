@@ -111,17 +111,36 @@
 <script>
   function copyToClipboard(elementId) {
     const element = document.getElementById(elementId);
-    element.select();
-    document.execCommand('copy');
+    const text = element.value;
     
-    // Show copied message
-    const button = element.nextElementSibling;
-    const originalText = button.innerText;
-    button.innerText = 'Copied!';
-    
-    setTimeout(() => {
-      button.innerText = originalText;
-    }, 2000);
+    // Use Clipboard API (modern approach)
+    navigator.clipboard.writeText(text).then(() => {
+      // Show copied message
+      const button = document.querySelector('button');
+      const originalText = button.innerText;
+      button.innerText = 'Copied!';
+      button.classList.add('bg-green-600');
+      
+      setTimeout(() => {
+        button.innerText = originalText;
+        button.classList.remove('bg-green-600');
+      }, 2000);
+    }).catch(err => {
+      // Fallback to older method for browsers that don't support Clipboard API
+      element.select();
+      document.execCommand('copy');
+      
+      // Show copied message
+      const button = document.querySelector('button');
+      const originalText = button.innerText;
+      button.innerText = 'Copied!';
+      button.classList.add('bg-green-600');
+      
+      setTimeout(() => {
+        button.innerText = originalText;
+        button.classList.remove('bg-green-600');
+      }, 2000);
+    });
   }
 </script>
 {% endblock %} 

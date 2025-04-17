@@ -3,34 +3,45 @@
 {% block title %}Confirm Your Recommendations for {{ trip.traveler_name }} | Recs{% endblock %}
 
 {% block content %}
-<div class="max-w-4xl mx-auto px-4 py-10">
-  <h1 class="text-3xl font-bold text-gray-900 mb-6 text-center">
+<div class="max-w-4xl mx-auto px-4 py-8">
+  <h1 class="text-2xl font-bold text-gray-900 mb-3 text-center">
     Confirm Your Recommendations for {{ trip.traveler_name }}'s Trip to {{ trip.destination }}
   </h1>
   
-  <p class="text-lg text-gray-600 mb-8 text-center">
-    We've identified these recommendations from your suggestions. Add some details about why you recommend each place.
+  <p class="text-base text-gray-600 mb-6 text-center">
+    We've identified these recommendations from your suggestions. Add some details to help {{ trip.traveler_name }}.
   </p>
   
-  <form method="POST" action="{{ url_for('main.save_recommendations', slug=trip.slug) }}" class="space-y-6">
-    <input type="hidden" name="recommender_name" value="{{ recommender_name }}">
+  <form method="POST" action="{{ url_for('main.save_recommendations', slug=trip.slug) }}" class="space-y-5">
+    <div class="bg-blue-50 rounded-lg p-4 border border-blue-200 mb-4">
+      <label for="recommender_name" class="block text-gray-700 font-medium mb-1">Your Name <span class="text-red-500">*</span></label>
+      <input 
+        type="text" 
+        id="recommender_name" 
+        name="recommender_name" 
+        value="{{ recommender_name }}"
+        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+        placeholder="Enter your name"
+        required
+      >
+    </div>
     
     {% for item in extracted_recommendations %}
-    <div class="bg-white rounded-lg p-6 border border-gray-200 shadow-sm mb-6">
-      <div class="flex flex-col md:flex-row gap-6">
+    <div class="bg-white rounded-lg p-4 border border-gray-200 shadow-sm mb-3">
+      <div class="flex flex-col md:flex-row gap-4">
         <div class="md:w-2/5">
-          <div class="font-semibold text-lg text-gray-900 mb-2">{{ item.name }}</div>
+          <div class="font-semibold text-base text-gray-900 mb-1">{{ item.name }}</div>
           {% if item.type %}
-          <div class="text-blue-600 text-sm uppercase tracking-wider font-medium mb-2">{{ item.type }}</div>
+          <div class="text-blue-600 text-xs uppercase tracking-wider font-medium mb-1">{{ item.type }}</div>
           {% endif %}
           <input type="hidden" name="recommendations[]" value="{{ item.name }}">
           <input type="hidden" name="place_types[]" value="{{ item.type }}">
           <input type="hidden" name="website_urls[]" value="{{ item.website_url }}">
           
           {% if item.website_url %}
-          <div class="mb-2">
-            <a href="{{ item.website_url }}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline text-sm flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-1">
+          <div class="mb-1">
+            <a href="{{ item.website_url }}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline text-xs flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-3 h-3 mr-1">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
               </svg>
               {{ item.website_url }}
@@ -40,12 +51,12 @@
         </div>
         
         <div class="md:w-3/5">
-          <label for="description_{{ loop.index }}" class="block text-gray-700 font-medium mb-2">Why do you recommend it?</label>
+          <label for="description_{{ loop.index }}" class="block text-gray-700 font-medium text-sm mb-1">Why do you recommend it?</label>
           <textarea 
             id="description_{{ loop.index }}" 
             name="descriptions[]" 
-            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" 
-            rows="3" 
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" 
+            rows="2" 
             placeholder="What makes this place special? Any tips for {{ trip.traveler_name }}?"
           >{{ item.description }}</textarea>
         </div>
@@ -53,14 +64,46 @@
     </div>
     {% endfor %}
     
-    <div class="pt-4 flex flex-col sm:flex-row gap-4 justify-center">
-      <button type="submit" class="px-6 py-3 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition">
-        Send Recommendations to {{ trip.traveler_name }}
+    <div class="pt-4 flex flex-col sm:flex-row gap-3 justify-center">
+      <button id="submit-button" type="submit" class="px-5 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition flex items-center justify-center">
+        <span>Send Recommendations</span>
+        <svg id="spinner" class="animate-spin h-4 w-4 ml-2 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962
+          0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
       </button>
-      <a href="{{ url_for('main.add_recommendation', slug=trip.slug) }}" class="px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-md hover:bg-gray-50 transition text-center">
+      <a href="{{ url_for('main.add_recommendation', slug=trip.slug) }}" class="px-5 py-2 border border-gray-300 text-gray-700 font-medium rounded-md hover:bg-gray-50 transition text-center">
         Start Over
       </a>
     </div>
   </form>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('form');
+    const submitButton = document.getElementById('submit-button');
+    const buttonText = submitButton.querySelector('span');
+    const spinner = document.getElementById('spinner');
+
+    form.addEventListener('submit', function(e) {
+      if (!form.checkValidity()) {
+        return;
+      }
+      
+      // Disable button
+      submitButton.disabled = true;
+      submitButton.classList.add('opacity-75', 'cursor-not-allowed');
+      
+      // Show spinner
+      spinner.classList.remove('hidden');
+      
+      // Change text
+      buttonText.textContent = 'Sending...';
+    });
+  });
+</script>
 {% endblock %} 

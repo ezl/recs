@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, redirect, url_for, request, flash,
 from datetime import datetime
 import uuid
 import os
+import json
 from app.database import db
 from app.database.models import User, Trip, Recommendation
 from app.services.ai_service import AIService
@@ -118,6 +119,10 @@ def save_recommendations(slug):
         flash('Please add at least one recommendation', 'error')
         return redirect(url_for('main.add_recommendation', slug=slug))
     
+    if not recommender_name:
+        flash('Please provide your name', 'error')
+        return redirect(url_for('main.process_recommendation', slug=slug))
+    
     # Check if user is logged in
     user_id = session.get('user_id')
     
@@ -177,4 +182,119 @@ def my_trips():
 
 @main.context_processor
 def inject_now():
-    return {'now': datetime.now()} 
+    return {'now': datetime.now()}
+
+@main.route('/api/transcribe', methods=['POST'])
+def transcribe_audio():
+    """
+    Endpoint to handle audio transcription and process it into recommendations
+    """
+    if 'audio' not in request.files:
+        return jsonify({"error": "No audio file provided"}), 400
+    
+    audio_file = request.files['audio']
+    destination = request.form.get('destination', '')
+    
+    if not destination:
+        return jsonify({"error": "No destination provided"}), 400
+    
+    if audio_file.filename == '':
+        return jsonify({"error": "No selected file"}), 400
+    
+    try:
+        # Create a temporary file to store the audio
+        temp_filepath = f"/tmp/{uuid.uuid4()}.webm"
+        audio_file.save(temp_filepath)
+        
+        # Call OpenAI to transcribe the audio
+        api_key = os.environ.get("OPENAI_API_KEY")
+        if not api_key:
+            return jsonify({"error": "API key not configured"}), 500
+        
+        # Use OpenAI Whisper API for transcription
+        import requests
+        
+        with open(temp_filepath, 'rb') as f:
+            response = requests.post(
+                "https://api.openai.com/v1/audio/transcriptions",
+                headers={"Authorization": f"Bearer {api_key}"},
+                files={"file": f},
+                data={"model": "whisper-1"}
+            )
+        
+        # Clean up the temporary file
+        os.remove(temp_filepath)
+        
+        if response.status_code != 200:
+            return jsonify({"error": f"OpenAI API error: {response.text}"}), 500
+        
+        transcription = response.json().get("text", "")
+        
+        if not transcription:
+            return jsonify({"error": "Failed to transcribe audio"}), 500
+        
+        # Process the transcription to extract recommendations
+        extracted_recommendations = AIService.extract_recommendations(transcription, destination)
+        
+        return jsonify({
+            "status": "success",
+            "recommendations": extracted_recommendations
+        }), 200
+    
+    except Exception as e:
+        # Clean up temporary file if it exists
+        if 'temp_filepath' in locals() and os.path.exists(temp_filepath):
+            os.remove(temp_filepath)
+        
+        return jsonify({"error": str(e)}), 500
+
+@main.route('/trip/<slug>/process-audio', methods=['POST'])
+def process_audio_recommendation(slug):
+    """
+    Endpoint to process pre-extracted recommendations from audio
+    """
+    trip = Trip.query.filter_by(slug=slug).first_or_404()
+    
+    try:
+        # Get the pre-extracted recommendations from the request body
+        data = request.json
+        
+        if not data or not isinstance(data, list):
+            return jsonify({"error": "Invalid recommendations data"}), 400
+        
+        # Store in session for the confirmation page
+        session['extracted_recommendations'] = data
+        
+        # Return URL to redirect to
+        return jsonify({
+            "status": "success",
+            "redirect_url": url_for('main.confirm_audio_recommendations', slug=slug)
+        }), 200
+        
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@main.route('/trip/<slug>/confirm-audio', methods=['GET'])
+def confirm_audio_recommendations(slug):
+    """
+    Show confirmation page for audio recommendations
+    """
+    trip = Trip.query.filter_by(slug=slug).first_or_404()
+    
+    # Get recommendations from session
+    extracted_recommendations = session.get('extracted_recommendations', [])
+    
+    if not extracted_recommendations:
+        flash('No recommendations found. Please try again.', 'error')
+        return redirect(url_for('main.add_recommendation', slug=slug))
+    
+    # Clear from session to avoid persistence issues
+    session.pop('extracted_recommendations', None)
+    
+    # Render the same template as text recommendations
+    return render_template(
+        'confirm_recommendations.html', 
+        trip=trip, 
+        extracted_recommendations=extracted_recommendations,
+        recommender_name=''
+    ) 
