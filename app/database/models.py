@@ -105,18 +105,80 @@ class Trip(db.Model):
         # Slugify to handle special characters and spaces
         return slugify(base_slug)
 
-class Recommendation(db.Model):
-    __tablename__ = 'recommendations'
+class Activity(db.Model):
+    """
+    An activity represents a place or experience that can be recommended.
+    It is separated from recommendations to allow multiple users to recommend
+    the same activity without duplicating the activity information.
+    """
+    __tablename__ = 'activities'
     
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
-    description = db.Column(db.Text, nullable=True)  # Changed to nullable=True
-    place_type = db.Column(db.String(50), nullable=True)
+    category = db.Column(db.String(50), nullable=True)  # restaurant, museum, hiking, tour, etc.
     website_url = db.Column(db.String(255), nullable=True)
+    
+    # Location details (optional - for place-based activities)
+    address = db.Column(db.String(255), nullable=True)
+    city = db.Column(db.String(100), nullable=True)
+    country = db.Column(db.String(100), nullable=True)
+    latitude = db.Column(db.Float, nullable=True)
+    longitude = db.Column(db.Float, nullable=True)
+    
+    is_place_based = db.Column(db.Boolean, default=True)  # Whether it's tied to a physical location
+    
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    # Activity can be recommended multiple times
+    recommendations = db.relationship('Recommendation', backref='activity', lazy=True)
+    
+    def __repr__(self):
+        return f'<Activity {self.name}>'
+    
+    @classmethod
+    def get_or_create(cls, name, category=None, website_url=None, **kwargs):
+        """
+        Find an existing activity by name (and optionally category) or create a new one.
+        This helps prevent duplicate activities when multiple users recommend the same place.
+        
+        Returns:
+            Activity: The existing or newly created activity
+        """
+        # First, try to find by exact name match
+        activity = cls.query.filter(db.func.lower(cls.name) == db.func.lower(name)).first()
+        
+        # If category is provided, narrow down the match
+        if activity and category and activity.category and category.lower() != activity.category.lower():
+            activity = None
+        
+        # If no activity found, create a new one
+        if not activity:
+            activity = cls(
+                name=name,
+                category=category,
+                website_url=website_url,
+                **kwargs
+            )
+            db.session.add(activity)
+            db.session.commit()
+            
+        return activity
+
+class Recommendation(db.Model):
+    """
+    A recommendation is a user's endorsement of an activity for a specific trip.
+    It contains the user's personal comments about the activity.
+    """
+    __tablename__ = 'recommendations'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    activity_id = db.Column(db.Integer, db.ForeignKey('activities.id'), nullable=False)
+    description = db.Column(db.Text, nullable=True)  # Personal notes/comments about the activity
     author_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     trip_id = db.Column(db.Integer, db.ForeignKey('trips.id'), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     
     def __repr__(self):
-        return f'<Recommendation {self.name}>' 
+        return f'<Recommendation for {self.activity.name if self.activity else "Unknown"}>' 

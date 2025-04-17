@@ -17,7 +17,7 @@ def create_app():
     init_db(app)
     
     # Import models to ensure they're registered with SQLAlchemy
-    from app.database.models import User, Post, AuthToken
+    from app.database.models import User, Post, AuthToken, Trip, Recommendation, Activity
     
     # Register CLI commands
     from app.cli import init_app as init_cli

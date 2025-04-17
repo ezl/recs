@@ -8,31 +8,29 @@
     <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
       {{ trip.traveler_name }} is going to {{ trip.destination }}!
     </h1>
-    <p class="text-lg text-gray-600 mb-6">
-      Help {{ trip.traveler_name }} discover the best places to visit during their trip. What should they check out?
-    </p>
     
-    <!-- Share box with prominent design -->
+    <!-- Share box with updated design -->
     <div class="mt-6 bg-blue-50 p-6 rounded-lg border border-blue-200 shadow-sm">
-      <h3 class="text-xl font-semibold text-blue-800 mb-3">Share with others</h3>
+      <h3 class="text-xl font-semibold text-blue-800 mb-3">Ask your friends</h3>
       <p class="text-gray-700 mb-4">
-        Know someone else who might have great recommendations for {{ trip.destination }}? Send them this link so they can add their suggestions too.
+        Send this link to friends to collect their recommendations on Place!
       </p>
-      <div class="flex flex-col sm:flex-row sm:items-center gap-4">
-        <div class="grow">
-          <input 
-            type="text" 
-            id="share-link" 
-            value="{{ url_for('main.add_recommendation', slug=trip.slug, _external=True) }}" 
-            class="w-full px-3 py-2 border border-gray-300 rounded-md bg-white text-gray-800"
-            readonly
-          >
-        </div>
+      <div class="relative">
+        <input 
+          type="text" 
+          id="share-link" 
+          value="{{ url_for('main.add_recommendation', slug=trip.slug, _external=True) }}" 
+          class="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md bg-white text-gray-800"
+          readonly
+        >
         <button 
           onclick="copyToClipboard('share-link')" 
-          class="px-6 py-3 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition"
+          class="absolute inset-y-0 right-0 px-3 flex items-center text-gray-500 hover:text-blue-600 transition-colors"
+          title="Copy to clipboard"
         >
-          Copy Link
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+          </svg>
         </button>
       </div>
     </div>
@@ -47,15 +45,15 @@
       <div class="grid md:grid-cols-2 gap-6">
         {% for rec in trip.recommendations %}
           <div class="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
-            <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ rec.name }}</h3>
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ rec.activity.name }}</h3>
             
             <div class="flex flex-wrap items-center gap-3 mb-3">
-              {% if rec.place_type %}
-                <span class="text-blue-600 text-sm uppercase tracking-wider font-medium">{{ rec.place_type }}</span>
+              {% if rec.activity.category %}
+                <span class="text-blue-600 text-sm uppercase tracking-wider font-medium">{{ rec.activity.category }}</span>
               {% endif %}
               
-              {% if rec.website_url %}
-                <a href="{{ rec.website_url }}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline text-sm flex items-center">
+              {% if rec.activity.website_url %}
+                <a href="{{ rec.activity.website_url }}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline text-sm flex items-center">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-1">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
                   </svg>
@@ -85,15 +83,8 @@
   {% else %}
     <div class="mb-8 bg-gray-50 rounded-lg p-8 border border-gray-200 text-center">
       <h2 class="text-xl font-semibold text-gray-700 mb-3">No recommendations yet</h2>
-      <p class="text-gray-600 mb-6">Be the first to help {{ trip.traveler_name }} discover great places in {{ trip.destination }}!</p>
     </div>
   {% endif %}
-  
-  <div class="mt-8 text-center">
-    <a href="{{ url_for('main.add_recommendation', slug=trip.slug) }}" class="px-6 py-3 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition">
-      Add Recommendations for {{ trip.traveler_name }}
-    </a>
-  </div>
   
   <div class="mt-12 bg-gray-50 p-6 rounded-lg border border-gray-200">
     <h3 class="text-lg font-semibold text-gray-800 mb-3">How it works</h3>
@@ -115,30 +106,24 @@
     
     // Use Clipboard API (modern approach)
     navigator.clipboard.writeText(text).then(() => {
-      // Show copied message
-      const button = document.querySelector('button');
-      const originalText = button.innerText;
-      button.innerText = 'Copied!';
-      button.classList.add('bg-green-600');
+      // Show copied feedback
+      const button = document.querySelector('[onclick="copyToClipboard(\'share-link\')"]');
+      button.classList.add('text-green-600');
       
       setTimeout(() => {
-        button.innerText = originalText;
-        button.classList.remove('bg-green-600');
+        button.classList.remove('text-green-600');
       }, 2000);
     }).catch(err => {
       // Fallback to older method for browsers that don't support Clipboard API
       element.select();
       document.execCommand('copy');
       
-      // Show copied message
-      const button = document.querySelector('button');
-      const originalText = button.innerText;
-      button.innerText = 'Copied!';
-      button.classList.add('bg-green-600');
+      // Show copied feedback
+      const button = document.querySelector('[onclick="copyToClipboard(\'share-link\')"]');
+      button.classList.add('text-green-600');
       
       setTimeout(() => {
-        button.innerText = originalText;
-        button.classList.remove('bg-green-600');
+        button.classList.remove('text-green-600');
       }, 2000);
     });
   }

@@ -12,7 +12,7 @@
     We've identified these recommendations from your suggestions. Add some details to help {{ trip.traveler_name }}.
   </p>
   
-  <form method="POST" action="{{ url_for('main.save_recommendations', slug=trip.slug) }}" class="space-y-5">
+  <form method="POST" action="{{ url_for('main.save_recommendations', slug=trip.slug) }}" class="space-y-5" id="recommendations-form">
     <div class="bg-blue-50 rounded-lg p-4 border border-blue-200 mb-4">
       <label for="recommender_name" class="block text-gray-700 font-medium mb-1">Your Name <span class="text-red-500">*</span></label>
       <input 
@@ -25,46 +25,70 @@
         required
       >
     </div>
+
+    <!-- Column headers -->
+    <div class="hidden md:flex md:flex-row gap-4 px-4 mb-2">
+      <div class="md:w-2/5 font-semibold text-gray-700">Recommendation</div>
+      <div class="md:w-3/5 font-semibold text-gray-700">Why do you recommend it?</div>
+    </div>
     
-    {% for item in extracted_recommendations %}
-    <div class="bg-white rounded-lg p-4 border border-gray-200 shadow-sm mb-3">
-      <div class="flex flex-col md:flex-row gap-4">
-        <div class="md:w-2/5">
-          <div class="font-semibold text-base text-gray-900 mb-1">{{ item.name }}</div>
-          {% if item.type %}
-          <div class="text-blue-600 text-xs uppercase tracking-wider font-medium mb-1">{{ item.type }}</div>
-          {% endif %}
-          <input type="hidden" name="recommendations[]" value="{{ item.name }}">
-          <input type="hidden" name="place_types[]" value="{{ item.type }}">
-          <input type="hidden" name="website_urls[]" value="{{ item.website_url }}">
-          
-          {% if item.website_url %}
-          <div class="mb-1">
-            <a href="{{ item.website_url }}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline text-xs flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-3 h-3 mr-1">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
-              </svg>
-              {{ item.website_url }}
-            </a>
+    <div id="recommendations-container">
+      {% for item in extracted_recommendations %}
+      <div class="bg-white rounded-lg p-4 border border-gray-200 shadow-sm mb-3 recommendation-item" id="recommendation-{{ loop.index }}">
+        <div class="flex flex-col md:flex-row gap-4">
+          <div class="md:w-2/5">
+            <div class="font-semibold text-base text-gray-900 mb-1">{{ item.name }}</div>
+            {% if item.type %}
+            <div class="text-blue-600 text-xs uppercase tracking-wider font-medium mb-1">{{ item.type }}</div>
+            {% endif %}
+            <input type="hidden" name="recommendations[]" value="{{ item.name }}">
+            <input type="hidden" name="place_types[]" value="{{ item.type }}">
+            <input type="hidden" name="website_urls[]" value="{{ item.website_url }}">
+            
+            {% if item.website_url %}
+            <div class="mb-1">
+              <a href="{{ item.website_url }}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline text-xs flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-3 h-3 mr-1">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+                </svg>
+                {{ item.website_url }}
+              </a>
+            </div>
+            {% endif %}
           </div>
-          {% endif %}
-        </div>
-        
-        <div class="md:w-3/5">
-          <label for="description_{{ loop.index }}" class="block text-gray-700 font-medium text-sm mb-1">Why do you recommend it?</label>
-          <textarea 
-            id="description_{{ loop.index }}" 
-            name="descriptions[]" 
-            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" 
-            rows="2" 
-            placeholder="What makes this place special? Any tips for {{ trip.traveler_name }}?"
-          >{{ item.description }}</textarea>
+          
+          <div class="md:w-3/5">
+            <textarea 
+              id="description_{{ loop.index }}" 
+              name="descriptions[]" 
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" 
+              rows="2" 
+              placeholder="What makes this place special? Any tips for {{ trip.traveler_name }}?"
+            >{{ item.description }}</textarea>
+          </div>
+          
+          <div class="flex items-start">
+            <button type="button" class="text-red-500 hover:text-red-700 ml-2 remove-recommendation p-1 rounded-full hover:bg-red-50 transition" 
+                    data-index="{{ loop.index }}" aria-label="Remove recommendation">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
+      {% endfor %}
     </div>
-    {% endfor %}
     
-    <div class="pt-4 flex flex-col sm:flex-row gap-3 justify-center">
+    <!-- Toast notification for undo -->
+    <div id="undo-toast" class="fixed bottom-5 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-6 py-3 rounded-lg shadow-lg z-50 hidden flex items-center">
+      <span id="undo-message">Recommendation removed</span>
+      <button id="undo-button" class="ml-4 px-3 py-1 bg-white text-gray-800 text-sm rounded hover:bg-gray-200 transition">
+        Undo
+      </button>
+    </div>
+    
+    <div class="pt-4 flex justify-center">
       <button id="submit-button" type="submit" class="px-5 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition flex items-center justify-center">
         <span>Send Recommendations</span>
         <svg id="spinner" class="animate-spin h-4 w-4 ml-2 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -73,9 +97,6 @@
           0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
         </svg>
       </button>
-      <a href="{{ url_for('main.add_recommendation', slug=trip.slug) }}" class="px-5 py-2 border border-gray-300 text-gray-700 font-medium rounded-md hover:bg-gray-50 transition text-center">
-        Start Over
-      </a>
     </div>
   </form>
 </div>
@@ -88,7 +109,99 @@
     const submitButton = document.getElementById('submit-button');
     const buttonText = submitButton.querySelector('span');
     const spinner = document.getElementById('spinner');
-
+    const undoToast = document.getElementById('undo-toast');
+    const undoButton = document.getElementById('undo-button');
+    const undoMessage = document.getElementById('undo-message');
+    
+    // Store removed recommendations temporarily
+    let removedItem = null;
+    let removedItemIndex = -1;
+    let undoTimeout = null;
+    
+    // Add event listeners to all remove buttons
+    document.querySelectorAll('.remove-recommendation').forEach(button => {
+      button.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Get the recommendation item
+        const index = this.getAttribute('data-index');
+        const recommendation = document.getElementById('recommendation-' + index);
+        
+        if (recommendation) {
+          // Store for potential undo
+          removedItem = recommendation.cloneNode(true);
+          removedItemIndex = Array.from(recommendation.parentNode.children).indexOf(recommendation);
+          
+          // Remove the recommendation
+          recommendation.remove();
+          
+          // Clear any existing timeout
+          if (undoTimeout) {
+            clearTimeout(undoTimeout);
+          }
+          
+          // Show toast with undo option
+          undoMessage.textContent = "Recommendation removed";
+          undoToast.classList.remove('hidden');
+          
+          // Set timeout to hide the toast
+          undoTimeout = setTimeout(() => {
+            undoToast.classList.add('hidden');
+            removedItem = null;
+          }, 5000);
+        }
+      });
+    });
+    
+    // Undo button functionality
+    undoButton.addEventListener('click', function() {
+      if (removedItem && document.getElementById('recommendations-container')) {
+        const container = document.getElementById('recommendations-container');
+        const items = container.querySelectorAll('.recommendation-item');
+        
+        // Add the removed item back at its original position
+        if (removedItemIndex >= items.length) {
+          container.appendChild(removedItem);
+        } else if (removedItemIndex === 0) {
+          container.insertBefore(removedItem, items[0]);
+        } else {
+          container.insertBefore(removedItem, items[removedItemIndex]);
+        }
+        
+        // Re-attach event listeners to the restored item
+        const button = removedItem.querySelector('.remove-recommendation');
+        if (button) {
+          button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const index = this.getAttribute('data-index');
+            const recommendation = document.getElementById('recommendation-' + index);
+            if (recommendation) {
+              removedItem = recommendation.cloneNode(true);
+              removedItemIndex = Array.from(recommendation.parentNode.children).indexOf(recommendation);
+              recommendation.remove();
+              
+              if (undoTimeout) {
+                clearTimeout(undoTimeout);
+              }
+              
+              undoMessage.textContent = "Recommendation removed";
+              undoToast.classList.remove('hidden');
+              
+              undoTimeout = setTimeout(() => {
+                undoToast.classList.add('hidden');
+                removedItem = null;
+              }, 5000);
+            }
+          });
+        }
+        
+        // Hide toast
+        undoToast.classList.add('hidden');
+        clearTimeout(undoTimeout);
+      }
+    });
+    
+    // Form submission
     form.addEventListener('submit', function(e) {
       if (!form.checkValidity()) {
         return;

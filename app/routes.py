@@ -4,7 +4,7 @@ import uuid
 import os
 import json
 from app.database import db
-from app.database.models import User, Trip, Recommendation
+from app.database.models import User, Trip, Recommendation, Activity
 from app.services.ai_service import AIService
 
 main = Blueprint('main', __name__)
@@ -148,11 +148,17 @@ def save_recommendations(slug):
         if not recommendations[i]:  # Skip empty recommendations
             continue
             
-        recommendation = Recommendation(
+        # First find or create the Activity
+        activity = Activity.get_or_create(
             name=recommendations[i],
+            category=place_types[i] if i < len(place_types) and place_types[i] else None,
+            website_url=website_urls[i] if i < len(website_urls) and website_urls[i] else None
+        )
+        
+        # Then create the Recommendation which links this Activity to the Trip
+        recommendation = Recommendation(
+            activity_id=activity.id,
             description=descriptions[i] if i < len(descriptions) and descriptions[i] else None,
-            place_type=place_types[i] if i < len(place_types) and place_types[i] else None,
-            website_url=website_urls[i] if i < len(website_urls) and website_urls[i] else None,
             author_id=user_id,
             trip_id=trip.id
         )
@@ -262,6 +268,9 @@ def process_audio_recommendation(slug):
         if not data or not isinstance(data, list):
             return jsonify({"error": "Invalid recommendations data"}), 400
         
+        # Log the data for debugging
+        print(f"Storing {len(data)} recommendations in session: {data}")
+        
         # Store in session for the confirmation page
         session['extracted_recommendations'] = data
         
@@ -284,7 +293,12 @@ def confirm_audio_recommendations(slug):
     # Get recommendations from session
     extracted_recommendations = session.get('extracted_recommendations', [])
     
-    if not extracted_recommendations:
+    # Log for debugging
+    print(f"Retrieved from session: {extracted_recommendations}")
+    
+    # Check if it's empty or not a valid list
+    if not extracted_recommendations or not isinstance(extracted_recommendations, list) or len(extracted_recommendations) == 0:
+        print("No recommendations found in session!")
         flash('No recommendations found. Please try again.', 'error')
         return redirect(url_for('main.add_recommendation', slug=slug))
     
