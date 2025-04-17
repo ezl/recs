@@ -1,28 +1,30 @@
 {% extends "base.html" %}
 
-{% block title %}Login | Flask Starter App{% endblock %}
+{% block title %}Login | WorkFlow{% endblock %}
 
 {% block content %}
-<div class="max-w-md mx-auto bg-white shadow rounded-lg p-8">
-    <h1 class="text-3xl font-bold mb-6 text-center">Login</h1>
-    
-    <div class="mb-6 text-center">
-        <p class="text-gray-600">Enter your email address below and we'll send you a magic link to log in.</p>
-    </div>
-    
-    <form action="{{ url_for('auth.login') }}" method="post" class="space-y-6">
-        <div>
-            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-            <input type="email" id="email" name="email" required
-                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+<div class="container mx-auto px-4 py-8">
+    <div class="max-w-md mx-auto bg-white shadow rounded-lg p-8">
+        <h1 class="text-3xl font-bold mb-6 text-center">Login</h1>
+        
+        <div class="mb-6 text-center">
+            <p class="text-gray-600">Enter your email address below and we'll send you a magic link to log in.</p>
         </div>
         
-        <div>
-            <button type="submit" 
-                class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                Send Login Link
-            </button>
-        </div>
-    </form>
+        <form action="{{ url_for('auth.login') }}" method="post" class="space-y-6">
+            <div>
+                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                <input type="email" id="email" name="email" required
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            
+            <div>
+                <button type="submit" 
+                    class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                    Send Login Link
+                </button>
+            </div>
+        </form>
+    </div>
 </div>
 {% endblock %} 
