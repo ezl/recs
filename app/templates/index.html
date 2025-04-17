@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Home | Flask Starter App{% endblock %}
+
+{% block content %}
+<div class="text-center">
+    <h1 class="text-4xl font-bold mb-6">Welcome to Flask Starter App</h1>
+    <p class="mb-8 text-xl text-gray-600">A modern web application starter template with Flask, Tailwind CSS, and SQLAlchemy.</p>
+    
+    <div class="bg-white shadow rounded-lg p-6 max-w-2xl mx-auto">
+        <h2 class="text-2xl font-semibold mb-4">Features</h2>
+        <ul class="text-left list-disc ml-8 space-y-2">
+            <li>Flask backend with Jinja2 templates</li>
+            <li>Tailwind CSS 4 via CDN for styling</li>
+            <li>SQLAlchemy ORM for database operations</li>
+            <li>SQLite for local development</li>
+            <li>Environment-specific configuration</li>
+        </ul>
+    </div>
+</div>
+{% endblock %} 

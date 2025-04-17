@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Flask Starter App{% endblock %}</title>
+    
+    <!-- Tailwind CSS 4 via CDN -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    {% block head_extras %}{% endblock %}
+</head>
+<body class="min-h-screen bg-gray-100">
+    <header class="bg-white shadow">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="{{ url_for('main.index') }}" class="text-xl font-bold">Flask Starter</a>
+            <div class="space-x-4">
+                <a href="{{ url_for('main.index') }}" class="hover:text-blue-600">Home</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="bg-white shadow py-4 mt-8">
+        <div class="container mx-auto px-4 text-center text-gray-500">
+            &copy; {% block year %}{{ now.year }}{% endblock %} Flask Starter App
+        </div>
+    </footer>
+
+    <!-- Custom JavaScript -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html> 

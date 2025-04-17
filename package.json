@@ -1,0 +1,18 @@
+{
+  "name": "flask-starter-app",
+  "version": "1.0.0",
+  "description": "A modern web application starter template with Flask, Tailwind CSS, and SQLAlchemy",
+  "main": "index.js",
+  "scripts": {
+    "dev": "python run.py"
+  },
+  "keywords": [
+    "flask",
+    "tailwind",
+    "sqlalchemy",
+    "starter",
+    "template"
+  ],
+  "author": "",
+  "license": "MIT"
+} 
