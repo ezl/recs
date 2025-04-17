@@ -1,0 +1,24 @@
+# coding pattern preferences
+
+- always prefer simple solutions
+- avoid duplication of code or functionality whenever possible, which means checking for other areas of the codebase that might already have similar code and funcitonality
+- write code that takes into account the different environments: dev, test, and prod
+- you are careful only to make changes that are requested or you are confident are well understood and related to the change being requested
+- when fixing an issue or bug, do not introduce a new pattern or technology without first exhausting all options for the existing implementation. if you finally do this, make sure to remove the old implementation afterwards so the codebase will not have multiple methods for doing the same thing
+- if you need to add a new technology or library, stop to ask me in advance. tell me what technology or library you want to add, why it is useful, and give me 2 alternatives, including the pros/cons of doing it without adding any new library if that is possible
+- no inline css
+- keep the codebase clean and organized
+- avoid writing scripts in files if possible, especially if the script is likely only to be run once
+- avoid having files over 300 lines of code. ask me if we should refactor at that point
+- avoid python or javascript functions or methods over 100 lines of code. if that happens, ask me if we should refactor and propose a way to refactor
+- whenever a tailwind class is used more than 4 times, create a custom css class to help with maintainability
+- mocking data is only needed for tests, never mock data for dev or prod
+- never add stubbing or fake data patterns to code that affects the dev or prod environments
+- never overwrite .env file without first asking and confirming
+
+# technical stack
+
+- python for the backend
+- html/js for the frontend. no framework, just well organized and encapsulated code.
+- sql databases for data that is persisted, never json file storage
+- tailwind4 for style. always use the tailwind CDN. do not use npm
