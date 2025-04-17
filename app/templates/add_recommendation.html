@@ -119,13 +119,14 @@
             <div class="flex-grow flex flex-col px-4 pt-10 pb-24 w-full">
                 <div class="w-full max-w-[80%] mx-auto">
                     <div class="flex items-center justify-between mb-8">
-                        <h1 class="text-3xl font-bold text-gray-900 text-left">
+                        <h1 class="text-3xl font-semibold text-gray-900 text-left">
                             {{ trip.traveler_name }} is going to {{ trip.destination }}. Where should they go?
+                            <button type="button" id="toggle-input-btn" class="px-3 py-1 text-sm bg-blue-100 text-blue-600 rounded-md hover:bg-blue-200 transition whitespace-nowrap">
+                                <span id="text-mode-label" class="hidden">Type instead</span>
+                                <span id="audio-mode-label">Speak instead</span>
+                            </button>
                         </h1>
-                        <button type="button" id="toggle-input-btn" class="ml-4 px-3 py-1 text-sm bg-blue-100 text-blue-600 rounded-md hover:bg-blue-200 transition whitespace-nowrap">
-                            <span id="text-mode-label" class="hidden">Type instead</span>
-                            <span id="audio-mode-label">Speak instead</span>
-                        </button>
+
                     </div>
                     
                     <form id="step1-form" method="POST" action="{{ url_for('main.process_recommendation', slug=trip.slug) }}" class="w-full">
