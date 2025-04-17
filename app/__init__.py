@@ -6,6 +6,10 @@ def create_app():
     # Load configuration
     app.config.from_object('config.Config')
     
+    # Ensure secret key is set for sessions
+    if not app.config.get('SECRET_KEY'):
+        app.config['SECRET_KEY'] = 'dev-key-please-change-in-production'
+    
     # Initialize database
     from app.database import init_db
     init_db(app)
