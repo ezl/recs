@@ -21,17 +21,27 @@ class AIService:
             list: List of recommendation dictionaries with keys: name, type, website_url, description
         """
         api_key = os.environ.get("OPENAI_API_KEY")
+        organization_id = os.environ.get("ORGANIZATION_ID")
         
-        # If no API key is configured, return mock data for development
+        # Check if API key is configured
         if not api_key:
-            logger.warning("No OpenAI API key found. Using mock recommendations.")
-            return AIService._get_mock_recommendations()
+            error_msg = "No OpenAI API key found. Please set the OPENAI_API_KEY environment variable."
+            logger.error(error_msg)
+            raise ValueError(error_msg)
+        
+        # Log first 8 chars of key to help with debugging
+        logger.info(f"Using API key starting with: {api_key[:8]}...")
         
         try:
             headers = {
                 "Authorization": f"Bearer {api_key}",
                 "Content-Type": "application/json"
             }
+            
+            # Add organization ID to headers if available
+            if organization_id:
+                headers["OpenAI-Organization"] = organization_id
+                logger.info(f"Using organization ID: {organization_id}")
             
             prompt = f"""
             Extract specific recommendations for places to visit in {destination} from the following text.
@@ -47,7 +57,7 @@ class AIService:
             """
             
             data = {
-                "model": "gpt-4o",
+                "model": "gpt-3.5-turbo",  # Fallback to a more reliable model
                 "messages": [
                     {"role": "system", "content": "You are a helpful assistant that extracts structured recommendations from text."},
                     {"role": "user", "content": prompt}
@@ -55,11 +65,17 @@ class AIService:
             }
             
             response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=data)
+            
+            if response.status_code != 200:
+                logger.error(f"OpenAI API Error: Status code {response.status_code}, Response: {response.text}")
+                raise Exception(f"OpenAI API Error: Status code {response.status_code}, Response: {response.text}")
+                
+            response.raise_for_status()  # Raise exception for HTTP errors
             result = response.json()
             
             if "error" in result:
                 logger.error(f"OpenAI API Error: {result['error']}")
-                return AIService._get_mock_recommendations()
+                raise Exception(f"OpenAI API Error: {result.get('error', {}).get('message', 'Unknown error')}")
             
             content = result["choices"][0]["message"]["content"]
             # Extract JSON from the response - might need to handle different response formats
@@ -71,33 +87,10 @@ class AIService:
                 extracted_data = json.loads(json_str)
                 return extracted_data
             else:
-                logger.error("Failed to extract JSON from OpenAI response")
-                return AIService._get_mock_recommendations()
+                error_msg = "Failed to extract JSON from OpenAI response"
+                logger.error(error_msg)
+                raise ValueError(error_msg)
                 
         except Exception as e:
             logger.error(f"Error in AI recommendation extraction: {e}")
-            return AIService._get_mock_recommendations()
-    
-    @staticmethod
-    def _get_mock_recommendations():
-        """Return mock recommendation data for development"""
-        return [
-            {
-                "name": "Rooftop Bar with Acropolis View",
-                "type": "Bar",
-                "website_url": "https://example.com/rooftopbar",
-                "description": "Amazing views of the Acropolis at sunset."
-            },
-            {
-                "name": "Local Taverna in Plaka",
-                "type": "Restaurant",
-                "website_url": "",
-                "description": "Authentic Greek food with live music on weekends."
-            },
-            {
-                "name": "Ancient Agora",
-                "type": "Historical Site",
-                "website_url": "https://example.com/agora",
-                "description": "Less crowded than the Acropolis but just as interesting."
-            }
-        ] 
+            raise 

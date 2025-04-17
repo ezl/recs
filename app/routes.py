@@ -86,16 +86,23 @@ def process_recommendation(slug):
         flash('Please provide some recommendations', 'error')
         return redirect(url_for('main.add_recommendation', slug=slug))
     
-    # Call OpenAI API to extract structured recommendations
-    extracted_recommendations = AIService.extract_recommendations(unstructured_recommendations, trip.destination)
-    
-    # Render confirmation template with extracted recommendations
-    return render_template(
-        'confirm_recommendations.html', 
-        trip=trip, 
-        extracted_recommendations=extracted_recommendations,
-        recommender_name=recommender_name
-    )
+    try:
+        # Call OpenAI API to extract structured recommendations
+        extracted_recommendations = AIService.extract_recommendations(unstructured_recommendations, trip.destination)
+        
+        # Render confirmation template with extracted recommendations
+        return render_template(
+            'confirm_recommendations.html', 
+            trip=trip, 
+            extracted_recommendations=extracted_recommendations,
+            recommender_name=recommender_name
+        )
+    except ValueError as e:
+        flash(f'API Configuration Error: {str(e)}', 'error')
+        return redirect(url_for('main.add_recommendation', slug=slug))
+    except Exception as e:
+        flash(f'Error processing recommendations: {str(e)}', 'error')
+        return redirect(url_for('main.add_recommendation', slug=slug))
 
 @main.route('/trip/<slug>/save', methods=['POST'])
 def save_recommendations(slug):
