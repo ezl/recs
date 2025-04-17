@@ -19,7 +19,7 @@
             <a href="{{ url_for('main.index') }}" class="text-xl font-bold">Flask Starter</a>
             <div class="space-x-4">
                 <a href="{{ url_for('main.index') }}" class="hover:text-blue-600">Home</a>
-                {% if session.get('user_email') %}
+                {% if session.get('user_id') %}
                     <a href="{{ url_for('auth.dashboard') }}" class="hover:text-blue-600">Dashboard</a>
                     <a href="{{ url_for('auth.logout') }}" class="hover:text-blue-600">Logout</a>
                 {% else %}

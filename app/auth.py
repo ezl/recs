@@ -1,26 +1,32 @@
 from flask import Blueprint, render_template, request, redirect, url_for, current_app, flash, session
 import secrets
-import time
 from datetime import datetime, timedelta
+from app.database import db
+from app.database.models import User, AuthToken
 
 auth = Blueprint('auth', __name__, url_prefix='/auth')
 
-# Store for auth tokens: {token: {'email': email, 'expires': timestamp}}
-auth_tokens = {}
-
 def generate_auth_token(email):
-    """Generate a secure token for passwordless auth"""
-    token = secrets.token_urlsafe(32)
-    # Token expires in 10 minutes
-    expiry = datetime.now() + timedelta(minutes=10)
+    """Generate a secure token for passwordless auth and store in database"""
+    # Get or create the user
+    user = User.get_or_create(email)
     
-    # Store token with email and expiry
-    auth_tokens[token] = {
-        'email': email,
-        'expires': expiry
-    }
+    # Generate a secure token
+    token_string = secrets.token_urlsafe(32)
     
-    return token
+    # Create expiry time (10 minutes from now)
+    expiry = datetime.utcnow() + timedelta(minutes=10)
+    
+    # Create token in database
+    token = AuthToken(
+        token=token_string,
+        user_id=user.id,
+        expires_at=expiry
+    )
+    db.session.add(token)
+    db.session.commit()
+    
+    return token_string, user
 
 def send_auth_email(email, token):
     """Send authentication email with login link"""
@@ -47,7 +53,7 @@ def login():
             return render_template('auth/login.html')
         
         # Generate token and "send" auth email
-        token = generate_auth_token(email)
+        token, user = generate_auth_token(email)
         send_auth_email(email, token)
         
         # Redirect to waiting page
@@ -57,44 +63,50 @@ def login():
 
 @auth.route('/verify/<token>')
 def verify_token(token):
-    # Check if token exists and is valid
-    if token not in auth_tokens:
-        flash('Invalid or expired login link')
-        return redirect(url_for('auth.login'))
+    # Get token from database
+    db_token = AuthToken.get_valid_token(token)
     
-    # Check if token is expired
-    token_data = auth_tokens[token]
-    if datetime.now() > token_data['expires']:
-        # Remove expired token
-        auth_tokens.pop(token)
-        flash('Login link has expired')
+    if not db_token:
+        flash('Invalid or expired login link', 'error')
         return redirect(url_for('auth.login'))
     
     # Token is valid - log the user in
-    email = token_data['email']
+    user = db_token.user
     
-    # Remove used token
-    auth_tokens.pop(token)
+    # Mark token as used
+    db_token.used = True
     
-    # For now, just store email in session
-    session['user_email'] = email
+    # Update last login time
+    user.last_login_at = datetime.utcnow()
+    db.session.commit()
+    
+    # Store user ID in session
+    session['user_id'] = user.id
+    session['user_email'] = user.email
+    
     flash('You have been logged in successfully', 'success')
-    
-    # Redirect to dashboard
     return redirect(url_for('auth.dashboard'))
 
 @auth.route('/dashboard')
 def dashboard():
     # Check if user is logged in
-    if 'user_email' not in session:
+    if 'user_id' not in session:
         flash('Please log in to access the dashboard', 'error')
         return redirect(url_for('auth.login'))
     
-    return render_template('auth/dashboard.html', user_email=session['user_email'])
+    # Get user from database
+    user = User.query.get(session['user_id'])
+    if not user:
+        # User was deleted or doesn't exist anymore
+        session.clear()
+        flash('User account not found', 'error')
+        return redirect(url_for('auth.login'))
+    
+    return render_template('auth/dashboard.html', user=user)
 
 @auth.route('/logout')
 def logout():
     # Clear the session
-    session.pop('user_email', None)
+    session.clear()
     flash('You have been logged out', 'success')
     return redirect(url_for('auth.login')) 

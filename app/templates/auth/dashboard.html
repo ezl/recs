@@ -8,12 +8,19 @@
     
     <div class="mb-8 text-center">
         <p class="text-gray-600 mb-2">Logged in as:</p>
-        <p class="text-xl font-semibold">{{ user_email }}</p>
+        <p class="text-xl font-semibold">{{ user.email }}</p>
+        {% if user.last_login_at %}
+        <p class="text-sm text-gray-500 mt-1">Last login: {{ user.last_login_at.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+        {% endif %}
     </div>
     
     <div class="bg-gray-50 p-6 rounded-lg">
         <h2 class="text-2xl font-semibold mb-4">Welcome to Your Dashboard</h2>
         <p class="text-gray-700">This is a simple dashboard page. In a real application, you would have access to your data and features here.</p>
+        <div class="mt-4 text-sm text-gray-500">
+            <p>User ID: {{ user.id }}</p>
+            <p>Account created: {{ user.created_at.strftime('%Y-%m-%d') }}</p>
+        </div>
     </div>
 </div>
 {% endblock %} 
