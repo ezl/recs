@@ -1,15 +1,40 @@
 <header class="bg-white border-b border-gray-200">
-    <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
-        <a href="{{ url_for('main.index') }}" class="text-xl font-bold text-blue-700">Recs</a>
-        <div class="space-x-6">
-            <a href="{{ url_for('main.index') }}" class="text-gray-600 hover:text-blue-700 font-medium">Home</a>
-            <a href="{{ url_for('main.how_it_works') }}" class="text-gray-600 hover:text-blue-700 font-medium">How It Works</a>
-            {% if session.get('user_id') %}
-                <a href="{{ url_for('main.my_recommendations') }}" class="text-gray-600 hover:text-blue-700 font-medium">My Recommendations</a>
-                <a href="{{ url_for('auth.logout') }}" class="text-gray-600 hover:text-blue-700 font-medium">Logout</a>
-            {% else %}
-                <a href="{{ url_for('auth.login') }}" class="px-4 py-2 bg-blue-600 text-white font-medium rounded hover:bg-blue-700 transition">Login</a>
-            {% endif %}
+    <div class="content-container">
+        <nav class="py-4 flex justify-between items-center">
+            <a href="{{ url_for('main.index') }}" class="text-xl font-bold text-blue-700">Recs</a>
+            
+            <!-- Mobile hamburger button -->
+            <button id="mobile-menu-button" class="md:hidden focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+            
+            <!-- Desktop navigation -->
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="{{ url_for('main.index') }}" class="inline-flex items-center text-gray-600 hover:text-blue-700 font-medium">Home</a>
+                <a href="{{ url_for('main.how_it_works') }}" class="inline-flex items-center text-gray-600 hover:text-blue-700 font-medium">How It Works</a>
+                {% if session.get('user_id') %}
+                    <a href="{{ url_for('main.my_recommendations') }}" class="inline-flex items-center text-gray-600 hover:text-blue-700 font-medium">My Recommendations</a>
+                    <a href="{{ url_for('auth.logout') }}" class="inline-flex items-center text-gray-600 hover:text-blue-700 font-medium">Logout</a>
+                {% else %}
+                    <a href="{{ url_for('auth.login') }}" class="inline-flex items-center px-6 py-2 bg-blue-600 text-white font-medium rounded hover:bg-blue-700 transition">Login</a>
+                {% endif %}
+            </div>
+        </nav>
+        
+        <!-- Mobile navigation dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-gray-200 py-2">
+            <div class="flex flex-col space-y-3">
+                <a href="{{ url_for('main.index') }}" class="text-gray-600 hover:text-blue-700 font-medium py-2">Home</a>
+                <a href="{{ url_for('main.how_it_works') }}" class="text-gray-600 hover:text-blue-700 font-medium py-2">How It Works</a>
+                {% if session.get('user_id') %}
+                    <a href="{{ url_for('main.my_recommendations') }}" class="text-gray-600 hover:text-blue-700 font-medium py-2">My Recommendations</a>
+                    <a href="{{ url_for('auth.logout') }}" class="text-gray-600 hover:text-blue-700 font-medium py-2">Logout</a>
+                {% else %}
+                    <a href="{{ url_for('auth.login') }}" class="inline-block px-6 py-2 bg-blue-600 text-white font-medium rounded hover:bg-blue-700 transition mb-2">Login</a>
+                {% endif %}
+            </div>
         </div>
-    </nav>
+    </div>
 </header> 

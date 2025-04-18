@@ -23,17 +23,26 @@
         .content-container {
             min-width: 320px; /* Mobile minimum */
             width: 100%;
+            max-width: 1200px; /* Desktop maximum */
             margin: 0 auto;
+            padding-left: 1rem;
+            padding-right: 1rem;
         }
         @media (min-width: 768px) {
             .content-container {
                 min-width: 640px; /* Tablet minimum */
+                padding-left: 2rem;
+                padding-right: 2rem;
             }
         }
         @media (min-width: 1024px) {
             .content-container {
                 min-width: 768px; /* Desktop minimum */
             }
+        }
+        /* Navigation styles */
+        .mobile-menu-transition {
+            transition: all 0.3s ease-in-out;
         }
     </style>
     
@@ -56,7 +65,7 @@
 
     {% if not hide_nav_footer %}
     <footer class="bg-gray-100 text-gray-600 py-8 mt-10 border-t border-gray-200">
-        <div class="container mx-auto px-4 content-container">
+        <div class="container mx-auto content-container">
             <div class="grid md:grid-cols-4 gap-8 mb-8">
                 <div>
                     <h3 class="text-lg font-bold text-gray-800 mb-4">Recs</h3>
@@ -97,5 +106,20 @@
     <!-- Custom JavaScript -->
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     {% block scripts %}{% endblock %}
+    
+    <!-- Navigation script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('hidden');
+                    mobileMenu.classList.toggle('mobile-menu-transition');
+                });
+            }
+        });
+    </script>
 </body>
 </html> 
