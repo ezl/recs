@@ -1,0 +1,181 @@
+<!--
+  Modal Component
+  
+  Parameters:
+  - id: Modal ID (required)
+  - title: Modal title (optional)
+  - size: "sm", "md", "lg", "xl" (default: "md")
+  - close_button: Whether to show a close button (default: true)
+  - form_id: ID of the form within the modal (optional)
+  - confirm_text: Text for the confirm button (optional)
+  - cancel_text: Text for the cancel button (default: "Cancel")
+  - confirm_class: Additional classes for confirm button (optional)
+-->
+
+<div 
+  id="{{ id }}" 
+  class="hidden fixed inset-0 z-50 overflow-y-auto" 
+  aria-labelledby="{{ id }}-title" 
+  role="dialog" 
+  aria-modal="true"
+>
+  <!-- Background overlay -->
+  <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+  
+  <!-- Modal container -->
+  <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+    <!-- Modal content -->
+    <div 
+      class="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all {% if size == 'sm' %}max-w-sm{% elif size == 'lg' %}max-w-lg{% elif size == 'xl' %}max-w-xl{% else %}max-w-md{% endif %} w-full sm:my-8 sm:px-6 sm:py-5"
+      {% if form_id %}data-form-id="{{ form_id }}"{% endif %}
+    >
+      <!-- Close button -->
+      {% if close_button|default(true) %}
+      <div class="absolute right-0 top-0 hidden pr-4 pt-4 sm:block">
+        <button type="button" class="modal-close-button rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none">
+          <span class="sr-only">Close</span>
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      {% endif %}
+      
+      <!-- Modal header -->
+      {% if title %}
+      <div class="flex items-start sm:items-center">
+        <div class="mt-3 text-center sm:mt-0 sm:text-left w-full">
+          <h3 class="text-xl font-semibold leading-6 text-gray-900" id="{{ id }}-title">
+            {{ title }}
+          </h3>
+        </div>
+      </div>
+      {% endif %}
+      
+      <!-- Modal body -->
+      <div class="mt-3">
+        {{ caller() }}
+      </div>
+      
+      <!-- Modal footer -->
+      {% if confirm_text or cancel_text|default('Cancel') %}
+      <div class="mt-5 sm:mt-6 sm:flex sm:flex-row-reverse gap-3">
+        {% if confirm_text %}
+        <button type="button" class="modal-confirm-button inline-flex w-full justify-center rounded-md px-3 py-2 text-sm font-semibold shadow-sm sm:w-auto {{ confirm_class|default('bg-blue-600 text-white hover:bg-blue-700') }}">
+          {{ confirm_text }}
+        </button>
+        {% endif %}
+        
+        {% if cancel_text|default('Cancel') %}
+        <button type="button" class="modal-cancel-button inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:w-auto">
+          {{ cancel_text|default('Cancel') }}
+        </button>
+        {% endif %}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<script>
+// Only add this script once per page
+if (typeof window.setupModals !== 'function') {
+  window.setupModals = function() {
+    // Get all modals
+    const modals = document.querySelectorAll('[role="dialog"]');
+    
+    // Add event listeners to each modal
+    modals.forEach(modal => {
+      const id = modal.id;
+      const modalId = `#${id}`;
+      const backdropOverlay = modal.querySelector('.bg-opacity-75');
+      const closeButtons = modal.querySelectorAll('.modal-close-button, .modal-cancel-button');
+      const confirmButton = modal.querySelector('.modal-confirm-button');
+      const formId = modal.querySelector('[data-form-id]')?.dataset.formId;
+      
+      // Close modal when clicking backdrop
+      if (backdropOverlay) {
+        backdropOverlay.addEventListener('click', () => {
+          hideModal(modalId);
+        });
+      }
+      
+      // Close modal when clicking close buttons
+      closeButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          hideModal(modalId);
+        });
+      });
+      
+      // Confirm button action
+      if (confirmButton && formId) {
+        confirmButton.addEventListener('click', () => {
+          const form = document.getElementById(formId);
+          if (form) {
+            form.submit();
+          }
+          hideModal(modalId);
+        });
+      }
+    });
+
+    // Handle ESC key to close modals
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape') {
+        const visibleModals = document.querySelectorAll('[role="dialog"]:not(.hidden)');
+        visibleModals.forEach(modal => {
+          hideModal(`#${modal.id}`);
+        });
+      }
+    });
+  };
+
+  // Show modal function
+  window.showModal = function(modalId) {
+    const modal = document.querySelector(modalId);
+    if (modal) {
+      // Show the modal
+      modal.classList.remove('hidden');
+      
+      // Focus first input if exists
+      setTimeout(() => {
+        const firstInput = modal.querySelector('input, select, textarea');
+        if (firstInput) {
+          firstInput.focus();
+        }
+      }, 100);
+      
+      // Prevent background scrolling
+      document.body.style.overflow = 'hidden';
+      
+      // Dispatch event
+      document.dispatchEvent(new CustomEvent('modal:shown', { detail: { modalId } }));
+    }
+  };
+
+  // Hide modal function
+  window.hideModal = function(modalId) {
+    const modal = document.querySelector(modalId);
+    if (modal) {
+      // Hide the modal
+      modal.classList.add('hidden');
+      
+      // Restore background scrolling if no other modals are visible
+      const visibleModals = document.querySelectorAll('[role="dialog"]:not(.hidden)');
+      if (visibleModals.length === 0) {
+        document.body.style.overflow = '';
+      }
+      
+      // Dispatch event
+      document.dispatchEvent(new CustomEvent('modal:hidden', { detail: { modalId } }));
+    }
+  };
+
+  // Run setup when DOM is loaded
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', window.setupModals);
+  } else {
+    window.setupModals();
+  }
+}
+</script> 
