@@ -321,24 +321,7 @@
       // Add event listener to the remove button
       const removeButton = newRecommendation.querySelector('.remove-recommendation');
       if (removeButton) {
-        removeButton.addEventListener('click', function(e) {
-          e.preventDefault();
-          
-          // Store for potential undo
-          removedItem = newRecommendation.cloneNode(true);
-          removedItemIndex = Array.from(newRecommendation.parentNode.children).indexOf(newRecommendation);
-          
-          // Remove with animation
-          newRecommendation.classList.add('opacity-0', 'transition-opacity', 'duration-300');
-          setTimeout(() => {
-            newRecommendation.remove();
-          }, 300);
-          
-          // Show client flash message with undo option
-          if (typeof showClientFlash === 'function') {
-            showClientFlash();
-          }
-        });
+        removeButton.addEventListener('click', handleRemoveRecommendation);
       }
       
       // Focus on the first input of the new recommendation
@@ -378,6 +361,7 @@
       let removedItem = null;
       let removedItemIndex = -1;
       let fadeOutTimer = null;
+      let inlineFlashMessage = null;
       
       // If we have a value in the recommender_name input, pre-fill the modal field
       if (nameInput.value) {
@@ -413,101 +397,148 @@
       });
       
       // Show client flash message
-      function showClientFlash() {
-        // Show the flash container
-        clientFlashContainer.classList.remove('hidden');
+      function showClientFlash(position = null) {
+        // Create an inline flash message with the same style as the global one
+        if (position) {
+          // Remove any existing inline flash
+          if (inlineFlashMessage) {
+            inlineFlashMessage.remove();
+          }
+          
+          // Clone the flash template
+          inlineFlashMessage = document.createElement('div');
+          inlineFlashMessage.className = 'bg-yellow-100 text-yellow-800 border border-yellow-300 rounded-lg p-4 mb-4 flex items-center inline-flash-message';
+          inlineFlashMessage.innerHTML = `
+            <i data-feather="alert-triangle" class="h-5 w-5 mr-3 text-yellow-500"></i>
+            <div class="flex-1">Recommendation removed</div>
+            <button id="inline-undo-button" class="ml-4 px-3 py-1 bg-white text-gray-800 text-sm rounded hover:bg-gray-200 transition font-medium">
+              Undo
+            </button>
+            <button type="button" class="p-1.5 ml-3 rounded-full hover:bg-white/20">
+              <span class="sr-only">Dismiss</span>
+              <i data-feather="x" class="h-4 w-4"></i>
+            </button>
+          `;
+          
+          // Insert at the specified position
+          recommendationsContainer.insertBefore(inlineFlashMessage, position);
+          
+          // Initialize feather icons
+          if (typeof feather !== 'undefined') {
+            feather.replace();
+          }
+          
+          // Add event listeners to the inline undo button
+          const inlineUndoButton = inlineFlashMessage.querySelector('#inline-undo-button');
+          if (inlineUndoButton) {
+            inlineUndoButton.addEventListener('click', handleUndo);
+          }
+          
+          // Add event listener to the dismiss button
+          const dismissButton = inlineFlashMessage.querySelector('button[type="button"]');
+          if (dismissButton) {
+            dismissButton.addEventListener('click', function() {
+              inlineFlashMessage.remove();
+              clearTimeout(fadeOutTimer);
+            });
+          }
+          
+          // Set a timer to hide the flash after 5 seconds
+          if (fadeOutTimer) clearTimeout(fadeOutTimer);
+          fadeOutTimer = setTimeout(() => {
+            if (inlineFlashMessage) {
+              inlineFlashMessage.remove();
+            }
+          }, 5000);
+        } else {
+          // For backwards compatibility, show the global flash container
+          clientFlashContainer.classList.remove('hidden');
+          
+          // Set a timer to hide the flash after 5 seconds
+          if (fadeOutTimer) clearTimeout(fadeOutTimer);
+          fadeOutTimer = setTimeout(() => {
+            clientFlashContainer.classList.add('hidden');
+          }, 5000);
+        }
+      }
+      
+      // Handle undo functionality
+      function handleUndo() {
+        if (removedItem && document.getElementById('recommendations-container')) {
+          const container = document.getElementById('recommendations-container');
+          const items = container.querySelectorAll('.recommendation-item');
+          
+          // Add the removed item back at its original position
+          if (removedItemIndex >= items.length) {
+            container.appendChild(removedItem);
+          } else if (removedItemIndex === 0) {
+            container.insertBefore(removedItem, items[0]);
+          } else {
+            container.insertBefore(removedItem, items[removedItemIndex]);
+          }
+          
+          // Animate the item appearing
+          removedItem.classList.add('opacity-0');
+          setTimeout(() => {
+            removedItem.classList.remove('opacity-0');
+          }, 10);
+          
+          // Re-attach event listeners to the restored item
+          const buttons = removedItem.querySelectorAll('.remove-recommendation');
+          buttons.forEach(button => {
+            button.addEventListener('click', handleRemoveRecommendation);
+          });
+          
+          // Re-initialize Feather icons
+          if (typeof feather !== 'undefined') {
+            feather.replace();
+          }
+          
+          // Hide flash
+          if (inlineFlashMessage) {
+            inlineFlashMessage.remove();
+          } else {
+            clientFlashContainer.classList.add('hidden');
+          }
+          clearTimeout(fadeOutTimer);
+        }
+      }
+      
+      // Handle removing a recommendation
+      function handleRemoveRecommendation(e) {
+        e.preventDefault();
         
-        // Scroll to top to show the message
-        window.scrollTo({top: 0, behavior: 'smooth'});
+        // Get the recommendation item
+        const index = this.getAttribute('data-index');
+        const recommendation = document.getElementById('recommendation-' + index);
         
-        // Set a timer to hide the flash after 5 seconds
-        if (fadeOutTimer) clearTimeout(fadeOutTimer);
-        fadeOutTimer = setTimeout(() => {
-          clientFlashContainer.classList.add('hidden');
-        }, 5000);
+        if (recommendation) {
+          // Store for potential undo
+          removedItem = recommendation.cloneNode(true);
+          removedItemIndex = Array.from(recommendation.parentNode.children).indexOf(recommendation);
+          
+          // Get next sibling to use as position marker
+          const nextSibling = recommendation.nextElementSibling;
+          
+          // Remove the recommendation with animation
+          recommendation.classList.add('opacity-0', 'transition-opacity', 'duration-300');
+          setTimeout(() => {
+            recommendation.remove();
+            
+            // Show inline flash message at the position of the removed item
+            showClientFlash(nextSibling);
+          }, 300);
+        }
       }
       
       // Add event listeners to all remove buttons
       document.querySelectorAll('.remove-recommendation').forEach(button => {
-        button.addEventListener('click', function(e) {
-          e.preventDefault();
-          
-          // Get the recommendation item
-          const index = this.getAttribute('data-index');
-          const recommendation = document.getElementById('recommendation-' + index);
-          
-          if (recommendation) {
-            // Store for potential undo
-            removedItem = recommendation.cloneNode(true);
-            removedItemIndex = Array.from(recommendation.parentNode.children).indexOf(recommendation);
-            
-            // Remove the recommendation with animation
-            recommendation.classList.add('opacity-0', 'transition-opacity', 'duration-300');
-            setTimeout(() => {
-              recommendation.remove();
-            }, 300);
-            
-            // Show client flash message with undo option
-            showClientFlash();
-          }
-        });
+        button.addEventListener('click', handleRemoveRecommendation);
       });
       
-      // Undo button functionality
+      // Undo button functionality (for the global flash)
       if (undoButton) {
-        undoButton.addEventListener('click', function() {
-          if (removedItem && document.getElementById('recommendations-container')) {
-            const container = document.getElementById('recommendations-container');
-            const items = container.querySelectorAll('.recommendation-item');
-            
-            // Add the removed item back at its original position
-            if (removedItemIndex >= items.length) {
-              container.appendChild(removedItem);
-            } else if (removedItemIndex === 0) {
-              container.insertBefore(removedItem, items[0]);
-            } else {
-              container.insertBefore(removedItem, items[removedItemIndex]);
-            }
-            
-            // Animate the item appearing
-            removedItem.classList.add('opacity-0');
-            setTimeout(() => {
-              removedItem.classList.remove('opacity-0');
-            }, 10);
-            
-            // Re-attach event listeners to the restored item
-            const buttons = removedItem.querySelectorAll('.remove-recommendation');
-            buttons.forEach(button => {
-              button.addEventListener('click', function(e) {
-                e.preventDefault();
-                const index = this.getAttribute('data-index');
-                const recommendation = document.getElementById('recommendation-' + index);
-                if (recommendation) {
-                  removedItem = recommendation.cloneNode(true);
-                  removedItemIndex = Array.from(recommendation.parentNode.children).indexOf(recommendation);
-                  
-                  // Remove with animation
-                  recommendation.classList.add('opacity-0', 'transition-opacity', 'duration-300');
-                  setTimeout(() => {
-                    recommendation.remove();
-                  }, 300);
-                  
-                  // Show client flash message with undo option
-                  showClientFlash();
-                }
-              });
-            });
-            
-            // Re-initialize Feather icons
-            if (typeof feather !== 'undefined') {
-              feather.replace();
-            }
-            
-            // Hide flash
-            clientFlashContainer.classList.add('hidden');
-            clearTimeout(fadeOutTimer);
-          }
-        });
+        undoButton.addEventListener('click', handleUndo);
       }
       
       // Submit button click handler - show the name modal
