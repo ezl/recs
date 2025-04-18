@@ -9,17 +9,28 @@ test.describe('Recommendation Removal and Undo', () => {
       await page.goto('/');
       
       // Wait for form to be loaded
-      await page.waitForSelector('#name', { timeout: 10000 });
       await page.waitForSelector('#destination', { timeout: 10000 });
       
-      await page.fill('#name', 'Removal Tester');
       await page.fill('#destination', 'Berlin');
       
       // Submit the form
       await page.click('button[type="submit"]');
       
+      // Wait for navigation to the user info page
+      await page.waitForURL('**/user-info');
+      
+      // Wait for form to be loaded
+      await page.waitForSelector('#name', { timeout: 10000 });
+      await page.waitForSelector('#email', { timeout: 10000 });
+      
+      await page.fill('#name', 'Removal Tester');
+      await page.fill('#email', 'removal@example.com');
+      
+      // Submit the form
+      await page.click('button[type="submit"]');
+      
       // Wait for navigation to the trip detail page
-      await page.waitForURL(/\/trip\/*/);
+      await page.waitForURL('**/trip/**');
       
       // Take a screenshot for debugging
       await page.screenshot({ path: 'trip-detail-removal.png' });
@@ -43,7 +54,7 @@ test.describe('Recommendation Removal and Undo', () => {
       await page.click('#submit-button');
       
       // Wait for recommendations to be processed
-      await page.waitForURL(/\/trip\/.*\/process/);
+      await page.waitForURL('**/trip/**/process');
       
       // Wait for recommendation items to appear
       await page.waitForSelector('.recommendation-item', { timeout: 10000 });
@@ -164,7 +175,7 @@ test.describe('Recommendation Removal and Undo', () => {
       await page.click('#modal-confirm-button');
       
       // Wait for submission and redirect
-      await page.waitForURL(/\/trip\/.*/);
+      await page.waitForURL('**/trip/**');
       
       // Verify we're on a trip page
       const currentUrl = page.url();

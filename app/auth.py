@@ -9,7 +9,7 @@ auth = Blueprint('auth', __name__, url_prefix='/auth')
 def generate_auth_token(email):
     """Generate a secure token for passwordless auth and store in database"""
     # Get or create the user
-    user = User.get_or_create(email)
+    user, _ = User.get_or_create(email)
     
     # Generate a secure token
     token_string = secrets.token_urlsafe(32)

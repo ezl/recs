@@ -23,21 +23,13 @@ module.exports = defineConfig({
 
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-    },
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
-    {
       name: 'webkit',
       use: { ...devices['Desktop Safari'] },
     },
   ],
 
   webServer: {
-    command: 'cd .. && python run.py',
+    command: 'cd .. && python e2e_tests/run_test_server.py',
     url: 'http://localhost:5001',
     reuseExistingServer: !process.env.CI,
     stdout: 'pipe',

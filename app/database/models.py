@@ -24,14 +24,33 @@ class User(db.Model):
         return f'<User {self.email}>'
     
     @classmethod
-    def get_or_create(cls, email):
-        """Get an existing user or create a new one if not exists"""
+    def get_or_create(cls, email, name=None):
+        """
+        Get an existing user or create a new one if not exists.
+        If name is provided and user exists without a name, update the name.
+        
+        Args:
+            email: User's email address
+            name: Optional name to set or update
+            
+        Returns:
+            User object and a boolean indicating if the user was created
+        """
         user = cls.query.filter_by(email=email).first()
+        created = False
+        
         if not user:
-            user = cls(email=email)
+            # Create new user
+            user = cls(email=email, name=name)
             db.session.add(user)
             db.session.commit()
-        return user
+            created = True
+        elif name and not user.name:
+            # Update name if it was null
+            user.name = name
+            db.session.commit()
+        
+        return user, created
 
 class AuthToken(db.Model):
     __tablename__ = 'auth_tokens'

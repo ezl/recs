@@ -1,12 +1,20 @@
 from flask import Flask
 import atexit
 from datetime import datetime, timedelta
+import os
 
 def create_app():
     app = Flask(__name__)
     
-    # Load configuration
-    app.config.from_object('config.Config')
+    # Load configuration based on environment
+    flask_env = os.environ.get('FLASK_ENV', 'development')
+    if flask_env == 'testing':
+        app.config.from_object('config.TestConfig')
+        print("🧪 Using TestConfig for testing environment")
+    elif flask_env == 'production':
+        app.config.from_object('config.ProdConfig')
+    else:
+        app.config.from_object('config.DevConfig')
     
     # Ensure secret key is set for sessions
     if not app.config.get('SECRET_KEY'):

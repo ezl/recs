@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}Confirm Your Name | Recs{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-16">
+  <div class="text-center mb-12">
+    <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+      We've Found You!
+    </h1>
+    <p class="text-lg text-gray-600 mb-8">
+      We previously had your name as <span class="font-semibold">{{ previous_name }}</span> for this email address.
+      You just entered <span class="font-semibold">{{ new_name }}</span>.
+      <br>
+      What name would you like to use so your friends know who they are sending recommendations to for this trip to {{ destination }}?
+    </p>
+  </div>
+  
+  <div class="bg-white rounded-lg p-6 border border-gray-200 shadow-sm max-w-lg mx-auto">
+    <form action="{{ url_for('main.resolve_name') }}" method="POST" class="space-y-6">
+      <input type="hidden" name="destination" value="{{ destination }}">
+      <input type="hidden" name="email" value="{{ email }}">
+      
+      <div class="bg-gray-50 rounded-lg p-4 mb-4">
+        <h3 class="text-lg font-semibold mb-4">Choose your preferred name:</h3>
+        
+        <div class="space-y-3">
+          <label class="flex items-center p-3 bg-white rounded border hover:bg-blue-50 cursor-pointer transition">
+            <input type="radio" name="resolved_name" value="{{ previous_name }}" class="mr-3" required id="previous-name-radio">
+            <span>Use previous name: <span class="font-semibold">{{ previous_name }}</span></span>
+          </label>
+          
+          <label class="flex items-center p-3 bg-white rounded border hover:bg-blue-50 cursor-pointer transition">
+            <input type="radio" name="resolved_name" value="{{ new_name }}" class="mr-3" id="new-name-radio">
+            <span>Use new name: <span class="font-semibold">{{ new_name }}</span></span>
+          </label>
+          
+          <div class="p-3 bg-white rounded border">
+            <label class="flex items-center hover:bg-blue-50 cursor-pointer transition mb-2">
+              <input type="radio" name="resolved_name" value="other" class="mr-3" id="other-name-radio">
+              <span>Use a different name</span>
+            </label>
+            
+            <div class="pl-6 mt-2">
+              <input 
+                type="text" 
+                id="other-name-input" 
+                name="other_name" 
+                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Enter a different name"
+                oninput="document.getElementById('other-name-radio').checked = true"
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="flex justify-center">
+        <button type="submit" class="inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition">
+          Continue
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  // Ensure the "other" radio button is selected when typing in the other name input
+  document.getElementById('other-name-input').addEventListener('focus', function() {
+    document.getElementById('other-name-radio').checked = true;
+  });
+</script>
+{% endblock %} 

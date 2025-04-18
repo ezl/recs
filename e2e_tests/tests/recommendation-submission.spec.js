@@ -9,17 +9,28 @@ test.describe('Recommendation Submission Process', () => {
       await page.goto('/');
       
       // Wait for form to be loaded
-      await page.waitForSelector('#name', { timeout: 10000 });
       await page.waitForSelector('#destination', { timeout: 10000 });
       
-      await page.fill('#name', 'Test Traveler');
       await page.fill('#destination', 'Tokyo');
       
       // Submit the form
       await page.click('button[type="submit"]');
       
+      // Wait for navigation to the user info page
+      await page.waitForURL('**/user-info');
+      
+      // Wait for form to be loaded
+      await page.waitForSelector('#name', { timeout: 10000 });
+      await page.waitForSelector('#email', { timeout: 10000 });
+      
+      await page.fill('#name', 'Test Traveler');
+      await page.fill('#email', 'traveler@example.com');
+      
+      // Submit the form
+      await page.click('button[type="submit"]');
+      
       // Wait for navigation to the trip detail page
-      await page.waitForURL(/\/trip\/*/);
+      await page.waitForURL('**/trip/**');
       
       // Take a screenshot for debugging
       await page.screenshot({ path: 'trip-detail-submission.png' });
@@ -54,7 +65,7 @@ test.describe('Recommendation Submission Process', () => {
       await page.click('#submit-button');
       
       // Wait for recommendations to be processed
-      await page.waitForURL(/\/trip\/.*\/process/, { timeout: 30000 });
+      await page.waitForURL('**/trip/**/process');
       
       // Take a screenshot for debugging
       await page.screenshot({ path: 'recommendations-processed.png' });
@@ -102,7 +113,7 @@ test.describe('Recommendation Submission Process', () => {
       await page.click('#modal-confirm-button');
       
       // Wait for submission and redirect
-      await page.waitForURL(/\/trip\/.*/, { timeout: 30000 });
+      await page.waitForURL('**/trip/**');
       
       // Verify we're on the trip page
       const currentUrl = page.url();

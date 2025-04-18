@@ -10,17 +10,28 @@ test.describe('Audio Recording and Transcription', () => {
       await page.goto('/');
       
       // Wait for form to be loaded
-      await page.waitForSelector('#name', { timeout: 10000 });
       await page.waitForSelector('#destination', { timeout: 10000 });
       
-      await page.fill('#name', 'Audio Tester');
       await page.fill('#destination', 'London');
       
       // Submit the form
       await page.click('button[type="submit"]');
       
+      // Wait for navigation to the user info page
+      await page.waitForURL('**/user-info');
+      
+      // Wait for form to be loaded
+      await page.waitForSelector('#name', { timeout: 10000 });
+      await page.waitForSelector('#email', { timeout: 10000 });
+      
+      await page.fill('#name', 'Audio Tester');
+      await page.fill('#email', 'audio@example.com');
+      
+      // Submit the form
+      await page.click('button[type="submit"]');
+      
       // Wait for navigation to the trip detail page
-      await page.waitForURL(/\/trip\/*/);
+      await page.waitForURL('**/trip/**');
       
       // Take a screenshot for debugging
       await page.screenshot({ path: 'trip-detail-audio.png' });
