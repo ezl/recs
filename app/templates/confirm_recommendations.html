@@ -27,79 +27,94 @@
     </div>
   </div>
   
-  <form method="POST" action="{{ url_for('main.save_recommendations', slug=trip.slug) }}" class="space-y-6" id="recommendations-form">
-    <!-- Hidden recommender name field that will be filled by the modal -->
-    <input type="hidden" id="recommender_name" name="recommender_name" value="{{ recommender_name }}">
-    
-    <!-- Column headers for desktop -->
-    <div class="hidden md:flex md:flex-row gap-4 px-4 mb-2">
-      <div class="md:w-2/5 font-semibold text-gray-700">Recommendation</div>
-      <div class="md:w-3/5 font-semibold text-gray-700">What's special about it?</div>
+  {% if not extracted_recommendations or extracted_recommendations|length == 0 %}
+    <!-- No recommendations found section -->
+    <div class="bg-white rounded-xl p-8 border border-gray-200 shadow-sm mb-8">
+      <div class="text-center">
+        <div class="inline-flex items-center justify-center h-16 w-16 rounded-full bg-yellow-100 mb-5">
+          <i data-feather="search" class="h-8 w-8 text-yellow-700"></i>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-900 mb-3">No Recommendations Found</h2>
+        <p class="text-gray-600 mb-5 max-w-md mx-auto">
+          We couldn't identify any specific recommendations for {{ trip.destination }} from what you shared.
+        </p>
+      </div>
     </div>
-    
-    <!-- Recommendations Container -->
-    <div id="recommendations-container" class="space-y-4">
-      {% for item in extracted_recommendations %}
-      <div class="bg-white rounded-xl p-6 border border-gray-200 shadow-sm transition hover:shadow-md recommendation-item" id="recommendation-{{ loop.index }}">
-        <div class="flex flex-col md:flex-row gap-6">
-          <!-- Recommendation Details -->
-          <div class="md:w-2/5">
-            <h3 class="font-bold text-lg text-gray-900 mb-2">{{ item.name }}</h3>
-            
-            {% if item.type %}
-            <div class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800 mb-3">
-              {{ item.type }}
+  {% else %}
+    <form method="POST" action="{{ url_for('main.save_recommendations', slug=trip.slug) }}" class="space-y-6" id="recommendations-form">
+      <!-- Hidden recommender name field that will be filled by the modal -->
+      <input type="hidden" id="recommender_name" name="recommender_name" value="{{ recommender_name }}">
+      
+      <!-- Column headers for desktop -->
+      <div class="hidden md:flex md:flex-row gap-4 px-4 mb-2">
+        <div class="md:w-2/5 font-semibold text-gray-700">Recommendation</div>
+        <div class="md:w-3/5 font-semibold text-gray-700">What's special about it?</div>
+      </div>
+      
+      <!-- Recommendations Container -->
+      <div id="recommendations-container" class="space-y-4">
+        {% for item in extracted_recommendations %}
+        <div class="bg-white rounded-xl p-6 border border-gray-200 shadow-sm transition hover:shadow-md recommendation-item" id="recommendation-{{ loop.index }}">
+          <div class="flex flex-col md:flex-row gap-6">
+            <!-- Recommendation Details -->
+            <div class="md:w-2/5">
+              <h3 class="font-bold text-lg text-gray-900 mb-2">{{ item.name }}</h3>
+              
+              {% if item.type %}
+              <div class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800 mb-3">
+                {{ item.type }}
+              </div>
+              {% endif %}
+              
+              <input type="hidden" name="recommendations[]" value="{{ item.name }}">
+              <input type="hidden" name="place_types[]" value="{{ item.type }}">
+              <input type="hidden" name="website_urls[]" value="{{ item.website_url }}">
+              
+              {% if item.website_url %}
+              <div class="mb-3">
+                <a href="{{ item.website_url }}" target="_blank" rel="noopener noreferrer" class="flex items-center text-blue-600 hover:text-blue-800 text-sm">
+                  <i data-feather="link" class="w-4 h-4 mr-1"></i>
+                  Website
+                </a>
+              </div>
+              {% endif %}
             </div>
-            {% endif %}
             
-            <input type="hidden" name="recommendations[]" value="{{ item.name }}">
-            <input type="hidden" name="place_types[]" value="{{ item.type }}">
-            <input type="hidden" name="website_urls[]" value="{{ item.website_url }}">
-            
-            {% if item.website_url %}
-            <div class="mb-3">
-              <a href="{{ item.website_url }}" target="_blank" rel="noopener noreferrer" class="flex items-center text-blue-600 hover:text-blue-800 text-sm">
-                <i data-feather="link" class="w-4 h-4 mr-1"></i>
-                Website
-              </a>
+            <!-- Description Textarea -->
+            <div class="md:w-3/5 flex flex-col">
+              <!-- Mobile specific label -->
+              <label class="md:hidden text-gray-700 font-medium mb-1 text-sm">Why do you recommend it?</label>
+              <textarea 
+                id="description_{{ loop.index }}" 
+                name="descriptions[]" 
+                class="flex-1 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+                rows="3" 
+                placeholder="What makes this place special? Any tips for {{ trip.traveler_name }}?"
+              >{{ item.description }}</textarea>
             </div>
-            {% endif %}
-          </div>
-          
-          <!-- Description Textarea -->
-          <div class="md:w-3/5 flex flex-col">
-            <!-- Mobile specific label -->
-            <label class="md:hidden text-gray-700 font-medium mb-1 text-sm">Why do you recommend it?</label>
-            <textarea 
-              id="description_{{ loop.index }}" 
-              name="descriptions[]" 
-              class="flex-1 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
-              rows="3" 
-              placeholder="What makes this place special? Any tips for {{ trip.traveler_name }}?"
-            >{{ item.description }}</textarea>
-          </div>
-          
-          <!-- Delete button (works on all screen sizes) -->
-          <div class="flex items-start">
-            <button type="button" class="p-2 rounded-full text-red-500 hover:bg-red-50 hover:text-red-700 transition remove-recommendation" 
-                    data-index="{{ loop.index }}" aria-label="Remove recommendation">
-              <i data-feather="x" class="h-5 w-5"></i>
-            </button>
+            
+            <!-- Delete button (works on all screen sizes) -->
+            <div class="flex items-start">
+              <button type="button" class="p-2 rounded-full text-red-500 hover:bg-red-50 hover:text-red-700 transition remove-recommendation" 
+                      data-index="{{ loop.index }}" aria-label="Remove recommendation">
+                <i data-feather="x" class="h-5 w-5"></i>
+              </button>
+            </div>
           </div>
         </div>
+        {% endfor %}
       </div>
-      {% endfor %}
-    </div>
-    
-    <!-- Submit Button -->
-    <div class="pt-6 flex justify-end">
-      <button id="submit-button" type="button" class="inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-sm transition">
-        <span>Send Recommendations</span>
-        <i data-feather="arrow-right" class="h-5 w-5 ml-2"></i>
-        <i data-feather="loader" id="spinner" class="animate-spin h-5 w-5 ml-2 hidden"></i>
-      </button>
-    </div>
-  </form>
+      
+      <!-- Submit Button -->
+      <div class="pt-6 flex justify-end">
+        <button id="submit-button" type="button" class="inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-sm transition">
+          <span>Send Recommendations</span>
+          <i data-feather="arrow-right" class="h-5 w-5 ml-2"></i>
+          <i data-feather="loader" id="spinner" class="animate-spin h-5 w-5 ml-2 hidden"></i>
+        </button>
+      </div>
+    </form>
+  {% endif %}
 </div>
 
 <!-- Name Input Modal -->
@@ -161,213 +176,217 @@
 {% block scripts %}
 <script>
   document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Feather icons
+    if (typeof feather !== 'undefined') {
+      feather.replace();
+    }
+    
     const form = document.getElementById('recommendations-form');
-    const submitButton = document.getElementById('submit-button');
-    const buttonText = submitButton.querySelector('span');
-    const spinner = document.getElementById('spinner');
-    const nameInput = document.getElementById('recommender_name');
-    const modalNameInput = document.getElementById('modal-recommender-name');
-    const modalConfirmButton = document.getElementById('modal-confirm-button');
-    const nameModal = document.getElementById('name-modal');
-    const modalBackdrop = document.querySelector('.modal-backdrop');
-    const clientFlashContainer = document.getElementById('client-flash-container');
-    const undoButton = document.getElementById('undo-button');
     
-    // Variables to store removed item for undo
-    let removedItem = null;
-    let removedItemIndex = -1;
-    let fadeOutTimer = null;
-    
-    // If we have a value in the recommender_name input, pre-fill the modal field
-    if (nameInput.value) {
-      modalNameInput.value = nameInput.value;
-    }
-    
-    // Modal functions
-    function showNameModal() {
-      nameModal.classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
+    // Only initialize form-related functionality if the form exists
+    if (form) {
+      const submitButton = document.getElementById('submit-button');
+      const buttonText = submitButton.querySelector('span');
+      const spinner = document.getElementById('spinner');
+      const nameInput = document.getElementById('recommender_name');
+      const modalNameInput = document.getElementById('modal-recommender-name');
+      const modalConfirmButton = document.getElementById('modal-confirm-button');
+      const nameModal = document.getElementById('name-modal');
+      const modalBackdrop = document.querySelector('.modal-backdrop');
+      const clientFlashContainer = document.getElementById('client-flash-container');
+      const undoButton = document.getElementById('undo-button');
       
-      // Focus the name input
-      setTimeout(() => {
-        modalNameInput.focus();
-      }, 100);
-    }
-    
-    function hideNameModal() {
-      nameModal.classList.add('hidden');
-      document.body.style.overflow = '';
-    }
-    
-    // Close modal when clicking backdrop
-    if (modalBackdrop) {
-      modalBackdrop.addEventListener('click', hideNameModal);
-    }
-    
-    // Close modal on ESC key
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape' && !nameModal.classList.contains('hidden')) {
-        hideNameModal();
+      // Variables to store removed item for undo
+      let removedItem = null;
+      let removedItemIndex = -1;
+      let fadeOutTimer = null;
+      
+      // If we have a value in the recommender_name input, pre-fill the modal field
+      if (nameInput.value) {
+        modalNameInput.value = nameInput.value;
       }
-    });
-    
-    // Show client flash message
-    function showClientFlash() {
-      // Show the flash container
-      clientFlashContainer.classList.remove('hidden');
       
-      // Scroll to top to show the message
-      window.scrollTo({top: 0, behavior: 'smooth'});
+      // Modal functions
+      function showNameModal() {
+        nameModal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+        
+        // Focus the name input
+        setTimeout(() => {
+          modalNameInput.focus();
+        }, 100);
+      }
       
-      // Set a timer to hide the flash after 5 seconds
-      if (fadeOutTimer) clearTimeout(fadeOutTimer);
-      fadeOutTimer = setTimeout(() => {
-        clientFlashContainer.classList.add('hidden');
-      }, 5000);
-    }
-    
-    // Add event listeners to all remove buttons
-    document.querySelectorAll('.remove-recommendation').forEach(button => {
-      button.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        // Get the recommendation item
-        const index = this.getAttribute('data-index');
-        const recommendation = document.getElementById('recommendation-' + index);
-        
-        if (recommendation) {
-          // Store for potential undo
-          removedItem = recommendation.cloneNode(true);
-          removedItemIndex = Array.from(recommendation.parentNode.children).indexOf(recommendation);
-          
-          // Remove the recommendation with animation
-          recommendation.classList.add('opacity-0', 'transition-opacity', 'duration-300');
-          setTimeout(() => {
-            recommendation.remove();
-          }, 300);
-          
-          // Show client flash message with undo option
-          showClientFlash();
+      function hideNameModal() {
+        nameModal.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+      
+      // Close modal when clicking backdrop
+      if (modalBackdrop) {
+        modalBackdrop.addEventListener('click', hideNameModal);
+      }
+      
+      // Close modal on ESC key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && !nameModal.classList.contains('hidden')) {
+          hideNameModal();
         }
       });
-    });
-    
-    // Undo button functionality
-    if (undoButton) {
-      undoButton.addEventListener('click', function() {
-        if (removedItem && document.getElementById('recommendations-container')) {
-          const container = document.getElementById('recommendations-container');
-          const items = container.querySelectorAll('.recommendation-item');
-          
-          // Add the removed item back at its original position
-          if (removedItemIndex >= items.length) {
-            container.appendChild(removedItem);
-          } else if (removedItemIndex === 0) {
-            container.insertBefore(removedItem, items[0]);
-          } else {
-            container.insertBefore(removedItem, items[removedItemIndex]);
-          }
-          
-          // Animate the item appearing
-          removedItem.classList.add('opacity-0');
-          setTimeout(() => {
-            removedItem.classList.remove('opacity-0');
-          }, 10);
-          
-          // Re-attach event listeners to the restored item
-          const buttons = removedItem.querySelectorAll('.remove-recommendation');
-          buttons.forEach(button => {
-            button.addEventListener('click', function(e) {
-              e.preventDefault();
-              const index = this.getAttribute('data-index');
-              const recommendation = document.getElementById('recommendation-' + index);
-              if (recommendation) {
-                removedItem = recommendation.cloneNode(true);
-                removedItemIndex = Array.from(recommendation.parentNode.children).indexOf(recommendation);
-                
-                // Remove with animation
-                recommendation.classList.add('opacity-0', 'transition-opacity', 'duration-300');
-                setTimeout(() => {
-                  recommendation.remove();
-                }, 300);
-                
-                // Show client flash message with undo option
-                showClientFlash();
-              }
-            });
-          });
-          
-          // Hide flash
+      
+      // Show client flash message
+      function showClientFlash() {
+        // Show the flash container
+        clientFlashContainer.classList.remove('hidden');
+        
+        // Scroll to top to show the message
+        window.scrollTo({top: 0, behavior: 'smooth'});
+        
+        // Set a timer to hide the flash after 5 seconds
+        if (fadeOutTimer) clearTimeout(fadeOutTimer);
+        fadeOutTimer = setTimeout(() => {
           clientFlashContainer.classList.add('hidden');
-          clearTimeout(fadeOutTimer);
+        }, 5000);
+      }
+      
+      // Add event listeners to all remove buttons
+      document.querySelectorAll('.remove-recommendation').forEach(button => {
+        button.addEventListener('click', function(e) {
+          e.preventDefault();
+          
+          // Get the recommendation item
+          const index = this.getAttribute('data-index');
+          const recommendation = document.getElementById('recommendation-' + index);
+          
+          if (recommendation) {
+            // Store for potential undo
+            removedItem = recommendation.cloneNode(true);
+            removedItemIndex = Array.from(recommendation.parentNode.children).indexOf(recommendation);
+            
+            // Remove the recommendation with animation
+            recommendation.classList.add('opacity-0', 'transition-opacity', 'duration-300');
+            setTimeout(() => {
+              recommendation.remove();
+            }, 300);
+            
+            // Show client flash message with undo option
+            showClientFlash();
+          }
+        });
+      });
+      
+      // Undo button functionality
+      if (undoButton) {
+        undoButton.addEventListener('click', function() {
+          if (removedItem && document.getElementById('recommendations-container')) {
+            const container = document.getElementById('recommendations-container');
+            const items = container.querySelectorAll('.recommendation-item');
+            
+            // Add the removed item back at its original position
+            if (removedItemIndex >= items.length) {
+              container.appendChild(removedItem);
+            } else if (removedItemIndex === 0) {
+              container.insertBefore(removedItem, items[0]);
+            } else {
+              container.insertBefore(removedItem, items[removedItemIndex]);
+            }
+            
+            // Animate the item appearing
+            removedItem.classList.add('opacity-0');
+            setTimeout(() => {
+              removedItem.classList.remove('opacity-0');
+            }, 10);
+            
+            // Re-attach event listeners to the restored item
+            const buttons = removedItem.querySelectorAll('.remove-recommendation');
+            buttons.forEach(button => {
+              button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const index = this.getAttribute('data-index');
+                const recommendation = document.getElementById('recommendation-' + index);
+                if (recommendation) {
+                  removedItem = recommendation.cloneNode(true);
+                  removedItemIndex = Array.from(recommendation.parentNode.children).indexOf(recommendation);
+                  
+                  // Remove with animation
+                  recommendation.classList.add('opacity-0', 'transition-opacity', 'duration-300');
+                  setTimeout(() => {
+                    recommendation.remove();
+                  }, 300);
+                  
+                  // Show client flash message with undo option
+                  showClientFlash();
+                }
+              });
+            });
+            
+            // Hide flash
+            clientFlashContainer.classList.add('hidden');
+            clearTimeout(fadeOutTimer);
+          }
+        });
+      }
+      
+      // Submit button click handler - show the name modal
+      submitButton.addEventListener('click', function() {
+        // Check if there are any recommendations left
+        const recommendationsCount = document.querySelectorAll('.recommendation-item').length;
+        
+        if (recommendationsCount === 0) {
+          alert('Please add at least one recommendation.');
+          return;
+        }
+        
+        // If we already have a name, just submit the form
+        if (nameInput.value) {
+          form.submit();
+        } else {
+          // Otherwise show the modal to get the name
+          showNameModal();
+        }
+      });
+      
+      // Modal confirm button
+      modalConfirmButton.addEventListener('click', function() {
+        const name = modalNameInput.value.trim();
+        
+        if (!name) {
+          modalNameInput.classList.add('border-red-500');
+          return;
+        }
+        
+        // Set the name in the hidden input
+        nameInput.value = name;
+        
+        // Hide the modal
+        hideNameModal();
+        
+        // Show loading state
+        buttonText.textContent = 'Sending...';
+        spinner.classList.remove('hidden');
+        submitButton.disabled = true;
+        
+        // Submit the form
+        setTimeout(() => {
+          form.submit();
+        }, 100);
+      });
+      
+      // Validate input in the modal
+      modalNameInput.addEventListener('input', function() {
+        if (this.value.trim()) {
+          this.classList.remove('border-red-500');
+        }
+      });
+      
+      // Handle modal form submission
+      nameModal.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && document.activeElement === modalNameInput) {
+          e.preventDefault();
+          modalConfirmButton.click();
         }
       });
     }
-    
-    // Submit button click handler - show the name modal
-    submitButton.addEventListener('click', function() {
-      // Check if form is valid
-      if (form.checkValidity()) {
-        // Show the name input modal
-        showNameModal();
-      } else {
-        // If form is invalid, trigger HTML5 validation
-        form.reportValidity();
-      }
-    });
-    
-    // Handle modal confirm button click
-    modalConfirmButton.addEventListener('click', function() {
-      if (modalNameInput.value.trim() === '') {
-        modalNameInput.setCustomValidity('Please enter your name');
-        modalNameInput.reportValidity();
-        return;
-      }
-      
-      // Transfer value from modal to hidden input
-      nameInput.value = modalNameInput.value;
-      
-      // Hide the modal
-      hideNameModal();
-      
-      // Update UI to show submission is in progress
-      submitButton.disabled = true;
-      submitButton.classList.add('opacity-75', 'cursor-not-allowed');
-      
-      // Show spinner
-      spinner.classList.remove('hidden');
-      submitButton.querySelector('i:not(#spinner)').classList.add('hidden');
-      
-      // Change text
-      buttonText.textContent = 'Sending...';
-      
-      // Submit the form
-      form.submit();
-    });
-    
-    // Support Enter key in the modal name input
-    modalNameInput.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter' && modalNameInput.value.trim() !== '') {
-        e.preventDefault();
-        modalConfirmButton.click();
-      }
-    });
-    
-    // Reset validation when typing in the name input
-    modalNameInput.addEventListener('input', function() {
-      this.setCustomValidity('');
-    });
-    
-    // Add Alt+Enter or Command+Enter keyboard shortcut to submit form
-    document.addEventListener('keydown', function(e) {
-      // Check if Alt+Enter or Command+Enter was pressed and form is valid
-      if (e.key === 'Enter' && (e.altKey || e.metaKey) && form.checkValidity() && !submitButton.disabled) {
-        e.preventDefault(); // Prevent default behavior
-        
-        // Show the name input modal
-        showNameModal();
-      }
-    });
   });
 </script>
 {% endblock %} 

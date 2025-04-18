@@ -233,6 +233,15 @@ def process_recommendation(slug):
         # Call OpenAI API to extract structured recommendations
         extracted_recommendations = AIService.extract_recommendations(unstructured_recommendations, trip.destination)
         
+        # If no recommendations were extracted, still show the confirmation page with the empty state
+        if not extracted_recommendations or len(extracted_recommendations) == 0:
+            return render_template(
+                'confirm_recommendations.html', 
+                trip=trip, 
+                extracted_recommendations=[],
+                recommender_name=recommender_name
+            )
+        
         # Render confirmation template with extracted recommendations
         return render_template(
             'confirm_recommendations.html', 
