@@ -40,6 +40,40 @@
         </p>
       </div>
     </div>
+    
+    <!-- Form to manually add recommendations when none were detected -->
+    <form method="POST" action="{{ url_for('main.save_recommendations', slug=trip.slug) }}" class="space-y-6" id="recommendations-form">
+      <!-- Hidden recommender name field that will be filled by the modal -->
+      <input type="hidden" id="recommender_name" name="recommender_name" value="{{ recommender_name }}">
+      
+      <!-- Column headers for desktop -->
+      <div class="hidden md:flex md:flex-row gap-4 px-4 mb-2">
+        <div class="md:w-2/5 font-semibold text-gray-700">Recommendation</div>
+        <div class="md:w-3/5 font-semibold text-gray-700">What's special about it?</div>
+      </div>
+      
+      <!-- Recommendations Container -->
+      <div id="recommendations-container" class="space-y-4">
+        <!-- Manual recommendations will be added here via JavaScript -->
+      </div>
+      
+      <!-- Add More Recommendations Button -->
+      <div class="pt-4">
+        <button type="button" id="add-recommendation-button" class="inline-flex items-center justify-center px-4 py-2 border border-blue-600 rounded-md text-blue-600 hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition">
+          <i data-feather="plus" class="h-5 w-5 mr-2"></i>
+          <span>Add a Recommendation</span>
+        </button>
+      </div>
+      
+      <!-- Submit Button -->
+      <div class="pt-6 flex justify-end">
+        <button id="submit-button" type="button" class="inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-sm transition">
+          <span>Send Recommendations</span>
+          <i data-feather="arrow-right" class="h-5 w-5 ml-2"></i>
+          <i data-feather="loader" id="spinner" class="animate-spin h-5 w-5 ml-2 hidden"></i>
+        </button>
+      </div>
+    </form>
   {% else %}
     <form method="POST" action="{{ url_for('main.save_recommendations', slug=trip.slug) }}" class="space-y-6" id="recommendations-form">
       <!-- Hidden recommender name field that will be filled by the modal -->
@@ -68,16 +102,6 @@
               
               <input type="hidden" name="recommendations[]" value="{{ item.name }}">
               <input type="hidden" name="place_types[]" value="{{ item.type }}">
-              <input type="hidden" name="website_urls[]" value="{{ item.website_url }}">
-              
-              {% if item.website_url %}
-              <div class="mb-3">
-                <a href="{{ item.website_url }}" target="_blank" rel="noopener noreferrer" class="flex items-center text-blue-600 hover:text-blue-800 text-sm">
-                  <i data-feather="link" class="w-4 h-4 mr-1"></i>
-                  Website
-                </a>
-              </div>
-              {% endif %}
             </div>
             
             <!-- Description Textarea -->
@@ -103,6 +127,14 @@
           </div>
         </div>
         {% endfor %}
+      </div>
+      
+      <!-- Add More Recommendations Section -->
+      <div class="pt-4">
+        <button type="button" id="add-recommendation-button" class="inline-flex items-center justify-center px-4 py-2 border border-blue-600 rounded-md text-blue-600 hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition">
+          <i data-feather="plus" class="h-5 w-5 mr-2"></i>
+          <span>Add a Recommendation</span>
+        </button>
       </div>
       
       <!-- Submit Button -->
@@ -171,9 +203,46 @@
     </div>
   </div>
 </div>
-{% endblock %}
 
-{% block scripts %}
+<!-- 
+  Share Box Component
+  
+  Required parameters:
+  - title: Title of the share box
+  - description: Description text
+  - share_url: URL to be shared
+  - button_text (optional): Custom text for the copy button
+-->
+
+<div class="share-box mt-6">
+  <h3 class="text-xl font-semibold text-blue-800 mb-3">{{ title }}</h3>
+  <p class="text-gray-700 mb-4">{{ description }}</p>
+  <div class="relative" id="share-container-{{ id|default('default') }}">
+    <input 
+      type="text" 
+      id="share-link-{{ id|default('default') }}" 
+      value="{{ share_url }}" 
+      class="form-input pr-10 bg-white text-gray-800 cursor-pointer"
+      readonly
+    >
+    <button 
+      class="icon-btn absolute inset-y-0 right-0 px-3 flex items-center text-gray-500 hover:text-blue-600"
+      title="Copy to clipboard"
+      id="copy-icon-{{ id|default('default') }}"
+      aria-label="Copy link to clipboard"
+      type="button"
+    >
+      <i data-feather="clipboard" class="h-5 w-5"></i>
+    </button>
+    <div class="copy-feedback absolute inset-0 bg-blue-50 bg-opacity-90 flex items-center justify-center rounded hidden" id="copy-feedback-{{ id|default('default') }}">
+      <span class="text-blue-600 font-medium flex items-center">
+        <i data-feather="check" class="h-5 w-5 mr-2"></i>
+        Copied to clipboard!
+      </span>
+    </div>
+  </div>
+</div>
+
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     // Initialize Feather icons
@@ -182,6 +251,115 @@
     }
     
     const form = document.getElementById('recommendations-form');
+    const addRecommendationButton = document.getElementById('add-recommendation-button');
+    const recommendationsContainer = document.getElementById('recommendations-container');
+    
+    // Counter for new recommendations (used for generating unique IDs)
+    // Calculate starting index based on existing recommendations (if any)
+    const extractedRecommendationsCount = document.querySelectorAll('.recommendation-item').length;
+    let newRecommendationCounter = extractedRecommendationsCount + 1;
+    
+    // Function to add a new recommendation
+    function addNewRecommendation() {
+      const newRecommendationId = `recommendation-${newRecommendationCounter}`;
+      
+      // Create the new recommendation element
+      const newRecommendation = document.createElement('div');
+      newRecommendation.className = 'bg-white rounded-xl p-6 border border-gray-200 shadow-sm transition hover:shadow-md recommendation-item';
+      newRecommendation.id = newRecommendationId;
+      
+      newRecommendation.innerHTML = `
+        <div class="flex flex-col md:flex-row gap-6">
+          <!-- Recommendation Details -->
+          <div class="md:w-2/5">
+            <input 
+              type="text" 
+              class="form-input mb-2 w-full font-medium text-gray-900"
+              name="recommendations[]" 
+              placeholder="Name of place or activity"
+              required
+            >
+            
+            <input 
+              type="text" 
+              class="form-input mb-3 w-full" 
+              name="place_types[]" 
+              placeholder="Type (restaurant, museum, etc.)"
+            >
+          </div>
+          
+          <!-- Description Textarea -->
+          <div class="md:w-3/5 flex flex-col">
+            <!-- Mobile specific label -->
+            <label class="md:hidden text-gray-700 font-medium mb-1 text-sm">Why do you recommend it?</label>
+            <textarea 
+              name="descriptions[]" 
+              class="flex-1 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+              rows="3" 
+              placeholder="What makes this place special? Any tips for {{ trip.traveler_name }}?"
+            ></textarea>
+          </div>
+          
+          <!-- Delete button -->
+          <div class="flex items-start">
+            <button type="button" class="p-2 rounded-full text-red-500 hover:bg-red-50 hover:text-red-700 transition remove-recommendation" 
+                    data-index="${newRecommendationCounter}" aria-label="Remove recommendation">
+              <i data-feather="x" class="h-5 w-5"></i>
+            </button>
+          </div>
+        </div>
+      `;
+      
+      // Add the new recommendation to the container
+      recommendationsContainer.appendChild(newRecommendation);
+      
+      // Initialize Feather icons for the new element
+      if (typeof feather !== 'undefined') {
+        feather.replace();
+      }
+      
+      // Add event listener to the remove button
+      const removeButton = newRecommendation.querySelector('.remove-recommendation');
+      if (removeButton) {
+        removeButton.addEventListener('click', function(e) {
+          e.preventDefault();
+          
+          // Store for potential undo
+          removedItem = newRecommendation.cloneNode(true);
+          removedItemIndex = Array.from(newRecommendation.parentNode.children).indexOf(newRecommendation);
+          
+          // Remove with animation
+          newRecommendation.classList.add('opacity-0', 'transition-opacity', 'duration-300');
+          setTimeout(() => {
+            newRecommendation.remove();
+          }, 300);
+          
+          // Show client flash message with undo option
+          if (typeof showClientFlash === 'function') {
+            showClientFlash();
+          }
+        });
+      }
+      
+      // Focus on the first input of the new recommendation
+      const firstInput = newRecommendation.querySelector('input');
+      if (firstInput) {
+        firstInput.focus();
+      }
+      
+      // Increment the counter for the next recommendation
+      newRecommendationCounter++;
+    }
+    
+    // Add event listener to the "Add a Recommendation" button
+    if (addRecommendationButton) {
+      addRecommendationButton.addEventListener('click', addNewRecommendation);
+    }
+    
+    // If there are no recommendations yet, add one to start
+    if (recommendationsContainer && recommendationsContainer.children.length === 0) {
+      addNewRecommendation();
+    }
     
     // Only initialize form-related functionality if the form exists
     if (form) {
@@ -320,6 +498,11 @@
               });
             });
             
+            // Re-initialize Feather icons
+            if (typeof feather !== 'undefined') {
+              feather.replace();
+            }
+            
             // Hide flash
             clientFlashContainer.classList.add('hidden');
             clearTimeout(fadeOutTimer);
@@ -335,6 +518,16 @@
         if (recommendationsCount === 0) {
           alert('Please add at least one recommendation.');
           return;
+        }
+        
+        // Check if recommendation names are filled out
+        const emptyRecommendations = document.querySelectorAll('input[name="recommendations[]"]');
+        for (let i = 0; i < emptyRecommendations.length; i++) {
+          if (!emptyRecommendations[i].value.trim()) {
+            alert('Please fill out the name for all recommendations.');
+            emptyRecommendations[i].focus();
+            return;
+          }
         }
         
         // If we already have a name, just submit the form
@@ -388,5 +581,103 @@
       });
     }
   });
+
+  // IIFE (Immediately Invoked Function Expression) to prevent global scope pollution
+  (function() {
+    // Wait for page to fully load before attaching event listeners
+    window.addEventListener('load', function() {
+      console.log('Share box loaded: {{ id|default("default") }}');
+      
+      // Get references to elements for this specific share box
+      const shareId = "{{ id|default('default') }}";
+      const input = document.getElementById(`share-link-${shareId}`);
+      const button = document.getElementById(`copy-icon-${shareId}`);
+      const feedbackElement = document.getElementById(`copy-feedback-${shareId}`);
+      
+      // Flag to avoid processing select events we trigger programmatically
+      let isSelectingProgrammatically = false;
+      
+      if (input && button && feedbackElement) {
+        // Function to handle copying and showing feedback
+        const copyToClipboardAndShowFeedback = (source) => {
+          console.log(`Copy function called from: ${source}`);
+          
+          // Mark that we're about to programmatically select text
+          isSelectingProgrammatically = true;
+          
+          // Select the text
+          input.select();
+          console.log('Text selected');
+          
+          const text = input.value;
+          
+          // After a short delay, we can allow select events again
+          setTimeout(() => {
+            isSelectingProgrammatically = false;
+          }, 100);
+          
+          // Use Clipboard API (modern approach)
+          navigator.clipboard.writeText(text).then(() => {
+            console.log('Clipboard API success');
+            
+            // Show feedback
+            feedbackElement.classList.remove('hidden');
+            console.log('Feedback element shown');
+            
+            // Hide feedback after 3 seconds
+            setTimeout(() => {
+              feedbackElement.classList.add('hidden');
+              console.log('Feedback element hidden');
+            }, 3000);
+          }).catch(err => {
+            console.log('Clipboard API failed, using fallback', err);
+            
+            // Fallback to older method for browsers that don't support Clipboard API
+            document.execCommand('copy');
+            
+            // Show feedback
+            feedbackElement.classList.remove('hidden');
+            console.log('Feedback element shown (fallback)');
+            
+            // Hide feedback after 3 seconds
+            setTimeout(() => {
+              feedbackElement.classList.add('hidden');
+              console.log('Feedback element hidden (fallback)');
+            }, 3000);
+          });
+        };
+        
+        // Add click event to the input to select all text and copy to clipboard
+        input.addEventListener('click', function(e) {
+          console.log('Input clicked');
+          // Prevent event propagation to avoid duplicate events
+          e.preventDefault();
+          e.stopPropagation();
+          
+          copyToClipboardAndShowFeedback('input click');
+        });
+        
+        // Monitor for select events, but ignore the ones we trigger ourselves
+        input.addEventListener('select', function(e) {
+          console.log('Input select event triggered, programmatic:', isSelectingProgrammatically);
+          
+          // If this select event wasn't triggered by our code, ignore it
+          if (!isSelectingProgrammatically) {
+            // Just log it, don't take any action
+            console.log('Ignoring user-initiated select event');
+          }
+        });
+        
+        // Add click event to the button to copy the text
+        button.addEventListener('click', function(e) {
+          console.log('Button clicked');
+          e.preventDefault();
+          e.stopPropagation();
+          
+          copyToClipboardAndShowFeedback('button click');
+        });
+      }
+    });
+  })();
 </script>
 {% endblock %} 
