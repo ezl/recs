@@ -1,127 +1,129 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recommend Places for {{ trip.traveler_name }}'s Trip to {{ trip.destination }} | Recs</title>
+{% extends "base.html" %}
+
+{% block title %}Recommend Places for {{ trip.traveler_name }}'s Trip to {{ trip.destination }} | Recs{% endblock %}
+
+{% block head_extras %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/pages/recommendations.css') }}">
+<style>
+    /* Ensure the audio container is fully hidden */
+    #audio-input-container {
+        display: none !important;
+    }
     
-    <!-- Tailwind CSS 4 via CDN -->
-    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
+    /* Only show audio container when explicitly toggled */
+    #audio-input-container.show-audio {
+        display: flex !important;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-10">
+    <div class="flex items-center justify-between mb-8">
+        <h1 class="page-title text-left">
+            {{ trip.traveler_name }} is going to {{ trip.destination }}. Where should they go?
+            <button type="button" id="toggle-input-btn" class="inline-flex items-center px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm font-medium hover:bg-blue-200 transition">
+                <span id="text-mode-label" class="hidden">Type instead</span>
+                <span id="audio-mode-label">Speak instead</span>
+            </button>
+        </h1>
+    </div>
     
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/components/recording.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/pages/recommendations.css') }}">
+    <!-- Hidden data elements for JS -->
+    <div id="trip-data" data-slug="{{ trip.slug }}" class="hidden"></div>
+    <div id="destination-data" data-destination="{{ trip.destination }}" class="hidden"></div>
     
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-</head>
-<body class="min-h-screen bg-gray-50 text-gray-800 recommendation-page">
-    <main>
-        <div class="flex flex-col h-screen">
-            <div class="flex-grow flex flex-col px-4 pt-10 pb-24 w-full">
-                <div class="recommendation-container">
-                    <div class="flex items-center justify-between mb-8">
-                        <h1 class="text-3xl font-semibold text-gray-900 text-left">
-                            {{ trip.traveler_name }} is going to {{ trip.destination }}. Where should they go?
-                            <button type="button" id="toggle-input-btn" class="px-3 py-1 text-sm bg-blue-100 text-blue-600 rounded-md hover:bg-blue-200 transition whitespace-nowrap">
-                                <span id="text-mode-label" class="hidden">Type instead</span>
-                                <span id="audio-mode-label">Speak instead</span>
-                            </button>
-                        </h1>
-                    </div>
-                    
-                    <!-- Hidden data elements for JS -->
-                    <div id="trip-data" data-slug="{{ trip.slug }}" class="hidden"></div>
-                    <div id="destination-data" data-destination="{{ trip.destination }}" class="hidden"></div>
-                    
-                    <form id="step1-form" method="POST" action="{{ url_for('main.process_recommendation', slug=trip.slug) }}" class="w-full">
-                        <div class="w-full">
-                            <div id="text-input-container">
-                                <textarea 
-                                    name="unstructured_recommendations" 
-                                    id="text-recommendations"
-                                    class="w-full h-64 p-4 -ml-4 text-gray-700 text-lg border-0 focus:ring-0 focus:outline-none resize-none bg-gray-50" 
-                                    placeholder="Start typing your recommendations here..."
-                                    autofocus
-                                ></textarea>
-                            </div>
-                            
-                            <div id="audio-input-container" class="hidden audio-input-container">
-                                <input type="hidden" id="audio-recommendations" name="audio_recommendations">
-                                
-                                <div id="audio-controls" class="flex flex-col items-center">
-                                    <div class="mic-animation mb-8 relative">
-                                        <button type="button" id="record-btn" class="flex items-center justify-center w-20 h-20 bg-red-500 hover:bg-red-600 text-white rounded-full focus:outline-none transition-colors relative z-10">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
-                                            </svg>
-                                        </button>
-                                        <div class="mic-waves hidden">
-                                            <div class="mic-wave-1"></div>
-                                            <div class="mic-wave-2"></div>
-                                            <div class="mic-wave-3"></div>
-                                        </div>
-                                    </div>
-                                    <span id="recording-status" class="text-gray-700">Recording... Press button to finish.</span>
-                                </div>
-                                
-                                <div id="recording-time" class="mt-6">
-                                    <span id="minutes">00</span>:<span id="seconds">00</span>
-                                </div>
-                                
-                                <div id="audio-player-container" class="hidden">
-                                    <audio id="audio-playback" controls class="w-full"></audio>
-                                </div>
-                                
-                                <div id="transcription-status" class="mt-4 hidden">
-                                    <div class="flex items-center">
-                                        <svg class="animate-spin -ml-1 mr-2 h-5 w-5 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                        </svg>
-                                        <span>Converting your audio to recommendations...</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+    <form id="step1-form" method="POST" action="{{ url_for('main.process_recommendation', slug=trip.slug) }}" class="w-full">
+        <div class="w-full">
+            <div id="text-input-container">
+                <textarea 
+                    name="unstructured_recommendations" 
+                    id="text-recommendations"
+                    class="w-full -mx-4 h-64 text-gray-700 text-lg border-0 focus:ring-0 focus:outline-none resize-none bg-gray-50" 
+                    placeholder="Start typing your recommendations here..."
+                    autofocus
+                    style="width: calc(100% + 2rem);"
+                ></textarea>
             </div>
             
-            <!-- Fixed Footer -->
-            <div id="footer" class="recommendation-footer">
-                <div class="recommendation-container flex justify-between items-center">
-                    <p class="text-gray-500 text-sm italic px-4">Don't worry about structure or spelling or anything, just be freeform and we'll help tidy it up later!</p>
-                    <button id="submit-button" type="submit" form="step1-form" class="px-6 py-3 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition flex items-center" disabled>
-                        <span>Continue</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-                        </svg>
-                        <svg id="spinner" class="animate-spin h-5 w-5 ml-2 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <div id="audio-input-container" class="audio-input-container">
+                <input type="hidden" id="audio-recommendations" name="audio_recommendations">
+                
+                <div id="audio-controls" class="flex flex-col items-center">
+                    <div class="mic-animation mb-8 relative">
+                        <button type="button" id="record-btn" class="flex items-center justify-center w-20 h-20 bg-red-500 hover:bg-red-600 text-white rounded-full focus:outline-none transition-colors relative z-10">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+                            </svg>
+                        </button>
+                        <div class="mic-waves hidden">
+                            <div class="mic-wave-1"></div>
+                            <div class="mic-wave-2"></div>
+                            <div class="mic-wave-3"></div>
+                        </div>
+                    </div>
+                    <span id="recording-status" class="text-gray-700 hidden">Recording... Press button to finish.</span>
+                </div>
+                
+                <div id="recording-time" class="mt-6 text-center">
+                    <span id="minutes">00</span>:<span id="seconds">00</span>
+                </div>
+                
+                <div id="audio-player-container" class="hidden mt-4">
+                    <audio id="audio-playback" controls class="w-full"></audio>
+                </div>
+                
+                <div id="transcription-status" class="mt-4 hidden">
+                    <div class="flex items-center">
+                        <svg class="animate-spin -ml-1 mr-2 h-5 w-5 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                         </svg>
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Error Message Toast -->
-            <div id="error-toast" class="error-message-toast hidden">
-                <div class="bg-red-50 border border-red-200 text-red-700 px-6 py-3 rounded-lg shadow-md flex items-center max-w-md error-toast">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-red-500" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
-                    </svg>
-                    <span id="error-message">There was an error processing your audio</span>
+                        <span>Converting your audio to recommendations...</span>
+                    </div>
                 </div>
             </div>
         </div>
-    </main>
+    </form>
+</div>
 
-    <!-- Custom JavaScript -->
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/pages/add_recommendation.js') }}"></script>
-</body>
-</html> 
+<!-- Fixed Footer -->
+<div id="footer" class="recommendation-footer">
+    <div class="container mx-auto px-4 flex justify-end items-center">
+        <button id="submit-button" type="submit" form="step1-form" class="btn btn-primary" disabled>
+            <span>Continue</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+            <svg id="spinner" class="animate-spin h-5 w-5 ml-2 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+        </button>
+    </div>
+</div>
+
+<!-- Error Message Toast -->
+<div id="error-toast" class="toast toast-error hidden">
+    <div class="error-toast">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-red-500" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+        </svg>
+        <span id="error-message">There was an error processing your audio</span>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/pages/add_recommendation.js') }}"></script>
+<script>
+// Ensure audio container is hidden on page load
+document.addEventListener('DOMContentLoaded', function() {
+    // Force hide audio container
+    var audioContainer = document.getElementById('audio-input-container');
+    if (audioContainer) {
+        audioContainer.style.display = 'none';
+    }
+});
+</script>
+{% endblock %} 

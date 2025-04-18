@@ -3,20 +3,19 @@
 {% block title %}Get Trip Recommendations From Friends | Recs{% endblock %}
 
 {% block content %}
-<div class="max-w-3xl mx-auto px-4 py-16">
+<div class="container mx-auto px-4 py-16">
   <div class="text-center mb-12">
     <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-      Get Recommendations From Your Friends When You're Going Somewhere
+      Going On A Trip?
     </h1>
     <p class="text-lg text-gray-600 mb-8">
-      Going on a trip? Get personalized recommendations from the people who know you best - your friends. 
-      No account needed, just enter your destination and share the link.
+      Get personalized recommendations from the people who know you best - your friends.
     </p>
   </div>
   
-  <div class="bg-white rounded-lg shadow-md p-8 border border-gray-200">
+  <div class="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
     <form action="{{ url_for('main.create_trip') }}" method="POST" class="space-y-6">
-      <div>
+      <div class="mb-4">
         <label for="name" class="block text-gray-700 font-medium mb-2">Your Name</label>
         <input 
           type="text" 
@@ -28,7 +27,7 @@
         >
       </div>
       
-      <div>
+      <div class="mb-4">
         <label for="destination" class="block text-gray-700 font-medium mb-2">Where are you going?</label>
         <input 
           type="text" 
@@ -41,7 +40,7 @@
       </div>
       
       <div class="flex justify-center">
-        <button type="submit" class="px-6 py-3 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition">
+        <button type="submit" class="inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition">
           Get Recommendations
         </button>
       </div>

@@ -109,17 +109,29 @@ document.addEventListener('DOMContentLoaded', function() {
         audioMode = !audioMode;
         
         if (audioMode) {
+            // Switch to audio mode
             textInputContainer.classList.add('hidden');
-            audioInputContainer.classList.remove('hidden');
+            audioInputContainer.style.display = 'flex';
+            audioInputContainer.classList.add('show-audio');
             textModeLabel.classList.remove('hidden');
             audioModeLabel.classList.add('hidden');
             footer.classList.add('hidden');
             
+            // Reset audio UI
+            recordingStatus.classList.add('hidden');
+            recordBtn.classList.remove('recording');
+            micWaves.classList.add('hidden');
+            audioPlayerContainer.classList.add('hidden');
+            
             // Automatically start recording
-            startRecording();
+            setTimeout(() => {
+                startRecording();
+            }, 300);
         } else {
+            // Switch to text mode
             textInputContainer.classList.remove('hidden');
-            audioInputContainer.classList.add('hidden');
+            audioInputContainer.style.display = 'none';
+            audioInputContainer.classList.remove('show-audio');
             textModeLabel.classList.add('hidden');
             audioModeLabel.classList.remove('hidden');
             footer.classList.remove('hidden');
@@ -128,6 +140,11 @@ document.addEventListener('DOMContentLoaded', function() {
             if (recording) {
                 stopRecording();
             }
+            
+            // Focus the text input
+            setTimeout(() => {
+                textRecommendations.focus();
+            }, 100);
         }
         
         updateSubmitButton();
@@ -157,6 +174,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Update UI
             recordBtn.classList.add('recording');
             micWaves.classList.remove('hidden');
+            recordingStatus.classList.remove('hidden');
             recordingStatus.textContent = 'Recording... Press button to finish.';
             
             // Hide player and reset if there was a previous recording
@@ -175,9 +193,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Create audio blob
                 blob = new Blob(audioChunks, { type: 'audio/webm' });
                 
-                // Create URL for playback (still needed for submission but not shown)
+                // Create URL for playback
                 const audioURL = URL.createObjectURL(blob);
                 audioPlayback.src = audioURL;
+                
+                // Show audio player
+                audioPlayerContainer.classList.remove('hidden');
                 
                 // Process for transcription
                 processAudioForTranscription(blob);

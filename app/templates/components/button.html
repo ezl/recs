@@ -1,0 +1,61 @@
+<!--
+  Button Component
+  
+  Required parameters:
+  - text: Button text
+  
+  Optional parameters:
+  - type: "submit", "button", "reset" (default: "button")
+  - style: "primary", "secondary", "small" (default: "primary")
+  - href: If provided, renders as <a> instead of <button>
+  - id: Button ID attribute
+  - form: Form ID to associate with
+  - icon_right: Include right icon (true/false)
+  - icon_left: Include left icon (true/false)
+  - classes: Additional CSS classes
+  - disabled: Whether the button is disabled (true/false)
+  - data_attrs: Dictionary of data attributes
+-->
+
+{% if href %}
+  <a 
+    href="{{ href }}" 
+    id="{{ id }}" 
+    class="btn btn-{{ style|default('primary') }} {{ 'btn-small' if style == 'small' }} {{ classes }}"
+    {% if target %}target="{{ target }}"{% endif %}
+    {% if data_attrs %}{% for key, value in data_attrs.items() %}data-{{ key }}="{{ value }}"{% endfor %}{% endif %}
+  >
+    {% if icon_left %}
+      <svg class="w-5 h-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ icon_path_left }}" />
+      </svg>
+    {% endif %}
+    {{ text }}
+    {% if icon_right %}
+      <svg class="w-5 h-5 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ icon_path_right }}" />
+      </svg>
+    {% endif %}
+  </a>
+{% else %}
+  <button 
+    type="{{ type|default('button') }}" 
+    id="{{ id }}" 
+    class="btn btn-{{ style|default('primary') }} {{ 'btn-small' if style == 'small' }} {{ classes }}" 
+    {% if form %}form="{{ form }}"{% endif %}
+    {% if disabled %}disabled{% endif %}
+    {% if data_attrs %}{% for key, value in data_attrs.items() %}data-{{ key }}="{{ value }}"{% endfor %}{% endif %}
+  >
+    {% if icon_left %}
+      <svg class="w-5 h-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ icon_path_left }}" />
+      </svg>
+    {% endif %}
+    {{ text }}
+    {% if icon_right %}
+      <svg class="w-5 h-5 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ icon_path_right }}" />
+      </svg>
+    {% endif %}
+  </button>
+{% endif %} 

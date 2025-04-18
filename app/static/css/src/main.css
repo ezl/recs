@@ -1,0 +1,310 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Microphone animation styles */
+@layer components {
+  .mic-animation {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .mic-waves {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .mic-wave-1,
+  .mic-wave-2,
+  .mic-wave-3 {
+    position: absolute;
+    border-radius: 50%;
+    background-color: rgba(239, 68, 68, 0.3); /* red-500 with opacity */
+    animation: mic-wave 2s infinite ease-out;
+  }
+
+  .mic-wave-1 {
+    width: 130px;
+    height: 130px;
+    animation-delay: 0s;
+  }
+
+  .mic-wave-2 {
+    width: 110px;
+    height: 110px;
+    animation-delay: 0.3s;
+  }
+
+  .mic-wave-3 {
+    width: 90px;
+    height: 90px;
+    animation-delay: 0.6s;
+  }
+
+  @keyframes mic-wave {
+    0% {
+      transform: scale(0.5);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1.2);
+      opacity: 0;
+    }
+  }
+
+  /* Audio recording container */
+  .audio-input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+    margin-top: 30px;
+    background-color: #f9fafb;
+    border-radius: 0.5rem;
+    padding: 1rem;
+  }
+
+  /* Recording button styles */
+  #record-btn.recording {
+    animation: pulse 2s infinite;
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7);
+  }
+
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7);
+    }
+    
+    70% {
+      transform: scale(1.1);
+      box-shadow: 0 0 0 15px rgba(220, 38, 38, 0);
+    }
+    
+    100% {
+      transform: scale(1);
+      box-shadow: 0 0 0 0 rgba(220, 38, 38, 0);
+    }
+  }
+}
+
+/* Import page-specific styles */
+@import 'pages/recommendations.css';
+
+@layer components {
+  /* ==========================================================================
+     BASE COMPONENTS AND UTILITIES
+     ========================================================================== */
+
+  /* Containers */
+  .page-container {
+    @apply container mx-auto px-4 py-8;
+  }
+
+  .section-container {
+    @apply w-full py-6;
+  }
+
+  /* ==========================================================================
+     CARD COMPONENTS
+     ========================================================================== */
+
+  .card {
+    @apply bg-white rounded-lg p-6 border border-gray-200 shadow-sm transition duration-200;
+  }
+
+  .card-hover:hover {
+    @apply shadow-md border-gray-300;
+  }
+
+  .card-header {
+    @apply border-b border-gray-100 pb-4 mb-4;
+  }
+
+  .card-body {
+    @apply py-2;
+  }
+
+  .card-footer {
+    @apply border-t border-gray-100 pt-4 mt-4;
+  }
+
+  /* ==========================================================================
+     BUTTON COMPONENTS
+     ========================================================================== */
+
+  .btn {
+    @apply inline-flex items-center justify-center font-medium rounded-md transition focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+
+  .btn-primary {
+    @apply px-6 py-3 bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 bg-white text-blue-600 border border-blue-600 hover:bg-blue-50 focus:ring-blue-500;
+  }
+
+  .btn-small {
+    @apply px-4 py-2 text-sm;
+  }
+
+  .btn-icon {
+    @apply p-2 inline-flex items-center justify-center;
+  }
+
+  .icon-btn {
+    @apply p-2 rounded-md hover:bg-gray-100 transition;
+  }
+
+  .icon-btn-rounded {
+    @apply p-2 rounded-full hover:bg-gray-100 transition;
+  }
+
+  /* ==========================================================================
+     FORM COMPONENTS
+     ========================================================================== */
+
+  .form-group {
+    @apply mb-4;
+  }
+
+  .form-input {
+    @apply w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500;
+  }
+
+  .form-textarea {
+    @apply w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500;
+  }
+
+  .form-label {
+    @apply block text-gray-700 font-medium mb-2;
+  }
+
+  .form-error {
+    @apply mt-1 text-sm text-red-600;
+  }
+
+  /* ==========================================================================
+     TYPOGRAPHY COMPONENTS
+     ========================================================================== */
+
+  .page-title {
+    @apply text-2xl md:text-3xl font-semibold text-gray-900 mb-6;
+  }
+
+  .section-title {
+    @apply text-2xl font-bold text-gray-900 mb-6;
+  }
+
+  .subtitle {
+    @apply text-lg font-medium text-gray-700 mb-4;
+  }
+
+  /* ==========================================================================
+     BADGE COMPONENTS
+     ========================================================================== */
+
+  .badge {
+    @apply px-3 py-1 rounded-full text-sm;
+  }
+
+  .badge-blue {
+    @apply bg-blue-100 text-blue-800;
+  }
+
+  .badge-green {
+    @apply bg-green-100 text-green-800;
+  }
+
+  .badge-red {
+    @apply bg-red-100 text-red-800;
+  }
+
+  .badge-gray {
+    @apply bg-gray-100 text-gray-800;
+  }
+
+  .badge-yellow {
+    @apply bg-yellow-100 text-yellow-800;
+  }
+
+  /* ==========================================================================
+     LINK COMPONENTS
+     ========================================================================== */
+
+  .link {
+    @apply text-blue-600 hover:text-blue-800 transition;
+  }
+
+  .link-underline {
+    @apply text-blue-600 hover:text-blue-800 hover:underline transition;
+  }
+
+  .link-icon {
+    @apply flex items-center text-blue-600 hover:text-blue-800 transition;
+  }
+
+  /* ==========================================================================
+     TOAST/ALERT COMPONENTS
+     ========================================================================== */
+
+  .toast {
+    @apply p-4 rounded-lg shadow-md flex items-center;
+  }
+
+  .toast-success {
+    @apply bg-green-50 border border-green-200 text-green-700;
+  }
+
+  .toast-error {
+    @apply bg-red-50 border border-red-200 text-red-700;
+  }
+
+  .toast-info {
+    @apply bg-blue-50 border border-blue-200 text-blue-700;
+  }
+
+  /* ==========================================================================
+     SHARE BOX COMPONENT
+     ========================================================================== */
+
+  .share-box {
+    @apply bg-blue-50 p-6 rounded-lg border border-blue-200 shadow-sm;
+  }
+}
+
+@layer utilities {
+  /* ==========================================================================
+     UTILITY CLASSES
+     ========================================================================== */
+
+  .text-truncate {
+    @apply overflow-hidden whitespace-nowrap text-ellipsis;
+  }
+}
+
+/* Animation for copy feedback */
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.copy-feedback {
+  animation: fadeIn 0.3s, fadeOut 0.3s 1.7s;
+} 

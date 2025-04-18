@@ -24,6 +24,7 @@ wheels/
 venv/
 env/
 ENV/
+.venv/
 
 # Flask
 instance/
@@ -50,4 +51,20 @@ migrations/versions/__pycache__/
 
 # OS
 .DS_Store
-Thumbs.db 
+Thumbs.db
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm/
+.yarn/
+.pnp.*
+.cache/
+coverage/
+package-lock.json
+yarn.lock
+
+# Build outputs
+app/static/css/tailwind.css 

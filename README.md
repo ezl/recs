@@ -54,6 +54,61 @@ A modern web application starter template using Flask, Tailwind CSS, and SQLAlch
    python run.py
    ```
 
+## CSS and Styling
+
+This project uses Tailwind CSS with a build process for optimal performance and custom component support.
+
+### CSS Structure
+
+- Source CSS files are in `app/static/css/src/`
+- `main.css` is the entry point that imports Tailwind and defines custom components
+- Custom components and utilities use Tailwind's `@apply` directive
+- Compiled CSS is output to `app/static/css/tailwind.css`
+
+### How to Modify CSS
+
+1. Edit the files in `app/static/css/src/` directory
+2. Custom components should be added in the `@layer components {}` section
+3. Custom utilities should be added in the `@layer utilities {}` section
+4. Build the CSS after making changes (see below)
+
+### Building CSS
+
+CSS is automatically built when you run the Flask application in development mode.
+
+**To manually rebuild CSS:**
+
+```bash
+# Using npm script
+npm run build-tailwind
+
+# OR using direct path
+./node_modules/.bin/tailwindcss -i app/static/css/src/main.css -o app/static/css/tailwind.css
+```
+
+**To watch for CSS changes:**
+
+```bash
+./node_modules/.bin/tailwindcss -i app/static/css/src/main.css -o app/static/css/tailwind.css --watch
+```
+
+### Adding Tailwind Plugins
+
+1. Install the plugin via npm:
+   ```bash
+   npm install -D @tailwindcss/forms
+   ```
+
+2. Add it to `tailwind.config.js`:
+   ```javascript
+   plugins: [
+     require('@tailwindcss/forms'),
+     // other plugins...
+   ]
+   ```
+
+3. Rebuild CSS to apply changes.
+
 ## Project Structure
 
 ```

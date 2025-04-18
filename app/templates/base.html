@@ -5,16 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Recs | Get Travel Recommendations{% endblock %}</title>
     
-    <!-- Tailwind CSS 4 via CDN -->
-    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
-    
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Compiled Tailwind CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tailwind.css') }}">
     
     <style>
         body {
@@ -25,8 +22,12 @@
     {% block head_extras %}{% endblock %}
 </head>
 <body class="min-h-screen bg-gray-50 text-gray-800">
+    {% set hide_nav_footer = request.endpoint in ['main.add_recommendation', 'main.process_recommendation', 'main.process_audio_recommendation', 'main.confirm_audio_recommendations', 'main.save_recommendations', 'main.confirm_recommendations'] %}
+    
     <!-- Navigation -->
-    {% include 'components/navbar.html' %}
+    {% if not hide_nav_footer %}
+        {% include 'components/navbar.html' %}
+    {% endif %}
 
     <main class="pt-6">
         <!-- Flash messages -->
@@ -35,6 +36,7 @@
         {% block content %}{% endblock %}
     </main>
 
+    {% if not hide_nav_footer %}
     <footer class="bg-gray-100 text-gray-600 py-8 mt-10 border-t border-gray-200">
         <div class="container mx-auto px-4">
             <div class="grid md:grid-cols-4 gap-8 mb-8">
@@ -45,25 +47,25 @@
                 <div>
                     <h4 class="text-gray-800 font-semibold mb-4">Features</h4>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="#" class="hover:text-blue-600 transition">How It Works</a></li>
-                        <li><a href="#" class="hover:text-blue-600 transition">Popular Cities</a></li>
-                        <li><a href="#" class="hover:text-blue-600 transition">Share with Friends</a></li>
+                        <li><a href="#" class="link">How It Works</a></li>
+                        <li><a href="#" class="link">Popular Cities</a></li>
+                        <li><a href="#" class="link">Share with Friends</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="text-gray-800 font-semibold mb-4">Resources</h4>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="#" class="hover:text-blue-600 transition">Travel Guides</a></li>
-                        <li><a href="#" class="hover:text-blue-600 transition">Support</a></li>
-                        <li><a href="#" class="hover:text-blue-600 transition">Blog</a></li>
+                        <li><a href="#" class="link">Travel Guides</a></li>
+                        <li><a href="#" class="link">Support</a></li>
+                        <li><a href="#" class="link">Blog</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="text-gray-800 font-semibold mb-4">Company</h4>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="#" class="hover:text-blue-600 transition">About</a></li>
-                        <li><a href="#" class="hover:text-blue-600 transition">Contact</a></li>
-                        <li><a href="#" class="hover:text-blue-600 transition">Privacy</a></li>
+                        <li><a href="#" class="link">About</a></li>
+                        <li><a href="#" class="link">Contact</a></li>
+                        <li><a href="#" class="link">Privacy</a></li>
                     </ul>
                 </div>
             </div>
@@ -72,6 +74,7 @@
             </div>
         </div>
     </footer>
+    {% endif %}
 
     <!-- Custom JavaScript -->
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>

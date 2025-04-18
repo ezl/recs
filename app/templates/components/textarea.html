@@ -1,0 +1,48 @@
+<!--
+  Textarea Component
+  
+  Required parameters:
+  - id: Textarea ID and name attribute
+  - label: Textarea label text
+  
+  Optional parameters:
+  - value: Textarea initial value
+  - placeholder: Placeholder text
+  - required: Whether the textarea is required (true/false)
+  - disabled: Whether the textarea is disabled (true/false)
+  - classes: Additional CSS classes
+  - error: Error message to display
+  - help_text: Help text to display below the textarea
+  - readonly: Whether the textarea is readonly (true/false)
+  - rows: Number of rows (default: 4)
+  - data_attrs: Dictionary of data attributes
+-->
+
+<div class="form-group">
+  {% if label %}
+    <label for="{{ id }}" class="form-label">
+      {{ label }}
+      {% if required %}<span class="text-red-500">*</span>{% endif %}
+    </label>
+  {% endif %}
+  
+  <textarea 
+    id="{{ id }}" 
+    name="{{ id }}" 
+    class="form-textarea {{ classes }} {{ 'border-red-500' if error }}"
+    placeholder="{{ placeholder }}"
+    rows="{{ rows|default(4) }}"
+    {% if required %}required{% endif %}
+    {% if disabled %}disabled{% endif %}
+    {% if readonly %}readonly{% endif %}
+    {% if data_attrs %}{% for key, value in data_attrs.items() %}data-{{ key }}="{{ value }}"{% endfor %}{% endif %}
+  >{{ value }}</textarea>
+  
+  {% if error %}
+    <p class="form-error">{{ error }}</p>
+  {% endif %}
+  
+  {% if help_text %}
+    <p class="text-gray-500 text-sm mt-1">{{ help_text }}</p>
+  {% endif %}
+</div> 

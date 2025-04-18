@@ -4,7 +4,9 @@
   "description": "A modern web application starter template with Flask, Tailwind CSS, and SQLAlchemy",
   "main": "index.js",
   "scripts": {
-    "dev": "python run.py"
+    "dev": "python run.py",
+    "build-css": "tailwindcss -i app/static/css/src/main.css -o app/static/css/tailwind.css",
+    "build-tailwind": "npx tailwindcss -i app/static/css/src/main.css -o app/static/css/tailwind.css"
   },
   "keywords": [
     "flask",
@@ -14,5 +16,23 @@
     "template"
   ],
   "author": "",
-  "license": "MIT"
-} 
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ezl/cursor-starter-app.git"
+  },
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ezl/cursor-starter-app/issues"
+  },
+  "homepage": "https://github.com/ezl/cursor-starter-app#readme",
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "concurrently": "^8.2.2",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^3.4.17"
+  },
+  "dependencies": {
+    "@tailwindcss/forms": "^0.5.10"
+  }
+}

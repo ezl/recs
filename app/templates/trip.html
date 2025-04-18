@@ -2,58 +2,46 @@
 
 {% block title %}Recommendations for {{ trip.traveler_name }}'s Trip to {{ trip.destination }} | Recs{% endblock %}
 
+{% block head_extras %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/pages/recommendations.css') }}">
+{% endblock %}
+
 {% block content %}
-<div class="max-w-5xl mx-auto px-4 py-10">
+<div class="page-container py-10">
   <div class="mb-10">
-    <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-      {{ trip.traveler_name }} is going to {{ trip.destination }}!
+    <h1 class="page-title">
+      {{ trip.traveler_name }}, you're going to {{ trip.destination }}!
     </h1>
     
-    <!-- Share box with updated design -->
-    <div class="mt-6 bg-blue-50 p-6 rounded-lg border border-blue-200 shadow-sm">
-      <h3 class="text-xl font-semibold text-blue-800 mb-3">Ask your friends</h3>
-      <p class="text-gray-700 mb-4">
-        Send this link to friends to collect their recommendations on Place!
-      </p>
-      <div class="relative">
-        <input 
-          type="text" 
-          id="share-link" 
-          value="{{ url_for('main.add_recommendation', slug=trip.slug, _external=True) }}" 
-          class="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md bg-white text-gray-800"
-          readonly
-        >
-        <button 
-          onclick="copyToClipboard('share-link')" 
-          class="absolute inset-y-0 right-0 px-3 flex items-center text-gray-500 hover:text-blue-600 transition-colors"
-          title="Copy to clipboard"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
-          </svg>
-        </button>
-      </div>
-    </div>
+    <!-- Include share box component -->
+    {% with 
+      id = trip.id, 
+      title = "Ask your friends", 
+      description = "Send this link to your friends or post it on social media to get recommendations!", 
+      share_url = url_for('main.add_recommendation', slug=trip.slug, _external=True) 
+    %}
+      {% include 'components/share_box.html' %}
+    {% endwith %}
   </div>
 
   {% if trip.recommendations %}
     <div class="mb-8">
-      <h2 class="text-2xl font-bold text-gray-900 mb-6">
+      <h2 class="section-title">
         Recommendations for {{ trip.traveler_name }} ({{ trip.recommendations|length }})
       </h2>
       
       <div class="grid md:grid-cols-2 gap-6">
         {% for rec in trip.recommendations %}
-          <div class="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
+          <div class="card card-hover">
             <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ rec.activity.name }}</h3>
             
             <div class="flex flex-wrap items-center gap-3 mb-3">
               {% if rec.activity.category %}
-                <span class="text-blue-600 text-sm uppercase tracking-wider font-medium">{{ rec.activity.category }}</span>
+                <span class="badge badge-blue">{{ rec.activity.category }}</span>
               {% endif %}
               
               {% if rec.activity.website_url %}
-                <a href="{{ rec.activity.website_url }}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline text-sm flex items-center">
+                <a href="{{ rec.activity.website_url }}" target="_blank" rel="noopener noreferrer" class="link-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-1">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
                   </svg>
@@ -81,13 +69,13 @@
       </div>
     </div>
   {% else %}
-    <div class="mb-8 bg-gray-50 rounded-lg p-8 border border-gray-200 text-center">
+    <div class="card mb-8 bg-gray-50 text-center">
       <h2 class="text-xl font-semibold text-gray-700 mb-3">No recommendations yet</h2>
     </div>
   {% endif %}
   
-  <div class="mt-12 bg-gray-50 p-6 rounded-lg border border-gray-200">
-    <h3 class="text-lg font-semibold text-gray-800 mb-3">How it works</h3>
+  <div class="card mt-12 bg-gray-50">
+    <h3 class="subtitle">How it works</h3>
     <ol class="list-decimal list-inside space-y-3 text-gray-700">
       <li>Add your favorite places, activities, or experiences in {{ trip.destination }}</li>
       <li>Include links to websites, reviews, or booking pages</li>
@@ -96,36 +84,4 @@
     </ol>
   </div>
 </div>
-{% endblock %}
-
-{% block scripts %}
-<script>
-  function copyToClipboard(elementId) {
-    const element = document.getElementById(elementId);
-    const text = element.value;
-    
-    // Use Clipboard API (modern approach)
-    navigator.clipboard.writeText(text).then(() => {
-      // Show copied feedback
-      const button = document.querySelector('[onclick="copyToClipboard(\'share-link\')"]');
-      button.classList.add('text-green-600');
-      
-      setTimeout(() => {
-        button.classList.remove('text-green-600');
-      }, 2000);
-    }).catch(err => {
-      // Fallback to older method for browsers that don't support Clipboard API
-      element.select();
-      document.execCommand('copy');
-      
-      // Show copied feedback
-      const button = document.querySelector('[onclick="copyToClipboard(\'share-link\')"]');
-      button.classList.add('text-green-600');
-      
-      setTimeout(() => {
-        button.classList.remove('text-green-600');
-      }, 2000);
-    });
-  }
-</script>
 {% endblock %} 

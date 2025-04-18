@@ -1,0 +1,65 @@
+<!-- 
+  Share Box Component
+  
+  Required parameters:
+  - title: Title of the share box
+  - description: Description text
+  - share_url: URL to be shared
+  - button_text (optional): Custom text for the copy button
+-->
+
+<div class="share-box mt-6">
+  <h3 class="text-xl font-semibold text-blue-800 mb-3">{{ title }}</h3>
+  <p class="text-gray-700 mb-4">{{ description }}</p>
+  <div class="relative">
+    <input 
+      type="text" 
+      id="share-link-{{ id|default('default') }}" 
+      value="{{ share_url }}" 
+      class="form-input pr-10 bg-white text-gray-800"
+      readonly
+    >
+    <button 
+      onclick="copyToClipboard('share-link-{{ id|default('default') }}')" 
+      class="icon-btn absolute inset-y-0 right-0 px-3 flex items-center text-gray-500 hover:text-blue-600"
+      title="Copy to clipboard"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+      </svg>
+    </button>
+  </div>
+</div>
+
+<script>
+  // Only add this script if it hasn't been added yet
+  if (typeof window.copyToClipboard !== 'function') {
+    window.copyToClipboard = function(elementId) {
+      const element = document.getElementById(elementId);
+      const text = element.value;
+      
+      // Use Clipboard API (modern approach)
+      navigator.clipboard.writeText(text).then(() => {
+        // Show copied feedback
+        const button = document.querySelector(`[onclick="copyToClipboard('${elementId}')"]`);
+        button.classList.add('text-green-600');
+        
+        setTimeout(() => {
+          button.classList.remove('text-green-600');
+        }, 2000);
+      }).catch(err => {
+        // Fallback to older method for browsers that don't support Clipboard API
+        element.select();
+        document.execCommand('copy');
+        
+        // Show copied feedback
+        const button = document.querySelector(`[onclick="copyToClipboard('${elementId}')"]`);
+        button.classList.add('text-green-600');
+        
+        setTimeout(() => {
+          button.classList.remove('text-green-600');
+        }, 2000);
+      });
+    };
+  }
+</script> 
