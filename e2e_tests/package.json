@@ -1,0 +1,16 @@
+{
+  "name": "recs-e2e-tests",
+  "version": "1.0.0",
+  "description": "End-to-end tests for the Recs application",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "@types/node": "^22.14.1",
+    "playwright": "^1.40.0",
+    "typescript": "^5.8.3"
+  }
+}
