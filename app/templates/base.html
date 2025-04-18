@@ -20,6 +20,21 @@
         body {
             font-family: 'Inter', sans-serif;
         }
+        .content-container {
+            min-width: 320px; /* Mobile minimum */
+            width: 100%;
+            margin: 0 auto;
+        }
+        @media (min-width: 768px) {
+            .content-container {
+                min-width: 640px; /* Tablet minimum */
+            }
+        }
+        @media (min-width: 1024px) {
+            .content-container {
+                min-width: 768px; /* Desktop minimum */
+            }
+        }
     </style>
     
     {% block head_extras %}{% endblock %}
@@ -32,7 +47,7 @@
         {% include 'components/navbar.html' %}
     {% endif %}
 
-    <main class="pt-6">
+    <main class="pt-6 content-container">
         <!-- Flash messages -->
         {% include 'components/flash_messages.html' %}
 
@@ -41,7 +56,7 @@
 
     {% if not hide_nav_footer %}
     <footer class="bg-gray-100 text-gray-600 py-8 mt-10 border-t border-gray-200">
-        <div class="container mx-auto px-4">
+        <div class="container mx-auto px-4 content-container">
             <div class="grid md:grid-cols-4 gap-8 mb-8">
                 <div>
                     <h3 class="text-lg font-bold text-gray-800 mb-4">Recs</h3>
