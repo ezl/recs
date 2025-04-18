@@ -256,26 +256,6 @@
   }
 
   /* ==========================================================================
-     TOAST/ALERT COMPONENTS
-     ========================================================================== */
-
-  .toast {
-    @apply p-4 rounded-lg shadow-md flex items-center;
-  }
-
-  .toast-success {
-    @apply bg-green-50 border border-green-200 text-green-700;
-  }
-
-  .toast-error {
-    @apply bg-red-50 border border-red-200 text-red-700;
-  }
-
-  .toast-info {
-    @apply bg-blue-50 border border-blue-200 text-blue-700;
-  }
-
-  /* ==========================================================================
      SHARE BOX COMPONENT
      ========================================================================== */
 

@@ -50,25 +50,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Show error toast
     function showError(message) {
-        // Clear any existing timeout
-        if (errorTimeout) {
-            clearTimeout(errorTimeout);
-            errorToast.classList.add('hidden');
-        }
-        
-        // Update error message
-        errorMessage.textContent = message;
-        
-        // Show the toast
-        errorToast.classList.remove('hidden');
-        
-        // Force a reflow to restart the animation
-        errorToast.offsetHeight;
-        
-        // Set timeout to hide the toast after animation completes
-        errorTimeout = setTimeout(() => {
-            errorToast.classList.add('hidden');
-        }, 6000); // Animation duration + display time
+        // Use the new alert component
+        window.showAlert('error-toast', message, 6000);
     }
 
     // Enable/disable submit button based on input

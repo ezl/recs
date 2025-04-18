@@ -5,11 +5,11 @@
 {% block content %}
 <div class="container mx-auto px-4 py-10 max-w-5xl">
   <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 text-center">
-    Confirm Your Recommendations
+    Your {{ trip.destination }} Recommendations
   </h1>
   
   <p class="text-lg text-gray-600 mb-8 text-center max-w-3xl mx-auto">
-    We've identified these recommendations for {{ trip.traveler_name }}'s trip to {{ trip.destination }}. Add some details to help make them even more useful.
+    Include details or add more recommendations to make {{ trip.traveler_name }}'s trip to {{ trip.destination }} even better.
   </p>
   
   <form method="POST" action="{{ url_for('main.save_recommendations', slug=trip.slug) }}" class="space-y-6" id="recommendations-form">
@@ -30,7 +30,7 @@
     <!-- Column headers for desktop -->
     <div class="hidden md:flex md:flex-row gap-4 px-4 mb-2">
       <div class="md:w-2/5 font-semibold text-gray-700">Recommendation</div>
-      <div class="md:w-3/5 font-semibold text-gray-700">Why do you recommend it?</div>
+      <div class="md:w-3/5 font-semibold text-gray-700">What's special about it?</div>
     </div>
     
     <!-- Recommendations Container -->
@@ -92,15 +92,12 @@
     </div>
     
     <!-- Toast notification for undo -->
-    <div id="undo-toast" class="fixed bottom-5 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-4 py-3 rounded-lg shadow-lg z-50 hidden flex items-center">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
-        <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-      </svg>
-      <span id="undo-message">Recommendation removed</span>
-      <button id="undo-button" class="ml-4 px-3 py-1 bg-white text-gray-800 text-sm rounded hover:bg-gray-200 transition">
-        Undo
-      </button>
-    </div>
+    {% set type = "warning" %}
+    {% set message = "Recommendation removed" %}
+    {% set action_text = "Undo" %}
+    {% set id = "undo-toast" %}
+    {% set fixed = true %}
+    {% include 'components/alert.html' %}
     
     <!-- Submit Button -->
     <div class="pt-6 flex justify-center">
@@ -127,8 +124,8 @@
     const buttonText = submitButton.querySelector('span');
     const spinner = document.getElementById('spinner');
     const undoToast = document.getElementById('undo-toast');
-    const undoButton = document.getElementById('undo-button');
-    const undoMessage = document.getElementById('undo-message');
+    const undoButton = document.querySelector('#undo-toast button');
+    const undoMessage = document.querySelector('#undo-toast div');
     
     // Store removed recommendations temporarily
     let removedItem = null;
@@ -161,14 +158,7 @@
           }
           
           // Show toast with undo option
-          undoMessage.textContent = "Recommendation removed";
-          undoToast.classList.remove('hidden');
-          
-          // Set timeout to hide the toast
-          undoTimeout = setTimeout(() => {
-            undoToast.classList.add('hidden');
-            removedItem = null;
-          }, 5000);
+          window.showAlert('undo-toast', "Recommendation removed", 5000);
         }
       });
     });
@@ -215,13 +205,7 @@
                 clearTimeout(undoTimeout);
               }
               
-              undoMessage.textContent = "Recommendation removed";
-              undoToast.classList.remove('hidden');
-              
-              undoTimeout = setTimeout(() => {
-                undoToast.classList.add('hidden');
-                removedItem = null;
-              }, 5000);
+              window.showAlert('undo-toast', "Recommendation removed", 5000);
             }
           });
         });

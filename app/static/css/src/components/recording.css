@@ -94,24 +94,10 @@
 }
 
 #recording-time {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #4B5563; /* gray-600 */
+  font-family: monospace;
+  font-weight: 500;
+  font-size: 16px;
+  color: #333;
+  margin-top: 10px;
   text-align: center;
-}
-
-/* Error toast animation */
-.error-toast {
-  animation: slide-up 0.3s ease forwards, slide-down 0.3s ease forwards 5s;
-  transform: translateY(100%);
-}
-
-@keyframes slide-up {
-  0% { transform: translateY(100%); }
-  100% { transform: translateY(0); }
-}
-
-@keyframes slide-down {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(100%); }
 } 
