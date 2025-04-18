@@ -15,18 +15,14 @@
   <!-- Client-side flash message for removed recommendations -->
   <div id="client-flash-container" class="hidden">
     <div class="bg-yellow-100 text-yellow-800 border border-yellow-300 rounded-lg p-4 mb-6 flex items-center">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-yellow-500" viewBox="0 0 20 20" fill="currentColor">
-        <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-      </svg>
+      <i data-feather="alert-triangle" class="h-5 w-5 mr-3 text-yellow-500"></i>
       <div class="flex-1">Recommendation removed</div>
       <button id="undo-button" class="ml-4 px-3 py-1 bg-white text-gray-800 text-sm rounded hover:bg-gray-200 transition font-medium">
         Undo
       </button>
       <button type="button" class="p-1.5 ml-3 rounded-full hover:bg-white/20" onclick="this.parentElement.classList.add('hidden')">
         <span class="sr-only">Dismiss</span>
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-          <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
-        </svg>
+        <i data-feather="x" class="h-4 w-4"></i>
       </button>
     </div>
   </div>
@@ -63,9 +59,7 @@
             {% if item.website_url %}
             <div class="mb-3">
               <a href="{{ item.website_url }}" target="_blank" rel="noopener noreferrer" class="flex items-center text-blue-600 hover:text-blue-800 text-sm">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-1">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
-                </svg>
+                <i data-feather="link" class="w-4 h-4 mr-1"></i>
                 Website
               </a>
             </div>
@@ -89,9 +83,7 @@
           <div class="flex items-start">
             <button type="button" class="p-2 rounded-full text-red-500 hover:bg-red-50 hover:text-red-700 transition remove-recommendation" 
                     data-index="{{ loop.index }}" aria-label="Remove recommendation">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
-              </svg>
+              <i data-feather="x" class="h-5 w-5"></i>
             </button>
           </div>
         </div>
@@ -103,13 +95,8 @@
     <div class="pt-6 flex justify-end">
       <button id="submit-button" type="button" class="inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-sm transition">
         <span>Send Recommendations</span>
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
-          <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-        </svg>
-        <svg id="spinner" class="animate-spin h-5 w-5 ml-2 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-        </svg>
+        <i data-feather="arrow-right" class="h-5 w-5 ml-2"></i>
+        <i data-feather="loader" id="spinner" class="animate-spin h-5 w-5 ml-2 hidden"></i>
       </button>
     </div>
   </form>
@@ -349,7 +336,7 @@
       
       // Show spinner
       spinner.classList.remove('hidden');
-      submitButton.querySelector('svg:not(#spinner)').classList.add('hidden');
+      submitButton.querySelector('i:not(#spinner)').classList.add('hidden');
       
       // Change text
       buttonText.textContent = 'Sending...';
