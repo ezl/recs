@@ -3,7 +3,7 @@
         <a href="{{ url_for('main.index') }}" class="text-xl font-bold text-blue-700">Recs</a>
         <div class="space-x-6">
             <a href="{{ url_for('main.index') }}" class="text-gray-600 hover:text-blue-700 font-medium">Home</a>
-            <a href="#" class="text-gray-600 hover:text-blue-700 font-medium">How It Works</a>
+            <a href="{{ url_for('main.how_it_works') }}" class="text-gray-600 hover:text-blue-700 font-medium">How It Works</a>
             {% if session.get('user_id') %}
                 <a href="{{ url_for('main.my_recommendations') }}" class="text-gray-600 hover:text-blue-700 font-medium">My Recommendations</a>
                 <a href="{{ url_for('auth.logout') }}" class="text-gray-600 hover:text-blue-700 font-medium">Logout</a>

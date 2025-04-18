@@ -318,4 +318,9 @@ def audio_error(slug):
     """Handle audio processing errors with flash messages"""
     error_message = request.args.get('message', 'There was an error processing your audio. Please try again or use text input instead.')
     flash(error_message, 'error')
-    return '', 204  # Return no content with 204 status code 
+    return '', 204  # Return no content with 204 status code
+
+@main.route('/how-it-works')
+def how_it_works():
+    """How it works page explaining the recommendation system"""
+    return render_template('how_it_works.html') 

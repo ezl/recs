@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}How It Works | Recs{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-12 max-w-4xl">
+  <h1 class="text-4xl font-bold text-gray-900 mb-8 text-center">How Recs Works</h1>
+  
+  <div class="prose prose-lg mx-auto">
+    <p class="text-xl text-gray-600 mb-10 text-center">
+      Get personalized travel recommendations from friends who know your destination best.
+    </p>
+
+    <div class="bg-white rounded-xl shadow-md overflow-hidden mb-12">
+      <div class="bg-blue-600 px-6 py-4">
+        <h2 class="text-2xl font-semibold text-white">The Recommendation Process</h2>
+      </div>
+      
+      <div class="p-8">
+        <ol class="space-y-8">
+          <li class="flex items-start">
+            <div class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 mt-1 mr-4">1</div>
+            <div>
+              <h3 class="text-xl font-semibold text-gray-900 mb-2">Create a Trip</h3>
+              <p class="text-gray-700">Enter your destination and trip details. We'll create a unique link that you can share with friends.</p>
+            </div>
+          </li>
+          
+          <li class="flex items-start">
+            <div class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 mt-1 mr-4">2</div>
+            <div>
+              <h3 class="text-xl font-semibold text-gray-900 mb-2">Share with Friends</h3>
+              <p class="text-gray-700">Send your unique link to friends who know your destination well. They can add their favorite spots and insider tips.</p>
+            </div>
+          </li>
+          
+          <li class="flex items-start">
+            <div class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 mt-1 mr-4">3</div>
+            <div>
+              <h3 class="text-xl font-semibold text-gray-900 mb-2">Collect Recommendations</h3>
+              <p class="text-gray-700">Friends add their favorite places, activities, or experiences in your destination. They can include links to websites, reviews, or booking pages.</p>
+            </div>
+          </li>
+          
+          <li class="flex items-start">
+            <div class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 mt-1 mr-4">4</div>
+            <div>
+              <h3 class="text-xl font-semibold text-gray-900 mb-2">Explore Your Personalized Guide</h3>
+              <p class="text-gray-700">All recommendations are collected on your trip page, creating a personalized travel guide curated by people you trust.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+    
+    <h2 class="text-2xl font-bold text-gray-900 mb-6">Adding Recommendations</h2>
+    
+    <div class="bg-white rounded-xl shadow-md overflow-hidden mb-12">
+      <div class="p-8">
+        <p class="text-gray-700 mb-6">When adding recommendations, you can:</p>
+        
+        <ul class="space-y-4 list-disc pl-5">
+          <li class="text-gray-700">
+            <span class="font-semibold">Share favorite spots:</span> Add your favorite places, activities, or experiences
+          </li>
+          <li class="text-gray-700">
+            <span class="font-semibold">Include details:</span> Add tips, personal experiences, and specific recommendations
+          </li>
+          <li class="text-gray-700">
+            <span class="font-semibold">Add links:</span> Include links to websites, reviews, or booking pages
+          </li>
+          <li class="text-gray-700">
+            <span class="font-semibold">Use voice input:</span> Record your recommendations with your voice for a faster experience
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="bg-blue-50 rounded-xl p-8 border border-blue-100">
+      <h3 class="text-xl font-semibold text-blue-800 mb-4">Get Started</h3>
+      <p class="text-blue-700 mb-6">Ready to create your own personalized travel guide?</p>
+      <a href="{{ url_for('main.index') }}" class="inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-sm transition">
+        Create a Trip
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %} 
