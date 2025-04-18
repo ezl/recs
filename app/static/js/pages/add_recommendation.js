@@ -71,19 +71,26 @@ document.addEventListener('DOMContentLoaded', function() {
     // Listen for text input
     textRecommendations.addEventListener('input', updateSubmitButton);
     
-    // Add Alt+Enter keyboard shortcut to submit form
-    textRecommendations.addEventListener('keydown', function(e) {
-        // Check if Alt+Enter was pressed
-        if (e.key === 'Enter' && e.altKey && !submitButton.disabled) {
+    // Add Alt+Enter or Command+Enter keyboard shortcut to submit form
+    document.addEventListener('keydown', function(e) {
+        // Check if Alt+Enter or Command+Enter was pressed
+        if (e.key === 'Enter' && (e.altKey || e.metaKey) && !submitButton.disabled) {
             e.preventDefault(); // Prevent default behavior (newline)
-            form.submit(); // Submit the form
             
-            // Update UI to show submission is in progress
-            submitButton.disabled = true;
-            submitButton.classList.add('opacity-75', 'cursor-not-allowed');
-            arrowIcon.classList.add('hidden');
-            spinner.classList.remove('hidden');
-            buttonText.textContent = 'Processing...';
+            // If in text mode, submit form directly
+            if (!audioMode) {
+                form.submit(); // Submit the form
+                
+                // Update UI to show submission is in progress
+                submitButton.disabled = true;
+                submitButton.classList.add('opacity-75', 'cursor-not-allowed');
+                arrowIcon.classList.add('hidden');
+                spinner.classList.remove('hidden');
+                buttonText.textContent = 'Processing...';
+            } else if (audioRecommendations.value) {
+                // In audio mode with processed audio, submit it
+                submitForm();
+            }
         }
     });
     

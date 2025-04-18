@@ -100,7 +100,7 @@
     {% include 'components/alert.html' %}
     
     <!-- Submit Button -->
-    <div class="pt-6 flex justify-center">
+    <div class="pt-6 flex justify-end">
       <button id="submit-button" type="submit" class="inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-sm transition">
         <span>Send Recommendations</span>
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
@@ -232,6 +232,22 @@
       
       // Change text
       buttonText.textContent = 'Sending...';
+    });
+    
+    // Add Alt+Enter or Command+Enter keyboard shortcut to submit form
+    document.addEventListener('keydown', function(e) {
+      // Check if Alt+Enter or Command+Enter was pressed and form is valid
+      if (e.key === 'Enter' && (e.altKey || e.metaKey) && form.checkValidity() && !submitButton.disabled) {
+        e.preventDefault(); // Prevent default behavior
+        form.submit(); // Submit the form
+        
+        // Update UI to show submission is in progress
+        submitButton.disabled = true;
+        submitButton.classList.add('opacity-75', 'cursor-not-allowed');
+        spinner.classList.remove('hidden');
+        submitButton.querySelector('svg:not(#spinner)').classList.add('hidden');
+        buttonText.textContent = 'Sending...';
+      }
     });
   });
 </script>
