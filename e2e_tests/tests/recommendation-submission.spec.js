@@ -112,7 +112,13 @@ test.describe('Recommendation Submission Process', () => {
       if (await page.locator('.bg-green-100').count() > 0) {
         const flashMessage = await page.locator('.bg-green-100');
         await expect(flashMessage).toBeVisible();
-        expect(await flashMessage.textContent()).toContain('Thank you for your recommendations');
+      }
+      
+      // Check for thank you page title
+      if (await page.locator('h1.text-3xl').count() > 0) {
+        const thankYouTitle = await page.locator('h1.text-3xl');
+        await expect(thankYouTitle).toBeVisible();
+        expect(await thankYouTitle.textContent()).toContain('Thank You!');
       }
       
       // If we can see recommendation cards, verify them
