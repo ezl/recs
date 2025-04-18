@@ -311,4 +311,11 @@ def confirm_audio_recommendations(slug):
         trip=trip, 
         extracted_recommendations=extracted_recommendations,
         recommender_name=''
-    ) 
+    )
+
+@main.route('/trip/<slug>/audio-error', methods=['GET'])
+def audio_error(slug):
+    """Handle audio processing errors with flash messages"""
+    error_message = request.args.get('message', 'There was an error processing your audio. Please try again or use text input instead.')
+    flash(error_message, 'error')
+    return '', 204  # Return no content with 204 status code 

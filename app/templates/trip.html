@@ -16,7 +16,7 @@
     <!-- Include share box component -->
     {% with 
       id = trip.id, 
-      title = "Ask your friends", 
+      title = "Ask your friends for recommendations", 
       description = "Send this link to your friends or post it on social media to get recommendations!", 
       share_url = url_for('main.add_recommendation', slug=trip.slug, _external=True) 
     %}

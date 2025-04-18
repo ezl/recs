@@ -12,6 +12,25 @@
     Include details or add more recommendations to make {{ trip.traveler_name }}'s trip to {{ trip.destination }} even better.
   </p>
   
+  <!-- Client-side flash message for removed recommendations -->
+  <div id="client-flash-container" class="hidden">
+    <div class="bg-yellow-100 text-yellow-800 border border-yellow-300 rounded-lg p-4 mb-6 flex items-center">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-yellow-500" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+      </svg>
+      <div class="flex-1">Recommendation removed</div>
+      <button id="undo-button" class="ml-4 px-3 py-1 bg-white text-gray-800 text-sm rounded hover:bg-gray-200 transition font-medium">
+        Undo
+      </button>
+      <button type="button" class="p-1.5 ml-3 rounded-full hover:bg-white/20" onclick="this.parentElement.classList.add('hidden')">
+        <span class="sr-only">Dismiss</span>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+        </svg>
+      </button>
+    </div>
+  </div>
+  
   <form method="POST" action="{{ url_for('main.save_recommendations', slug=trip.slug) }}" class="space-y-6" id="recommendations-form">
     <!-- Hidden recommender name field that will be filled by the modal -->
     <input type="hidden" id="recommender_name" name="recommender_name" value="{{ recommender_name }}">
@@ -79,15 +98,6 @@
       </div>
       {% endfor %}
     </div>
-    
-    <!-- Toast notification for undo -->
-    {% set type = "warning" %}
-    {% set message = "Recommendation removed" %}
-    {% set action_text = "Undo" %}
-    {% set id = "undo-toast" %}
-    {% set fixed = true %}
-    {% set action_onclick = "javascript:void(0)" %}
-    {% include 'components/alert.html' %}
     
     <!-- Submit Button -->
     <div class="pt-6 flex justify-end">
@@ -168,14 +178,18 @@
     const submitButton = document.getElementById('submit-button');
     const buttonText = submitButton.querySelector('span');
     const spinner = document.getElementById('spinner');
-    const undoToast = document.getElementById('undo-toast');
-    const undoButton = document.querySelector('#undo-toast button');
-    const undoMessage = document.querySelector('#undo-toast div');
     const nameInput = document.getElementById('recommender_name');
     const modalNameInput = document.getElementById('modal-recommender-name');
     const modalConfirmButton = document.getElementById('modal-confirm-button');
     const nameModal = document.getElementById('name-modal');
     const modalBackdrop = document.querySelector('.modal-backdrop');
+    const clientFlashContainer = document.getElementById('client-flash-container');
+    const undoButton = document.getElementById('undo-button');
+    
+    // Variables to store removed item for undo
+    let removedItem = null;
+    let removedItemIndex = -1;
+    let fadeOutTimer = null;
     
     // If we have a value in the recommender_name input, pre-fill the modal field
     if (nameInput.value) {
@@ -210,10 +224,20 @@
       }
     });
     
-    // Store removed recommendations temporarily
-    let removedItem = null;
-    let removedItemIndex = -1;
-    let undoTimeout = null;
+    // Show client flash message
+    function showClientFlash() {
+      // Show the flash container
+      clientFlashContainer.classList.remove('hidden');
+      
+      // Scroll to top to show the message
+      window.scrollTo({top: 0, behavior: 'smooth'});
+      
+      // Set a timer to hide the flash after 5 seconds
+      if (fadeOutTimer) clearTimeout(fadeOutTimer);
+      fadeOutTimer = setTimeout(() => {
+        clientFlashContainer.classList.add('hidden');
+      }, 5000);
+    }
     
     // Add event listeners to all remove buttons
     document.querySelectorAll('.remove-recommendation').forEach(button => {
@@ -235,13 +259,8 @@
             recommendation.remove();
           }, 300);
           
-          // Clear any existing timeout
-          if (undoTimeout) {
-            clearTimeout(undoTimeout);
-          }
-          
-          // Show toast with undo option
-          window.showAlert('undo-toast', "Recommendation removed", 5000);
+          // Show client flash message with undo option
+          showClientFlash();
         }
       });
     });
@@ -285,18 +304,15 @@
                   recommendation.remove();
                 }, 300);
                 
-                if (undoTimeout) {
-                  clearTimeout(undoTimeout);
-                }
-                
-                window.showAlert('undo-toast', "Recommendation removed", 5000);
+                // Show client flash message with undo option
+                showClientFlash();
               }
             });
           });
           
-          // Hide toast
-          undoToast.classList.add('hidden');
-          clearTimeout(undoTimeout);
+          // Hide flash
+          clientFlashContainer.classList.add('hidden');
+          clearTimeout(fadeOutTimer);
         }
       });
     }

@@ -14,8 +14,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const arrowIcon = submitButton.querySelector('svg:not(#spinner)');
     const spinner = document.getElementById('spinner');
     const footer = document.getElementById('footer');
-    const errorToast = document.getElementById('error-toast');
-    const errorMessage = document.getElementById('error-message');
     
     // Input toggle
     const toggleBtn = document.getElementById('toggle-input-btn');
@@ -48,10 +46,22 @@ document.addEventListener('DOMContentLoaded', function() {
     let recognitionTimeout;
     let errorTimeout;
 
-    // Show error toast
+    // Show error function using server-side flash message
     function showError(message) {
-        // Use the new alert component
-        window.showAlert('error-toast', message, 6000);
+        // Get trip slug from data attribute
+        const tripSlug = document.getElementById('trip-data').dataset.slug;
+        
+        // Call server-side endpoint to show flash message
+        fetch(`/trip/${encodeURIComponent(tripSlug)}/audio-error?message=${encodeURIComponent(message)}`)
+            .then(() => {
+                // Reload the page to show the flash message
+                window.location.reload();
+            })
+            .catch(error => {
+                console.error('Error showing flash message:', error);
+                // Fallback to alert if fetch fails
+                alert(message);
+            });
     }
 
     // Enable/disable submit button based on input

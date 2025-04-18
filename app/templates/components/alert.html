@@ -69,29 +69,4 @@
       </svg>
     </button>
   {% endif %}
-</div>
-
-<script>
-  // Only add this script if it hasn't been added yet and if there's a fixed alert
-  if (typeof window.showAlert !== 'function' && document.querySelector('.fixed[role="alert"]')) {
-    window.showAlert = function(id, message = null, timeout = 5000) {
-      const alert = document.getElementById(id);
-      if (!alert) return;
-      
-      if (message) {
-        const messageContainer = alert.querySelector('div');
-        if (messageContainer) messageContainer.textContent = message;
-      }
-      
-      // Show the alert
-      alert.classList.remove('hidden');
-      
-      // Set timeout to hide the alert
-      if (timeout > 0) {
-        setTimeout(() => {
-          alert.classList.add('hidden');
-        }, timeout);
-      }
-    };
-  }
-</script> 
+</div> 
