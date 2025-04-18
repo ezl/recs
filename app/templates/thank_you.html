@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block title %}Thank You for Your Recommendations | Recs{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+  <div class="max-w-2xl mx-auto bg-white rounded-lg shadow p-8">
+    <div class="text-center mb-6">
+      <div class="mx-auto bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mb-4">
+        <i data-feather="check" class="text-green-500" stroke-width="3"></i>
+      </div>
+      <h1 class="text-3xl font-bold text-gray-800 mb-2">Thank You!</h1>
+      <p class="text-gray-600 mt-10 mb-10">We've sent {{ trip.traveler_name }} your recommendations for {{ trip.destination }}!</p>
+    </div>
+
+    <div class="bg-blue-50 p-6 rounded-lg mb-8" id="notification-form-container">
+      <h2 class="text-xl font-semibold text-blue-600 mb-3">Want to see what their other friends recommended?</h2>
+      <p class="text-gray-600 mb-4">We'll send you the full list with everyone's recommendations.</p>
+      
+      <form id="notification-form" action="{{ url_for('main.save_recommender_email', slug=trip.slug) }}" method="POST">
+        <div class="flex flex-col space-y-4">
+          <input 
+            type="email" 
+            name="email" 
+            id="email-input"
+            class="form-input w-full"
+            placeholder="Your email address" 
+            required
+          >
+          <button type="submit" id="submit-button" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-md flex items-center justify-center">
+            <i data-feather="bell" class="w-5 h-5 mr-2"></i>
+            <span>Notify Me</span>
+          </button>
+          <div id="form-error" class="text-red-600 hidden"></div>
+        </div>
+      </form>
+    </div>
+
+    <!-- Hidden success message (will be shown after form submission) -->
+    <div id="success-message" class="bg-green-50 p-6 rounded-lg mb-8 hidden">
+      <div class="flex items-center mb-3">
+        <i data-feather="check-circle" class="text-green-500 mr-2"></i>
+        <h2 class="text-xl font-medium text-green-700">You're all set!</h2>
+      </div>
+      <p class="text-gray-600">We'll send you the full list with everyone's recommendations.</p>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  // Initialize Feather icons
+  document.addEventListener('DOMContentLoaded', function() {
+    feather.replace();
+    
+    // Handle form submission
+    const form = document.getElementById('notification-form');
+    const formContainer = document.getElementById('notification-form-container');
+    const successMessage = document.getElementById('success-message');
+    const submitButton = document.getElementById('submit-button');
+    const formError = document.getElementById('form-error');
+    
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Show loading state
+      const buttonText = submitButton.querySelector('span');
+      const originalText = buttonText.textContent;
+      submitButton.disabled = true;
+      buttonText.textContent = 'Submitting...';
+      submitButton.classList.add('opacity-75');
+      
+      // Get form data
+      const formData = new FormData(form);
+      
+      // Submit form via fetch
+      fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest'
+        }
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        // Hide form and show success message
+        formContainer.classList.add('hidden');
+        successMessage.classList.remove('hidden');
+        
+        // Re-run feather icons for the new visible content
+        feather.replace();
+      })
+      .catch(error => {
+        // Show error message
+        formError.textContent = 'Unable to submit. Please try again.';
+        formError.classList.remove('hidden');
+        
+        // Reset button
+        submitButton.disabled = false;
+        buttonText.textContent = originalText;
+        submitButton.classList.remove('opacity-75');
+      });
+    });
+  });
+</script>
+{% endblock %} 

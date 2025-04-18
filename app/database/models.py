@@ -18,6 +18,7 @@ class User(db.Model):
     auth_tokens = db.relationship('AuthToken', backref='user', lazy=True, cascade='all, delete-orphan')
     trips = db.relationship('Trip', backref='user', lazy=True)
     recommendations = db.relationship('Recommendation', backref='author', lazy=True)
+    trip_subscriptions = db.relationship('TripSubscription', backref='user', lazy=True, cascade='all, delete-orphan')
     
     def __repr__(self):
         return f'<User {self.email}>'
@@ -85,6 +86,7 @@ class Trip(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     
     recommendations = db.relationship('Recommendation', backref='trip', lazy=True, cascade='all, delete-orphan')
+    subscriptions = db.relationship('TripSubscription', backref='trip', lazy=True, cascade='all, delete-orphan')
     
     def __repr__(self):
         return f'<Trip {self.destination}>'
@@ -181,4 +183,24 @@ class Recommendation(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     
     def __repr__(self):
-        return f'<Recommendation for {self.activity.name if self.activity else "Unknown"}>' 
+        return f'<Recommendation for {self.activity.name if self.activity else "Unknown"}>'
+
+class TripSubscription(db.Model):
+    """
+    Tracks user subscriptions to trip notifications.
+    When a user wants to be notified about updates to a trip,
+    such as when all recommendations are submitted.
+    """
+    __tablename__ = 'trip_subscriptions'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    trip_id = db.Column(db.Integer, db.ForeignKey('trips.id'), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    notified = db.Column(db.Boolean, default=False)  # Track if we've sent a notification
+    
+    # Add a unique constraint to prevent duplicate subscriptions
+    __table_args__ = (db.UniqueConstraint('user_id', 'trip_id', name='uix_user_trip_subscription'),)
+    
+    def __repr__(self):
+        return f'<TripSubscription User {self.user_id} for Trip {self.trip_id}>' 

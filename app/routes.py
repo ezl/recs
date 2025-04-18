@@ -1,10 +1,10 @@
-from flask import Blueprint, render_template, redirect, url_for, request, flash, session, abort, jsonify
-from datetime import datetime
-import uuid
 import os
+import uuid
 import json
+from datetime import datetime
+from flask import Blueprint, render_template, redirect, url_for, request, flash, session, abort, jsonify
 from app.database import db
-from app.database.models import User, Trip, Recommendation, Activity
+from app.database.models import User, Trip, Recommendation, Activity, TripSubscription
 from app.services.ai_service import AIService
 
 main = Blueprint('main', __name__)
@@ -167,7 +167,54 @@ def save_recommendations(slug):
     
     db.session.commit()
     
-    flash('Thank you for your recommendations!', 'success')
+    # Redirect to thank you page
+    return redirect(url_for('main.thank_you_page', slug=trip.slug))
+
+@main.route('/trip/<slug>/thank-you')
+def thank_you_page(slug):
+    """
+    Thank you page for recommendation submissions
+    """
+    trip = Trip.query.filter_by(slug=slug).first_or_404()
+    return render_template('thank_you.html', trip=trip)
+
+@main.route('/trip/<slug>/save-email', methods=['POST'])
+def save_recommender_email(slug):
+    """
+    Save email address of recommender who wants to be notified
+    """
+    trip = Trip.query.filter_by(slug=slug).first_or_404()
+    email = request.form.get('email')
+    
+    if not email:
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return jsonify({"success": False, "error": "Please provide an email address"}), 400
+        flash('Please provide an email address', 'error')
+        return redirect(url_for('main.thank_you_page', slug=slug))
+    
+    # Get or create user with this email
+    user = User.get_or_create(email)
+    
+    # Check if this user is already subscribed to this trip
+    existing = TripSubscription.query.filter_by(trip_id=trip.id, user_id=user.id).first()
+    if not existing:
+        # Create new subscription
+        subscription = TripSubscription(
+            trip_id=trip.id,
+            user_id=user.id
+        )
+        db.session.add(subscription)
+        db.session.commit()
+    
+    # Check if this is an AJAX request
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        return jsonify({
+            "success": True,
+            "message": "Thank you! We'll notify you when all recommendations are in."
+        })
+    
+    # For regular form submissions
+    flash('Thank you! We\'ll notify you when all recommendations are in.', 'success')
     return redirect(url_for('main.view_trip', slug=slug))
 
 # Legacy route to handle old share_token links

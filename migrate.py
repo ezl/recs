@@ -14,7 +14,7 @@ from datetime import datetime
 # Add the current directory to the path so we can import modules from the app
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from app.database.models import User, Post, AuthToken, Trip, Recommendation
+from app.database.models import User, Post, AuthToken, Trip, Recommendation, Activity, TripSubscription
 
 app = create_app()
 
@@ -86,6 +86,16 @@ def run_migrations():
             if 'recommendations' not in tables:
                 print("Creating recommendations table...")
                 Recommendation.__table__.create(engine)
+                
+            # Check if the activities table exists
+            if 'activities' not in tables:
+                print("Creating activities table...")
+                Activity.__table__.create(engine)
+                
+            # Check if the trip_subscriptions table exists
+            if 'trip_subscriptions' not in tables:
+                print("Creating trip_subscriptions table...")
+                TripSubscription.__table__.create(engine)
             
             # Add additional migrations here when needed
             
