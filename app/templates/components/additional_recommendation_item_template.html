@@ -1,0 +1,57 @@
+<!-- 
+  Template for additional recommendation items
+  
+  This template is used as the base for dynamically adding new recommendation items
+  via JavaScript.
+  
+  The placeholder PLACEHOLDER_INDEX will be replaced with the actual index when
+  a new recommendation is created.
+-->
+
+<div class="bg-white rounded-xl p-6 border border-gray-200 shadow-sm transition hover:shadow-md recommendation-item">
+  <div class="flex flex-col md:flex-row gap-6">
+    <!-- Recommendation Details -->
+    <div class="md:w-2/5 mb-4 md:mb-0">
+      <label for="recommendation_PLACEHOLDER_INDEX" class="block text-gray-700 font-medium mb-1 text-sm">Recommendation</label>
+      <input 
+        type="text" 
+        id="recommendation_PLACEHOLDER_INDEX" 
+        name="recommendations[]" 
+        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+        placeholder="Name of restaurant, activity, place, etc."
+      >
+      
+      <div class="mt-3">
+        <label for="place_type_PLACEHOLDER_INDEX" class="block text-gray-700 font-medium mb-1 text-sm">Type (optional)</label>
+        <input 
+          type="text" 
+          id="place_type_PLACEHOLDER_INDEX" 
+          name="place_types[]" 
+          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+          placeholder="Restaurant, Museum, Beach, etc."
+        >
+      </div>
+      
+    </div>
+    
+    <!-- Description Textarea -->
+    <div class="md:w-3/5 flex flex-col">
+      <label for="description_PLACEHOLDER_INDEX" class="block text-gray-700 font-medium mb-1 text-sm">Why do you recommend it?</label>
+      <textarea 
+        id="description_PLACEHOLDER_INDEX" 
+        name="descriptions[]" 
+        class="flex-1 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+        rows="3" 
+        placeholder="What makes this place special? Any tips for {{ trip.traveler_name }}?"
+      ></textarea>
+    </div>
+    
+    <!-- Delete button (works on all screen sizes) -->
+    <div class="flex items-start">
+      <button type="button" class="p-2 rounded-full text-red-500 hover:bg-red-50 hover:text-red-700 transition remove-recommendation" 
+              data-index="PLACEHOLDER_INDEX" aria-label="Remove recommendation">
+        <i data-feather="x" class="h-5 w-5"></i>
+      </button>
+    </div>
+  </div>
+</div> 
