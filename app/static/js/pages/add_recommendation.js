@@ -54,7 +54,6 @@ document.addEventListener('DOMContentLoaded', function() {
     let seconds = 0;
     let blob;
     let audioMode = false;
-    let recognitionTimeout;
     let errorTimeout;
     
     // Add navigation error handling for debugging
@@ -327,29 +326,10 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Auto-stop after 5 minutes (300 seconds)
             if (seconds >= 300) {
+                console.log("Reached maximum recording time of 5 minutes");
                 stopRecording();
-            }
-            
-            // Auto-stop after 3 seconds of silence (simplified version)
-            if (seconds >= 5 && seconds % 5 === 0) {
-                // This is a simplified check that would be replaced by actual silence detection
-                // For now, we'll use a crude timeout-based approach
-                checkSilence();
             }
         }, 1000);
-    }
-    
-    // Simple function to check for silence - in a real app, this would analyze audio levels
-    function checkSilence() {
-        // Clear any existing timeout
-        if (recognitionTimeout) clearTimeout(recognitionTimeout);
-        
-        // Set a new timeout - if nothing happens in 3 seconds, stop recording
-        recognitionTimeout = setTimeout(() => {
-            if (recording && seconds > 10) { // Only auto-stop if we've recorded at least 10 seconds
-                stopRecording();
-            }
-        }, 3000);
     }
     
     function updateTimerDisplay() {
