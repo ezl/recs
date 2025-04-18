@@ -2,6 +2,8 @@ import os
 import json
 import requests
 import logging
+import traceback
+import re
 
 logger = logging.getLogger(__name__)
 
@@ -20,6 +22,10 @@ class AIService:
         Returns:
             list: List of recommendation dictionaries with keys: name, type, website_url, description
         """
+        logger.info(f"Extracting recommendations for destination: {destination}")
+        logger.info(f"Input text length: {len(text)} characters")
+        logger.info(f"Text sample: '{text[:100]}...' (truncated)")
+        
         api_key = os.environ.get("OPENAI_API_KEY")
         organization_id = os.environ.get("ORGANIZATION_ID")
         
@@ -56,6 +62,7 @@ class AIService:
             Output the information as a JSON array of objects with keys: name, type, website_url, description
             """
             
+            logger.info("Preparing request to OpenAI API")
             data = {
                 "model": "gpt-3.5-turbo",  # Fallback to a more reliable model
                 "messages": [
@@ -64,7 +71,10 @@ class AIService:
                 ]
             }
             
+            logger.info(f"Sending request to OpenAI API using model: {data['model']}")
             response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=data)
+            
+            logger.info(f"Received response from OpenAI API: status={response.status_code}")
             
             if response.status_code != 200:
                 logger.error(f"OpenAI API Error: Status code {response.status_code}, Response: {response.text}")
@@ -78,19 +88,77 @@ class AIService:
                 raise Exception(f"OpenAI API Error: {result.get('error', {}).get('message', 'Unknown error')}")
             
             content = result["choices"][0]["message"]["content"]
+            logger.info(f"OpenAI response content: '{content[:100]}...' (truncated)")
+            
             # Extract JSON from the response - might need to handle different response formats
             start_idx = content.find("[")
             end_idx = content.rfind("]") + 1
             
             if start_idx >= 0 and end_idx > start_idx:
                 json_str = content[start_idx:end_idx]
-                extracted_data = json.loads(json_str)
-                return extracted_data
+                logger.info(f"Found JSON string from position {start_idx} to {end_idx}")
+                
+                try:
+                    extracted_data = json.loads(json_str)
+                    logger.info(f"Successfully parsed JSON data: {len(extracted_data)} recommendations extracted")
+                    
+                    # Log a summary of the extracted recommendations
+                    for i, rec in enumerate(extracted_data):
+                        logger.info(f"Recommendation {i+1}: {rec.get('name', 'Unnamed')} ({rec.get('type', 'No type')})")
+                    
+                    return extracted_data
+                except json.JSONDecodeError as e:
+                    logger.error(f"JSON parsing error: {e}")
+                    logger.error(f"Problem JSON string: {json_str}")
+                    
+                    # Try fallback parsing - attempt to extract any JSON objects even if not an array
+                    logger.info("Attempting fallback JSON parsing...")
+                    try:
+                        # If we can't parse as an array, try to find individual JSON objects
+                        # Look for { } patterns and try to parse each
+                        pattern = r'\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}'
+                        matches = re.finditer(pattern, content)
+                        
+                        extracted_objects = []
+                        for match in matches:
+                            try:
+                                obj = json.loads(match.group(0))
+                                if isinstance(obj, dict) and 'name' in obj:
+                                    extracted_objects.append(obj)
+                            except:
+                                continue
+                        
+                        if extracted_objects:
+                            logger.info(f"Fallback parsing found {len(extracted_objects)} recommendations")
+                            return extracted_objects
+                    except Exception as fallback_error:
+                        logger.error(f"Fallback parsing also failed: {fallback_error}")
+                    
+                    # If fallback failed too, create a single recommendation with the full text
+                    logger.info("Creating fallback recommendation with the full raw text")
+                    fallback = [{
+                        "name": f"Recommendations for {destination}",
+                        "type": "",
+                        "website_url": "",
+                        "description": text
+                    }]
+                    return fallback
             else:
                 error_msg = "Failed to extract JSON from OpenAI response"
                 logger.error(error_msg)
-                raise ValueError(error_msg)
+                logger.error(f"Response did not contain valid JSON array: {content}")
+                
+                # Create a fallback recommendation instead of raising an error
+                logger.info("Creating fallback recommendation with the full raw response")
+                fallback = [{
+                    "name": f"Recommendations for {destination}",
+                    "type": "",
+                    "website_url": "",
+                    "description": content if content else text
+                }]
+                return fallback
                 
         except Exception as e:
             logger.error(f"Error in AI recommendation extraction: {e}")
+            logger.error(traceback.format_exc())
             raise 

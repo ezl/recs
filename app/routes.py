@@ -393,62 +393,123 @@ def transcribe_audio():
     """
     Endpoint to handle audio transcription and process it into recommendations
     """
+    print("=== TRANSCRIBE API CALLED ===")
+    
     if 'audio' not in request.files:
+        print("ERROR: No audio file provided in request")
         return jsonify({"error": "No audio file provided"}), 400
     
     audio_file = request.files['audio']
     destination = request.form.get('destination', '')
     
+    print(f"Received audio file: {audio_file.filename}, content type: {audio_file.content_type}, size: {request.content_length} bytes")
+    print(f"Destination: {destination}")
+    
     if not destination:
+        print("ERROR: No destination provided")
         return jsonify({"error": "No destination provided"}), 400
     
     if audio_file.filename == '':
+        print("ERROR: No selected file (empty filename)")
         return jsonify({"error": "No selected file"}), 400
     
     try:
-        # Create a temporary file to store the audio
-        temp_filepath = f"/tmp/{uuid.uuid4()}.webm"
-        audio_file.save(temp_filepath)
+        # Read audio data directly
+        audio_data = audio_file.read()
+        print(f"Read {len(audio_data)} bytes from audio file")
         
-        # Call OpenAI to transcribe the audio
+        if len(audio_data) == 0:
+            print("ERROR: Audio data is empty (0 bytes)")
+            return jsonify({"error": "Audio file is empty"}), 400
+        
+        # Get API key
         api_key = os.environ.get("OPENAI_API_KEY")
         if not api_key:
+            print("ERROR: OpenAI API key not configured")
             return jsonify({"error": "API key not configured"}), 500
+        
+        print(f"Using OpenAI API key starting with: {api_key[:8]}...")
         
         # Use OpenAI Whisper API for transcription
         import requests
+        from io import BytesIO
         
-        with open(temp_filepath, 'rb') as f:
-            response = requests.post(
-                "https://api.openai.com/v1/audio/transcriptions",
-                headers={"Authorization": f"Bearer {api_key}"},
-                files={"file": f},
-                data={"model": "whisper-1"}
-            )
+        # Create in-memory file-like object
+        audio_file_object = BytesIO(audio_data)
+        audio_file_object.name = audio_file.filename  # Set name for content type detection
         
-        # Clean up the temporary file
-        os.remove(temp_filepath)
+        print("Sending request to OpenAI Whisper API (directly from memory)...")
         
+        # Send the request with the in-memory file
+        response = requests.post(
+            "https://api.openai.com/v1/audio/transcriptions",
+            headers={"Authorization": f"Bearer {api_key}"},
+            files={"file": (audio_file.filename, audio_file_object, audio_file.content_type)},
+            data={"model": "whisper-1"}
+        )
+        
+        print(f"OpenAI API response status code: {response.status_code}")
         if response.status_code != 200:
+            print(f"ERROR: OpenAI API returned non-200 status: {response.status_code}")
+            print(f"Response content: {response.text}")
             return jsonify({"error": f"OpenAI API error: {response.text}"}), 500
         
-        transcription = response.json().get("text", "")
+        response_data = response.json()
+        print(f"OpenAI API response data: {response_data}")
+        
+        transcription = response_data.get("text", "")
         
         if not transcription:
+            print("ERROR: No transcription text in response")
             return jsonify({"error": "Failed to transcribe audio"}), 500
         
-        # Process the transcription to extract recommendations
-        extracted_recommendations = AIService.extract_recommendations(transcription, destination)
+        print(f"Successfully transcribed text: '{transcription[:100]}...' (truncated)")
+        print(f"Full transcription: {transcription}")
         
-        return jsonify({
-            "status": "success",
-            "recommendations": extracted_recommendations
-        }), 200
+        # Process the transcription to extract recommendations
+        print("Extracting recommendations from transcription...")
+        try:
+            extracted_recommendations = AIService.extract_recommendations(transcription, destination)
+            print(f"Extracted {len(extracted_recommendations)} recommendations")
+            
+            # Log the actual recommendations for debugging
+            print(f"Recommendation details: {json.dumps(extracted_recommendations, indent=2)}")
+            
+            if not extracted_recommendations or len(extracted_recommendations) == 0:
+                print("WARNING: No recommendations were extracted from the transcription")
+                return jsonify({
+                    "status": "success",
+                    "recommendations": [],
+                    "transcription": transcription
+                }), 200
+            
+            response = jsonify({
+                "status": "success",
+                "recommendations": extracted_recommendations,
+                "transcription": transcription
+            })
+            print("response:")
+            print(response)
+            
+            return response, 200
+            
+        except Exception as extract_error:
+            print(f"ERROR during recommendation extraction: {str(extract_error)}")
+            import traceback
+            print(f"Extraction error traceback: {traceback.format_exc()}")
+            
+            # Return the transcription even if recommendation extraction failed
+            return jsonify({
+                "status": "partial_success",
+                "error": f"Transcription succeeded but recommendation extraction failed: {str(extract_error)}",
+                "transcription": transcription,
+                "recommendations": []
+            }), 200
     
     except Exception as e:
-        # Clean up temporary file if it exists
-        if 'temp_filepath' in locals() and os.path.exists(temp_filepath):
-            os.remove(temp_filepath)
+        import traceback
+        print(f"ERROR: Exception in transcribe_audio: {str(e)}")
+        print(f"Traceback: {traceback.format_exc()}")
         
         return jsonify({"error": str(e)}), 500
 
@@ -457,28 +518,109 @@ def process_audio_recommendation(slug):
     """
     Endpoint to process pre-extracted recommendations from audio
     """
+    # Generate request ID for tracking this request
+    request_id = f"req-{datetime.now().strftime('%H%M%S%f')}"
+    print(f"=== PROCESS AUDIO API CALLED [{request_id}] for trip {slug} ===")
+    
+    # Log session information
+    session_id = id(session)
+    print(f"Session object ID: {session_id}")
+    print(f"Session dictionary: {dict(session)}")
+    
+    # Log request details
+    print(f"Request cookies: {request.cookies}")
+    print(f"User agent: {request.headers.get('User-Agent')}")
+    print(f"Content-Type: {request.headers.get('Content-Type')}")
+    print(f"Request method: {request.method}")
+    print(f"Request body type: {type(request.get_data())}")
+    print(f"Request body size: {len(request.get_data())} bytes")
+    
     trip = Trip.query.filter_by(slug=slug).first_or_404()
     
     try:
         # Get the pre-extracted recommendations from the request body
         data = request.json
+        print(f"Parsed JSON data type: {type(data)}")
         
-        if not data or not isinstance(data, list):
-            return jsonify({"error": "Invalid recommendations data"}), 400
+        if not data:
+            print("ERROR: No data in request.json")
+            print(f"Raw request data: {request.get_data()[:200]}...")
+            return jsonify({"error": "No data received in request"}), 400
+        
+        if not isinstance(data, list):
+            print(f"ERROR: Data is not a list, it's a {type(data)}")
+            print(f"Data content: {data}")
+            return jsonify({"error": "Invalid recommendations data format - expected list"}), 400
         
         # Log the data for debugging
         print(f"Storing {len(data)} recommendations in session: {data}")
         
+        # Debug the current session state
+        print(f"Session before: {dict(session)}")
+        
         # Store in session for the confirmation page
         session['extracted_recommendations'] = data
         
+        # Add diagnostic test value
+        session['test_value'] = f'test-{request_id}'
+        session['timestamp'] = datetime.now().isoformat()
+        
+        # Make sure session is modified
+        session.modified = True
+        
+        # Check if the data was actually stored
+        print(f"Session after: {dict(session)}")
+        print(f"Verification - extracted_recommendations in session: {'extracted_recommendations' in session}")
+        print(f"Verification - test_value in session: {session.get('test_value')}")
+        
+        # Prepare a fallback - encode the first recommendation in query params (simplified)
+        fallback_data = None
+        if data and len(data) > 0:
+            # Create a simplified version with just the first recommendation
+            first_rec = data[0]
+            fallback_data = {
+                'name': first_rec.get('name', ''),
+                'type': first_rec.get('type', ''),
+                'desc': first_rec.get('description', '')[:200],  # Truncate long descriptions
+                'request_id': request_id  # Add request ID for tracking
+            }
+        
         # Return URL to redirect to
-        return jsonify({
+        redirect_url = url_for('main.confirm_audio_recommendations', slug=slug)
+        
+        # Add fallback query param with encoded data
+        if fallback_data:
+            import json
+            import base64
+            encoded_data = base64.urlsafe_b64encode(json.dumps(fallback_data).encode()).decode()
+            redirect_url = f"{redirect_url}?fb={encoded_data}"
+        
+        print(f"Redirect URL: {redirect_url}")
+        
+        # Force session save
+        from flask import get_flashed_messages
+        get_flashed_messages()  # This forces a session save
+        
+        # Log response details
+        from flask import make_response
+        response = jsonify({
             "status": "success",
-            "redirect_url": url_for('main.confirm_audio_recommendations', slug=slug)
-        }), 200
+            "redirect_url": redirect_url,
+            "request_id": request_id
+        })
+        
+        # Add diagnostic information to response
+        response.headers['X-Request-ID'] = request_id
+        print(f"Response headers: {response.headers}")
+        
+        return response, 200
         
     except Exception as e:
+        import traceback
+        print(f"ERROR in process_audio_recommendation: {str(e)}")
+        print(f"Traceback: {traceback.format_exc()}")
+        print(f"Request headers: {dict(request.headers)}")
+        
         return jsonify({"error": str(e)}), 500
 
 @main.route('/trip/<slug>/confirm-audio', methods=['GET'])
@@ -486,22 +628,89 @@ def confirm_audio_recommendations(slug):
     """
     Show confirmation page for audio recommendations
     """
+    # Generate request ID for tracking
+    request_id = f"conf-{datetime.now().strftime('%H%M%S%f')}"
+    print(f"=== CONFIRM AUDIO RECOMMENDATIONS CALLED [{request_id}] for trip {slug} ===")
+    
+    # Log session information
+    session_id = id(session)
+    print(f"Session object ID: {session_id}")
+    print(f"Session dictionary: {dict(session)}")
+    
+    # Check test value from previous request
+    test_value = session.get('test_value', 'NOT FOUND')
+    timestamp = session.get('timestamp', 'NO TIMESTAMP')
+    print(f"Test value in session: {test_value}")
+    print(f"Timestamp from previous request: {timestamp}")
+    
+    if timestamp != 'NO TIMESTAMP':
+        try:
+            prev_time = datetime.fromisoformat(timestamp)
+            time_diff = datetime.now() - prev_time
+            print(f"Time difference between requests: {time_diff.total_seconds()} seconds")
+        except Exception as e:
+            print(f"Error calculating time difference: {e}")
+    
+    # Log request details
+    print(f"Request cookies: {request.cookies}")
+    print(f"User agent: {request.headers.get('User-Agent')}")
+    print(f"Request args: {dict(request.args)}")
+    
     trip = Trip.query.filter_by(slug=slug).first_or_404()
+    print(f"Trip found: {trip.id} - {trip.destination}")
     
     # Get recommendations from session
     extracted_recommendations = session.get('extracted_recommendations', [])
     
     # Log for debugging
-    print(f"Retrieved from session: {extracted_recommendations}")
+    print(f"Retrieved from session: {type(extracted_recommendations)}")
+    print(f"Recommendations count: {len(extracted_recommendations) if extracted_recommendations else 0}")
+    if extracted_recommendations and len(extracted_recommendations) > 0:
+        print(f"First recommendation: {extracted_recommendations[0]}")
     
-    # Check if it's empty or not a valid list
+    # Check if we need to use fallback data from query parameter
+    fallback_param = request.args.get('fb')
+    if (not extracted_recommendations or not isinstance(extracted_recommendations, list) or len(extracted_recommendations) == 0) and fallback_param:
+        print(f"Using fallback data from query parameter")
+        try:
+            # Decode the fallback data
+            import json
+            import base64
+            fallback_data = json.loads(base64.urlsafe_b64decode(fallback_param).decode())
+            print(f"Decoded fallback data: {fallback_data}")
+            
+            # Check if request_id is in fallback data for correlation
+            fallback_req_id = fallback_data.get('request_id', 'NO_ID')
+            print(f"Fallback request ID: {fallback_req_id}")
+            
+            # Create a recommendation from fallback data
+            extracted_recommendations = [{
+                'name': fallback_data.get('name', 'Recommendation from recording'),
+                'type': fallback_data.get('type', ''),
+                'website_url': '',
+                'description': fallback_data.get('desc', '')
+            }]
+            print(f"Created recommendation from fallback: {extracted_recommendations[0]}")
+        except Exception as e:
+            import traceback
+            print(f"Error decoding fallback data: {e}")
+            print(f"Traceback: {traceback.format_exc()}")
+            print(f"Raw fallback parameter: {fallback_param}")
+    
+    # Check if it's still empty after fallback attempt
     if not extracted_recommendations or not isinstance(extracted_recommendations, list) or len(extracted_recommendations) == 0:
-        print("No recommendations found in session!")
+        print("No recommendations found in session or fallback!")
         flash('No recommendations found. Please try again.', 'error')
         return redirect(url_for('main.add_recommendation', slug=slug))
     
+    print(f"About to render template with {len(extracted_recommendations)} recommendations")
+    
     # Clear from session to avoid persistence issues
     session.pop('extracted_recommendations', None)
+    
+    # Keep test values for debugging
+    # session.pop('test_value', None)
+    # session.pop('timestamp', None)
     
     # Render the same template as text recommendations
     return render_template(
@@ -521,4 +730,278 @@ def audio_error(slug):
 @main.route('/how-it-works')
 def how_it_works():
     """How it works page explaining the recommendation system"""
-    return render_template('how_it_works.html') 
+    return render_template('how_it_works.html')
+
+@main.route('/test-session')
+def test_session():
+    """
+    Test route for verifying session functionality
+    """
+    # Create a unique test value
+    test_id = f"sess-test-{datetime.now().strftime('%H%M%S%f')}"
+    
+    # Store in session
+    old_value = session.get('session_test', 'No previous value')
+    session['session_test'] = test_id
+    
+    # Make sure session is modified
+    session.modified = True
+    
+    # Log session details
+    print(f"=== TEST SESSION ROUTE CALLED ===")
+    print(f"Session ID: {id(session)}")
+    print(f"Setting session_test to: {test_id}")
+    print(f"Previous value was: {old_value}")
+    print(f"Current session: {dict(session)}")
+    
+    # Force session save
+    from flask import get_flashed_messages
+    get_flashed_messages()
+    
+    # Render a page with links to verify
+    html = f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Session Test</title>
+        <style>
+            body {{ font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }}
+            .box {{ border: 1px solid #ddd; padding: 20px; margin: 20px 0; border-radius: 5px; }}
+            .success {{ color: green; }}
+            .error {{ color: red; }}
+        </style>
+    </head>
+    <body>
+        <h1>Session Test</h1>
+        
+        <div class="box">
+            <h2>Current Session Data</h2>
+            <p><strong>Test ID:</strong> {test_id}</p>
+            <p><strong>Previous value:</strong> {old_value}</p>
+            <p><strong>Session object ID:</strong> {id(session)}</p>
+        </div>
+        
+        <div class="box">
+            <h2>Test Session Persistence</h2>
+            <p>Click the links below to test if session data persists:</p>
+            
+            <ul>
+                <li><a href="/verify-session">Verify Session (Same tab)</a></li>
+                <li><a href="/verify-session" target="_blank">Verify Session (New tab)</a></li>
+                <li><a href="javascript:fetch('/verify-session-ajax').then(r=>r.json()).then(data=>alert('Session test: ' + (data.success ? 'SUCCESS' : 'FAILED') + '\\n\\nStored: {test_id}\\nRetrieved: ' + data.value))">Verify Session (AJAX)</a></li>
+            </ul>
+        </div>
+        
+        <div class="box">
+            <h2>Test Redirect with Session</h2>
+            <p>Test if session persists across redirects:</p>
+            
+            <ul>
+                <li><a href="/test-session-redirect">Test Redirect (Same tab)</a></li>
+                <li><a href="/test-session-redirect" target="_blank">Test Redirect (New tab)</a></li>
+            </ul>
+        </div>
+    </body>
+    </html>
+    """
+    
+    return html
+
+@main.route('/verify-session')
+def verify_session():
+    """Verify the session value from test-session route"""
+    session_test = session.get('session_test', 'NOT FOUND')
+    
+    print(f"=== VERIFY SESSION ROUTE CALLED ===")
+    print(f"Session ID: {id(session)}")
+    print(f"Retrieved session_test: {session_test}")
+    print(f"Current session: {dict(session)}")
+    
+    html = f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Session Verification</title>
+        <style>
+            body {{ font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }}
+            .box {{ border: 1px solid #ddd; padding: 20px; margin: 20px 0; border-radius: 5px; }}
+            .success {{ color: green; font-weight: bold; }}
+            .error {{ color: red; font-weight: bold; }}
+        </style>
+    </head>
+    <body>
+        <h1>Session Verification</h1>
+        
+        <div class="box">
+            <h2>Session Test Results</h2>
+            <p><strong>Session Test Value:</strong> <span class="{'' if session_test != 'NOT FOUND' else 'error'}">{session_test}</span></p>
+            <p><strong>Session ID:</strong> {id(session)}</p>
+            <p class="{'' if session_test != 'NOT FOUND' else 'error'}">
+                {'' if session_test != 'NOT FOUND' else '⚠️ SESSION TEST FAILED - Value not found!'}
+            </p>
+            <p class="{'' if session_test == 'NOT FOUND' else 'success'}">
+                {'' if session_test == 'NOT FOUND' else '✅ SESSION TEST PASSED - Value found!'}
+            </p>
+        </div>
+        
+        <div class="box">
+            <p><a href="/test-session">← Back to Test Session</a></p>
+        </div>
+    </body>
+    </html>
+    """
+    
+    return html
+
+@main.route('/verify-session-ajax')
+def verify_session_ajax():
+    """Verify the session value via AJAX"""
+    session_test = session.get('session_test', 'NOT FOUND')
+    
+    print(f"=== VERIFY SESSION AJAX ROUTE CALLED ===")
+    print(f"Session ID: {id(session)}")
+    print(f"Retrieved session_test: {session_test}")
+    print(f"Current session: {dict(session)}")
+    
+    return jsonify({
+        'success': session_test != 'NOT FOUND',
+        'value': session_test
+    })
+
+@main.route('/test-session-redirect')
+def test_session_redirect():
+    """Set a session value and redirect to test persistence through redirects"""
+    # Create a unique test value
+    test_id = f"redirect-test-{datetime.now().strftime('%H%M%S%f')}"
+    
+    # Store in session
+    session['redirect_test'] = test_id
+    session.modified = True
+    
+    print(f"=== TEST SESSION REDIRECT ROUTE CALLED ===")
+    print(f"Session ID: {id(session)}")
+    print(f"Setting redirect_test to: {test_id}")
+    print(f"Current session: {dict(session)}")
+    
+    # Force session save
+    from flask import get_flashed_messages
+    get_flashed_messages()
+    
+    # Redirect to verification page
+    return redirect(url_for('main.verify_session_redirect'))
+
+@main.route('/verify-session-redirect')
+def verify_session_redirect():
+    """Verify the session after redirect"""
+    redirect_test = session.get('redirect_test', 'NOT FOUND')
+    
+    print(f"=== VERIFY SESSION REDIRECT ROUTE CALLED ===")
+    print(f"Session ID: {id(session)}")
+    print(f"Retrieved redirect_test: {redirect_test}")
+    print(f"Current session: {dict(session)}")
+    
+    html = f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Redirect Session Test</title>
+        <style>
+            body {{ font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }}
+            .box {{ border: 1px solid #ddd; padding: 20px; margin: 20px 0; border-radius: 5px; }}
+            .success {{ color: green; font-weight: bold; }}
+            .error {{ color: red; font-weight: bold; }}
+        </style>
+    </head>
+    <body>
+        <h1>Redirect Session Test</h1>
+        
+        <div class="box">
+            <h2>Session After Redirect</h2>
+            <p><strong>Redirect Test Value:</strong> <span class="{'' if redirect_test != 'NOT FOUND' else 'error'}">{redirect_test}</span></p>
+            <p><strong>Session ID:</strong> {id(session)}</p>
+            <p class="{'' if redirect_test != 'NOT FOUND' else 'error'}">
+                {'' if redirect_test != 'NOT FOUND' else '⚠️ REDIRECT TEST FAILED - Value not found after redirect!'}
+            </p>
+            <p class="{'' if redirect_test == 'NOT FOUND' else 'success'}">
+                {'' if redirect_test == 'NOT FOUND' else '✅ REDIRECT TEST PASSED - Value persisted through redirect!'}
+            </p>
+        </div>
+        
+        <div class="box">
+            <p><a href="/test-session">← Back to Test Session</a></p>
+        </div>
+    </body>
+    </html>
+    """
+    
+    return html
+
+@main.route('/test-fallback/<slug>')
+def test_fallback(slug):
+    """
+    Test route that creates a direct link to the confirmation page with a fallback parameter
+    """
+    trip = Trip.query.filter_by(slug=slug).first_or_404()
+    
+    # Create a test recommendation
+    fallback_data = {
+        'name': 'Test Recommendation (Direct Fallback)',
+        'type': 'Test',
+        'desc': 'This is a test recommendation created directly with the fallback mechanism to verify it works correctly.',
+        'request_id': f"direct-test-{datetime.now().strftime('%H%M%S%f')}"
+    }
+    
+    # Encode as fallback parameter
+    import json
+    import base64
+    encoded_data = base64.urlsafe_b64encode(json.dumps(fallback_data).encode()).decode()
+    
+    # Create the redirect URL
+    redirect_url = url_for('main.confirm_audio_recommendations', slug=slug, fb=encoded_data)
+    
+    # Log what we're doing
+    print(f"=== TEST FALLBACK ROUTE CALLED for trip {slug} ===")
+    print(f"Created fallback data: {fallback_data}")
+    print(f"Encoded as: {encoded_data[:30]}...")
+    print(f"Redirect URL: {redirect_url}")
+    
+    html = f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Test Fallback Mechanism</title>
+        <style>
+            body {{ font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }}
+            .box {{ border: 1px solid #ddd; padding: 20px; margin: 20px 0; border-radius: 5px; }}
+            pre {{ background: #f5f5f5; padding: 10px; overflow: auto; }}
+        </style>
+    </head>
+    <body>
+        <h1>Test Fallback Mechanism</h1>
+        
+        <div class="box">
+            <h2>Test Information</h2>
+            <p><strong>Trip:</strong> {trip.destination} for {trip.traveler_name}</p>
+            <p><strong>Trip Slug:</strong> {slug}</p>
+            <p><strong>Test ID:</strong> {fallback_data['request_id']}</p>
+        </div>
+        
+        <div class="box">
+            <h2>Fallback Data</h2>
+            <pre>{json.dumps(fallback_data, indent=2)}</pre>
+        </div>
+        
+        <div class="box">
+            <h2>Test the Fallback</h2>
+            <p>Click the links below to test if the fallback mechanism works:</p>
+            
+            <ul>
+                <li><a href="{redirect_url}">Test Fallback (Same tab)</a></li>
+                <li><a href="{redirect_url}" target="_blank">Test Fallback (New tab)</a></li>
+            </ul>
+        </div>
+    </body>
+    </html>
+    """
+    
+    return html 
