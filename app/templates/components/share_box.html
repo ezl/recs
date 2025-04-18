@@ -11,53 +11,143 @@
 <div class="share-box mt-6">
   <h3 class="text-xl font-semibold text-blue-800 mb-3">{{ title }}</h3>
   <p class="text-gray-700 mb-4">{{ description }}</p>
-  <div class="relative">
+  <div class="relative" id="share-container-{{ id|default('default') }}">
     <input 
       type="text" 
       id="share-link-{{ id|default('default') }}" 
       value="{{ share_url }}" 
-      class="form-input pr-10 bg-white text-gray-800"
+      class="form-input pr-10 bg-white text-gray-800 cursor-pointer"
       readonly
     >
     <button 
-      onclick="copyToClipboard('share-link-{{ id|default('default') }}')" 
       class="icon-btn absolute inset-y-0 right-0 px-3 flex items-center text-gray-500 hover:text-blue-600"
       title="Copy to clipboard"
+      id="copy-icon-{{ id|default('default') }}"
+      aria-label="Copy link to clipboard"
+      type="button"
     >
       <i data-feather="clipboard" class="h-5 w-5"></i>
     </button>
+    <div class="absolute inset-0 bg-blue-50 bg-opacity-90 flex items-center justify-center rounded hidden" id="copy-feedback-{{ id|default('default') }}">
+      <span class="text-blue-600 font-medium flex items-center">
+        <i data-feather="check" class="h-5 w-5 mr-2"></i>
+        Copied to clipboard!
+      </span>
+    </div>
   </div>
 </div>
 
 <script>
-  // Only add this script if it hasn't been added yet
-  if (typeof window.copyToClipboard !== 'function') {
-    window.copyToClipboard = function(elementId) {
-      const element = document.getElementById(elementId);
-      const text = element.value;
+  // IIFE (Immediately Invoked Function Expression) to prevent global scope pollution
+  (function() {
+    // Wait for page to fully load before attaching event listeners
+    window.addEventListener('load', function() {
+      console.log('Share box loaded: {{ id|default("default") }}');
       
-      // Use Clipboard API (modern approach)
-      navigator.clipboard.writeText(text).then(() => {
-        // Show copied feedback
-        const button = document.querySelector(`[onclick="copyToClipboard('${elementId}')"]`);
-        button.classList.add('text-green-600');
+      // Get references to elements for this specific share box
+      const shareId = "{{ id|default('default') }}";
+      const input = document.getElementById(`share-link-${shareId}`);
+      const button = document.getElementById(`copy-icon-${shareId}`);
+      const feedbackElement = document.getElementById(`copy-feedback-${shareId}`);
+      
+      // Flag to avoid processing select events we trigger programmatically
+      let isSelectingProgrammatically = false;
+      
+      // Store timeout ID to clear any pending timeouts
+      let feedbackTimeout = null;
+      
+      if (input && button && feedbackElement) {
+        // Function to handle copying and showing feedback
+        const copyToClipboardAndShowFeedback = (source) => {
+          console.log(`Copy function called from: ${source}`);
+          
+          // Mark that we're about to programmatically select text
+          isSelectingProgrammatically = true;
+          
+          // Select the text
+          input.select();
+          console.log('Text selected');
+          
+          const text = input.value;
+          
+          // After a short delay, we can allow select events again
+          setTimeout(() => {
+            isSelectingProgrammatically = false;
+          }, 100);
+          
+          // Use Clipboard API (modern approach)
+          navigator.clipboard.writeText(text).then(() => {
+            console.log('Clipboard API success');
+            
+            // Clear any existing timeout
+            if (feedbackTimeout) {
+              clearTimeout(feedbackTimeout);
+            }
+            
+            // Show feedback
+            feedbackElement.classList.remove('hidden');
+            console.log('Feedback element shown');
+            
+            // Hide feedback after 3 seconds
+            feedbackTimeout = setTimeout(() => {
+              feedbackElement.classList.add('hidden');
+              console.log('Feedback element hidden');
+              feedbackTimeout = null;
+            }, 3000);
+          }).catch(err => {
+            console.log('Clipboard API failed, using fallback', err);
+            
+            // Fallback to older method for browsers that don't support Clipboard API
+            document.execCommand('copy');
+            
+            // Clear any existing timeout
+            if (feedbackTimeout) {
+              clearTimeout(feedbackTimeout);
+            }
+            
+            // Show feedback
+            feedbackElement.classList.remove('hidden');
+            console.log('Feedback element shown (fallback)');
+            
+            // Hide feedback after 3 seconds
+            feedbackTimeout = setTimeout(() => {
+              feedbackElement.classList.add('hidden');
+              console.log('Feedback element hidden (fallback)');
+              feedbackTimeout = null;
+            }, 3000);
+          });
+        };
         
-        setTimeout(() => {
-          button.classList.remove('text-green-600');
-        }, 2000);
-      }).catch(err => {
-        // Fallback to older method for browsers that don't support Clipboard API
-        element.select();
-        document.execCommand('copy');
+        // Add click event to the input to select all text and copy to clipboard
+        input.addEventListener('click', function(e) {
+          console.log('Input clicked');
+          // Prevent event propagation to avoid duplicate events
+          e.preventDefault();
+          e.stopPropagation();
+          
+          copyToClipboardAndShowFeedback('input click');
+        });
         
-        // Show copied feedback
-        const button = document.querySelector(`[onclick="copyToClipboard('${elementId}')"]`);
-        button.classList.add('text-green-600');
+        // Monitor for select events, but ignore the ones we trigger ourselves
+        input.addEventListener('select', function(e) {
+          console.log('Input select event triggered, programmatic:', isSelectingProgrammatically);
+          
+          // If this select event wasn't triggered by our code, ignore it
+          if (!isSelectingProgrammatically) {
+            // Just log it, don't take any action
+            console.log('Ignoring user-initiated select event');
+          }
+        });
         
-        setTimeout(() => {
-          button.classList.remove('text-green-600');
-        }, 2000);
-      });
-    };
-  }
+        // Add click event to the button to copy the text
+        button.addEventListener('click', function(e) {
+          console.log('Button clicked');
+          e.preventDefault();
+          e.stopPropagation();
+          
+          copyToClipboardAndShowFeedback('button click');
+        });
+      }
+    });
+  })();
 </script> 

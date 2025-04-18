@@ -9,6 +9,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from app import create_app
 from app.database import db
 import subprocess
+from flask_migrate import Migrate, upgrade
 
 def reset_test_db():
     """Reset the test database to ensure clean state for tests"""
@@ -33,6 +34,18 @@ def reset_test_db():
     with app.app_context():
         print("Creating test database tables...")
         db.create_all()
+        
+        # Set up migrations
+        migrate = Migrate(app, db)
+        
+        # Run migrations
+        print("Running database migrations...")
+        try:
+            upgrade()
+            print("✅ Migrations completed successfully")
+        except Exception as e:
+            print(f"❌ Error running migrations: {e}")
+            # Continue anyway as the db.create_all() should have created the basic schema
         
         # Commit the changes
         db.session.commit()
