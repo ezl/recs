@@ -520,14 +520,70 @@
           return;
         }
         
-        // Check if recommendation names are filled out
-        const emptyRecommendations = document.querySelectorAll('input[name="recommendations[]"]');
-        for (let i = 0; i < emptyRecommendations.length; i++) {
-          if (!emptyRecommendations[i].value.trim()) {
-            alert('Please fill out the name for all recommendations.');
-            emptyRecommendations[i].focus();
-            return;
+        // Process all recommendation items before form submission
+        const recommendationItems = document.querySelectorAll('.recommendation-item');
+        let allValid = true;
+        let hasPartialItems = false;
+        
+        // Remove any existing inline error messages
+        document.querySelectorAll('.inline-error-message').forEach(el => el.remove());
+        
+        recommendationItems.forEach(item => {
+          const nameInput = item.querySelector('input[name="recommendations[]"]');
+          const typeInput = item.querySelector('input[name="place_types[]"]');
+          const descInput = item.querySelector('textarea[name="descriptions[]"]');
+          
+          // Clear any previous error styling
+          nameInput.classList.remove('border-red-500');
+          
+          // Check if all fields are empty in this item
+          const isEmpty = (!nameInput.value.trim() && 
+                          (!typeInput || !typeInput.value.trim()) && 
+                          (!descInput || !descInput.value.trim()));
+          
+          // Check if some fields are filled but not the required name field
+          const isPartiallyFilled = !isEmpty && !nameInput.value.trim();
+          
+          if (isEmpty) {
+            // Case 1: If completely empty, mark for removal
+            item.classList.add('to-be-removed');
+          } else if (isPartiallyFilled) {
+            // Case 2B: Has some data but missing required fields
+            allValid = false;
+            hasPartialItems = true;
+            
+            // Scroll to this item
+            item.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            // Add inline flash message using existing styling
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'bg-red-100 text-red-800 border border-red-300 rounded-lg p-3 mt-2 mb-4 flex items-center inline-error-message';
+            errorDiv.innerHTML = `
+              <i data-feather="alert-circle" class="h-5 w-5 mr-2 text-red-500"></i>
+              <div>Please provide a name for this recommendation.</div>
+            `;
+            
+            // Insert AFTER the recommendation item (not inside it)
+            item.insertAdjacentElement('afterend', errorDiv);
+            
+            // Add red border to the name input
+            nameInput.classList.add('border-red-500');
+            
+            // Re-initialize feather icons for the new element
+            if (typeof feather !== 'undefined') {
+              feather.replace();
+            }
           }
+        });
+        
+        // Remove empty items marked for removal
+        document.querySelectorAll('.to-be-removed').forEach(item => {
+          item.remove();
+        });
+        
+        // If we have partial items with missing required fields, don't proceed
+        if (!allValid) {
+          return;
         }
         
         // If we already have a name, just submit the form
@@ -536,6 +592,20 @@
         } else {
           // Otherwise show the modal to get the name
           showNameModal();
+        }
+      });
+      
+      // Add event listeners to recommendation name inputs to clear errors when typing
+      document.addEventListener('input', function(e) {
+        if (e.target && e.target.matches('input[name="recommendations[]"]')) {
+          // Remove red border
+          e.target.classList.remove('border-red-500');
+          
+          // Find and remove any adjacent error message
+          const item = e.target.closest('.recommendation-item');
+          if (item && item.nextElementSibling && item.nextElementSibling.classList.contains('inline-error-message')) {
+            item.nextElementSibling.remove();
+          }
         }
       });
       
