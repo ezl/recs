@@ -270,7 +270,7 @@
       newItem.id = `recommendation-${newIndex}`;
       
       newItem.innerHTML = `
-        <div class="md:flex md:flex-row gap-6">
+        <div class="flex flex-col md:flex-row gap-6">
           <!-- Recommendation Details -->
           <div class="md:w-2/5 mb-4 md:mb-0">
             <label for="recommendation_${newIndex}" class="block text-gray-700 font-medium mb-1 text-sm">Recommendation</label>
@@ -316,14 +316,14 @@
               placeholder="What makes this place special? Any tips for {{ trip.traveler_name }}?"
             ></textarea>
           </div>
-        </div>
-        
-        <!-- Delete button -->
-        <div class="absolute top-3 right-3">
-          <button type="button" class="p-2 rounded-full text-red-500 hover:bg-red-50 hover:text-red-700 transition remove-recommendation" 
-                  data-index="${newIndex}" aria-label="Remove recommendation">
-            <i data-feather="x" class="h-5 w-5"></i>
-          </button>
+          
+          <!-- Delete button (works on all screen sizes) -->
+          <div class="flex items-start">
+            <button type="button" class="p-2 rounded-full text-red-500 hover:bg-red-50 hover:text-red-700 transition remove-recommendation" 
+                    data-index="${newIndex}" aria-label="Remove recommendation">
+              <i data-feather="x" class="h-5 w-5"></i>
+            </button>
+          </div>
         </div>
       `;
       
