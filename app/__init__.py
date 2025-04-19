@@ -31,9 +31,9 @@ def create_app():
     from app.cli import init_app as init_cli
     init_cli(app)
     
-    # Register blueprints
-    from app.routes import main
-    app.register_blueprint(main)
+    # Register route blueprints
+    from app.routes import init_app as init_routes
+    init_routes(app)
     
     # Register auth blueprint
     from app.auth import auth

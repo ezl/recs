@@ -49,7 +49,7 @@
     {% block head_extras %}{% endblock %}
 </head>
 <body class="min-h-screen bg-gray-50 text-gray-800">
-    {% set hide_nav_footer = request.endpoint in ['main.add_recommendation', 'main.process_recommendation', 'main.process_audio_recommendation', 'main.confirm_audio_recommendations', 'main.save_recommendations', 'main.confirm_recommendations'] %}
+    {% set hide_nav_footer = request.endpoint in ['main.add_recommendation', 'recommendation.process_recommendation', 'main.process_audio_recommendation', 'main.confirm_audio_recommendations', 'recommendation.save_recommendations', 'main.confirm_recommendations'] %}
     
     <!-- Navigation -->
     {% if not hide_nav_footer %}

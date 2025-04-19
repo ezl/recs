@@ -33,7 +33,7 @@
     <div id="trip-data" data-slug="{{ trip.slug }}" class="hidden"></div>
     <div id="destination-data" data-destination="{{ trip.destination }}" class="hidden"></div>
     
-    <form id="step1-form" method="POST" action="{{ url_for('main.process_recommendation', slug=trip.slug) }}" class="w-full">
+    <form id="step1-form" method="POST" action="{{ url_for('recommendation.process_recommendation', slug=trip.slug) }}" class="w-full">
         <div class="w-full">
             <div id="text-input-container">
                 <textarea 

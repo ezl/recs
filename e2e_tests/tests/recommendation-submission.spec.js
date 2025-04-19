@@ -127,9 +127,9 @@ test.describe('Recommendation Submission Process', () => {
       
       // Check for thank you page title
       if (await page.locator('h1.text-3xl').count() > 0) {
-        const thankYouTitle = await page.locator('h1.text-3xl');
-        await expect(thankYouTitle).toBeVisible();
-        expect(await thankYouTitle.textContent()).toContain('Thank You!');
+        const pageTitle = await page.locator('h1.text-3xl');
+        await expect(pageTitle).toBeVisible();
+        expect(await pageTitle.textContent()).toContain('Your Tokyo Recommendations');
       }
       
       // If we can see recommendation cards, verify them

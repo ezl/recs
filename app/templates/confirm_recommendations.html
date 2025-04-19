@@ -42,7 +42,7 @@
     </div>
     
     <!-- Form to manually add recommendations when none were detected -->
-    <form method="POST" action="{{ url_for('main.save_recommendations', slug=trip.slug) }}" class="space-y-6" id="recommendations-form">
+    <form method="POST" action="{{ url_for('recommendation.save_recommendations', slug=trip.slug) }}" class="space-y-6" id="recommendations-form">
       <!-- Hidden recommender name field that will be filled by the modal -->
       <input type="hidden" id="recommender_name" name="recommender_name" value="{{ recommender_name }}">
       
@@ -75,7 +75,7 @@
       </div>
     </form>
   {% else %}
-    <form method="POST" action="{{ url_for('main.save_recommendations', slug=trip.slug) }}" class="space-y-6" id="recommendations-form">
+    <form method="POST" action="{{ url_for('recommendation.save_recommendations', slug=trip.slug) }}" class="space-y-6" id="recommendations-form">
       <!-- Hidden recommender name field that will be filled by the modal -->
       <input type="hidden" id="recommender_name" name="recommender_name" value="{{ recommender_name }}">
       

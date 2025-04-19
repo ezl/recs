@@ -10,6 +10,30 @@ A modern web application starter template using Flask, Tailwind CSS, and SQLAlch
 - **Environment Configuration**: Development, testing, and production setups
 - **Modular Structure**: Well-organized code for scalability
 
+## End-to-End Testing
+
+This project includes an automated E2E test suite built with Playwright. The tests run against a dedicated test server on port 5001 with a fresh test database.
+
+To run the tests:
+```bash
+# Navigate to the e2e_tests directory
+cd e2e_tests
+
+# Install test dependencies
+npm install
+
+# Run tests (headless mode)
+npm test
+
+# Run tests with visible browser
+npm run test:headed
+
+# Run tests with Playwright UI for debugging
+npm run test:ui
+```
+
+For more details, see the documentation in the `e2e_tests` directory.
+
 ## Getting Started
 
 ### Prerequisites
