@@ -2,7 +2,8 @@ import os
 import uuid
 import json
 from datetime import datetime
-from flask import Blueprint, render_template, redirect, url_for, request, flash, session, abort, jsonify
+from io import BytesIO
+from flask import Blueprint, render_template, redirect, url_for, request, flash, session, abort, jsonify, current_app
 from app.database import db
 from app.database.models import User, Trip, Recommendation, Activity, TripSubscription
 from app.services.ai_service import AIService
@@ -91,6 +92,15 @@ def complete_trip():
         slug = f"{base_slug}-{counter}"
         counter += 1
     
+    # Get destination information from OpenAI
+    try:
+        destinations = AIService.get_destination_suggestions(destination)
+        main_destination = destinations[0] if destinations else None
+    except Exception as e:
+        # Log the error but continue with trip creation
+        print(f"Error getting destination suggestions: {str(e)}")
+        main_destination = None
+    
     # Create trip
     trip = Trip(
         destination=destination,
@@ -100,12 +110,14 @@ def complete_trip():
         user_id=user.id
     )
     
+    # Add destination information if available
+    if main_destination:
+        trip.destination_info = destinations
+        trip.destination_display_name = main_destination.get('name')
+        trip.destination_country = main_destination.get('country')
+    
     db.session.add(trip)
     db.session.commit()
-    
-    # Clean up session variables
-    if 'temp_destination' in session:
-        session.pop('temp_destination')
     
     return redirect(url_for('main.view_trip', slug=trip.slug))
 
@@ -186,6 +198,15 @@ def resolve_name():
         slug = f"{base_slug}-{counter}"
         counter += 1
     
+    # Get destination information from OpenAI
+    try:
+        destinations = AIService.get_destination_suggestions(destination)
+        main_destination = destinations[0] if destinations else None
+    except Exception as e:
+        # Log the error but continue with trip creation
+        print(f"Error getting destination suggestions: {str(e)}")
+        main_destination = None
+    
     # Create trip
     trip = Trip(
         destination=destination,
@@ -194,6 +215,12 @@ def resolve_name():
         slug=slug,
         user_id=user.id
     )
+    
+    # Add destination information if available
+    if main_destination:
+        trip.destination_info = destinations
+        trip.destination_display_name = main_destination.get('name')
+        trip.destination_country = main_destination.get('country')
     
     db.session.add(trip)
     db.session.commit()
@@ -210,7 +237,8 @@ def resolve_name():
 @main.route('/trip/<slug>')
 def view_trip(slug):
     trip = Trip.query.filter_by(slug=slug).first_or_404()
-    return render_template('trip.html', trip=trip)
+    config = {'GOOGLE_MAPS_API_KEY': os.environ.get('GOOGLE_MAPS_API_KEY', '')}
+    return render_template('trip.html', trip=trip, config=config)
 
 @main.route('/trip/<slug>/add', methods=['GET'])
 def add_recommendation(slug):

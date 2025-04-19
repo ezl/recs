@@ -104,6 +104,11 @@ class Trip(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     
+    # New fields for destination information
+    destination_info = db.Column(db.JSON, nullable=True)
+    destination_display_name = db.Column(db.String(255), nullable=True)
+    destination_country = db.Column(db.String(100), nullable=True)
+    
     recommendations = db.relationship('Recommendation', backref='trip', lazy=True, cascade='all, delete-orphan')
     subscriptions = db.relationship('TripSubscription', backref='trip', lazy=True, cascade='all, delete-orphan')
     
