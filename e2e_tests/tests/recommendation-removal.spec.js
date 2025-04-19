@@ -219,8 +219,8 @@ test('should be able to submit after removing recommendations', async ({ page })
     await page.fill('#modal-recommender-name', 'Removal Test User');
     
     // Wait for confirm button to be available
-    await page.waitForSelector('#modal-confirm-button', { timeout: 10000 });
-    await page.click('#modal-confirm-button');
+    await page.waitForSelector('.submit-with-name', { timeout: 10000 });
+    await page.click('.submit-with-name');
     
     // Wait for submission and redirect
     await page.waitForURL('**/trip/**', { timeout: 15000 });

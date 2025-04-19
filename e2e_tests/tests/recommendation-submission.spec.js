@@ -109,8 +109,8 @@ test.describe('Recommendation Submission Process', () => {
       await page.fill('#modal-recommender-name', 'Test Recommender');
       
       // Wait for confirm button to be available
-      await page.waitForSelector('#modal-confirm-button', { timeout: 10000 });
-      await page.click('#modal-confirm-button');
+      await page.waitForSelector('.submit-with-name', { timeout: 10000 });
+      await page.click('.submit-with-name');
       
       // Wait for submission and redirect
       await page.waitForURL('**/trip/**');
@@ -129,7 +129,7 @@ test.describe('Recommendation Submission Process', () => {
       if (await page.locator('h1.text-3xl').count() > 0) {
         const pageTitle = await page.locator('h1.text-3xl');
         await expect(pageTitle).toBeVisible();
-        expect(await pageTitle.textContent()).toContain('Your Tokyo Recommendations');
+        expect(await pageTitle.textContent()).toContain('Thank You!');
       }
       
       // If we can see recommendation cards, verify them

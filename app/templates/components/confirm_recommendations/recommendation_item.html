@@ -1,0 +1,39 @@
+<div class="bg-white rounded-xl p-6 border border-gray-200 shadow-sm transition hover:shadow-md recommendation-item" id="recommendation-{{ index }}">
+  <div class="flex flex-col md:flex-row gap-6">
+    <!-- Recommendation Details -->
+    <div class="md:w-2/5">
+      <h3 class="font-bold text-lg text-gray-900 mb-2">{{ item.name }}</h3>
+      
+      {% if item.type %}
+      <div class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800 mb-3">
+        {{ item.type }}
+      </div>
+      {% endif %}
+      
+      <input type="hidden" name="recommendations[]" value="{{ item.name }}">
+      <input type="hidden" name="place_types[]" value="{{ item.type }}">
+      <input type="hidden" name="website_urls[]" value="{{ item.website_url if item.website_url else '' }}">
+    </div>
+    
+    <!-- Description Textarea -->
+    <div class="md:w-3/5 flex flex-col">
+      <!-- Mobile specific label -->
+      <label class="md:hidden text-gray-700 font-medium mb-1 text-sm">Why do you recommend it?</label>
+      <textarea 
+        id="description_{{ index }}" 
+        name="descriptions[]" 
+        class="flex-1 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+        rows="3" 
+        placeholder="What makes this place special? Any tips for {{ trip.traveler_name }}?"
+      >{{ item.description }}</textarea>
+    </div>
+    
+    <!-- Delete button (works on all screen sizes) -->
+    <div class="flex items-start">
+      <button type="button" class="p-2 rounded-full text-red-500 hover:bg-red-50 hover:text-red-700 transition remove-recommendation" 
+              data-index="{{ index }}" aria-label="Remove recommendation">
+        <i data-feather="x" class="h-5 w-5"></i>
+      </button>
+    </div>
+  </div>
+</div> 

@@ -1,0 +1,14 @@
+<!-- Client-side flash message for removed recommendations -->
+<div id="client-flash-container" class="hidden">
+  <div class="bg-yellow-100 text-yellow-800 border border-yellow-300 rounded-lg p-4 mb-6 flex items-center">
+    <i data-feather="alert-triangle" class="h-5 w-5 mr-3 text-yellow-500"></i>
+    <div class="flex-1">Recommendation removed</div>
+    <button id="undo-button" class="ml-4 px-3 py-1 bg-white text-gray-800 text-sm rounded hover:bg-gray-200 transition font-medium">
+      Undo
+    </button>
+    <button type="button" class="p-1.5 ml-3 rounded-full hover:bg-white/20" onclick="this.parentElement.classList.add('hidden')">
+      <span class="sr-only">Dismiss</span>
+      <i data-feather="x" class="h-4 w-4"></i>
+    </button>
+  </div>
+</div> 
