@@ -8,17 +8,17 @@ module.exports = defineConfig({
   testDir: './tests',
   fullyParallel: false,
   forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 1,
-  timeout: 60000,
-  workers: 1,
+  retries: 0,
+  timeout: 13000,
+  workers: 2,
   reporter: 'html',
   use: {
     baseURL: 'http://localhost:5001',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     video: 'on-first-retry',
-    actionTimeout: 30000,
-    navigationTimeout: 30000,
+    actionTimeout: 13000,
+    navigationTimeout: 13000,
   },
 
   projects: [

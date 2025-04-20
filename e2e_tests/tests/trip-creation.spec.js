@@ -1,6 +1,8 @@
 // @ts-check
 const { test, expect } = require('@playwright/test');
 
+test.setTimeout(12000);
+
 test('should create a new trip through the multi-step process', async ({ page }) => {
   // Go to the homepage
   await page.goto('/');
@@ -46,8 +48,6 @@ test('should create a new trip through the multi-step process', async ({ page })
 });
 
 test('should handle name resolution for existing users', async ({ page }) => {
-  // Set timeout to 10 seconds for this test
-  test.setTimeout(10000);
   
   try {
     const startTime = Date.now();
@@ -71,7 +71,7 @@ test('should handle name resolution for existing users', async ({ page }) => {
     
     // Click with a Promise.all to catch both the click and navigation events
     await Promise.all([
-      page.waitForNavigation({ timeout: 9000 }),
+      page.waitForNavigation({ timeout: 10000 }),
       page.click('button[type="submit"]')
     ]);
     
@@ -102,7 +102,7 @@ test('should handle name resolution for existing users', async ({ page }) => {
       await page.click('button[type="submit"]');
       
       // Wait for name resolution page
-      await page.waitForURL('**/name-resolution', { timeout: 9000 });
+      await page.waitForURL('**/name-resolution', { timeout: 1000 });
       console.log(`[${Date.now() - startTime}ms] Navigated to name resolution page after second trip creation`);
       
       // Continue with the name resolution process

@@ -9,7 +9,7 @@ test.describe('Recommendation Submission Process', () => {
       await page.goto('/');
       
       // Wait for form to be loaded
-      await page.waitForSelector('#destination', { timeout: 10000 });
+      await page.waitForSelector('#destination', { timeout: 1000 });
       
       await page.fill('#destination', 'Tokyo');
       
@@ -20,8 +20,8 @@ test.describe('Recommendation Submission Process', () => {
       await page.waitForURL('**/user-info');
       
       // Wait for form to be loaded
-      await page.waitForSelector('#name', { timeout: 10000 });
-      await page.waitForSelector('#email', { timeout: 10000 });
+      await page.waitForSelector('#name', { timeout: 1000 });
+      await page.waitForSelector('#email', { timeout: 1000 });
       
       await page.fill('#name', 'Test Traveler');
       await page.fill('#email', 'traveler@example.com');
@@ -36,7 +36,7 @@ test.describe('Recommendation Submission Process', () => {
       await page.screenshot({ path: 'trip-detail-submission.png' });
       
       // Wait for share box to be visible
-      await page.waitForSelector('.share-box', { timeout: 10000 });
+      await page.waitForSelector('.share-box', { timeout: 1000 });
       
       // Navigate to recommendation page
       const inputField = await page.locator('.share-box input[type="text"]');
@@ -44,7 +44,7 @@ test.describe('Recommendation Submission Process', () => {
       await page.goto(shareLink);
       
       // Wait for recommendation form to load
-      await page.waitForSelector('#text-recommendations', { timeout: 10000 });
+      await page.waitForSelector('#text-recommendations', { timeout: 1000 });
     } catch (error) {
       console.error('Setup failed:', error.message);
       await page.screenshot({ path: 'setup-failure-submission.png' });
@@ -58,7 +58,7 @@ test.describe('Recommendation Submission Process', () => {
       await page.fill('#text-recommendations', 'You should visit Tokyo Tower and try sushi at Tsukiji Market. Also check out Shinjuku Gyoen for cherry blossoms in spring.');
       
       // Wait for the submit button to be enabled
-      await page.waitForSelector('#submit-button:not([disabled])', { timeout: 10000 });
+      await page.waitForSelector('#submit-button:not([disabled])', { timeout: 1000 });
       await expect(page.locator('#submit-button')).toBeEnabled();
       
       // Click continue button
@@ -71,7 +71,7 @@ test.describe('Recommendation Submission Process', () => {
       await page.screenshot({ path: 'recommendations-processed.png' });
       
       // Wait for recommendation items to appear
-      await page.waitForSelector('.recommendation-item', { timeout: 10000 });
+      await page.waitForSelector('.recommendation-item', { timeout: 1000 });
       
       // Verify extracted recommendations
       const recommendationItems = await page.locator('.recommendation-item').count();
@@ -99,17 +99,17 @@ test.describe('Recommendation Submission Process', () => {
       }
       
       // Wait for submit button to be clickable
-      await page.waitForSelector('#submit-button', { timeout: 10000 });
+      await page.waitForSelector('#submit-button', { timeout: 1000 });
       
       // Enter name and submit
       await page.click('#submit-button');
       
       // Wait for modal to appear
-      await page.waitForSelector('#modal-recommender-name', { timeout: 10000 });
+      await page.waitForSelector('#modal-recommender-name', { timeout: 1000 });
       await page.fill('#modal-recommender-name', 'Test Recommender');
       
       // Wait for confirm button to be available
-      await page.waitForSelector('.submit-with-name', { timeout: 10000 });
+      await page.waitForSelector('.submit-with-name', { timeout: 1000 });
       await page.click('.submit-with-name');
       
       // Wait for submission and redirect
@@ -172,7 +172,7 @@ test.describe('Recommendation Submission Process', () => {
       await page.fill('#text-recommendations', 'Tokyo Tower');
       
       // Wait for the button to become enabled
-      await page.waitForSelector('#submit-button:not([disabled])', { timeout: 5000 });
+      await page.waitForSelector('#submit-button:not([disabled])', { timeout: 1000 });
       
       // Now button should be enabled
       await expect(page.locator('#submit-button')).toBeEnabled();

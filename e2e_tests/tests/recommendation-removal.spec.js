@@ -2,7 +2,7 @@
 const { test, expect } = require('@playwright/test');
 
 // Set timeout for all tests in this file
-test.setTimeout(60000);
+test.setTimeout(12000);
 
 // Helper function to set up test environment
 async function setupTest(page) {
@@ -40,14 +40,14 @@ async function setupTest(page) {
     await page.fill('#text-recommendations', 'Visit Brandenburg Gate, Check out Museum Island, Try currywurst at Curry 36, Enjoy the view from TV Tower');
     
     // Submit recommendations
-    await page.waitForSelector('#submit-button', { timeout: 10000 });
+    await page.waitForSelector('#submit-button', { timeout: 1000 });
     await page.click('#submit-button');
     
     // Wait for recommendations to be processed
     await page.waitForURL('**/trip/**/process');
     
     // Wait for recommendation items to appear
-    await page.waitForSelector('.recommendation-item', { timeout: 10000 });
+    await page.waitForSelector('.recommendation-item', { timeout: 1000 });
     return true;
   } catch (error) {
     console.error('Setup failed:', error.message);
@@ -62,7 +62,7 @@ test('should remove a recommendation', async ({ page }) => {
   
   try {
     // Count initial number of recommendations
-    await page.waitForSelector('.recommendation-item', { timeout: 10000 });
+    await page.waitForSelector('.recommendation-item', { timeout: 1000 });
     const initialCount = await page.locator('.recommendation-item').count();
     expect(initialCount).toBeGreaterThan(0);
     
@@ -71,8 +71,8 @@ test('should remove a recommendation', async ({ page }) => {
     
     // Wait for the flash message, which could be either inline or global
     await Promise.race([
-      page.waitForSelector('.inline-flash-message', { timeout: 10000 }),
-      page.waitForSelector('#client-flash-container:not(.hidden)', { timeout: 10000 })
+      page.waitForSelector('.inline-flash-message', { timeout: 1000 }),
+      page.waitForSelector('#client-flash-container:not(.hidden)', { timeout: 1000 })
     ]);
     
     // Check if either flash message type is visible
@@ -102,7 +102,7 @@ test('should undo recommendation removal', async ({ page }) => {
   
   try {
     // Ensure recommendation items exist before proceeding
-    await page.waitForSelector('.recommendation-item', { timeout: 10000, state: 'visible' });
+    await page.waitForSelector('.recommendation-item', { timeout: 1000, state: 'visible' });
     
     // Count initial number of recommendations
     const initialCount = await page.locator('.recommendation-item').count();
@@ -114,7 +114,7 @@ test('should undo recommendation removal', async ({ page }) => {
     console.log(`First recommendation text: ${firstRecText}`);
     
     // Make sure the remove button is visible before clicking
-    await page.waitForSelector('.recommendation-item .remove-recommendation', { state: 'visible', timeout: 5000 });
+    await page.waitForSelector('.recommendation-item .remove-recommendation', { state: 'visible', timeout: 1000 });
     
     // Remove the first recommendation
     await page.locator('.recommendation-item').first().locator('.remove-recommendation').click();
@@ -126,9 +126,9 @@ test('should undo recommendation removal', async ({ page }) => {
     // Wait for the flash message, checking for both types with more reliable strategy
     console.log('Waiting for flash message...');
     const flashPromise = Promise.race([
-      page.waitForSelector('.inline-flash-message', { state: 'visible', timeout: 10000 })
+      page.waitForSelector('.inline-flash-message', { state: 'visible', timeout: 1000 })
         .then(() => 'inline'),
-      page.waitForSelector('#client-flash-container:not(.hidden)', { state: 'visible', timeout: 10000 })
+      page.waitForSelector('#client-flash-container:not(.hidden)', { state: 'visible', timeout: 1000 })
         .then(() => 'global')
     ]).catch(e => {
       console.error('Flash message timeout:', e.message);
@@ -166,7 +166,7 @@ test('should undo recommendation removal', async ({ page }) => {
     }
     
     // Wait for the DOM to update after undo
-    await page.waitForTimeout(1500);
+    await page.waitForTimeout(1000);
     
     // Verify recommendation count after undo
     const afterUndoCount = await page.locator('.recommendation-item').count();
@@ -188,15 +188,15 @@ test('should be able to submit after removing recommendations', async ({ page })
   
   try {
     // Wait for recommendation items
-    await page.waitForSelector('.recommendation-item', { state: 'visible', timeout: 10000 });
+    await page.waitForSelector('.recommendation-item', { state: 'visible', timeout: 1000 });
     
     // Remove the first recommendation
     await page.locator('.recommendation-item').first().locator('.remove-recommendation').click();
     
     // Wait for the flash message (either inline or global) with more robust handling
     await Promise.race([
-      page.waitForSelector('.inline-flash-message', { timeout: 10000 }).catch(() => {}),
-      page.waitForSelector('#client-flash-container:not(.hidden)', { timeout: 10000 }).catch(() => {})
+      page.waitForSelector('.inline-flash-message', { timeout: 1000 }).catch(() => {}),
+      page.waitForSelector('#client-flash-container:not(.hidden)', { timeout: 1000 }).catch(() => {})
     ]);
     
     // Wait for the DOM to update
@@ -209,21 +209,21 @@ test('should be able to submit after removing recommendations', async ({ page })
     }
     
     // Make sure submit button is available
-    await page.waitForSelector('#submit-button', { timeout: 10000 });
+    await page.waitForSelector('#submit-button', { timeout: 1000 });
     
     // Click submit button
     await page.click('#submit-button');
     
     // Wait for modal to appear
-    await page.waitForSelector('#modal-recommender-name', { timeout: 10000 });
+    await page.waitForSelector('#modal-recommender-name', { timeout: 1000 });
     await page.fill('#modal-recommender-name', 'Removal Test User');
     
     // Wait for confirm button to be available
-    await page.waitForSelector('.submit-with-name', { timeout: 10000 });
+    await page.waitForSelector('.submit-with-name', { timeout: 1000 });
     await page.click('.submit-with-name');
     
     // Wait for submission and redirect
-    await page.waitForURL('**/trip/**', { timeout: 15000 });
+    await page.waitForURL('**/trip/**', { timeout: 1500 });
     
     // Verify we're on a trip page
     const currentUrl = page.url();
@@ -238,10 +238,11 @@ test('should be able to submit after removing recommendations', async ({ page })
 test('should handle removal of all recommendations', async ({ page }) => {
   // Set up the test environment
   await setupTest(page);
+  test.setTimeout(20000);
   
   try {
     // Count the number of recommendations
-    await page.waitForSelector('.recommendation-item', { state: 'visible', timeout: 10000 });
+    await page.waitForSelector('.recommendation-item', { state: 'visible', timeout: 1000 });
     const count = await page.locator('.recommendation-item').count();
     console.log(`Initial recommendation count for remove-all test: ${count}`);
     
