@@ -29,10 +29,13 @@ def build_tailwind():
         print("❌ Tailwind CSS build failed:")
         print(e.stderr)
 
+# Create the Flask application
 app = create_app()
 
 if __name__ == '__main__':
-    # Always build Tailwind CSS before starting the server
-    build_tailwind()
+    # Only build Tailwind when running the development server
+    # In production, Tailwind is built during the build process
+    if os.environ.get('FLASK_ENV') != 'production':
+        build_tailwind()
     
     app.run(debug=True, port=5001) 

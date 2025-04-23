@@ -166,3 +166,59 @@ For production, you can modify the database connection URI in the environment va
 ## License
 
 [MIT License](LICENSE)
+
+## Deployment to Render.com
+
+This application is configured for deployment to Render.com, a modern cloud platform.
+
+### Prerequisites for Deployment
+
+1. Create a Render.com account at https://render.com
+2. Have your application code in a Git repository (GitHub, GitLab, etc.)
+
+### Deployment Steps
+
+1. **Connect your repository to Render.com**
+   - In the Render dashboard, click "New" and select "Web Service"
+   - Connect your Git repository
+   - Choose the branch you want to deploy
+
+2. **Configure the Web Service**
+   - Name: Choose a name for your service (e.g., "recommendation-app")
+   - Environment: Select "Python"
+   - Build Command: `./build.sh`
+   - Start Command: `gunicorn run:app --workers=2 --threads=2 --timeout=120`
+
+3. **Set Environment Variables**
+   - FLASK_ENV: `production`
+   - SECRET_KEY: [Generate a secure random key]
+   - DATABASE_URL: [Your database connection string]
+   - OPENAI_API_KEY: [Your OpenAI API key]
+   - GOOGLE_MAPS_API_KEY: [Your Google Maps API key]
+
+4. **Set up the Database**
+   - In the Render dashboard, click "New" and select "PostgreSQL"
+   - Name: Choose a name for your database (e.g., "recommendation-db")
+   - After creation, copy the Internal Database URL
+   - Add it as the DATABASE_URL in your web service environment variables
+
+5. **Deploy**
+   - Click "Create Web Service"
+   - Render will automatically build and deploy your application
+
+### Render.yaml Configuration
+
+This repository includes a `render.yaml` file for Blueprint deployments, which allows you to deploy the entire stack (web service and database) in one go.
+
+To use the Blueprint:
+1. Fork this repository
+2. In Render dashboard, click "New" and select "Blueprint"
+3. Connect your forked repository
+4. Render will detect the render.yaml file and set up all services
+
+### Post-Deployment
+
+After deployment, you should:
+1. Run database migrations if necessary
+2. Verify that all environment variables are correctly set
+3. Monitor the application logs for any issues
