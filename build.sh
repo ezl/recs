@@ -28,55 +28,56 @@ echo "Current directory: $(pwd)"
 echo "Project files:"
 ls -la
 
-# Try to use Flask-Migrate first
-echo "Attempting to use Flask-Migrate..."
-MIGRATION_SUCCESS=0
+# First, try direct table creation to ensure tables exist
+echo "Creating tables directly with SQLAlchemy..."
+python init_db.py
+DB_CREATED=$?
+
+if [ $DB_CREATED -ne 0 ]; then
+  echo "❌ Direct table creation failed!"
+  exit 1
+fi
+
+# Now handle migrations - this is for tracking future changes
+echo "Setting up migration tracking..."
 
 # Check if migrations directory exists
 if [ ! -d "migrations" ]; then
   echo "Migrations directory not found. Initializing..."
   flask db init
   if [ $? -ne 0 ]; then
-    echo "Error: Failed to initialize database migrations"
-    MIGRATION_SUCCESS=1
-  fi
-else
-  echo "Migrations directory found at:"
-  ls -la migrations/
-  
-  # Check for version files
-  echo "Migration versions:"
-  ls -la migrations/versions/ || echo "No versions directory or files found"
-fi
-
-# Only try migrations if init was successful
-if [ $MIGRATION_SUCCESS -eq 0 ]; then
-  # Create a migration if there are model changes
-  echo "Creating migration for any model changes..."
-  flask db migrate -m "Auto-migration on build $(date +%Y%m%d%H%M%S)"
-  
-  # Always run upgrades to ensure database is up to date
-  echo "Applying migrations to database..."
-  flask db upgrade
-  if [ $? -ne 0 ]; then
-    echo "Warning: Migration application failed"
-    MIGRATION_SUCCESS=1
-  else
-    echo "✅ Database migrations completed successfully!"
+    echo "⚠️ Failed to initialize migrations, but tables are created"
+    echo "✅ Database setup complete (without migrations)!"
+    exit 0
   fi
 fi
 
-# If migrations failed, try direct table creation
-if [ $MIGRATION_SUCCESS -ne 0 ]; then
-  echo "Trying direct table creation instead of migrations..."
-  python init_db.py
-  if [ $? -ne 0 ]; then
-    echo "❌ Direct table creation also failed!"
-    echo "Please check database connection and permissions."
-    exit 1
-  else
-    echo "✅ Direct table creation successful!"
-  fi
+# Try to stamp the database with the current migration head
+# This marks all existing migrations as applied without making changes
+echo "Stamping database with current migration head..."
+flask db stamp head
+if [ $? -ne 0 ]; then
+  echo "⚠️ Failed to stamp database, but tables are created"
+  echo "✅ Database setup complete (without migrations)!"
+  exit 0
 fi
 
-echo "✅ Database setup complete!" 
+# Create a new migration to capture any recent model changes
+echo "Creating migration for any model changes..."
+flask db migrate -m "Auto-migration on build $(date +%Y%m%d%H%M%S)"
+if [ $? -ne 0 ]; then
+  echo "⚠️ Migration creation failed, but tables are created"
+  echo "✅ Database setup complete (without migrations)!"
+  exit 0
+fi
+
+# Apply any new migrations (should be minimal since we just created tables)
+echo "Applying migrations to database..."
+flask db upgrade
+if [ $? -ne 0 ]; then
+  echo "⚠️ Migration application failed, but tables are created"
+  echo "✅ Database setup complete (without migrations)!"
+  exit 0
+fi
+
+echo "✅ Database setup complete with migrations!" 
