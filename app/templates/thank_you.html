@@ -15,8 +15,8 @@
       <p class="text-gray-600 mt-10 mb-10">We've sent {{ trip.traveler_name }} your recommendations for {{ trip.destination }}!</p>
     </div>
 
-    <div class="bg-blue-50 p-6 rounded-lg mb-8" id="notification-form-container">
-      <h2 class="text-xl font-semibold text-blue-600 mb-3">Want to see what their other friends recommended?</h2>
+    <div class="bg-primary-50 p-6 rounded-lg mb-8" id="notification-form-container">
+      <h2 class="text-xl font-semibold text-primary-600 mb-3">Want to see what their other friends recommended?</h2>
       <p class="text-gray-600 mb-4">We'll send you the full list with everyone's recommendations.</p>
       
       <form id="notification-form" action="{{ url_for('recommendation.save_recommender_email', slug=trip.slug) }}" method="POST">
@@ -29,7 +29,7 @@
             placeholder="Your email address" 
             required
           >
-          <button type="submit" id="submit-button" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-md flex items-center justify-center">
+          <button type="submit" id="submit-button" class="bg-primary-600 hover:bg-primary-700 text-white font-medium py-3 px-6 rounded-md flex items-center justify-center">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
             </svg>

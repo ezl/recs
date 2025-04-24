@@ -1,0 +1,111 @@
+/* 
+ * Color System
+ * This file contains all color variables and common color utilities
+ */
+
+:root {
+  /* Primary Colors - Forest Green */
+  --color-primary-50: #f3f9f3;
+  --color-primary-100: #e7f3e5;
+  --color-primary-200: #d1e7cd;
+  --color-primary-300: #aed2a7;
+  --color-primary-400: #83b77a;
+  --color-primary-500: #5a9c52;
+  --color-primary-600: #3d7f3a;
+  --color-primary-700: #326730;
+  --color-primary-800: #2c5129;
+  --color-primary-900: #254425;
+  --color-primary-950: #132613;
+  
+  /* Neutral colors */
+  --color-neutral-50: #f9fafb;
+  --color-neutral-100: #f3f4f6;
+  --color-neutral-200: #e5e7eb;
+  --color-neutral-300: #d1d5db;
+  --color-neutral-400: #9ca3af;
+  --color-neutral-500: #6b7280;
+  --color-neutral-600: #4b5563;
+  --color-neutral-700: #374151;
+  --color-neutral-800: #1f2937;
+  --color-neutral-900: #111827;
+  
+  /* Semantic colors */
+  --color-success: #22c55e;
+  --color-warning: #eab308;
+  --color-error: #ef4444;
+  --color-info: #3b82f6;
+}
+
+/* 
+ * Background color utilities
+ */
+@layer utilities {
+  .bg-primary {
+    @apply bg-primary-600;
+  }
+  
+  .bg-primary-light {
+    @apply bg-primary-100;
+  }
+  
+  .bg-primary-dark {
+    @apply bg-primary-800;
+  }
+  
+  /* Hover states */
+  .hover-bg-primary:hover {
+    @apply bg-primary-700;
+  }
+  
+  .hover-bg-primary-light:hover {
+    @apply bg-primary-200;
+  }
+}
+
+/* 
+ * Text color utilities
+ */
+@layer utilities {
+  .text-primary {
+    @apply text-primary-600;
+  }
+  
+  .text-primary-light {
+    @apply text-primary-400;
+  }
+  
+  .text-primary-dark {
+    @apply text-primary-800;
+  }
+  
+  /* Hover states */
+  .hover-text-primary:hover {
+    @apply text-primary-700;
+  }
+}
+
+/* 
+ * Border color utilities
+ */
+@layer utilities {
+  .border-primary {
+    @apply border-primary-600;
+  }
+  
+  .border-primary-light {
+    @apply border-primary-300;
+  }
+  
+  .focus-ring-primary {
+    @apply focus:ring-primary-500;
+  }
+}
+
+/* 
+ * Brand-specific component colors
+ */
+@layer components {
+  .badge-primary {
+    @apply bg-primary-100 text-primary-800;
+  }
+} 

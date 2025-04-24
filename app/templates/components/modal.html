@@ -61,7 +61,7 @@
       {% if confirm_text or cancel_text|default('Cancel') %}
       <div class="mt-5 sm:mt-6 sm:flex sm:flex-row-reverse gap-3">
         {% if confirm_text %}
-        <button type="button" class="modal-confirm-button inline-flex w-full justify-center rounded-md px-3 py-2 text-sm font-semibold shadow-sm sm:w-auto {{ confirm_class|default('bg-blue-600 text-white hover:bg-blue-700') }}">
+        <button type="button" class="modal-confirm-button inline-flex w-full justify-center rounded-md px-3 py-2 text-sm font-semibold shadow-sm sm:w-auto {{ confirm_class|default('bg-primary-600 text-white hover:bg-primary-700') }}">
           {{ confirm_text }}
         </button>
         {% endif %}
