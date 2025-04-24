@@ -93,24 +93,7 @@ def verify_token(token):
     session['user_email'] = user.email
     
     flash('You have been logged in successfully', 'success')
-    return redirect(url_for('auth.dashboard'))
-
-@auth.route('/dashboard')
-def dashboard():
-    # Check if user is logged in
-    if 'user_id' not in session:
-        flash('Please log in to access the dashboard', 'error')
-        return redirect(url_for('auth.login'))
-    
-    # Get user from database
-    user = User.query.get(session['user_id'])
-    if not user:
-        # User was deleted or doesn't exist anymore
-        session.clear()
-        flash('User account not found', 'error')
-        return redirect(url_for('auth.login'))
-    
-    return render_template('auth/dashboard.html', user=user)
+    return redirect(url_for('user.my_trips'))
 
 @auth.route('/logout')
 def logout():
