@@ -20,6 +20,16 @@
             <p class="text-gray-700">Please check your email and click the login link to access your account. The link will expire in 10 minutes.</p>
         </div>
         
+        {% if config.DEBUG %}
+        <div class="bg-amber-50 border border-amber-200 p-4 rounded-md mb-6">
+            <p class="text-amber-700 font-medium mb-2">Debug Mode: Quick Login Link</p>
+            <p class="text-gray-700 text-sm mb-3">This direct login link is only shown in development for convenience.</p>
+            <a href="{{ auth_link }}" class="block w-full bg-amber-500 hover:bg-amber-600 text-white text-center font-medium py-2 px-4 rounded transition">
+                Click to authenticate immediately
+            </a>
+        </div>
+        {% endif %}
+        
         <div class="text-center">
             <a href="{{ url_for('auth.login') }}" class="text-primary-600 hover:text-primary-800 underline">
                 Return to login

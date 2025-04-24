@@ -42,6 +42,8 @@ def send_auth_email(email, token):
         # TODO: Implement actual email sending here
         # This would use a service like SendGrid, SMTP, etc.
         pass
+    
+    return auth_link
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
@@ -54,10 +56,16 @@ def login():
         
         # Generate token and "send" auth email
         token, user = generate_auth_token(email)
-        send_auth_email(email, token)
+        auth_link = send_auth_email(email, token)
         
         # Redirect to waiting page
-        return render_template('auth/check_email.html', email=email)
+        template_args = {'email': email}
+        
+        # Only include the auth_link in debug mode
+        if current_app.debug:
+            template_args['auth_link'] = auth_link
+            
+        return render_template('auth/check_email.html', **template_args)
     
     return render_template('auth/login.html')
 
