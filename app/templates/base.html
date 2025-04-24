@@ -10,9 +10,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     
-    <!-- Feather Icons -->
-    <script src="https://unpkg.com/feather-icons"></script>
-    
     <!-- Compiled Tailwind CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/tailwind.css') }}">
     
@@ -108,12 +105,8 @@
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     {% block scripts %}{% endblock %}
     
-    <!-- Initialize Feather Icons -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize Feather Icons
-            feather.replace();
-            
             // Mobile menu toggle
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');

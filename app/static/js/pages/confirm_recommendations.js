@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Initialize Feather icons in the new item
         if (typeof feather !== 'undefined') {
-            feather.replace();
+            // No longer needed since we're using inline SVG
         }
     }
     
@@ -192,7 +192,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Initialize Feather icons in the restored item
         if (typeof feather !== 'undefined') {
-            feather.replace();
+            // No longer needed since we're using inline SVG
         }
         
         // Hide flash message if no more removed items
