@@ -15,7 +15,7 @@
                 <a href="{{ url_for('main.index') }}" class="inline-flex items-center text-gray-600 hover:text-primary-600 font-medium">Home</a>
                 <a href="{{ url_for('main.how_it_works') }}" class="inline-flex items-center text-gray-600 hover:text-primary-600 font-medium">How It Works</a>
                 {% if session.get('user_id') %}
-                    <a href="{{ url_for('main.my_recommendations') }}" class="inline-flex items-center text-gray-600 hover:text-primary-600 font-medium">My Recommendations</a>
+                    <a href="{{ url_for('user.my_trips') }}" class="inline-flex items-center text-gray-600 hover:text-primary-600 font-medium">My Trips</a>
                     <a href="{{ url_for('auth.logout') }}" class="inline-flex items-center text-gray-600 hover:text-primary-600 font-medium">Logout</a>
                 {% else %}
                     <a href="{{ url_for('auth.login') }}" class="inline-flex items-center px-6 py-2 bg-primary-600 text-white font-medium rounded hover:bg-primary-700 transition">Login</a>
@@ -29,7 +29,7 @@
                 <a href="{{ url_for('main.index') }}" class="text-gray-600 hover:text-primary-600 font-medium py-2">Home</a>
                 <a href="{{ url_for('main.how_it_works') }}" class="text-gray-600 hover:text-primary-600 font-medium py-2">How It Works</a>
                 {% if session.get('user_id') %}
-                    <a href="{{ url_for('main.my_recommendations') }}" class="text-gray-600 hover:text-primary-600 font-medium py-2">My Recommendations</a>
+                    <a href="{{ url_for('user.my_trips') }}" class="text-gray-600 hover:text-primary-600 font-medium py-2">My Trips</a>
                     <a href="{{ url_for('auth.logout') }}" class="text-gray-600 hover:text-primary-600 font-medium py-2">Logout</a>
                 {% else %}
                     <a href="{{ url_for('auth.login') }}" class="inline-block px-6 py-2 bg-primary-600 text-white font-medium rounded hover:bg-primary-700 transition mb-2">Login</a>
