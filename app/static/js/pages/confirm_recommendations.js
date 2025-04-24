@@ -73,19 +73,44 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // Initial state: Disable submit button if name field is empty
+    const submitWithNameBtns = document.querySelectorAll('.submit-with-name');
+    
+    // Setup validation on load
+    if (modalRecommenderName && submitWithNameBtns.length > 0) {
+        // Initial state check
+        updateSubmitButtonState();
+        
+        // Add input event listener to validate in real-time
+        modalRecommenderName.addEventListener('input', updateSubmitButtonState);
+    }
+    
+    // Function to update submit button state based on name field
+    function updateSubmitButtonState() {
+        const nameValue = modalRecommenderName.value.trim();
+        const isValid = nameValue.length > 0;
+        
+        submitWithNameBtns.forEach(btn => {
+            btn.disabled = !isValid;
+            // Add visual feedback with opacity
+            if (isValid) {
+                btn.classList.remove('opacity-50', 'cursor-not-allowed');
+            } else {
+                btn.classList.add('opacity-50', 'cursor-not-allowed');
+            }
+        });
+    }
+    
     // Handle form submission from modal
-    document.querySelectorAll('.submit-with-name').forEach(btn => {
+    submitWithNameBtns.forEach(btn => {
         btn.addEventListener('click', function() {
             const nameValue = modalRecommenderName.value.trim();
-            if (!nameValue) {
-                alert('Please enter your name');
-                modalRecommenderName.focus();
-                return;
+            if (nameValue) {
+                recommenderNameInput.value = nameValue;
+                nameModal.classList.add('hidden');
+                submitForm();
             }
-            
-            recommenderNameInput.value = nameValue;
-            nameModal.classList.add('hidden');
-            submitForm();
+            // No else needed as the button should be disabled
         });
     });
 
@@ -93,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (e.key === 'Enter') {
             e.preventDefault();
             const submitWithNameBtn = document.querySelector('.submit-with-name');
-            if (submitWithNameBtn) {
+            if (submitWithNameBtn && !submitWithNameBtn.disabled) {
                 submitWithNameBtn.click();
             }
         }
