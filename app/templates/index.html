@@ -2,18 +2,29 @@
 
 {% block title %}Get Trip Recommendations From Friends | Recs{% endblock %}
 
+{% block head_extras %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/pages/home.css') }}">
+{% endblock %}
+
 {% block content %}
 <div class="container mx-auto px-4 py-16">
+  <!-- Hero Image Section -->
+  <div class="hero-image-container mb-12">
+    <img 
+      src="{{ url_for('static', filename='images/trip-hero.png') }}" 
+      alt="Trip planning visual with colorful cards showing destinations and recommendations" 
+      class="w-full max-w-5xl mx-auto rounded-lg"
+    >
+  </div>
+
   <div class="text-center mb-12">
-    <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-      Going On A Trip?
+    <h1 class="text-xl md:text-4xl font-bold text-gray-900 mb-6">
+      Gather Trip Recommendations In One Place
     </h1>
-    <p class="text-lg text-gray-600 mb-8">
-      Get personalized recommendations from the people who know you best - your friends.
-    </p>
+
   </div>
   
-  <div class="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
+  <div class="bg-white rounded-lg p-6">
     <form action="{{ url_for('user.create_trip') }}" method="POST" class="space-y-6" data-validate>
       <div class="mb-4">
         <label for="destination" class="block text-gray-700 font-medium mb-2">Where are you going?</label>
