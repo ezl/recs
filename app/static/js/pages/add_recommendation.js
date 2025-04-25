@@ -220,6 +220,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
             console.log("Microphone access granted");
             
+            // Ensure audio player is hidden when starting a new recording
+            audioPlayerContainer.classList.add('hidden');
+            
             // Log the audio tracks and their settings
             const audioTracks = stream.getAudioTracks();
             console.log(`Got ${audioTracks.length} audio tracks`);
@@ -271,10 +274,6 @@ document.addEventListener('DOMContentLoaded', function() {
             recordingStatus.classList.remove('hidden');
             recordingStatus.textContent = 'Recording... Press button to finish.';
             
-            // Hide player and reset if there was a previous recording
-            audioPlayerContainer.classList.add('hidden');
-            audioPlayback.src = '';
-            
             // Start timer
             startTimer();
             
@@ -291,12 +290,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 blob = new Blob(audioChunks, { type: mediaRecorder.mimeType || 'audio/webm' });
                 console.log(`Blob created, size: ${blob.size} bytes, type: ${blob.type}`);
                 
-                // Create URL for playback
+                // Create URL for playback (but don't show the player)
                 const audioURL = URL.createObjectURL(blob);
                 audioPlayback.src = audioURL;
                 
-                // Show audio player
-                audioPlayerContainer.classList.remove('hidden');
+                // Keep audio player hidden
+                audioPlayerContainer.classList.add('hidden');
                 
                 // Process for transcription
                 processAudioForTranscription(blob);
@@ -316,6 +315,9 @@ document.addEventListener('DOMContentLoaded', function() {
             recordBtn.classList.remove('recording');
             micWaves.classList.add('hidden');
             recordingStatus.textContent = 'Processing...';
+            
+            // Ensure audio player remains hidden
+            audioPlayerContainer.classList.add('hidden');
             
             // Stop timer
             clearInterval(timer);
@@ -352,6 +354,9 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log("========== AUDIO FLOW START ==========");
         console.log("Starting audio transcription process");
         console.log(`Audio blob size: ${audioBlob.size} bytes, type: ${audioBlob.type}`);
+        
+        // Ensure the audio player container remains hidden
+        audioPlayerContainer.classList.add('hidden');
         
         // Check if the blob is valid
         if (audioBlob.size === 0) {
@@ -496,6 +501,9 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Error processing audio:', error);
             console.error('Error stack:', error.stack);
             showError('There was an error processing your audio. Please try again or use text input instead.');
+            
+            // Ensure audio player remains hidden
+            audioPlayerContainer.classList.add('hidden');
             
             // Switch back to text mode
             audioMode = true; // Needs to be true before toggle changes it
