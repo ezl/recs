@@ -18,8 +18,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Removed item tracking
     let removedItems = [];
     let lastRemovedItem = null;
-    const clientFlashContainer = document.getElementById('client-flash-container');
-    const undoButton = document.getElementById('undo-button');
     
     // Counter for new recommendation items
     let newItemCounter = 1000; // Start high to avoid conflicts with server-rendered items
@@ -186,13 +184,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Undo button handler
-    if (undoButton) {
-        undoButton.addEventListener('click', function() {
-            undoRemove();
-        });
-    }
-    
     // Functions
     function addNewRecommendation() {
         if (!newRecommendationTemplate) {
@@ -224,26 +215,90 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function removeRecommendation(item) {
         // Store item data for potential undo
+        const itemIndex = Array.from(recommendationsContainer.children).indexOf(item);
         lastRemovedItem = {
             element: item,
             html: item.outerHTML,
-            index: Array.from(recommendationsContainer.children).indexOf(item)
+            index: itemIndex
         };
         removedItems.push(lastRemovedItem);
         
-        // Remove the item from DOM
-        item.remove();
+        // Create inline flash message
+        const inlineFlash = document.createElement('div');
+        inlineFlash.className = 'inline-flash-message bg-primary-100 text-primary-800 border border-primary-300 rounded-lg p-4 mb-4 flex items-center transition-all';
+        inlineFlash.setAttribute('data-index', itemIndex);
+        inlineFlash.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5 mr-3 text-primary-500">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+            </svg>
+            <div class="flex-1">Recommendation removed</div>
+            <button class="inline-undo-button ml-4 px-3 py-1 bg-white text-gray-800 text-sm rounded hover:bg-gray-200 transition font-medium">
+                Undo
+            </button>
+            <button type="button" class="dismiss-button p-1.5 ml-3 rounded-full hover:bg-white/20">
+                <span class="sr-only">Dismiss</span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4 w-4">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                </svg>
+            </button>
+        `;
         
-        // Show flash message
-        if (clientFlashContainer) {
-            clientFlashContainer.classList.remove('hidden');
+        // Add event listeners to the inline flash message
+        const undoButton = inlineFlash.querySelector('.inline-undo-button');
+        if (undoButton) {
+            undoButton.addEventListener('click', function() {
+                undoRemoveAtIndex(itemIndex);
+            });
+        }
+        
+        const dismissButton = inlineFlash.querySelector('.dismiss-button');
+        if (dismissButton) {
+            dismissButton.addEventListener('click', function() {
+                inlineFlash.remove();
+            });
+        }
+        
+        // Replace the item with the flash message
+        item.replaceWith(inlineFlash);
+        
+        // Auto-hide after 5 seconds
+        setTimeout(() => {
+            if (inlineFlash.parentNode) {
+                inlineFlash.remove();
+            }
+        }, 5000);
+    }
+    
+    function undoRemoveAtIndex(index) {
+        // Find the removed item by index
+        const itemToRestore = removedItems.find(item => item.index === index);
+        if (!itemToRestore) return;
+        
+        // Remove it from the removedItems array
+        removedItems = removedItems.filter(item => item.index !== index);
+        
+        // Create element from HTML
+        const tempContainer = document.createElement('div');
+        tempContainer.innerHTML = itemToRestore.html;
+        const restoredItem = tempContainer.firstElementChild;
+        
+        // Find the inline flash message by index
+        const inlineFlash = document.querySelector(`.inline-flash-message[data-index="${index}"]`);
+        if (inlineFlash) {
+            // Replace the flash message with the restored item
+            inlineFlash.replaceWith(restoredItem);
+        } else {
+            // If flash message was dismissed, insert at the original position
+            let inserted = false;
+            if (index >= 0 && index < recommendationsContainer.children.length) {
+                recommendationsContainer.insertBefore(restoredItem, recommendationsContainer.children[index]);
+                inserted = true;
+            }
             
-            // Auto-hide after 5 seconds
-            setTimeout(() => {
-                if (!clientFlashContainer.classList.contains('hidden')) {
-                    clientFlashContainer.classList.add('hidden');
-                }
-            }, 5000);
+            // If position is not available, append at the end
+            if (!inserted) {
+                recommendationsContainer.appendChild(restoredItem);
+            }
         }
     }
     
@@ -253,27 +308,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // Get the last removed item
         const itemToRestore = removedItems.pop();
         
-        // Create element from HTML
-        const tempContainer = document.createElement('div');
-        tempContainer.innerHTML = itemToRestore.html;
-        const restoredItem = tempContainer.firstElementChild;
-        
-        // Insert at the original position or append at the end
-        if (itemToRestore.index >= 0 && itemToRestore.index < recommendationsContainer.children.length) {
-            recommendationsContainer.insertBefore(restoredItem, recommendationsContainer.children[itemToRestore.index]);
-        } else {
-            recommendationsContainer.appendChild(restoredItem);
-        }
-        
-        // Initialize Feather icons in the restored item
-        if (typeof feather !== 'undefined') {
-            // No longer needed since we're using inline SVG
-        }
-        
-        // Hide flash message if no more removed items
-        if (removedItems.length === 0 && clientFlashContainer) {
-            clientFlashContainer.classList.add('hidden');
-        }
+        // Restore that specific item using its index
+        undoRemoveAtIndex(itemToRestore.index);
     }
     
     function submitForm() {

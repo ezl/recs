@@ -148,7 +148,7 @@ test('should undo recommendation removal', async ({ page }) => {
     try {
       if (flashType === 'inline') {
         console.log('Clicking inline undo button');
-        await page.click('#inline-undo-button');
+        await page.click('.inline-undo-button');
       } else if (flashType === 'global') {
         console.log('Clicking global undo button');
         await page.click('#undo-button');
@@ -156,7 +156,7 @@ test('should undo recommendation removal', async ({ page }) => {
         // If we couldn't detect either flash message, try both buttons
         console.log('Attempting to click any undo button');
         await Promise.any([
-          page.click('#inline-undo-button').catch(() => {}),
+          page.click('.inline-undo-button').catch(() => {}),
           page.click('#undo-button').catch(() => {})
         ]);
       }
@@ -278,7 +278,7 @@ test('should handle removal of all recommendations', async ({ page }) => {
       if (i < count - 1) {
         if (hasInlineFlash) {
           console.log('Dismissing inline flash');
-          await page.locator('.inline-flash-message button[type="button"]').click().catch(() => {});
+          await page.locator('.inline-flash-message .dismiss-button').click().catch(() => {});
         } else if (hasGlobalFlash) {
           console.log('Dismissing global flash');
           await page.locator('#client-flash-container button[type="button"]').click().catch(() => {});

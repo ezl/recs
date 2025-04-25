@@ -10,8 +10,6 @@
 <div class="container mx-auto px-4 py-10 max-w-5xl">
   {% include 'components/confirm_recommendations/header.html' %}
   
-  {% include 'components/confirm_recommendations/flash_message.html' %}
-  
   {% if not extracted_recommendations or extracted_recommendations|length == 0 %}
     {% include 'components/confirm_recommendations/empty_state.html' %}
     
