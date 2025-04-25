@@ -60,7 +60,15 @@ def save_recommendations(slug):
     website_urls = request.form.getlist('website_urls[]')
     recommender_name = request.form.get('recommender_name')
     
-    if not recommendations or len(recommendations) == 0:
+    # Filter out completely empty recommendations
+    # Valid if: name is filled (description is optional)
+    valid_indices = []
+    for i, rec in enumerate(recommendations):
+        if rec.strip():  # If recommendation name is not empty (description can be empty)
+            valid_indices.append(i)
+    
+    # If no valid recommendations after filtering, redirect
+    if not valid_indices:
         flash('Please add at least one recommendation', 'error')
         return redirect(url_for('recommendation.add_recommendation', slug=slug))
     
@@ -88,11 +96,8 @@ def save_recommendations(slug):
                 db.session.commit()
             user_id = anon_user.id
     
-    # Create recommendations
-    for i in range(len(recommendations)):
-        if not recommendations[i]:  # Skip empty recommendations
-            continue
-            
+    # Create recommendations - only for valid indices
+    for i in valid_indices:
         # First find or create the Activity
         activity = Activity.get_or_create(
             name=recommendations[i],

@@ -101,6 +101,9 @@
     </footer>
     {% endif %}
 
+    <!-- Form validation script -->
+    <script src="{{ url_for('static', filename='js/form-validation.js') }}"></script>
+    
     <!-- Custom JavaScript -->
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     {% block scripts %}{% endblock %}

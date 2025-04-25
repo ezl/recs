@@ -14,7 +14,7 @@
   </div>
   
   <div class="bg-white rounded-lg p-6 border border-gray-200 shadow-sm max-w-lg mx-auto">
-    <form action="{{ url_for('user.complete_trip') }}" method="POST" class="space-y-6">
+    <form action="{{ url_for('user.complete_trip') }}" method="POST" class="space-y-6" data-validate>
       <input type="hidden" name="destination" value="{{ destination }}">
       
       <div class="mb-4">
@@ -45,7 +45,7 @@
       </div>
       
       <div class="flex justify-center">
-        <button type="submit" class="inline-flex items-center justify-center px-6 py-3 bg-primary-600 text-white font-medium rounded-md hover:bg-primary-700 transition">
+        <button type="submit" class="inline-flex items-center justify-center px-6 py-3 bg-primary-600 text-white font-medium rounded-md hover:bg-primary-700 transition btn-disabled" disabled>
           Get Recommendations
         </button>
       </div>

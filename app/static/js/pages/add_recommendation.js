@@ -56,6 +56,31 @@ document.addEventListener('DOMContentLoaded', function() {
     let audioMode = false;
     let errorTimeout;
     
+    // Add manual validation for the textarea
+    if (textRecommendations && submitButton) {
+        // Initial validation
+        validateTextInput();
+        
+        // Add event listener for input
+        textRecommendations.addEventListener('input', validateTextInput);
+        
+        function validateTextInput() {
+            const minLength = 10;
+            const textLength = textRecommendations.value.trim().length;
+            console.log('Text length:', textLength, 'Required:', minLength);
+            
+            if (textLength >= minLength) {
+                submitButton.disabled = false;
+                submitButton.classList.remove('btn-disabled');
+                console.log('Submit button enabled');
+            } else {
+                submitButton.disabled = true;
+                submitButton.classList.add('btn-disabled');
+                console.log('Submit button disabled');
+            }
+        }
+    }
+    
     // Add navigation error handling for debugging
     window.addEventListener('error', function(event) {
         console.error('Navigation error:', event);
@@ -111,23 +136,6 @@ document.addEventListener('DOMContentLoaded', function() {
         */
     }
 
-    // Enable/disable submit button based on input
-    function updateSubmitButton() {
-        if (audioMode) {
-            // In audio mode, enable if audio is recorded
-            submitButton.disabled = !audioPlayback.src;
-        } else {
-            // In text mode, enable if text is entered
-            submitButton.disabled = !textRecommendations.value.trim();
-        }
-    }
-    
-    // Initialize to disabled
-    submitButton.disabled = true;
-    
-    // Listen for text input
-    textRecommendations.addEventListener('input', updateSubmitButton);
-    
     // Add Alt+Enter or Command+Enter keyboard shortcut to submit form
     document.addEventListener('keydown', function(e) {
         // Check if Alt+Enter or Command+Enter was pressed
@@ -140,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Update UI to show submission is in progress
                 submitButton.disabled = true;
-                submitButton.classList.add('opacity-75', 'cursor-not-allowed');
+                submitButton.classList.add('btn-disabled');
                 arrowIcon.classList.add('hidden');
                 spinner.classList.remove('hidden');
                 buttonText.textContent = 'Processing...';
@@ -193,8 +201,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 textRecommendations.focus();
             }, 100);
         }
-        
-        updateSubmitButton();
     });
     
     // Audio recording functionality
@@ -432,6 +438,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Allow form submission
                 submitButton.disabled = false;
+                submitButton.classList.remove('btn-disabled');
                 console.log("Submit button enabled for partial success");
                 
                 // Automatically submit the form
@@ -450,6 +457,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Allow form submission
                 submitButton.disabled = false;
+                submitButton.classList.remove('btn-disabled');
                 console.log("Submit button enabled for recommendations");
                 
                 // Automatically submit the form
@@ -474,6 +482,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     // Allow form submission
                     submitButton.disabled = false;
+                    submitButton.classList.remove('btn-disabled');
                     console.log("Submit button enabled for fallback");
                     
                     // Automatically submit the form
@@ -534,7 +543,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Disable button
             submitButton.disabled = true;
-            submitButton.classList.add('opacity-75', 'cursor-not-allowed');
+            submitButton.classList.add('btn-disabled');
             console.log("UI: Submit button disabled for form submission");
             
             // Check if arrowIcon exists before trying to use it
@@ -570,7 +579,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Re-enable button
                 submitButton.disabled = false;
-                submitButton.classList.remove('opacity-75', 'cursor-not-allowed');
+                submitButton.classList.remove('btn-disabled');
                 
                 // Check if arrowIcon exists before trying to use it
                 if (arrowIcon) {
@@ -604,7 +613,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Re-enable button
                 submitButton.disabled = false;
-                submitButton.classList.remove('opacity-75', 'cursor-not-allowed');
+                submitButton.classList.remove('btn-disabled');
                 
                 // Check if arrowIcon exists before trying to use it
                 if (arrowIcon) {
@@ -737,7 +746,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Re-enable button
                 submitButton.disabled = false;
-                submitButton.classList.remove('opacity-75', 'cursor-not-allowed');
+                submitButton.classList.remove('btn-disabled');
                 
                 // Check if arrowIcon exists before trying to use it
                 if (arrowIcon) {
@@ -776,7 +785,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // For text mode, just disable the button and show spinner
         if (!audioMode) {
             submitButton.disabled = true;
-            submitButton.classList.add('opacity-75', 'cursor-not-allowed');
+            submitButton.classList.add('btn-disabled');
             
             // Hide arrow icon, show spinner
             arrowIcon.classList.add('hidden');

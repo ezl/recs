@@ -33,7 +33,7 @@
     <div id="trip-data" data-slug="{{ trip.slug }}" class="hidden"></div>
     <div id="destination-data" data-destination="{{ trip.destination }}" class="hidden"></div>
     
-    <form id="step1-form" method="POST" action="{{ url_for('recommendation.process_recommendation', slug=trip.slug) }}" class="w-full">
+    <form id="step1-form" method="POST" action="{{ url_for('recommendation.process_recommendation', slug=trip.slug) }}" class="w-full" data-validate>
         <div class="w-full">
             <div id="text-input-container">
                 <textarea 
@@ -43,6 +43,8 @@
                     placeholder="Start typing your recommendations here..."
                     autofocus
                     style="width: calc(100% + 2rem);"
+                    required
+                    data-min-length="10"
                 ></textarea>
             </div>
             
@@ -89,7 +91,7 @@
 <!-- Fixed Footer -->
 <div id="footer" class="recommendation-footer">
     <div class="container mx-auto px-4 flex justify-end items-center">
-        <button id="submit-button" type="submit" form="step1-form" class="btn btn-primary" disabled>
+        <button id="submit-button" type="submit" form="step1-form" class="btn btn-primary btn-disabled" disabled>
             <span>Continue</span>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5 ml-2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
