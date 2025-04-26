@@ -30,15 +30,14 @@
   {% if trip.recommendations %}
     <div class="mb-8">
       <h2 class="section-title">
-        {% set grouped_recommendations = trip.get_grouped_recommendations() %}
-        {% if trip.recommendations|length == grouped_recommendations|length %}
-          Recommendations for {{ trip.traveler_name }} ({{ trip.recommendations|length }})
-        {% else %}
-          Recommendations for {{ trip.traveler_name }} 
-          ({{ grouped_recommendations|length }} {% if grouped_recommendations|length == 1 %}activity{% else %}activities{% endif %} 
-          from {{ trip.recommendations|length }} {% if trip.recommendations|length == 1 %}recommendation{% else %}recommendations{% endif %})
-        {% endif %}
+        Recommendations for {{ trip.traveler_name }}
       </h2>
+      
+      <p class="text-gray-600 text-sm mb-4">
+        {% set grouped_recommendations = trip.get_grouped_recommendations() %}
+        {% set contributors = trip.get_contributors() %}
+        {{ contributors|length }} contributors, {{ grouped_recommendations|length }} activities, {{ trip.recommendations|length }} recommendations
+      </p>
       
       <div class="grid md:grid-cols-2 gap-6">
         {% for group in grouped_recommendations %}

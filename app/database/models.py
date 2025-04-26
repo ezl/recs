@@ -163,6 +163,15 @@ class Trip(db.Model):
         # Use a set comprehension to get unique activity IDs
         unique_activity_ids = {rec.activity_id for rec in self.recommendations}
         return len(unique_activity_ids)
+        
+    def get_contributors(self):
+        """Returns the list of unique contributors who made recommendations for this trip"""
+        # Get unique author IDs using a set
+        unique_author_ids = {rec.author_id for rec in self.recommendations}
+        # Query for user objects
+        from app.database.models import User
+        contributors = User.query.filter(User.id.in_(unique_author_ids)).all()
+        return contributors
 
 class Activity(db.Model):
     """
