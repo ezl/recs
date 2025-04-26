@@ -34,4 +34,6 @@ class TestConfig(Config):
 class ProdConfig(Config):
     """Production config."""
     DEBUG = False
-    TESTING = False 
+    TESTING = False
+    # Static file configuration for production
+    PREFERRED_URL_SCHEME = 'https' 
