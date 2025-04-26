@@ -16,6 +16,9 @@ def create_app():
     else:
         app.config.from_object('config.DevConfig')
     
+    # Explicitly set FLASK_ENV in app config so it's accessible in templates
+    app.config['FLASK_ENV'] = flask_env
+    
     # Ensure secret key is set for sessions
     if not app.config.get('SECRET_KEY'):
         app.config['SECRET_KEY'] = 'dev-key-please-change-in-production'

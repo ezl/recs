@@ -11,7 +11,11 @@
   <!-- Hero Image Section -->
   <div class="hero-image-container mb-12">
     <img 
-      src="{{ url_for('static', filename='images/trip-hero.png', _external=True, _scheme='https', v='2') }}" 
+      {% if config.FLASK_ENV == 'production' %}
+      src="{{ url_for('static', filename='images/trip-hero.png', _external=True, _scheme='https', v='2') }}"
+      {% else %}
+      src="{{ url_for('static', filename='images/trip-hero.png', v='2') }}" 
+      {% endif %}
       alt="Trip planning visual with colorful cards showing destinations and recommendations" 
       class="w-full max-w-5xl mx-auto rounded-lg"
     >
