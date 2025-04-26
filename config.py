@@ -16,6 +16,11 @@ class Config:
     # SQLAlchemy
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL', 'sqlite:///' + str(instance_dir / 'sqlite3.db'))
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    
+    # Email configuration
+    MAIL_FROM_EMAIL = os.environ.get('MAIL_FROM_EMAIL', 'noreply@example.com')
+    MAIL_FROM_NAME = os.environ.get('MAIL_FROM_NAME', 'Recs App')
+    RESEND_API_KEY = os.environ.get('RESEND_API_KEY', '')
 
 class DevConfig(Config):
     """Development config."""

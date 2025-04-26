@@ -1,8 +1,12 @@
 from flask import Blueprint, render_template, request, redirect, url_for, current_app, flash, session
 import secrets
 from datetime import datetime, timedelta
+import requests
 from app.database import db
 from app.database.models import User, AuthToken
+
+# Temporary toggle to enable real email sending in dev mode
+FORCE_REAL_EMAILS = False
 
 auth = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -32,16 +36,83 @@ def send_auth_email(email, token):
     """Send authentication email with login link"""
     auth_link = url_for('auth.verify_token', token=token, _external=True)
     
-    # In debug mode, just print to console
-    if current_app.debug:
+    # In debug mode, just print to console (unless FORCE_REAL_EMAILS is True)
+    if current_app.debug and not FORCE_REAL_EMAILS:
         print("\n----- DEBUG: PASSWORDLESS LOGIN -----")
         print(f"Email would be sent to: {email}")
         print(f"Auth link: {auth_link}")
         print("---------------------------------------\n")
     else:
-        # TODO: Implement actual email sending here
-        # This would use a service like SendGrid, SMTP, etc.
-        pass
+        # Use Resend to send actual emails
+        try:
+            from_email = current_app.config.get('MAIL_FROM_EMAIL')
+            from_name = current_app.config.get('MAIL_FROM_NAME')
+            api_key = current_app.config.get('RESEND_API_KEY')
+            
+            if not api_key:
+                current_app.logger.error("Resend API key is not configured")
+                if current_app.debug:
+                    print("\n----- ERROR: RESEND API KEY NOT CONFIGURED -----")
+                    print(f"Auth link: {auth_link}")
+                    print("-----------------------------------------------\n")
+                return auth_link
+                
+            # Define email content
+            subject = "Your Login Link"
+            html_content = f"""
+            <div>
+                <h1>Welcome to Recs!</h1>
+                <p>Click the button below to log in:</p>
+                <div>
+                    <a href="{auth_link}" style="display: inline-block; background-color: #4F46E5; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px;">
+                        Log in to Recs
+                    </a>
+                </div>
+                <p>Or copy and paste this link in your browser:</p>
+                <p>{auth_link}</p>
+                <p>This link will expire in 10 minutes.</p>
+            </div>
+            """
+            
+            # Prepare the payload for Resend API
+            payload = {
+                "from": f"{from_name} <{from_email}>",
+                "to": [email],
+                "subject": subject,
+                "html": html_content
+            }
+            
+            # Make the API request to Resend
+            response = requests.post(
+                "https://api.resend.com/emails",
+                headers={
+                    "Authorization": f"Bearer {api_key}",
+                    "Content-Type": "application/json"
+                },
+                json=payload
+            )
+            
+            # Check if the request was successful
+            if response.status_code == 200:
+                print(f"Authentication email sent to {email}")
+                current_app.logger.info(f"Authentication email sent to {email}")
+            else:
+                error_msg = f"Failed to send email: {response.text}"
+                print(f"\n----- ERROR: {error_msg} -----\n")
+                current_app.logger.error(error_msg)
+                
+                # In debug mode, also print the link for convenience
+                if current_app.debug:
+                    print(f"Auth link: {auth_link}")
+                
+        except Exception as e:
+            error_msg = f"Error sending email: {str(e)}"
+            print(f"\n----- ERROR: {error_msg} -----\n")
+            current_app.logger.error(error_msg)
+            
+            # In debug mode, also print the link for convenience
+            if current_app.debug:
+                print(f"Auth link: {auth_link}")
     
     return auth_link
 
@@ -61,8 +132,8 @@ def login():
         # Redirect to waiting page
         template_args = {'email': email}
         
-        # Only include the auth_link in debug mode
-        if current_app.debug:
+        # Only include the auth_link in debug mode (and not using real emails)
+        if current_app.debug and not FORCE_REAL_EMAILS:
             template_args['auth_link'] = auth_link
             
         return render_template('auth/check_email.html', **template_args)
