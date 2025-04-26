@@ -130,6 +130,39 @@ class Trip(db.Model):
         
         # Slugify to handle special characters and spaces
         return slugify(base_slug)
+        
+    def get_grouped_recommendations(self):
+        """
+        Group recommendations by activity to show a single card for activities 
+        recommended by multiple people.
+        
+        Returns:
+            List of dictionaries with the following structure:
+            {
+                'activity': Activity object,
+                'recommendations': List of recommendation objects for this activity
+            }
+        """
+        grouped = {}
+        
+        for rec in self.recommendations:
+            activity_id = rec.activity_id
+            if activity_id not in grouped:
+                grouped[activity_id] = {
+                    'activity': rec.activity,
+                    'recommendations': []
+                }
+            grouped[activity_id]['recommendations'].append(rec)
+            
+        # Convert dictionary to list for easier use in templates
+        return list(grouped.values())
+        
+    @property
+    def unique_activity_count(self):
+        """Returns the count of unique activities recommended for this trip"""
+        # Use a set comprehension to get unique activity IDs
+        unique_activity_ids = {rec.activity_id for rec in self.recommendations}
+        return len(unique_activity_ids)
 
 class Activity(db.Model):
     """
@@ -151,6 +184,10 @@ class Activity(db.Model):
     latitude = db.Column(db.Float, nullable=True)
     longitude = db.Column(db.Float, nullable=True)
     
+    # Google Places data
+    google_place_id = db.Column(db.String(255), nullable=True, unique=True, index=True)
+    place_data = db.Column(db.JSON, nullable=True)  # Store additional Google Place data
+    
     is_place_based = db.Column(db.Boolean, default=True)  # Whether it's tied to a physical location
     
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
@@ -168,24 +205,81 @@ class Activity(db.Model):
         Find an existing activity by name (and optionally category) or create a new one.
         This helps prevent duplicate activities when multiple users recommend the same place.
         
+        First attempts to match with Google Places API to get standardized place data.
+        If Google Place ID is found, uses that for exact matching.
+        
         Returns:
             Activity: The existing or newly created activity
         """
-        # First, try to find by exact name match
-        activity = cls.query.filter(db.func.lower(cls.name) == db.func.lower(name)).first()
+        from app.services.google_places_service import GooglePlacesService
         
-        # If category is provided, narrow down the match
-        if activity and category and activity.category and category.lower() != activity.category.lower():
-            activity = None
+        # First check if we have a Google Place ID in the kwargs and try to find by that
+        google_place_id = kwargs.pop('google_place_id', None)
+        if google_place_id:
+            activity = cls.query.filter_by(google_place_id=google_place_id).first()
+            if activity:
+                return activity
+        
+        # Try to match the place name with Google Places API
+        place_data = None
+        try:
+            # Extract search context parameters
+            search_context = {
+                'search_vicinity': kwargs.pop('search_vicinity', None),
+                'destination_country': kwargs.pop('destination_country', None)
+            }
+            
+            # Filter out None values
+            search_context = {k: v for k, v in search_context.items() if v is not None}
+            
+            place_data = GooglePlacesService.find_place(name, category, **search_context)
+            if place_data and place_data.get('place_id'):
+                # Check if we already have this place ID in our database
+                google_place_id = place_data.get('place_id')
+                activity = cls.query.filter_by(google_place_id=google_place_id).first()
+                if activity:
+                    return activity
+        except Exception as e:
+            import logging
+            logging.error(f"Error matching with Google Places API: {str(e)}")
+        
+        # If no Google Places match, fallback to our usual name matching
+        if not google_place_id:
+            activity = cls.query.filter(db.func.lower(cls.name) == db.func.lower(name)).first()
+            
+            # Remove category filtering - match only by name
+            # No longer check category match
         
         # If no activity found, create a new one
         if not activity:
-            activity = cls(
-                name=name,
-                category=category,
-                website_url=website_url,
+            # Prepare data for the new activity
+            activity_data = {
+                'name': name,
+                'category': category,
+                'website_url': website_url,
                 **kwargs
-            )
+            }
+            
+            # Add Google Places data if available
+            if place_data and google_place_id:
+                activity_data.update({
+                    'google_place_id': google_place_id,
+                    'place_data': place_data,
+                    'address': place_data.get('formatted_address'),
+                    'latitude': place_data.get('geometry', {}).get('location', {}).get('lat'),
+                    'longitude': place_data.get('geometry', {}).get('location', {}).get('lng'),
+                    'website_url': place_data.get('website') or website_url,
+                })
+                
+                # Try to determine city and country from address components
+                if place_data.get('address_components'):
+                    for component in place_data.get('address_components', []):
+                        if 'locality' in component.get('types', []):
+                            activity_data['city'] = component.get('long_name')
+                        elif 'country' in component.get('types', []):
+                            activity_data['country'] = component.get('long_name')
+            
+            activity = cls(**activity_data)
             db.session.add(activity)
             db.session.commit()
             

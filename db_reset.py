@@ -20,6 +20,7 @@ from app import create_app
 from app.database import db
 from app.database.models import User, Post, AuthToken, Trip, Recommendation
 from flask_migrate import Migrate, init, migrate, upgrade
+from sqlalchemy import text
 
 # Create the Flask application
 app = create_app()
@@ -93,7 +94,7 @@ def reset_database():
                     else:
                         print(f"  ❌ Column 'website_url' missing from '{table}' table")
                         print(f"  Adding 'website_url' column to '{table}' table...")
-                        db.session.execute("ALTER TABLE recommendations ADD COLUMN website_url VARCHAR(255)")
+                        db.session.execute(text("ALTER TABLE recommendations ADD COLUMN website_url VARCHAR(255)"))
                         print(f"  'website_url' column added to '{table}' table")
             else:
                 print(f"❌ Table '{table}' is missing")

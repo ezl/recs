@@ -5,6 +5,7 @@ from .user_routes import user_bp
 from .audio_routes import audio_bp
 from .misc_routes import misc_bp
 from .testing_routes import testing_bp
+from .admin_routes import admin_bp
 
 def init_app(app):
     """Initialize all route blueprints with the app"""
@@ -13,6 +14,7 @@ def init_app(app):
     app.register_blueprint(recommendation_bp)
     app.register_blueprint(user_bp)
     app.register_blueprint(audio_bp)
+    app.register_blueprint(admin_bp)
     
     # Only register testing routes in development mode
     if app.config.get('FLASK_ENV') != 'production':

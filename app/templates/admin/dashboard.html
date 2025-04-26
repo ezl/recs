@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-6">Admin Dashboard</h1>
+    
+    <!-- Stats Overview -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+        <div class="bg-white p-4 rounded shadow">
+            <h2 class="text-lg font-semibold mb-2">Users</h2>
+            <p class="text-2xl">{{ users|length }}</p>
+        </div>
+        <div class="bg-white p-4 rounded shadow">
+            <h2 class="text-lg font-semibold mb-2">Trips</h2>
+            <p class="text-2xl">{{ trips|length }}</p>
+        </div>
+        <div class="bg-white p-4 rounded shadow">
+            <h2 class="text-lg font-semibold mb-2">Activities</h2>
+            <p class="text-2xl">{{ activities|length }}</p>
+        </div>
+        <div class="bg-white p-4 rounded shadow">
+            <h2 class="text-lg font-semibold mb-2">Recommendations</h2>
+            <p class="text-2xl">{{ recommendations|length }}</p>
+        </div>
+    </div>
+    
+    <!-- Users Section -->
+    <div class="mb-10">
+        <h2 class="text-2xl font-bold mb-4">Users</h2>
+        <div class="bg-white overflow-auto rounded shadow">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    {% for user in users %}
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm">{{ user.id }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm">{{ user.email }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm">{{ user.name or 'No name' }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm">{{ user.created_at.strftime('%Y-%m-%d') }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <!-- Trips Section -->
+    <div class="mb-10">
+        <h2 class="text-2xl font-bold mb-4">Trips</h2>
+        <div class="bg-white overflow-auto rounded shadow">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Destination</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Traveler</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Slug</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Recommendations</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    {% for trip in trips %}
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm">{{ trip.id }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm">{{ trip.destination }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm">{{ trip.traveler_name or 'Unknown' }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm">
+                            <a href="{{ url_for('trip.view_trip', slug=trip.slug) }}" class="text-blue-600 hover:underline">
+                                {{ trip.slug }}
+                            </a>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm">{{ trip.recommendations|length }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm">{{ trip.created_at.strftime('%Y-%m-%d') }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <!-- Activities Section -->
+    <div class="mb-10">
+        <h2 class="text-2xl font-bold mb-4">Activities</h2>
+        <div class="bg-white overflow-auto rounded shadow">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Website</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Location</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Google Place ID</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    {% for activity in activities %}
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm">{{ activity.id }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm">{{ activity.name }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm">{{ activity.category or 'N/A' }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm">
+                            {% if activity.website_url %}
+                            <a href="{{ activity.website_url }}" target="_blank" class="text-blue-600 hover:underline">
+                                {{ activity.website_url|truncate(30) }}
+                            </a>
+                            {% else %}
+                            N/A
+                            {% endif %}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm">
+                            {% if activity.address %}
+                            {{ activity.address|truncate(30) }}
+                            {% else %}
+                            {{ activity.city or '' }} {{ activity.country or '' }}
+                            {% endif %}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm">{{ activity.google_place_id or 'N/A' }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <!-- Recommendations Section -->
+    <div class="mb-10">
+        <h2 class="text-2xl font-bold mb-4">Recommendations</h2>
+        <div class="bg-white overflow-auto rounded shadow">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Activity</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Trip</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Author</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    {% for recommendation in recommendations %}
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm">{{ recommendation.id }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm">
+                            {{ recommendation.activity.name if recommendation.activity else 'Unknown' }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm">
+                            <a href="{{ url_for('trip.view_trip', slug=recommendation.trip.slug) if recommendation.trip else '#' }}" class="text-blue-600 hover:underline">
+                                {{ recommendation.trip.destination if recommendation.trip else 'Unknown' }}
+                            </a>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm">
+                            {{ recommendation.author.name if recommendation.author else 'Unknown' }}
+                        </td>
+                        <td class="px-6 py-4 text-sm max-w-xs truncate">
+                            {{ recommendation.description or 'No description' }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm">{{ recommendation.created_at.strftime('%Y-%m-%d') }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %} 

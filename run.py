@@ -1,4 +1,5 @@
 import os
+import sys
 import subprocess
 from app import create_app
 
@@ -33,9 +34,22 @@ def build_tailwind():
 app = create_app()
 
 if __name__ == '__main__':
+    # Parse command line arguments
+    port = 5000  # Default port
+    
+    # Check if port is specified in command line args
+    if len(sys.argv) > 1:
+        if sys.argv[1] == '--port' and len(sys.argv) > 2:
+            try:
+                port = int(sys.argv[2])
+            except ValueError:
+                print(f"Invalid port number: {sys.argv[2]}")
+                sys.exit(1)
+    
     # Only build Tailwind when running the development server
     # In production, Tailwind is built during the build process
     if os.environ.get('FLASK_ENV') != 'production':
         build_tailwind()
     
-    app.run(debug=True, port=5001) 
+    print(f"Starting server on port {port}")
+    app.run(debug=True, port=port) 
