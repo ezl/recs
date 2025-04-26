@@ -29,9 +29,17 @@
 
   {% if trip.recommendations %}
     <div class="mb-8">
-      <h2 class="section-title">
-        Recommendations for {{ trip.traveler_name }}
-      </h2>
+      <div class="flex items-center justify-between mb-2">
+        <h2 class="section-title">
+          Recommendations for {{ trip.traveler_name }}
+        </h2>
+        <button id="toggle-filters" class="inline-flex items-center px-2 py-1 text-gray-600 hover:text-gray-900 transition">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 0 1-.659 1.591l-5.432 5.432a2.25 2.25 0 0 0-.659 1.591v2.927a2.25 2.25 0 0 1-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 0 0-.659-1.591L3.659 7.409A2.25 2.25 0 0 1 3 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0 1 12 3Z" />
+          </svg>
+          <span class="ml-1">Filter</span>
+        </button>
+      </div>
       
       <p class="text-gray-600 text-sm mb-4">
         {% set grouped_recommendations = trip.get_grouped_recommendations() %}
@@ -39,9 +47,44 @@
         {{ contributors|length }} contributors, {{ grouped_recommendations|length }} activities, {{ trip.recommendations|length }} recommendations
       </p>
       
+      <!-- Filter Pills Section -->
+      <div id="filter-section" class="mb-6 hidden">
+        <!-- Contributor Filter -->
+        <div class="mb-4">
+          <h3 class="text-gray-700 font-medium mb-2">Filter by Contributor</h3>
+          <div class="flex flex-wrap gap-2">
+            {% for contributor in contributors %}
+              <button class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-blue-100 text-blue-800 border border-blue-200 hover:bg-blue-200 transition active" data-filter-type="contributor" data-filter-value="{{ contributor.id }}">
+                {{ contributor.name if contributor.name else contributor.email }}
+              </button>
+            {% endfor %}
+          </div>
+        </div>
+        
+        <!-- Recommendation Type Filter -->
+        <div>
+          <h3 class="text-gray-700 font-medium mb-2">Filter by Recommendation Type</h3>
+          <div class="flex flex-wrap gap-2">
+            {% set categories = [] %}
+            {% for group in grouped_recommendations %}
+              {% if group.activity.category and group.activity.category not in categories %}
+                {% set _ = categories.append(group.activity.category) %}
+              {% endif %}
+            {% endfor %}
+            {% for category in categories %}
+              <button class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-blue-100 text-blue-800 border border-blue-200 hover:bg-blue-200 transition active" data-filter-type="category" data-filter-value="{{ category }}">
+                {{ category }}
+              </button>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      
       <div class="grid md:grid-cols-2 gap-6">
         {% for group in grouped_recommendations %}
-          <div class="card card-hover">
+          <div class="card card-hover recommendation-card" 
+               data-category="{{ group.activity.category }}"
+               data-contributors="{% for rec in group.recommendations %}{{ rec.author_id }}{% if not loop.last %},{% endif %}{% endfor %}">
             <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ group.activity.name }}</h3>
             
             <div class="flex flex-wrap items-center gap-3 mb-3">
@@ -115,4 +158,86 @@
   {% endif %}
   
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Toggle filter section visibility
+    const toggleFiltersBtn = document.getElementById('toggle-filters');
+    const filterSection = document.getElementById('filter-section');
+    
+    toggleFiltersBtn.addEventListener('click', function() {
+      filterSection.classList.toggle('hidden');
+    });
+    
+    // Keep track of active filters
+    const activeFilters = {
+      contributor: new Set(),
+      category: new Set()
+    };
+
+    // Initially set all filters as active
+    document.querySelectorAll('[data-filter-type]').forEach(pill => {
+      const filterType = pill.dataset.filterType;
+      const filterValue = pill.dataset.filterValue;
+      activeFilters[filterType].add(filterValue);
+    });
+    
+    // Toggle filter pills
+    document.querySelectorAll('[data-filter-type]').forEach(pill => {
+      pill.addEventListener('click', function() {
+        const filterType = this.dataset.filterType;
+        const filterValue = this.dataset.filterValue;
+        
+        // Toggle pill appearance
+        if (this.classList.contains('active')) {
+          // Deactivate
+          this.classList.remove('bg-blue-100', 'text-blue-800', 'border-blue-200', 'active');
+          this.classList.add('bg-gray-100', 'text-gray-700', 'border-gray-200');
+          activeFilters[filterType].delete(filterValue);
+        } else {
+          // Activate
+          this.classList.remove('bg-gray-100', 'text-gray-700', 'border-gray-200');
+          this.classList.add('bg-blue-100', 'text-blue-800', 'border-blue-200', 'active');
+          activeFilters[filterType].add(filterValue);
+        }
+        
+        // Apply filters to cards
+        applyFilters();
+      });
+    });
+    
+    // Function to apply filters to recommendation cards
+    function applyFilters() {
+      const cards = document.querySelectorAll('.recommendation-card');
+      
+      cards.forEach(card => {
+        const cardCategory = card.dataset.category;
+        const cardContributors = card.dataset.contributors.split(',');
+        
+        // Check if no filters are active for a type (show all)
+        const noCategoryFilters = activeFilters.category.size === 0;
+        const noContributorFilters = activeFilters.contributor.size === 0;
+        
+        // Check if card should be visible based on category filter
+        const categoryMatch = 
+          noCategoryFilters || 
+          (cardCategory && activeFilters.category.has(cardCategory));
+        
+        // Check if card should be visible based on contributor filter
+        const contributorMatch = 
+          noContributorFilters || 
+          cardContributors.some(id => activeFilters.contributor.has(id));
+        
+        // Show/hide card based on filter matches
+        if (categoryMatch && contributorMatch) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    }
+  });
+</script>
 {% endblock %} 
