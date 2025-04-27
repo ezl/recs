@@ -163,6 +163,53 @@ This starter uses SQLAlchemy ORM with SQLite for local development. The database
 
 For production, you can modify the database connection URI in the environment variables or config file.
 
+## Database Schema Management
+
+### Schema Verification
+
+This project includes a database schema verification tool that checks if the actual database schema matches the expected schema based on SQLAlchemy models. This helps identify missing tables or columns.
+
+To run the verification:
+```bash
+# Report any schema issues without fixing them
+python verify_db_schema.py
+
+# Automatically fix schema issues
+python verify_db_schema.py --fix
+```
+
+This tool is useful for:
+- Testing before deployment to ensure all migrations have been properly applied
+- Identifying differences between development and production databases
+- Fixing schema issues when migrations fail
+
+### Schema Issues
+
+If you encounter database errors like these:
+```
+sqlalchemy.exc.ProgrammingError: column activities.google_place_id does not exist
+sqlalchemy.exc.ProgrammingError: column activities.place_data does not exist
+```
+
+You can fix these issues using one of the following methods:
+
+1. Run the fix script:
+   ```
+   python fix_missing_column.py
+   ```
+   
+2. Run the schema verification with fix option:
+   ```
+   python verify_db_schema.py --fix
+   ```
+   
+3. Run Alembic migrations:
+   ```
+   flask db upgrade
+   ```
+
+For detailed instructions on fixing these issues in production, see the `PRODUCTION_FIX.md` file.
+
 ## Known Issues and Troubleshooting
 
 ### Missing Database Columns

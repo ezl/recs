@@ -32,7 +32,7 @@ else
   echo "⚠️ Migration with Alembic failed, attempting fallback methods..."
   
   # Try running the fix script directly
-  echo "Running the fix_missing_column script..."
+  echo "Running the fix_missing_columns script..."
   python fix_missing_column.py
   
   if [ $? -eq 0 ]; then
@@ -50,6 +50,17 @@ else
       exit 1 # Exit with failure
     fi
   fi
+fi
+
+# Verify database schema against SQLAlchemy models and fix any issues
+echo "Verifying database schema against models..."
+python verify_db_schema.py --fix
+
+if [ $? -eq 0 ]; then
+  echo "✅ Database schema verification successful!"
+else
+  echo "⚠️ Database schema verification found issues. Check logs for details."
+  # Don't exit with failure here, as the previous steps might have been sufficient
 fi
 
 echo "✅ Build completed successfully!"

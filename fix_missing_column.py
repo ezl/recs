@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 """
-Script to fix the missing google_place_id column in the activities table.
+Script to fix the missing columns in the activities table.
 This script will:
-1. Check if the column exists
-2. Add it if it doesn't exist
-3. Create the appropriate index
+1. Check if the columns exist
+2. Add them if they don't exist
+3. Create the appropriate indexes
 """
 
 import os
@@ -29,33 +29,64 @@ def create_app():
     db.init_app(app)
     return app
 
-def fix_missing_column():
-    """Add the missing google_place_id column to activities table if needed"""
+def fix_missing_columns():
+    """Add missing columns to activities table if needed"""
     app = create_app()
     
     with app.app_context():
         try:
-            # 1. Check if column exists
+            # Get column information
             inspector = inspect(db.engine)
             columns = inspector.get_columns('activities')
-            column_exists = any(column['name'] == 'google_place_id' for column in columns)
+            column_names = [column['name'] for column in columns]
             
-            if column_exists:
-                logger.info("Column 'google_place_id' already exists in activities table. No fix needed.")
-                return True
+            fixed_something = False
             
-            # 2. Add the column if it doesn't exist
-            logger.info("Column 'google_place_id' is missing. Adding it now...")
-            with db.engine.begin() as conn:
-                conn.execute(text("ALTER TABLE activities ADD COLUMN google_place_id VARCHAR(255)"))
-                logger.info("Column added successfully.")
+            # Check and add google_place_id column
+            if 'google_place_id' not in column_names:
+                logger.info("Column 'google_place_id' is missing. Adding it now...")
+                with db.engine.begin() as conn:
+                    conn.execute(text("ALTER TABLE activities ADD COLUMN google_place_id VARCHAR(255)"))
+                    logger.info("Column google_place_id added successfully.")
+                    
+                    # Create the index
+                    logger.info("Creating unique index on google_place_id...")
+                    conn.execute(text("CREATE UNIQUE INDEX ix_activities_google_place_id ON activities (google_place_id)"))
+                    logger.info("Index created successfully.")
+                fixed_something = True
+            else:
+                logger.info("Column 'google_place_id' already exists.")
                 
-                # 3. Create the index
-                logger.info("Creating unique index on google_place_id...")
-                conn.execute(text("CREATE UNIQUE INDEX ix_activities_google_place_id ON activities (google_place_id)"))
-                logger.info("Index created successfully.")
+            # Check and add place_data column
+            if 'place_data' not in column_names:
+                logger.info("Column 'place_data' is missing. Adding it now...")
+                with db.engine.begin() as conn:
+                    # Add JSON column type - using JSONB for PostgreSQL or TEXT for others
+                    # Detect database type
+                    db_type = str(db.engine.url.drivername)
+                    if 'postgres' in db_type:
+                        conn.execute(text("ALTER TABLE activities ADD COLUMN place_data JSONB"))
+                    else:
+                        conn.execute(text("ALTER TABLE activities ADD COLUMN place_data TEXT"))
+                    logger.info("Column place_data added successfully.")
+                fixed_something = True
+            else:
+                logger.info("Column 'place_data' already exists.")
                 
-            logger.info("Database fix completed successfully!")
+            # Check and add is_place_based column
+            if 'is_place_based' not in column_names:
+                logger.info("Column 'is_place_based' is missing. Adding it now...")
+                with db.engine.begin() as conn:
+                    conn.execute(text("ALTER TABLE activities ADD COLUMN is_place_based BOOLEAN DEFAULT TRUE"))
+                    logger.info("Column is_place_based added successfully.")
+                fixed_something = True
+            else:
+                logger.info("Column 'is_place_based' already exists.")
+            
+            if fixed_something:
+                logger.info("Database columns fix completed successfully!")
+            else:
+                logger.info("All required columns already exist. No changes needed.")
             return True
             
         except Exception as e:
@@ -80,7 +111,7 @@ def run_alembic_migration():
 if __name__ == "__main__":
     try:
         # Try the direct fix first
-        if fix_missing_column():
+        if fix_missing_columns():
             sys.exit(0)
         
         # If that fails, try the Alembic migration
