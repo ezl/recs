@@ -1,0 +1,19 @@
+<!-- Loading Overlay Component -->
+<div id="loading-overlay" class="hidden fixed inset-0 z-50 flex items-center justify-center" style="backdrop-filter: blur(2px);">
+    <!-- Background overlay -->
+    <div class="absolute inset-0 bg-white opacity-50"></div>
+    
+    <!-- Content box -->
+    <div class="relative w-3/5 h-3/5 bg-white rounded-lg shadow-lg flex flex-col items-center justify-center p-8 border border-gray-200">
+        <!-- Loading spinner - using a simple CSS spinner for now -->
+        <div class="loading-spinner mb-6">
+            <div class="w-16 h-16 border-4 border-primary-200 border-t-primary-600 rounded-full animate-spin"></div>
+        </div>
+        
+        <!-- Title -->
+        <h2 id="loading-title" class="text-2xl font-bold text-gray-800 mb-2">Loading...</h2>
+        
+        <!-- Subtitle -->
+        <p id="loading-subtitle" class="text-gray-600 text-center">Please wait for awesomeness.</p>
+    </div>
+</div> 

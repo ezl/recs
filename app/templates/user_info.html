@@ -14,7 +14,10 @@
   </div>
   
   <div class="bg-white rounded-lg p-6 border border-gray-200 shadow-sm max-w-lg mx-auto">
-    <form action="{{ url_for('user.complete_trip') }}" method="POST" class="space-y-6" data-validate>
+    <form action="{{ url_for('user.complete_trip') }}" method="POST" class="space-y-6" data-validate 
+          data-show-loading="true"
+          data-loading-title="Creating your trip..."
+          data-loading-subtitle="Get ready to start getting recs from your friends!">
       <input type="hidden" name="destination" value="{{ destination }}">
       
       <div class="mb-4">

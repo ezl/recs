@@ -14,4 +14,19 @@ document.addEventListener('DOMContentLoaded', () => {
   if (yearElement) {
     yearElement.textContent = currentYear;
   }
+  
+  // Initialize form loading indicators - attach to all forms with data-show-loading="true"
+  const loadingForms = $$('form[data-show-loading="true"]');
+  loadingForms.forEach(form => {
+    form.addEventListener('submit', function(e) {
+      // Get custom loading messages from data attributes if provided
+      const loadingTitle = this.dataset.loadingTitle || "Loading...";
+      const loadingSubtitle = this.dataset.loadingSubtitle || "Please wait for awesomeness.";
+      
+      // Show the loading overlay with custom messages
+      if (typeof showLoadingOverlay === 'function') {
+        showLoadingOverlay(loadingTitle, loadingSubtitle);
+      }
+    });
+  });
 }); 

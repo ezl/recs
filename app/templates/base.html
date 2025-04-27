@@ -49,6 +49,9 @@
 <body class="min-h-screen bg-gray-50 text-gray-800">
     {% set hide_nav_footer = request.endpoint in ['main.add_recommendation', 'recommendation.process_recommendation', 'main.process_audio_recommendation', 'main.confirm_audio_recommendations', 'recommendation.save_recommendations', 'main.confirm_recommendations'] %}
     
+    <!-- Global Loading Overlay - will be shown/hidden via JavaScript -->
+    {% include 'components/loading_overlay.html' %}
+    
     <!-- Navigation -->
     {% if not hide_nav_footer %}
         {% include 'components/navbar.html' %}
@@ -101,6 +104,9 @@
     </footer>
     {% endif %}
 
+    <!-- Loading overlay utility -->
+    <script src="{{ url_for('static', filename='js/utils/loading.js') }}"></script>
+    
     <!-- Form validation script -->
     <script src="{{ url_for('static', filename='js/form-validation.js') }}"></script>
     

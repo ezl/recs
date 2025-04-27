@@ -5,6 +5,9 @@
 /* Import color system first */
 @import 'colors.css';
 
+/* Import custom width and height utilities */
+@import 'width-utilities.css';
+
 /* Microphone animation styles */
 @layer components {
   .mic-animation {

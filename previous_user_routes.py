@@ -10,19 +10,12 @@ user_bp = Blueprint('user', __name__)
 def create_trip():
     destination = request.form.get('destination')
     
-    # Log for debugging
-    print(f"create_trip received destination='{destination}'")
-    
     if not destination:
         flash('Please enter a destination', 'error')
         return redirect(url_for('main.index'))
     
     # Store destination in session for the next step
-    # Do not clear all session data as it might affect other functionality
     session['temp_destination'] = destination
-    session.modified = True  # Ensure session is saved
-    
-    print(f"create_trip set session temp_destination='{session.get('temp_destination')}'")
     
     # Redirect to the user info page
     return redirect(url_for('user.user_info'))
@@ -31,17 +24,9 @@ def create_trip():
 def user_info():
     # Check if we have a destination in the session
     destination = session.get('temp_destination')
-    
-    # Debug log for session state
-    print(f"user_info: session contains temp_destination='{destination}'")
-    
     if not destination:
         flash('Please start by entering your destination', 'error')
         return redirect(url_for('main.index'))
-    
-    # Ensure the destination stays in the session by refreshing it
-    # This prevents session expiration issues
-    session['temp_destination'] = destination
     
     return render_template('user_info.html', destination=destination)
 
@@ -51,15 +36,6 @@ def complete_trip():
     destination = request.form.get('destination')
     name = request.form.get('name')
     email = request.form.get('email')
-    
-    # Log the request for debugging
-    print(f"complete_trip received: destination='{destination}', name='{name}', email='{email}'")
-    print(f"session contains: temp_destination='{session.get('temp_destination')}'")
-    
-    # If destination is missing from form, try to get it from session
-    if not destination:
-        destination = session.get('temp_destination')
-        print(f"Falling back to session destination: '{destination}'")
     
     # Validate input
     if not destination:
@@ -134,11 +110,6 @@ def complete_trip():
     
     db.session.add(trip)
     db.session.commit()
-    
-    # Clean up session data that's no longer needed
-    for key in ['temp_destination', 'temp_email', 'temp_name']:
-        if key in session:
-            session.pop(key)
     
     return redirect(url_for('trip.view_trip', slug=trip.slug))
 
