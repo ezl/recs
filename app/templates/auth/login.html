@@ -19,12 +19,40 @@
             </div>
             
             <div>
-                <button type="submit" 
-                    class="w-full bg-primary-600 text-white py-2 px-4 rounded-md hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 btn-disabled" disabled>
-                    Send Login Link
+                <button type="submit" id="login-button"
+                    class="w-full bg-primary-600 text-white py-2 px-4 rounded-md hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 btn-disabled inline-flex items-center justify-center" disabled>
+                    <span>Send Login Link</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" id="spinner" class="animate-spin h-5 w-5 ml-2 hidden">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+                    </svg>
                 </button>
             </div>
         </form>
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('form[data-validate]');
+        const loginButton = document.getElementById('login-button');
+        const buttonText = loginButton.querySelector('span');
+        const spinner = document.getElementById('spinner');
+        
+        form.addEventListener('submit', function(e) {
+            if (!form.checkValidity()) {
+                return;
+            }
+            
+            // Disable button and show spinner
+            loginButton.disabled = true;
+            loginButton.classList.add('btn-disabled');
+            
+            // Show spinner, change text
+            spinner.classList.remove('hidden');
+            buttonText.textContent = 'Processing...';
+        });
+    });
+</script>
 {% endblock %} 
