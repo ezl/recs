@@ -245,3 +245,38 @@ After deployment, you should:
 1. Run database migrations if necessary
 2. Verify that all environment variables are correctly set
 3. Monitor the application logs for any issues
+
+## Deployment
+
+### Database Migrations
+
+When deploying to production, ensure that database migrations run properly:
+
+1. The `build.sh` script now includes multiple fallback methods for running migrations:
+   - First attempts to run Alembic migrations
+   - If that fails, runs the `fix_missing_column.py` script
+   - As a last resort, uses direct SQLAlchemy table creation
+
+2. If you're experiencing database schema issues in production, you can manually run:
+   ```
+   flask db upgrade
+   ```
+   or
+   ```
+   python fix_missing_column.py
+   ```
+
+3. Make sure your environment variables are correctly set in production:
+   - `DATABASE_URL` should point to your production database
+   - `FLASK_APP` should be set to `run.py`
+
+### Troubleshooting Deployment Issues
+
+If you encounter the "activities.google_place_id does not exist" error in production:
+
+1. SSH into your production server
+2. Navigate to your application directory
+3. Run `python fix_missing_column.py`
+4. Restart your application server
+
+For Render.com deployments, you can use the Web Shell to execute these commands directly in the production environment.
