@@ -163,6 +163,29 @@ This starter uses SQLAlchemy ORM with SQLite for local development. The database
 
 For production, you can modify the database connection URI in the environment variables or config file.
 
+## Known Issues and Troubleshooting
+
+### Missing Database Columns
+
+If you encounter an error like this in production:
+```
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column activities.google_place_id does not exist
+```
+
+This indicates that the database schema is out of sync. To fix it:
+
+1. Run the fix script:
+   ```
+   python fix_missing_column.py
+   ```
+   
+2. Alternatively, run the Alembic migration:
+   ```
+   flask db upgrade
+   ```
+
+This issue can happen if the migration didn't run correctly during deployment. Always make sure to run migrations as part of your deployment process.
+
 ## License
 
 [MIT License](LICENSE)

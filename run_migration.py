@@ -8,6 +8,47 @@ import sys
 import sqlalchemy as sa
 from sqlalchemy import create_engine, text
 from datetime import datetime
+from app.database import db
+from app.database.models import Activity
+from alembic import op
+from sqlalchemy import inspect
+from flask import Flask
+from app.config import Config
+import logging
+
+def create_app():
+    app = Flask(__name__)
+    app.config.from_object(Config)
+    db.init_app(app)
+    return app
+
+def add_missing_column():
+    app = create_app()
+    
+    with app.app_context():
+        inspector = inspect(db.engine)
+        has_column = False
+        
+        # Check if the column exists
+        columns = inspector.get_columns('activities')
+        for column in columns:
+            if column['name'] == 'google_place_id':
+                has_column = True
+                break
+        
+        # If column doesn't exist, add it
+        if not has_column:
+            print("Adding google_place_id column to activities table...")
+            with db.engine.begin() as conn:
+                conn.execute(sa.text(
+                    "ALTER TABLE activities ADD COLUMN google_place_id VARCHAR(255) NULL;"
+                ))
+                conn.execute(sa.text(
+                    "CREATE UNIQUE INDEX ix_activities_google_place_id ON activities (google_place_id);"
+                ))
+            print("Column added successfully!")
+        else:
+            print("Column already exists. No changes needed.")
 
 def run_migration():
     print("Starting Activity model migration...")
@@ -129,5 +170,8 @@ def run_migration():
             connection.close()
 
 if __name__ == "__main__":
-    success = run_migration()
-    sys.exit(0 if success else 1) 
+    try:
+        add_missing_column()
+    except Exception as e:
+        print(f"Error: {e}")
+        sys.exit(1) 
