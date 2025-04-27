@@ -342,6 +342,15 @@ document.addEventListener('DOMContentLoaded', function() {
         submitButton.querySelector('svg:not(#spinner)').classList.add('hidden');
         submitButton.querySelector('#spinner').classList.remove('hidden');
         
+        // Show loading overlay with appropriate messages
+        if (typeof showLoadingOverlay === 'function') {
+            const travelerName = document.querySelector('[data-traveler-name]')?.dataset.travelerName || 'your friend';
+            showLoadingOverlay(
+                "Saving your recommendations...",
+                `We're adding your places to ${travelerName}'s trip`
+            );
+        }
+        
         // Submit the form
         form.submit();
     }

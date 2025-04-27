@@ -33,7 +33,9 @@
     <div id="trip-data" data-slug="{{ trip.slug }}" class="hidden"></div>
     <div id="destination-data" data-destination="{{ trip.destination }}" class="hidden"></div>
     
-    <form id="step1-form" method="POST" action="{{ url_for('recommendation.process_recommendation', slug=trip.slug) }}" class="w-full" data-validate>
+    <form id="step1-form" method="POST" action="{{ url_for('recommendation.process_recommendation', slug=trip.slug) }}" class="w-full" data-validate data-show-loading="true"
+          data-loading-title="Processing your recommendations..."
+          data-loading-subtitle="We're identifying the places you've recommended">
         <div class="w-full">
             <div id="text-input-container">
                 <textarea 
