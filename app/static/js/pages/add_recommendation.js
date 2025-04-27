@@ -144,7 +144,12 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // If in text mode, submit form directly
             if (!audioMode) {
-                form.submit(); // Submit the form
+                // Replace direct form.submit() with proper event dispatch
+                const submitEvent = new Event('submit', { bubbles: true, cancelable: true });
+                if (form.dispatchEvent(submitEvent)) {
+                    // Only if event wasn't cancelled by any listeners
+                    form.submit();
+                }
                 
                 // Update UI to show submission is in progress
                 submitButton.disabled = true;
