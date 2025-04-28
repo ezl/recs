@@ -1,3 +1,8 @@
+"""
+Main Flask application.
+For end-to-end testing, see /e2e_tests/README.md
+"""
+
 from flask import Flask
 import atexit
 from datetime import datetime, timedelta

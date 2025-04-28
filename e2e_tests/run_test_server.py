@@ -1,3 +1,11 @@
+"""
+This is the main test server for the end-to-end test suite.
+The e2e tests are located in /e2e_tests and use Playwright.
+To run the tests:
+1. Start this server: python run_test_server.py
+2. In another terminal: cd e2e_tests && npm run test
+"""
+
 import os
 import sys
 import shutil

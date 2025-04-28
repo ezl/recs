@@ -1,3 +1,9 @@
+/**
+ * Configuration for the main end-to-end test suite.
+ * Tests are located in /e2e_tests/tests/
+ * Run with: npm run test
+ */
+
 // @ts-check
 const { defineConfig, devices } = require('@playwright/test');
 
