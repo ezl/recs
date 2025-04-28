@@ -136,34 +136,65 @@ document.addEventListener('DOMContentLoaded', function() {
         */
     }
 
-    // Add Alt+Enter or Command+Enter keyboard shortcut to submit form
+    // Form submission for text input
+    function submitForm() {
+        console.log('submitForm called');
+        // Validate the form
+        if (!form.checkValidity()) {
+            console.log('Form validation failed');
+            return false; // Prevent submission if invalid
+        }
+
+        console.log('Form validation passed, proceeding with submission');
+        
+        // Log the form data before submission
+        const formData = new FormData(form);
+        console.log('Form data to be submitted:', {
+            unstructured_recommendations: formData.get('unstructured_recommendations'),
+            audio_recommendations: formData.get('audio_recommendations')
+        });
+        
+        // Show loading overlay
+        if (typeof showLoadingOverlay === 'function') {
+            console.log('Calling showLoadingOverlay directly');
+            showLoadingOverlay(
+                form.dataset.loadingTitle || "Processing your recommendations...",
+                form.dataset.loadingSubtitle || "We're identifying the places you've recommended"
+            );
+        } else {
+            console.error('showLoadingOverlay function not found!');
+        }
+
+        // Update UI to show submission is in progress
+        submitButton.disabled = true;
+        submitButton.classList.add('btn-disabled');
+        arrowIcon.classList.add('hidden');
+        spinner.classList.remove('hidden');
+        buttonText.textContent = 'Processing...';
+
+        // Submit the form programmatically
+        console.log('Submitting form...');
+        form.submit();
+
+        // Prevent the default form submission since we're handling it manually
+        return false;
+    }
+
+    // Keyboard shortcut handler
     document.addEventListener('keydown', function(e) {
-        // Check if Alt+Enter or Command+Enter was pressed
         if (e.key === 'Enter' && (e.altKey || e.metaKey) && !submitButton.disabled) {
-            e.preventDefault(); // Prevent default behavior (newline)
-            
-            // If in text mode, submit form directly
-            if (!audioMode) {
-                // Replace direct form.submit() with proper event dispatch
-                const submitEvent = new Event('submit', { bubbles: true, cancelable: true });
-                if (form.dispatchEvent(submitEvent)) {
-                    // Only if event wasn't cancelled by any listeners
-                    form.submit();
-                }
-                
-                // Update UI to show submission is in progress
-                submitButton.disabled = true;
-                submitButton.classList.add('btn-disabled');
-                arrowIcon.classList.add('hidden');
-                spinner.classList.remove('hidden');
-                buttonText.textContent = 'Processing...';
-            } else if (audioRecommendations.value) {
-                // In audio mode with processed audio, submit it
-                submitForm();
-            }
+            console.log('Cmd+Enter pressed, calling submitForm()');
+            // Don't prevent default, let the form submit naturally
+            submitForm();
         }
     });
-    
+
+    // Form submit button click handler
+    submitButton.addEventListener('click', function(e) {
+        // Don't prevent default, let the form submit naturally
+        submitForm();
+    });
+
     // Toggle between text and audio modes
     toggleBtn.addEventListener('click', function() {
         audioMode = !audioMode;
@@ -519,296 +550,4 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log("Transcription process completed");
         }
     }
-
-    // Function to submit the form
-    function submitForm() {
-        console.log("========== SUBMIT FORM START ==========");
-        console.log("submitForm() called");
-        
-        // If in audio mode and we have processed audio data
-        if (audioMode && audioRecommendations.value) {
-            console.log("In audio mode with recommendation data, length:", audioRecommendations.value.length);
-            console.log("First 100 chars of data:", audioRecommendations.value.substring(0, 100) + "...");
-            
-            try {
-                // Parse to make sure it's valid JSON
-                const recommendationsData = JSON.parse(audioRecommendations.value);
-                console.log("Successfully parsed recommendations data:", recommendationsData);
-                console.log(`Parsed ${recommendationsData.length} recommendations`);
-                
-                if (!Array.isArray(recommendationsData)) {
-                    console.error("Recommendations data is not an array:", recommendationsData);
-                    showError("There was an error with the recommendation format. Please try again.");
-                    return;
-                }
-                
-                if (recommendationsData.length === 0) {
-                    console.error("Recommendations array is empty");
-                    showError("No recommendations were found in your recording. Please try again with more specific details.");
-                    return;
-                }
-            } catch (error) {
-                console.error("Failed to parse recommendations data:", error);
-                console.error("Raw value:", audioRecommendations.value);
-                showError("There was an error processing your audio data. Please try again.");
-                return;
-            }
-            
-            // Disable button
-            submitButton.disabled = true;
-            submitButton.classList.add('btn-disabled');
-            console.log("UI: Submit button disabled for form submission");
-            
-            // Check if arrowIcon exists before trying to use it
-            if (arrowIcon) {
-                // Hide arrow icon, show spinner
-                arrowIcon.classList.add('hidden');
-                console.log("UI: Arrow icon hidden");
-            } else {
-                console.warn("UI: arrowIcon is null, skipping hide operation");
-            }
-            
-            // Check if spinner exists before trying to use it
-            if (spinner) {
-                spinner.classList.remove('hidden');
-                console.log("UI: Spinner shown");
-            } else {
-                console.warn("UI: spinner is null, skipping show operation");
-            }
-            
-            // Change text
-            if (buttonText) {
-                buttonText.textContent = 'Processing...';
-                console.log("UI: Button text updated to 'Processing...'");
-            } else {
-                console.warn("UI: buttonText is null, skipping text update");
-            }
-            
-            // Get trip slug from data attribute
-            const tripDataElement = document.getElementById('trip-data');
-            if (!tripDataElement) {
-                console.error("ERROR: trip-data element not found!");
-                showError("There was an error identifying the trip. Please refresh the page and try again.");
-                
-                // Re-enable button
-                submitButton.disabled = false;
-                submitButton.classList.remove('btn-disabled');
-                
-                // Check if arrowIcon exists before trying to use it
-                if (arrowIcon) {
-                    arrowIcon.classList.remove('hidden');
-                } else {
-                    console.warn("UI: arrowIcon is null, skipping show operation in error handler");
-                }
-                
-                // Check if spinner exists before trying to use it
-                if (spinner) {
-                    spinner.classList.add('hidden');
-                } else {
-                    console.warn("UI: spinner is null, skipping hide operation in error handler");
-                }
-                
-                // Change text back
-                if (buttonText) {
-                    buttonText.textContent = 'Continue';
-                } else {
-                    console.warn("UI: buttonText is null, skipping text update in error handler");
-                }
-                return;
-            }
-            
-            const tripSlug = tripDataElement.dataset.slug;
-            console.log("Trip slug for submission:", tripSlug);
-            
-            if (!tripSlug) {
-                console.error("ERROR: trip slug not found in data attribute!");
-                showError("There was an error identifying the trip. Please refresh the page and try again.");
-                
-                // Re-enable button
-                submitButton.disabled = false;
-                submitButton.classList.remove('btn-disabled');
-                
-                // Check if arrowIcon exists before trying to use it
-                if (arrowIcon) {
-                    arrowIcon.classList.remove('hidden');
-                } else {
-                    console.warn("UI: arrowIcon is null, skipping show operation in error handler");
-                }
-                
-                // Check if spinner exists before trying to use it
-                if (spinner) {
-                    spinner.classList.add('hidden');
-                } else {
-                    console.warn("UI: spinner is null, skipping hide operation in error handler");
-                }
-                
-                // Change text back
-                if (buttonText) {
-                    buttonText.textContent = 'Continue';
-                } else {
-                    console.warn("UI: buttonText is null, skipping text update in error handler");
-                }
-                return;
-            }
-            
-            // Post the audio recommendations directly
-            const postUrl = `/trip/${encodeURIComponent(tripSlug)}/process-audio`;
-            console.log("SENDING: POST request to", postUrl);
-            console.log("Request body length:", audioRecommendations.value.length);
-            
-            const startTime = new Date();
-            console.log(`Request start time: ${startTime.toISOString()}`);
-            
-            fetch(postUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: audioRecommendations.value
-            })
-            .then(response => {
-                const endTime = new Date();
-                const duration = (endTime - startTime) / 1000;
-                console.log(`RECEIVED: Server response after ${duration} seconds`);
-                console.log("Process audio response received:", response.status, response.statusText);
-                console.log("Response headers:", response.headers);
-                
-                if (!response.ok) {
-                    console.error("Response not OK:", response.status, response.statusText);
-                    return response.text().then(text => {
-                        console.error("Error response body:", text);
-                        throw new Error(`Network response was not ok: ${response.status} ${response.statusText} - ${text}`);
-                    });
-                }
-                console.log("PARSING: JSON response from process-audio endpoint");
-                return response.json();
-            })
-            .then(data => {
-                console.log("RECEIVED DATA from process-audio:", data);
-                
-                // Check if we have a redirect URL
-                if (!data.redirect_url) {
-                    console.error("No redirect_url in response:", data);
-                    throw new Error("Server response missing redirect URL");
-                }
-                
-                // Redirect to the confirmation page
-                console.log("REDIRECTING to:", data.redirect_url);
-                
-                try {
-                    // Use a more robust approach to redirection
-                    const redirectURL = new URL(data.redirect_url, window.location.origin);
-                    console.log("Full redirect URL:", redirectURL.href);
-                    
-                    // Try to navigate directly
-                    console.log("NAVIGATION: Attempting window.location.href redirect");
-                    window.location.href = redirectURL.href;
-                    
-                    // Set a timeout to check if navigation occurred
-                    setTimeout(() => {
-                        console.log("NAVIGATION CHECK: Still on page after 1000ms, trying alternative redirect");
-                        
-                        // Alternative redirect method
-                        console.log("NAVIGATION: Attempting window.location.replace redirect");
-                        window.location.replace(redirectURL.href);
-                        
-                        // Last resort - create and click a link
-                        setTimeout(() => {
-                            console.log("NAVIGATION CHECK: Still on page after 2000ms, creating fallback link");
-                            console.log("NAVIGATION: Final redirect attempt with link click");
-                            const link = document.createElement('a');
-                            link.href = redirectURL.href;
-                            link.textContent = "Continue to recommendations";
-                            link.style.display = "inline-block";
-                            link.style.margin = "20px auto";
-                            link.style.padding = "10px 20px";
-                            link.style.backgroundColor = "#3b82f6";
-                            link.style.color = "white";
-                            link.style.borderRadius = "5px";
-                            link.style.textDecoration = "none";
-                            
-                            // Add a message that explains the issue
-                            const message = document.createElement('div');
-                            message.innerHTML = `
-                                <div style="text-align:center; padding:20px; margin-top:20px;">
-                                    <h3 style="color:#333; margin-bottom:10px;">Navigation Issue Detected</h3>
-                                    <p style="color:#666; margin-bottom:20px;">We're having trouble automatically taking you to the next step.</p>
-                                </div>
-                            `;
-                            
-                            // Clear the content and show the manual link
-                            document.body.innerHTML = '';
-                            document.body.appendChild(message);
-                            document.body.appendChild(link);
-                            
-                            // Automatically click the link
-                            console.log("NAVIGATION: Auto-clicking fallback link");
-                            link.click();
-                        }, 1000);
-                    }, 1000);
-                } catch (navError) {
-                    console.error("NAVIGATION ERROR:", navError);
-                    console.error("Navigation error stack:", navError.stack);
-                    showError("Error navigating to the next step. Please try again.");
-                }
-            })
-            .catch(error => {
-                console.error('ERROR in fetch:', error);
-                console.error('Stack trace:', error.stack);
-                showError('There was an error processing your audio. Please try again.');
-                
-                // Re-enable button
-                submitButton.disabled = false;
-                submitButton.classList.remove('btn-disabled');
-                
-                // Check if arrowIcon exists before trying to use it
-                if (arrowIcon) {
-                    arrowIcon.classList.remove('hidden');
-                } else {
-                    console.warn("UI: arrowIcon is null, skipping show operation in error handler");
-                }
-                
-                // Check if spinner exists before trying to use it
-                if (spinner) {
-                    spinner.classList.add('hidden');
-                } else {
-                    console.warn("UI: spinner is null, skipping hide operation in error handler");
-                }
-                
-                // Change text back
-                if (buttonText) {
-                    buttonText.textContent = 'Continue';
-                } else {
-                    console.warn("UI: buttonText is null, skipping text update in error handler");
-                }
-            });
-        } else {
-            console.warn("submitForm called but conditions not met:");
-            console.warn("- audioMode:", audioMode);
-            console.warn("- audioRecommendations.value:", audioRecommendations.value ? "exists (length: " + audioRecommendations.value.length + ")" : "missing");
-        }
-    }
-
-    // Form submission for text input
-    form.addEventListener('submit', function(e) {
-        if (!form.checkValidity()) {
-            return;
-        }
-        
-        // For text mode, just disable the button and show spinner
-        if (!audioMode) {
-            submitButton.disabled = true;
-            submitButton.classList.add('btn-disabled');
-            
-            // Hide arrow icon, show spinner
-            arrowIcon.classList.add('hidden');
-            spinner.classList.remove('hidden');
-            
-            // Change text
-            buttonText.textContent = 'Processing...';
-        } else {
-            // For audio mode, prevent default form submission as we handle it separately
-            e.preventDefault();
-        }
-    });
 }); 

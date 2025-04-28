@@ -18,39 +18,31 @@ def add_recommendation(slug):
 def process_recommendation(slug):
     trip = Trip.query.filter_by(slug=slug).first_or_404()
     
-    # Collect recommendations from the form
+    # Get unstructured recommendations from the form
+    unstructured_text = request.form.get('unstructured_recommendations', '').strip()
+    
+    if not unstructured_text:
+        flash('Please add at least one recommendation', 'error')
+        return redirect(url_for('recommendation.add_recommendation', slug=slug))
+    
     try:
-        recommendations = []
-        for i in range(10):  # Support up to 10 recommendations
-            name = request.form.get(f'recommendation_{i}')
-            if name and name.strip():  # Only include non-empty recommendations
-                place_type = request.form.get(f'place_type_{i}', '')
-                website = request.form.get(f'website_url_{i}', '')
-                description = request.form.get(f'description_{i}', '')
-                
-                recommendations.append({
-                    'name': name.strip(),
-                    'type': place_type.strip() if place_type else '',
-                    'website_url': website.strip() if website else '',
-                    'description': description.strip() if description else ''
-                })
+        # Use AI service to extract structured recommendations
+        recommendations = AIService.extract_recommendations(unstructured_text, trip.destination)
         
-        recommender_name = request.form.get('recommender_name', '').strip()
-        
-        # If no recommendations, redirect back
+        # If no recommendations were extracted, redirect back
         if not recommendations:
-            flash('Please add at least one recommendation', 'error')
+            flash('We couldn\'t identify any recommendations in your text. Please try again.', 'error')
             return redirect(url_for('recommendation.add_recommendation', slug=slug))
             
         return render_template(
-            'process_recommendation.html',
+            'confirm_recommendations.html',
             trip=trip,
-            recommendations=recommendations,
-            recommender_name=recommender_name
+            extracted_recommendations=recommendations,
+            recommender_name=request.form.get('recommender_name', '').strip()
         )
     except Exception as e:
-        logger.error(f"Error processing recommendations for trip {slug}: {str(e)}")
-        flash(f'Error processing recommendations: {str(e)}', 'error')
+        logger.error(f"Error processing recommendations: {str(e)}")
+        flash('There was an error processing your recommendations. Please try again.', 'error')
         return redirect(url_for('recommendation.add_recommendation', slug=slug))
 
 @recommendation_bp.route('/trip/<slug>/save', methods=['POST'])

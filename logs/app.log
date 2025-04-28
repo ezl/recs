@@ -1023,3 +1023,585 @@ Grouped Recommendations:
 [2025-04-28 07:04:33] [INFO] [app] Application started
 [2025-04-28 07:37:15] [INFO] [app] Application started
 [2025-04-28 07:37:26] [INFO] [app] Application started
+[2025-04-28 07:39:08] [INFO] [app] Application started
+[2025-04-28 07:39:08] [INFO] [werkzeug] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[2025-04-28 07:39:08] [INFO] [werkzeug] [33mPress CTRL+C to quit[0m
+[2025-04-28 07:39:08] [INFO] [werkzeug]  * Restarting with stat
+[2025-04-28 07:39:09] [INFO] [app] Application started
+[2025-04-28 07:39:09] [WARNING] [werkzeug]  * Debugger is active!
+[2025-04-28 07:39:09] [INFO] [werkzeug]  * Debugger PIN: 547-989-235
+[2025-04-28 07:39:16] [INFO] [app] Application started
+[2025-04-28 07:39:16] [INFO] [werkzeug]  * Detected change in '/Users/ezl/code/recs/app/__init__.py', reloading
+[2025-04-28 07:39:16] [INFO] [werkzeug]  * Restarting with stat
+[2025-04-28 07:39:16] [INFO] [app] Application started
+[2025-04-28 07:39:17] [WARNING] [werkzeug]  * Debugger is active!
+[2025-04-28 07:39:17] [INFO] [werkzeug]  * Debugger PIN: 547-989-235
+[2025-04-28 07:39:23] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:39:23] "GET /admin HTTP/1.1" 200 -
+[2025-04-28 07:39:23] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:39:23] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-28 07:39:23] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:39:23] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-28 07:39:23] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:39:23] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-28 07:39:23] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:39:23] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-28 07:39:23] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:39:23] "GET /admin HTTP/1.1" 200 -
+[2025-04-28 07:39:23] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:39:23] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-28 07:39:23] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:39:23] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-28 07:39:23] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:39:23] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-28 07:39:23] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:39:23] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-28 07:39:24] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:39:24] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-28 07:39:32] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:39:32] "GET /admin HTTP/1.1" 200 -
+[2025-04-28 07:39:32] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:39:32] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:39:32] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:39:32] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:39:32] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:39:32] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-28 07:39:32] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:39:32] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:39:35] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:39:35] "GET / HTTP/1.1" 200 -
+[2025-04-28 07:39:35] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:39:35] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:39:35] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:39:35] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-28 07:39:35] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:39:35] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:39:35] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:39:35] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:39:35] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:39:35] "[36mGET /static/css/pages/home.css HTTP/1.1[0m" 304 -
+[2025-04-28 07:39:35] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:39:35] "[36mGET /static/images/trip-hero.png?v=2 HTTP/1.1[0m" 304 -
+[2025-04-28 07:39:39] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:39:39] "[32mPOST /create-trip HTTP/1.1[0m" 302 -
+[2025-04-28 07:39:39] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:39:39] "GET /user-info HTTP/1.1" 200 -
+[2025-04-28 07:39:39] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:39:39] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-28 07:39:39] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:39:39] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:39:39] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:39:39] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:39:39] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:39:39] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:39:44] [INFO] [app.services.ai_service] Getting destination suggestions for query: Hong Kong
+[2025-04-28 07:39:44] [INFO] [app.services.ai_service] Using API key starting with: sk-proj-...
+[2025-04-28 07:39:44] [INFO] [app.services.ai_service] Preparing request to OpenAI API for destination suggestions
+[2025-04-28 07:39:44] [INFO] [app.services.ai_service] Sending request to OpenAI API using model: gpt-3.5-turbo
+[2025-04-28 07:39:49] [INFO] [app.services.ai_service] Received response from OpenAI API: status=200
+[2025-04-28 07:39:49] [INFO] [app.services.ai_service] OpenAI response content: '```json
+[
+    {
+        "name": "Victoria Peak",
+        "country": "Hong Kong",
+        "descriptio...' (truncated)
+[2025-04-28 07:39:49] [INFO] [app.services.ai_service] Found JSON string from position 8 to 1720
+[2025-04-28 07:39:49] [INFO] [app.services.ai_service] Successfully parsed JSON data: 3 destinations extracted
+[2025-04-28 07:39:49] [INFO] [app.services.ai_service] Destination 1: Victoria Peak (Hong Kong)
+[2025-04-28 07:39:49] [INFO] [app.services.ai_service] Destination 2: Tsim Sha Tsui (Hong Kong)
+[2025-04-28 07:39:49] [INFO] [app.services.ai_service] Destination 3: Lantau Island (Hong Kong)
+[2025-04-28 07:39:49] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:39:49] "[32mPOST /complete-trip HTTP/1.1[0m" 302 -
+[2025-04-28 07:39:49] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:39:49] "GET /trip/hong-kong-apr-2025-1 HTTP/1.1" 200 -
+[2025-04-28 07:39:49] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:39:49] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-28 07:39:49] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:39:49] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:39:49] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:39:49] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:39:49] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:39:49] "[36mGET /static/css/pages/recommendations.css HTTP/1.1[0m" 304 -
+[2025-04-28 07:39:49] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:39:49] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:39:51] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:39:51] "GET /trip/hong-kong-apr-2025-1/add HTTP/1.1" 200 -
+[2025-04-28 07:39:51] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:39:51] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-28 07:39:51] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:39:51] "[36mGET /static/css/pages/recommendations.css HTTP/1.1[0m" 304 -
+[2025-04-28 07:39:51] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:39:51] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:39:51] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:39:51] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:39:51] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:39:51] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:39:51] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:39:51] "GET /static/js/pages/add_recommendation.js HTTP/1.1" 200 -
+[2025-04-28 07:41:36] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:41:36] "[32mPOST /trip/hong-kong-apr-2025-1/process HTTP/1.1[0m" 302 -
+[2025-04-28 07:41:36] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:41:36] "GET /trip/hong-kong-apr-2025-1/add HTTP/1.1" 200 -
+[2025-04-28 07:41:36] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:41:36] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-28 07:41:36] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:41:36] "[36mGET /static/css/pages/recommendations.css HTTP/1.1[0m" 304 -
+[2025-04-28 07:41:36] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:41:36] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:41:36] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:41:36] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:41:36] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:41:36] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:41:36] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:41:36] "[36mGET /static/js/pages/add_recommendation.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:45:16] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:45:16] "[32mPOST /trip/hong-kong-apr-2025-1/process HTTP/1.1[0m" 302 -
+[2025-04-28 07:45:16] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:45:16] "GET /trip/hong-kong-apr-2025-1/add HTTP/1.1" 200 -
+[2025-04-28 07:45:16] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:45:16] "[36mGET /static/css/pages/recommendations.css HTTP/1.1[0m" 304 -
+[2025-04-28 07:45:16] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:45:16] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-28 07:45:16] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:45:16] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:45:16] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:45:16] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:45:16] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:45:16] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:45:16] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:45:16] "[36mGET /static/js/pages/add_recommendation.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:46:07] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:46:07] "[32mPOST /trip/hong-kong-apr-2025-1/process HTTP/1.1[0m" 302 -
+[2025-04-28 07:46:07] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:46:07] "GET /trip/hong-kong-apr-2025-1/add HTTP/1.1" 200 -
+[2025-04-28 07:46:07] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:46:07] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-28 07:46:07] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:46:07] "[36mGET /static/css/pages/recommendations.css HTTP/1.1[0m" 304 -
+[2025-04-28 07:46:07] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:46:07] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:46:07] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:46:07] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:46:07] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:46:07] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:46:07] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:46:07] "[36mGET /static/js/pages/add_recommendation.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:49:45] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:49:45] "GET /trip/hong-kong-apr-2025-1/add HTTP/1.1" 200 -
+[2025-04-28 07:49:45] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:49:45] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-28 07:49:45] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:49:45] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:49:45] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:49:45] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:49:45] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:49:45] "[36mGET /static/css/pages/recommendations.css HTTP/1.1[0m" 304 -
+[2025-04-28 07:49:45] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:49:45] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:49:45] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:49:45] "GET /static/js/pages/add_recommendation.js HTTP/1.1" 200 -
+[2025-04-28 07:49:46] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:49:46] "GET /trip/hong-kong-apr-2025-1/add HTTP/1.1" 200 -
+[2025-04-28 07:49:46] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:49:46] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-28 07:49:46] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:49:46] "[36mGET /static/css/pages/recommendations.css HTTP/1.1[0m" 304 -
+[2025-04-28 07:49:46] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:49:46] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:49:46] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:49:46] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:49:46] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:49:46] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:49:46] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:49:46] "[36mGET /static/js/pages/add_recommendation.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:49:47] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:49:47] "GET /trip/hong-kong-apr-2025-1/add HTTP/1.1" 200 -
+[2025-04-28 07:49:47] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:49:47] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-28 07:49:47] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:49:47] "GET /static/css/pages/recommendations.css HTTP/1.1" 200 -
+[2025-04-28 07:49:47] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:49:47] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-28 07:49:47] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:49:47] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-28 07:49:47] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:49:47] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-28 07:49:47] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:49:47] "GET /static/js/pages/add_recommendation.js HTTP/1.1" 200 -
+[2025-04-28 07:49:47] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:49:47] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-28 07:49:58] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:49:58] "[32mPOST /trip/hong-kong-apr-2025-1/process HTTP/1.1[0m" 302 -
+[2025-04-28 07:49:59] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:49:59] "GET /trip/hong-kong-apr-2025-1/add HTTP/1.1" 200 -
+[2025-04-28 07:49:59] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:49:59] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-28 07:49:59] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:49:59] "[36mGET /static/css/pages/recommendations.css HTTP/1.1[0m" 304 -
+[2025-04-28 07:49:59] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:49:59] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:49:59] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:49:59] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:49:59] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:49:59] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:49:59] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:49:59] "[36mGET /static/js/pages/add_recommendation.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:50:17] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:50:17] "GET /trip/hong-kong-apr-2025-1/add HTTP/1.1" 200 -
+[2025-04-28 07:50:17] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:50:17] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-28 07:50:17] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:50:17] "[36mGET /static/css/pages/recommendations.css HTTP/1.1[0m" 304 -
+[2025-04-28 07:50:17] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:50:17] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:50:17] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:50:17] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:50:17] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:50:17] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:50:17] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:50:17] "[36mGET /static/js/pages/add_recommendation.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:50:19] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:50:19] "[32mPOST /trip/hong-kong-apr-2025-1/process HTTP/1.1[0m" 302 -
+[2025-04-28 07:50:19] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:50:19] "GET /trip/hong-kong-apr-2025-1/add HTTP/1.1" 200 -
+[2025-04-28 07:50:19] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:50:19] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-28 07:50:19] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:50:19] "[36mGET /static/css/pages/recommendations.css HTTP/1.1[0m" 304 -
+[2025-04-28 07:50:19] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:50:19] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:50:19] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:50:19] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:50:19] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:50:19] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:50:19] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:50:19] "[36mGET /static/js/pages/add_recommendation.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:51:16] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:51:16] "GET /trip/hong-kong-apr-2025-1/add HTTP/1.1" 200 -
+[2025-04-28 07:51:16] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:51:16] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-28 07:51:16] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:51:16] "[36mGET /static/css/pages/recommendations.css HTTP/1.1[0m" 304 -
+[2025-04-28 07:51:16] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:51:16] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:51:16] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:51:16] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:51:16] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:51:16] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:51:16] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:51:16] "GET /static/js/pages/add_recommendation.js HTTP/1.1" 200 -
+[2025-04-28 07:51:17] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:51:17] "GET /trip/hong-kong-apr-2025-1/add HTTP/1.1" 200 -
+[2025-04-28 07:51:17] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:51:17] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-28 07:51:17] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:51:17] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-28 07:51:17] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:51:17] "GET /static/css/pages/recommendations.css HTTP/1.1" 200 -
+[2025-04-28 07:51:17] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:51:17] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-28 07:51:17] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:51:17] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-28 07:51:17] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:51:17] "GET /static/js/pages/add_recommendation.js HTTP/1.1" 200 -
+[2025-04-28 07:51:17] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:51:17] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-28 07:53:14] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:53:14] "GET /trip/hong-kong-apr-2025-1/add HTTP/1.1" 200 -
+[2025-04-28 07:53:14] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:53:14] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-28 07:53:14] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:53:14] "GET /static/css/pages/recommendations.css HTTP/1.1" 200 -
+[2025-04-28 07:53:14] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:53:14] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-28 07:53:14] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:53:14] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-28 07:53:14] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:53:14] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-28 07:53:14] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:53:14] "GET /static/js/pages/add_recommendation.js HTTP/1.1" 200 -
+[2025-04-28 07:53:14] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:53:14] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-28 07:53:18] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:53:18] "GET /trip/hong-kong-apr-2025-1/add HTTP/1.1" 200 -
+[2025-04-28 07:53:18] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:53:18] "[36mGET /static/css/pages/recommendations.css HTTP/1.1[0m" 304 -
+[2025-04-28 07:53:18] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:53:18] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-28 07:53:18] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:53:18] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:53:18] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:53:18] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:53:18] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:53:18] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:53:18] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:53:18] "[36mGET /static/js/pages/add_recommendation.js HTTP/1.1[0m" 304 -
+[2025-04-28 07:53:19] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:53:19] "GET /trip/hong-kong-apr-2025-1/add HTTP/1.1" 200 -
+[2025-04-28 07:53:19] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:53:19] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-28 07:53:19] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:53:19] "GET /static/css/pages/recommendations.css HTTP/1.1" 200 -
+[2025-04-28 07:53:19] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:53:19] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-28 07:53:19] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:53:19] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-28 07:53:19] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:53:19] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-28 07:53:19] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:53:19] "GET /static/js/pages/add_recommendation.js HTTP/1.1" 200 -
+[2025-04-28 07:53:19] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:53:19] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-28 07:59:03] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:59:03] "GET /trip/hong-kong-apr-2025-1/add HTTP/1.1" 200 -
+[2025-04-28 07:59:03] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:59:03] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-28 07:59:03] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:59:03] "GET /static/css/pages/recommendations.css HTTP/1.1" 200 -
+[2025-04-28 07:59:03] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:59:03] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-28 07:59:03] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:59:03] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-28 07:59:03] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:59:03] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-28 07:59:03] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:59:03] "GET /static/js/pages/add_recommendation.js HTTP/1.1" 200 -
+[2025-04-28 07:59:03] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:59:03] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-28 07:59:17] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:59:17] "GET /trip/hong-kong-apr-2025-1/add HTTP/1.1" 200 -
+[2025-04-28 07:59:17] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:59:17] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-28 07:59:17] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:59:17] "GET /static/css/pages/recommendations.css HTTP/1.1" 200 -
+[2025-04-28 07:59:17] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:59:17] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-28 07:59:17] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:59:17] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-28 07:59:17] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:59:17] "GET /static/js/pages/add_recommendation.js HTTP/1.1" 200 -
+[2025-04-28 07:59:17] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:59:17] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-28 07:59:17] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 07:59:17] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-28 08:00:16] [INFO] [app] Application started
+[2025-04-28 08:00:16] [INFO] [werkzeug] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[2025-04-28 08:00:16] [INFO] [werkzeug] [33mPress CTRL+C to quit[0m
+[2025-04-28 08:00:16] [INFO] [werkzeug]  * Restarting with stat
+[2025-04-28 08:00:17] [INFO] [app] Application started
+[2025-04-28 08:00:17] [WARNING] [werkzeug]  * Debugger is active!
+[2025-04-28 08:00:17] [INFO] [werkzeug]  * Debugger PIN: 547-989-235
+[2025-04-28 08:00:21] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:00:21] "GET /trip/hong-kong-apr-2025-1/add HTTP/1.1" 200 -
+[2025-04-28 08:00:21] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:00:21] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-28 08:00:21] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:00:21] "GET /static/css/pages/recommendations.css HTTP/1.1" 200 -
+[2025-04-28 08:00:21] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:00:21] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-28 08:00:21] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:00:21] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-28 08:00:21] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:00:21] "GET /static/js/pages/add_recommendation.js HTTP/1.1" 200 -
+[2025-04-28 08:00:21] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:00:21] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-28 08:00:21] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:00:21] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-28 08:00:38] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:00:38] "GET /trip/hong-kong-apr-2025-1/add HTTP/1.1" 200 -
+[2025-04-28 08:00:38] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:00:38] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-28 08:00:38] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:00:38] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-28 08:00:38] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:00:38] "[36mGET /static/css/pages/recommendations.css HTTP/1.1[0m" 304 -
+[2025-04-28 08:00:38] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:00:38] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-28 08:00:38] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:00:38] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-28 08:00:38] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:00:38] "[36mGET /static/js/pages/add_recommendation.js HTTP/1.1[0m" 304 -
+[2025-04-28 08:00:42] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:00:42] "GET /trip/hong-kong-apr-2025-1/add HTTP/1.1" 200 -
+[2025-04-28 08:00:42] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:00:42] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-28 08:00:42] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:00:42] "GET /static/css/pages/recommendations.css HTTP/1.1" 200 -
+[2025-04-28 08:00:42] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:00:42] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-28 08:00:42] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:00:42] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-28 08:00:42] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:00:42] "GET /static/js/pages/add_recommendation.js HTTP/1.1" 200 -
+[2025-04-28 08:00:42] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:00:42] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-28 08:00:43] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:00:43] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-28 08:01:11] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:01:11] "GET /trip/hong-kong-apr-2025-1/add HTTP/1.1" 200 -
+[2025-04-28 08:01:11] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:01:11] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-28 08:01:11] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:01:11] "GET /static/css/pages/recommendations.css HTTP/1.1" 200 -
+[2025-04-28 08:01:11] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:01:11] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-28 08:01:11] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:01:11] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-28 08:01:11] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:01:11] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-28 08:01:11] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:01:11] "GET /static/js/pages/add_recommendation.js HTTP/1.1" 200 -
+[2025-04-28 08:01:12] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:01:12] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-28 08:01:19] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:01:19] "GET /trip/hong-kong-apr-2025-1/add HTTP/1.1" 200 -
+[2025-04-28 08:01:19] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:01:19] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-28 08:01:19] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:01:19] "GET /static/css/pages/recommendations.css HTTP/1.1" 200 -
+[2025-04-28 08:01:19] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:01:19] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-28 08:01:19] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:01:19] "GET /static/js/pages/add_recommendation.js HTTP/1.1" 200 -
+[2025-04-28 08:01:19] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:01:19] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-28 08:01:19] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:01:19] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-28 08:01:20] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:01:20] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-28 08:03:48] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:03:48] "GET /trip/hong-kong-apr-2025-1/add HTTP/1.1" 200 -
+[2025-04-28 08:03:48] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:03:48] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-28 08:03:48] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:03:48] "[36mGET /static/css/pages/recommendations.css HTTP/1.1[0m" 304 -
+[2025-04-28 08:03:48] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:03:48] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-28 08:03:48] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:03:48] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-28 08:03:48] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:03:48] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-28 08:03:48] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:03:48] "GET /static/js/pages/add_recommendation.js HTTP/1.1" 200 -
+[2025-04-28 08:03:49] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:03:49] "GET /trip/hong-kong-apr-2025-1/add HTTP/1.1" 200 -
+[2025-04-28 08:03:49] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:03:49] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-28 08:03:49] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:03:49] "GET /static/css/pages/recommendations.css HTTP/1.1" 200 -
+[2025-04-28 08:03:49] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:03:49] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-28 08:03:49] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:03:49] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-28 08:03:49] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:03:49] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-28 08:03:49] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:03:49] "GET /static/js/pages/add_recommendation.js HTTP/1.1" 200 -
+[2025-04-28 08:03:49] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:03:49] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-28 08:03:58] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:03:58] "GET /trip/hong-kong-apr-2025-1/add HTTP/1.1" 200 -
+[2025-04-28 08:03:58] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:03:58] "[36mGET /static/css/pages/recommendations.css HTTP/1.1[0m" 304 -
+[2025-04-28 08:03:58] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:03:58] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-28 08:03:58] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:03:58] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-28 08:03:58] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:03:58] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-28 08:03:58] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:03:58] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-28 08:03:58] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:03:58] "[36mGET /static/js/pages/add_recommendation.js HTTP/1.1[0m" 304 -
+[2025-04-28 08:03:58] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:03:58] "GET /trip/hong-kong-apr-2025-1/add HTTP/1.1" 200 -
+[2025-04-28 08:03:58] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:03:58] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-28 08:03:58] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:03:58] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-28 08:03:58] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:03:58] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-28 08:03:58] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:03:58] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-28 08:03:58] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:03:58] "GET /static/js/pages/add_recommendation.js HTTP/1.1" 200 -
+[2025-04-28 08:03:58] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:03:58] "GET /static/css/pages/recommendations.css HTTP/1.1" 200 -
+[2025-04-28 08:03:59] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:03:59] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-28 08:04:49] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:04:49] "GET /trip/hong-kong-apr-2025-1/add HTTP/1.1" 200 -
+[2025-04-28 08:04:49] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:04:49] "GET /static/css/pages/recommendations.css HTTP/1.1" 200 -
+[2025-04-28 08:04:49] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:04:49] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-28 08:04:49] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:04:49] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-28 08:04:49] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:04:49] "GET /static/js/pages/add_recommendation.js HTTP/1.1" 200 -
+[2025-04-28 08:04:49] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:04:49] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-28 08:04:49] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:04:49] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-28 08:04:50] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:04:50] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-28 08:04:54] [INFO] [app] Application started
+[2025-04-28 08:04:54] [INFO] [werkzeug] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[2025-04-28 08:04:54] [INFO] [werkzeug] [33mPress CTRL+C to quit[0m
+[2025-04-28 08:04:54] [INFO] [werkzeug]  * Restarting with stat
+[2025-04-28 08:04:55] [INFO] [app] Application started
+[2025-04-28 08:04:55] [WARNING] [werkzeug]  * Debugger is active!
+[2025-04-28 08:04:55] [INFO] [werkzeug]  * Debugger PIN: 547-989-235
+[2025-04-28 08:05:22] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:05:22] "GET /trip/hong-kong-apr-2025-1/add HTTP/1.1" 200 -
+[2025-04-28 08:05:22] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:05:22] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-28 08:05:22] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:05:22] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-28 08:05:22] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:05:22] "GET /static/css/pages/recommendations.css HTTP/1.1" 200 -
+[2025-04-28 08:05:22] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:05:22] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-28 08:05:22] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:05:22] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-28 08:05:22] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:05:22] "GET /static/js/pages/add_recommendation.js HTTP/1.1" 200 -
+[2025-04-28 08:05:22] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:05:22] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-28 08:05:32] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:05:32] "GET /trip/hong-kong-apr-2025-1/add HTTP/1.1" 200 -
+[2025-04-28 08:05:32] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:05:32] "GET /static/css/pages/recommendations.css HTTP/1.1" 200 -
+[2025-04-28 08:05:32] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:05:32] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-28 08:05:32] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:05:32] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-28 08:05:32] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:05:32] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-28 08:05:32] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:05:32] "GET /static/js/pages/add_recommendation.js HTTP/1.1" 200 -
+[2025-04-28 08:05:32] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:05:32] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-28 08:05:32] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:05:32] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-28 08:05:42] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:05:42] "GET /trip/hong-kong-apr-2025-1/add HTTP/1.1" 200 -
+[2025-04-28 08:05:42] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:05:42] "GET /static/css/pages/recommendations.css HTTP/1.1" 200 -
+[2025-04-28 08:05:42] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:05:42] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-28 08:05:42] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:05:42] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-28 08:05:42] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:05:42] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-28 08:05:42] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:05:42] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-28 08:05:42] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:05:42] "GET /static/js/pages/add_recommendation.js HTTP/1.1" 200 -
+[2025-04-28 08:05:43] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:05:43] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-28 08:06:49] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:06:49] "GET /trip/hong-kong-apr-2025-1/add HTTP/1.1" 200 -
+[2025-04-28 08:06:49] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:06:49] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-28 08:06:49] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:06:49] "GET /static/css/pages/recommendations.css HTTP/1.1" 200 -
+[2025-04-28 08:06:49] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:06:49] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-28 08:06:49] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:06:49] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-28 08:06:49] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:06:49] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-28 08:06:49] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:06:49] "GET /static/js/pages/add_recommendation.js HTTP/1.1" 200 -
+[2025-04-28 08:06:50] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:06:50] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-28 08:07:14] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:07:14] "GET /trip/hong-kong-apr-2025-1/add HTTP/1.1" 200 -
+[2025-04-28 08:07:14] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:07:14] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-28 08:07:14] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:07:14] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-28 08:07:14] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:07:14] "GET /static/css/pages/recommendations.css HTTP/1.1" 200 -
+[2025-04-28 08:07:14] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:07:14] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-28 08:07:14] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:07:14] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-28 08:07:14] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:07:14] "GET /static/js/pages/add_recommendation.js HTTP/1.1" 200 -
+[2025-04-28 08:07:14] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:07:14] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-28 08:07:59] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:07:59] "GET /trip/hong-kong-apr-2025-1/add HTTP/1.1" 200 -
+[2025-04-28 08:07:59] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:07:59] "GET /static/css/pages/recommendations.css HTTP/1.1" 200 -
+[2025-04-28 08:07:59] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:07:59] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-28 08:07:59] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:07:59] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-28 08:07:59] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:07:59] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-28 08:07:59] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:07:59] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-28 08:07:59] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:07:59] "GET /static/js/pages/add_recommendation.js HTTP/1.1" 200 -
+[2025-04-28 08:07:59] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:07:59] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-28 08:08:04] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:08:04] "GET /trip/hong-kong-apr-2025-1/add HTTP/1.1" 200 -
+[2025-04-28 08:08:04] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:08:04] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-28 08:08:04] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:08:04] "[36mGET /static/css/pages/recommendations.css HTTP/1.1[0m" 304 -
+[2025-04-28 08:08:04] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:08:04] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-28 08:08:04] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:08:04] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-28 08:08:04] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:08:04] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-28 08:08:04] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:08:04] "[36mGET /static/js/pages/add_recommendation.js HTTP/1.1[0m" 304 -
+[2025-04-28 08:08:28] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:08:28] "GET /trip/hong-kong-apr-2025-1/add HTTP/1.1" 200 -
+[2025-04-28 08:08:28] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:08:28] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-28 08:08:28] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:08:28] "[36mGET /static/css/pages/recommendations.css HTTP/1.1[0m" 304 -
+[2025-04-28 08:08:28] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:08:28] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-28 08:08:28] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:08:28] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-28 08:08:28] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:08:28] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-28 08:08:28] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:08:28] "[36mGET /static/js/pages/add_recommendation.js HTTP/1.1[0m" 304 -
+[2025-04-28 08:08:29] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:08:29] "GET /trip/hong-kong-apr-2025-1/add HTTP/1.1" 200 -
+[2025-04-28 08:08:29] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:08:29] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-28 08:08:29] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:08:29] "GET /static/css/pages/recommendations.css HTTP/1.1" 200 -
+[2025-04-28 08:08:29] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:08:29] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-28 08:08:29] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:08:29] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-28 08:08:29] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:08:29] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-28 08:08:29] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:08:29] "GET /static/js/pages/add_recommendation.js HTTP/1.1" 200 -
+[2025-04-28 08:08:30] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:08:30] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-28 08:10:25] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:10:25] "GET /trip/hong-kong-apr-2025-1/add HTTP/1.1" 200 -
+[2025-04-28 08:10:25] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:10:25] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-28 08:10:25] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:10:25] "[36mGET /static/css/pages/recommendations.css HTTP/1.1[0m" 304 -
+[2025-04-28 08:10:25] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:10:25] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-28 08:10:25] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:10:25] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-28 08:10:25] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:10:25] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-28 08:10:25] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:10:25] "GET /static/js/pages/add_recommendation.js HTTP/1.1" 200 -
+[2025-04-28 08:10:26] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:10:26] "GET /trip/hong-kong-apr-2025-1/add HTTP/1.1" 200 -
+[2025-04-28 08:10:26] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:10:26] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-28 08:10:26] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:10:26] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-28 08:10:26] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:10:26] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-28 08:10:26] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:10:26] "[36mGET /static/js/pages/add_recommendation.js HTTP/1.1[0m" 304 -
+[2025-04-28 08:10:26] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:10:26] "[36mGET /static/css/pages/recommendations.css HTTP/1.1[0m" 304 -
+[2025-04-28 08:10:26] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:10:26] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-28 08:10:27] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:10:27] "GET /trip/hong-kong-apr-2025-1/add HTTP/1.1" 200 -
+[2025-04-28 08:10:27] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:10:27] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-28 08:10:27] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:10:27] "[36mGET /static/css/pages/recommendations.css HTTP/1.1[0m" 304 -
+[2025-04-28 08:10:27] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:10:27] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-28 08:10:27] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:10:27] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-28 08:10:27] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:10:27] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-28 08:10:27] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:10:27] "[36mGET /static/js/pages/add_recommendation.js HTTP/1.1[0m" 304 -
+[2025-04-28 08:10:28] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:10:28] "GET /trip/hong-kong-apr-2025-1/add HTTP/1.1" 200 -
+[2025-04-28 08:10:28] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:10:28] "GET /static/css/pages/recommendations.css HTTP/1.1" 200 -
+[2025-04-28 08:10:28] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:10:28] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-28 08:10:28] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:10:28] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-28 08:10:28] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:10:28] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-28 08:10:28] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:10:28] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-28 08:10:28] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:10:28] "GET /static/js/pages/add_recommendation.js HTTP/1.1" 200 -
+[2025-04-28 08:10:28] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:10:28] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-28 08:10:30] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:10:30] "[32mPOST /trip/hong-kong-apr-2025-1/process HTTP/1.1[0m" 302 -
+[2025-04-28 08:10:30] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:10:30] "GET /trip/hong-kong-apr-2025-1/add HTTP/1.1" 200 -
+[2025-04-28 08:10:30] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:10:30] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-28 08:10:30] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:10:30] "[36mGET /static/css/pages/recommendations.css HTTP/1.1[0m" 304 -
+[2025-04-28 08:10:30] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:10:30] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-28 08:10:30] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:10:30] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-28 08:10:30] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:10:30] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-28 08:10:30] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:10:30] "[36mGET /static/js/pages/add_recommendation.js HTTP/1.1[0m" 304 -
+[2025-04-28 08:12:01] [INFO] [werkzeug]  * Detected change in '/Users/ezl/code/recs/app/routes/recommendation_routes.py', reloading
+[2025-04-28 08:12:01] [INFO] [werkzeug]  * Restarting with stat
+[2025-04-28 08:12:01] [INFO] [app] Application started
+[2025-04-28 08:12:01] [INFO] [app] Application started
+[2025-04-28 08:12:02] [WARNING] [werkzeug]  * Debugger is active!
+[2025-04-28 08:12:02] [INFO] [werkzeug]  * Debugger PIN: 547-989-235
+[2025-04-28 08:13:50] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:13:50] "GET /trip/hong-kong-apr-2025-1/add HTTP/1.1" 200 -
+[2025-04-28 08:13:50] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:13:50] "[36mGET /static/css/pages/recommendations.css HTTP/1.1[0m" 304 -
+[2025-04-28 08:13:50] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:13:50] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-28 08:13:50] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:13:50] "GET /static/js/pages/add_recommendation.js HTTP/1.1" 200 -
+[2025-04-28 08:13:50] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:13:50] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-28 08:13:50] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:13:50] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-28 08:13:50] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:13:50] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-28 08:13:53] [INFO] [app.services.ai_service] Extracting recommendations for destination: Hong Kong
+[2025-04-28 08:13:53] [INFO] [app.services.ai_service] Input text length: 490 characters
+[2025-04-28 08:13:53] [INFO] [app.services.ai_service] Text sample: 'victoria peak is pretty amazing for the views, i'd highly recommend taking a day trip up there. also...' (truncated)
+[2025-04-28 08:13:53] [INFO] [app.services.ai_service] Using API key starting with: sk-proj-...
+[2025-04-28 08:13:53] [INFO] [app.services.ai_service] Preparing request to OpenAI API
+[2025-04-28 08:13:53] [INFO] [app.services.ai_service] Sending request to OpenAI API using model: gpt-3.5-turbo
+[2025-04-28 08:13:56] [INFO] [app.services.ai_service] Received response from OpenAI API: status=200
+[2025-04-28 08:13:56] [INFO] [app.services.ai_service] OpenAI response content: '```json
+[
+    {
+        "name": "Victoria Peak",
+        "type": "Viewpoint / Attraction",
+        "...' (truncated)
+[2025-04-28 08:13:56] [INFO] [app.services.ai_service] Found JSON string from position 8 to 953
+[2025-04-28 08:13:56] [INFO] [app.services.ai_service] Successfully parsed JSON data: 4 recommendations extracted
+[2025-04-28 08:13:56] [INFO] [app.services.ai_service] Recommendation 1: Victoria Peak (Viewpoint / Attraction)
+[2025-04-28 08:13:56] [INFO] [app.services.ai_service] Recommendation 2: Causeway Bay (Shopping / Entertainment District)
+[2025-04-28 08:13:56] [INFO] [app.services.ai_service] Recommendation 3: Hui Lau San (Restaurant (Dessert))
+[2025-04-28 08:13:56] [INFO] [app.services.ai_service] Recommendation 4: Tim Ho Wan (Restaurant (Dim Sum))
+[2025-04-28 08:13:56] [ERROR] [app.routes.recommendation_routes] Error processing recommendations: process_recommendation.html
+[2025-04-28 08:13:56] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:13:56] "[32mPOST /trip/hong-kong-apr-2025-1/process HTTP/1.1[0m" 302 -
+[2025-04-28 08:13:56] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:13:56] "GET /trip/hong-kong-apr-2025-1/add HTTP/1.1" 200 -
+[2025-04-28 08:13:56] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:13:56] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-28 08:13:56] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:13:56] "[36mGET /static/css/pages/recommendations.css HTTP/1.1[0m" 304 -
+[2025-04-28 08:13:56] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:13:56] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-28 08:13:56] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:13:56] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-28 08:13:56] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:13:56] "[36mGET /static/js/pages/add_recommendation.js HTTP/1.1[0m" 304 -
+[2025-04-28 08:13:56] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:13:56] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-28 08:14:57] [INFO] [werkzeug]  * Detected change in '/Users/ezl/code/recs/app/routes/recommendation_routes.py', reloading
+[2025-04-28 08:14:57] [INFO] [werkzeug]  * Restarting with stat
+[2025-04-28 08:14:57] [INFO] [app] Application started
+[2025-04-28 08:14:57] [INFO] [app] Application started
+[2025-04-28 08:14:58] [WARNING] [werkzeug]  * Debugger is active!
+[2025-04-28 08:14:58] [INFO] [werkzeug]  * Debugger PIN: 547-989-235
+[2025-04-28 08:16:04] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:16:04] "GET /trip/hong-kong-apr-2025-1/add HTTP/1.1" 200 -
+[2025-04-28 08:16:04] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:16:04] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-28 08:16:04] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:16:04] "GET /static/css/pages/recommendations.css HTTP/1.1" 200 -
+[2025-04-28 08:16:04] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:16:04] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-28 08:16:04] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:16:04] "GET /static/js/pages/add_recommendation.js HTTP/1.1" 200 -
+[2025-04-28 08:16:04] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:16:04] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-28 08:16:04] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:16:04] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-28 08:16:04] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:16:04] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-28 08:16:16] [INFO] [app.services.ai_service] Extracting recommendations for destination: Hong Kong
+[2025-04-28 08:16:16] [INFO] [app.services.ai_service] Input text length: 490 characters
+[2025-04-28 08:16:16] [INFO] [app.services.ai_service] Text sample: 'victoria peak is pretty amazing for the views, i'd highly recommend taking a day trip up there. also...' (truncated)
+[2025-04-28 08:16:16] [INFO] [app.services.ai_service] Using API key starting with: sk-proj-...
+[2025-04-28 08:16:16] [INFO] [app.services.ai_service] Preparing request to OpenAI API
+[2025-04-28 08:16:16] [INFO] [app.services.ai_service] Sending request to OpenAI API using model: gpt-3.5-turbo
+[2025-04-28 08:16:23] [INFO] [app.services.ai_service] Received response from OpenAI API: status=200
+[2025-04-28 08:16:23] [INFO] [app.services.ai_service] OpenAI response content: '```json
+[
+    {
+        "name": "Victoria Peak",
+        "type": "Scenic viewpoint",
+        "websit...' (truncated)
+[2025-04-28 08:16:23] [INFO] [app.services.ai_service] Found JSON string from position 8 to 873
+[2025-04-28 08:16:23] [INFO] [app.services.ai_service] Successfully parsed JSON data: 4 recommendations extracted
+[2025-04-28 08:16:23] [INFO] [app.services.ai_service] Recommendation 1: Victoria Peak (Scenic viewpoint)
+[2025-04-28 08:16:23] [INFO] [app.services.ai_service] Recommendation 2: Causeway Bay (Shopping and entertainment district)
+[2025-04-28 08:16:23] [INFO] [app.services.ai_service] Recommendation 3: Hui Lau San (Dessert place)
+[2025-04-28 08:16:23] [INFO] [app.services.ai_service] Recommendation 4: Tim Ho Wan (Restaurant)
+[2025-04-28 08:16:23] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:16:23] "POST /trip/hong-kong-apr-2025-1/process HTTP/1.1" 200 -
+[2025-04-28 08:16:23] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:16:23] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-28 08:16:23] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:16:23] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-28 08:16:23] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:16:23] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-28 08:16:23] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:16:23] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-28 08:16:23] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:16:23] "[36mGET /static/js/pages/confirm_recommendations.js HTTP/1.1[0m" 304 -
+[2025-04-28 08:16:38] [INFO] [app.routes.recommendation_routes] Saving recommendations for trip hong-kong-apr-2025-1 to Hong Kong
+[2025-04-28 08:16:38] [INFO] [app.routes.recommendation_routes] Received 4 recommendations for trip hong-kong-apr-2025-1
+[2025-04-28 08:16:38] [INFO] [app.routes.recommendation_routes] Found 4 valid recommendations after filtering
+[2025-04-28 08:16:38] [INFO] [app.routes.recommendation_routes] Created temporary user 'Eric' with ID 21
+[2025-04-28 08:16:38] [INFO] [app.routes.recommendation_routes] Using destination context: {'search_vicinity': 'Victoria Peak', 'destination_country': 'Hong Kong'}
+[2025-04-28 08:16:38] [INFO] [app.routes.recommendation_routes] Processing recommendation: Victoria Peak
+[2025-04-28 08:16:38] [INFO] [app.database.models] Activity.get_or_create called for: Victoria Peak
+[2025-04-28 08:16:38] [INFO] [app.database.models] Category: Scenic viewpoint
+[2025-04-28 08:16:38] [INFO] [app.database.models] With search_vicinity: Victoria Peak
+[2025-04-28 08:16:38] [INFO] [app.database.models] With destination_country: Hong Kong
+[2025-04-28 08:16:38] [INFO] [app.database.models] Making Google Places API call for: Victoria Peak
+[2025-04-28 08:16:38] [INFO] [app.services.google_places_service] Searching Google Places API for: Victoria Peak
+[2025-04-28 08:16:38] [INFO] [app.services.google_places_service] Category: Scenic viewpoint
+[2025-04-28 08:16:38] [INFO] [app.services.google_places_service] Search vicinity: Victoria Peak
+[2025-04-28 08:16:38] [INFO] [app.services.google_places_service] Destination country: Hong Kong
+[2025-04-28 08:16:38] [INFO] [app.services.google_places_service] Making FindPlace API request for: Victoria Peak
+[2025-04-28 08:16:39] [INFO] [app.services.google_places_service] FindPlace API response status: OK
+[2025-04-28 08:16:39] [INFO] [app.services.google_places_service] Found place_id for Victoria Peak: ChIJsd2-34n_AzQROJPZYjyLMS4
+[2025-04-28 08:16:39] [INFO] [app.services.google_places_service] Making PlaceDetails API request for place_id: ChIJsd2-34n_AzQROJPZYjyLMS4
+[2025-04-28 08:16:40] [INFO] [app.services.google_places_service] PlaceDetails API response status: OK
+[2025-04-28 08:16:40] [INFO] [app.services.google_places_service] Successfully retrieved details for place: Victoria Peak
+[2025-04-28 08:16:40] [INFO] [app.database.models] Google Places API returned data for place: Victoria Peak
+[2025-04-28 08:16:40] [INFO] [app.database.models] Found place_id from Google: ChIJsd2-34n_AzQROJPZYjyLMS4
+[2025-04-28 08:16:40] [INFO] [app.database.models] Creating new activity for: Victoria Peak
+[2025-04-28 08:16:40] [INFO] [app.database.models] Adding Google Places data to new activity
+[2025-04-28 08:16:40] [INFO] [app.database.models] Found country from Google: Hong Kong
+[2025-04-28 08:16:40] [INFO] [app.database.models] Created new activity: Victoria Peak (ID: 36)
+[2025-04-28 08:16:40] [INFO] [app.routes.recommendation_routes] Activity for 'Victoria Peak': ID=36, place_id=ChIJsd2-34n_AzQROJPZYjyLMS4
+[2025-04-28 08:16:40] [INFO] [app.routes.recommendation_routes] Processing recommendation: Causeway Bay
+[2025-04-28 08:16:40] [INFO] [app.database.models] Activity.get_or_create called for: Causeway Bay
+[2025-04-28 08:16:40] [INFO] [app.database.models] Category: Shopping and entertainment district
+[2025-04-28 08:16:40] [INFO] [app.database.models] With search_vicinity: Victoria Peak
+[2025-04-28 08:16:40] [INFO] [app.database.models] With destination_country: Hong Kong
+[2025-04-28 08:16:40] [INFO] [app.database.models] Making Google Places API call for: Causeway Bay
+[2025-04-28 08:16:40] [INFO] [app.services.google_places_service] Searching Google Places API for: Causeway Bay
+[2025-04-28 08:16:40] [INFO] [app.services.google_places_service] Category: Shopping and entertainment district
+[2025-04-28 08:16:40] [INFO] [app.services.google_places_service] Search vicinity: Victoria Peak
+[2025-04-28 08:16:40] [INFO] [app.services.google_places_service] Destination country: Hong Kong
+[2025-04-28 08:16:40] [INFO] [app.services.google_places_service] Making FindPlace API request for: Causeway Bay
+[2025-04-28 08:16:40] [INFO] [app.services.google_places_service] FindPlace API response status: OK
+[2025-04-28 08:16:40] [INFO] [app.services.google_places_service] Found place_id for Causeway Bay: ChIJf6xts1UABDQRagwS57GoPwI
+[2025-04-28 08:16:40] [INFO] [app.services.google_places_service] Making PlaceDetails API request for place_id: ChIJf6xts1UABDQRagwS57GoPwI
+[2025-04-28 08:16:41] [INFO] [app.services.google_places_service] PlaceDetails API response status: OK
+[2025-04-28 08:16:41] [INFO] [app.services.google_places_service] Successfully retrieved details for place: Causeway Bay
+[2025-04-28 08:16:41] [INFO] [app.database.models] Google Places API returned data for place: Causeway Bay
+[2025-04-28 08:16:41] [INFO] [app.database.models] Found place_id from Google: ChIJf6xts1UABDQRagwS57GoPwI
+[2025-04-28 08:16:41] [INFO] [app.database.models] Creating new activity for: Causeway Bay
+[2025-04-28 08:16:41] [INFO] [app.database.models] Adding Google Places data to new activity
+[2025-04-28 08:16:41] [INFO] [app.database.models] Found country from Google: Hong Kong
+[2025-04-28 08:16:41] [INFO] [app.database.models] Created new activity: Causeway Bay (ID: 37)
+[2025-04-28 08:16:41] [INFO] [app.routes.recommendation_routes] Activity for 'Causeway Bay': ID=37, place_id=ChIJf6xts1UABDQRagwS57GoPwI
+[2025-04-28 08:16:41] [INFO] [app.routes.recommendation_routes] Processing recommendation: Hui Lau San
+[2025-04-28 08:16:41] [INFO] [app.database.models] Activity.get_or_create called for: Hui Lau San
+[2025-04-28 08:16:41] [INFO] [app.database.models] Category: Dessert place
+[2025-04-28 08:16:41] [INFO] [app.database.models] With search_vicinity: Victoria Peak
+[2025-04-28 08:16:41] [INFO] [app.database.models] With destination_country: Hong Kong
+[2025-04-28 08:16:41] [INFO] [app.database.models] Making Google Places API call for: Hui Lau San
+[2025-04-28 08:16:41] [INFO] [app.services.google_places_service] Searching Google Places API for: Hui Lau San
+[2025-04-28 08:16:41] [INFO] [app.services.google_places_service] Category: Dessert place
+[2025-04-28 08:16:41] [INFO] [app.services.google_places_service] Search vicinity: Victoria Peak
+[2025-04-28 08:16:41] [INFO] [app.services.google_places_service] Destination country: Hong Kong
+[2025-04-28 08:16:41] [INFO] [app.services.google_places_service] Making FindPlace API request for: Hui Lau San
+[2025-04-28 08:16:41] [INFO] [app.services.google_places_service] FindPlace API response status: OK
+[2025-04-28 08:16:41] [INFO] [app.services.google_places_service] Found place_id for Hui Lau San: ChIJQ4Y8OZ_d3IARkQe4ulNAmdM
+[2025-04-28 08:16:41] [INFO] [app.services.google_places_service] Making PlaceDetails API request for place_id: ChIJQ4Y8OZ_d3IARkQe4ulNAmdM
+[2025-04-28 08:16:41] [INFO] [app.services.google_places_service] PlaceDetails API response status: OK
+[2025-04-28 08:16:41] [INFO] [app.services.google_places_service] Successfully retrieved details for place: Hui Lau Shan
+[2025-04-28 08:16:41] [INFO] [app.database.models] Google Places API returned data for place: Hui Lau Shan
+[2025-04-28 08:16:41] [INFO] [app.database.models] Found place_id from Google: ChIJQ4Y8OZ_d3IARkQe4ulNAmdM
+[2025-04-28 08:16:41] [INFO] [app.database.models] Creating new activity for: Hui Lau San
+[2025-04-28 08:16:41] [INFO] [app.database.models] Adding Google Places data to new activity
+[2025-04-28 08:16:41] [INFO] [app.database.models] Found city from Google: Irvine
+[2025-04-28 08:16:41] [INFO] [app.database.models] Found country from Google: United States
+[2025-04-28 08:16:41] [INFO] [app.database.models] Created new activity: Hui Lau San (ID: 38)
+[2025-04-28 08:16:41] [INFO] [app.routes.recommendation_routes] Activity for 'Hui Lau San': ID=38, place_id=ChIJQ4Y8OZ_d3IARkQe4ulNAmdM
+[2025-04-28 08:16:41] [INFO] [app.routes.recommendation_routes] Processing recommendation: Tim Ho Wan
+[2025-04-28 08:16:41] [INFO] [app.database.models] Activity.get_or_create called for: Tim Ho Wan
+[2025-04-28 08:16:41] [INFO] [app.database.models] Category: Restaurant
+[2025-04-28 08:16:41] [INFO] [app.database.models] With search_vicinity: Victoria Peak
+[2025-04-28 08:16:41] [INFO] [app.database.models] With destination_country: Hong Kong
+[2025-04-28 08:16:41] [INFO] [app.database.models] Making Google Places API call for: Tim Ho Wan
+[2025-04-28 08:16:41] [INFO] [app.services.google_places_service] Searching Google Places API for: Tim Ho Wan
+[2025-04-28 08:16:41] [INFO] [app.services.google_places_service] Category: Restaurant
+[2025-04-28 08:16:41] [INFO] [app.services.google_places_service] Search vicinity: Victoria Peak
+[2025-04-28 08:16:41] [INFO] [app.services.google_places_service] Destination country: Hong Kong
+[2025-04-28 08:16:41] [INFO] [app.services.google_places_service] Making FindPlace API request for: Tim Ho Wan
+[2025-04-28 08:16:42] [INFO] [app.services.google_places_service] FindPlace API response status: OK
+[2025-04-28 08:16:42] [INFO] [app.services.google_places_service] Found place_id for Tim Ho Wan: ChIJnS1fXmDf3IARij7yfqU1gGE
+[2025-04-28 08:16:42] [INFO] [app.services.google_places_service] Making PlaceDetails API request for place_id: ChIJnS1fXmDf3IARij7yfqU1gGE
+[2025-04-28 08:16:43] [INFO] [app.services.google_places_service] PlaceDetails API response status: OK
+[2025-04-28 08:16:43] [INFO] [app.services.google_places_service] Successfully retrieved details for place: Tim Ho Wan
+[2025-04-28 08:16:43] [INFO] [app.database.models] Google Places API returned data for place: Tim Ho Wan
+[2025-04-28 08:16:43] [INFO] [app.database.models] Found place_id from Google: ChIJnS1fXmDf3IARij7yfqU1gGE
+[2025-04-28 08:16:43] [INFO] [app.database.models] Creating new activity for: Tim Ho Wan
+[2025-04-28 08:16:43] [INFO] [app.database.models] Adding Google Places data to new activity
+[2025-04-28 08:16:43] [INFO] [app.database.models] Found city from Google: Irvine
+[2025-04-28 08:16:43] [INFO] [app.database.models] Found country from Google: United States
+[2025-04-28 08:16:43] [INFO] [app.database.models] Created new activity: Tim Ho Wan (ID: 39)
+[2025-04-28 08:16:43] [INFO] [app.routes.recommendation_routes] Activity for 'Tim Ho Wan': ID=39, place_id=ChIJnS1fXmDf3IARij7yfqU1gGE
+[2025-04-28 08:16:43] [INFO] [app.routes.recommendation_routes] Saved 4 recommendations for trip hong-kong-apr-2025-1
+[2025-04-28 08:16:43] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:16:43] "[32mPOST /trip/hong-kong-apr-2025-1/save HTTP/1.1[0m" 302 -
+[2025-04-28 08:16:43] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:16:43] "GET /trip/hong-kong-apr-2025-1/thank-you HTTP/1.1" 200 -
+[2025-04-28 08:16:43] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:16:43] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-28 08:16:43] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:16:43] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-28 08:16:43] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:16:43] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-28 08:16:43] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:16:43] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -

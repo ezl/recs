@@ -1,3 +1,18 @@
+console.log('loading.js loaded');
+
+// Check if loading overlay HTML is present
+document.addEventListener('DOMContentLoaded', function() {
+    const overlay = document.getElementById('loading-overlay');
+    const titleEl = document.getElementById('loading-title');
+    const subtitleEl = document.getElementById('loading-subtitle');
+    
+    console.log('Loading overlay elements on page load:', {
+        overlay: !!overlay,
+        titleEl: !!titleEl,
+        subtitleEl: !!subtitleEl
+    });
+});
+
 /**
  * Loading overlay utilities
  * Functions to show and hide the loading overlay component
@@ -9,27 +24,25 @@
  * @param {string} subtitle - Optional custom subtitle text (defaults to "Please wait for awesomeness.")
  */
 function showLoadingOverlay(title = "Loading...", subtitle = "Please wait for awesomeness.") {
-    // Get the overlay element
+    console.log('showLoadingOverlay called with:', { title, subtitle });
     const overlay = document.getElementById('loading-overlay');
-    if (!overlay) {
-        console.error("Loading overlay element not found");
-        return;
+    const titleEl = document.getElementById('loading-title');
+    const subtitleEl = document.getElementById('loading-subtitle');
+    
+    console.log('Loading overlay elements:', {
+        overlay: !!overlay,
+        titleEl: !!titleEl,
+        subtitleEl: !!subtitleEl
+    });
+    
+    if (overlay && titleEl && subtitleEl) {
+        titleEl.textContent = title;
+        subtitleEl.textContent = subtitle;
+        overlay.classList.remove('hidden');
+        console.log('Loading overlay shown successfully');
+    } else {
+        console.error('Missing required loading overlay elements!');
     }
-    
-    // Update text if provided
-    const titleElement = document.getElementById('loading-title');
-    const subtitleElement = document.getElementById('loading-subtitle');
-    
-    if (titleElement && title) {
-        titleElement.textContent = title;
-    }
-    
-    if (subtitleElement && subtitle) {
-        subtitleElement.textContent = subtitle;
-    }
-    
-    // Show the overlay
-    overlay.classList.remove('hidden');
     
     // Prevent body scrolling while overlay is shown
     document.body.style.overflow = 'hidden';
