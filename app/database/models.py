@@ -220,17 +220,33 @@ class Activity(db.Model):
         Returns:
             Activity: The existing or newly created activity
         """
+        import logging
+        logger = logging.getLogger(__name__)
+        
+        logger.info(f"Activity.get_or_create called for: {name}")
+        if category:
+            logger.info(f"Category: {category}")
+        
+        # Log destination context information if provided
+        if kwargs.get('search_vicinity'):
+            logger.info(f"With search_vicinity: {kwargs.get('search_vicinity')}")
+        if kwargs.get('destination_country'):
+            logger.info(f"With destination_country: {kwargs.get('destination_country')}")
+            
         from app.services.google_places_service import GooglePlacesService
         
         # First check if we have a Google Place ID in the kwargs and try to find by that
         google_place_id = kwargs.pop('google_place_id', None)
         if google_place_id:
+            logger.info(f"Searching by provided place_id: {google_place_id}")
             activity = cls.query.filter_by(google_place_id=google_place_id).first()
             if activity:
+                logger.info(f"Found existing activity with place_id: {activity.name}")
                 return activity
         
         # Try to match the place name with Google Places API
         place_data = None
+        google_place_id = None
         try:
             # Extract search context parameters
             search_context = {
@@ -241,26 +257,38 @@ class Activity(db.Model):
             # Filter out None values
             search_context = {k: v for k, v in search_context.items() if v is not None}
             
+            logger.info(f"Making Google Places API call for: {name}")
             place_data = GooglePlacesService.find_place(name, category, **search_context)
-            if place_data and place_data.get('place_id'):
-                # Check if we already have this place ID in our database
+            
+            if place_data:
+                logger.info(f"Google Places API returned data for place: {place_data.get('name')}")
                 google_place_id = place_data.get('place_id')
-                activity = cls.query.filter_by(google_place_id=google_place_id).first()
-                if activity:
-                    return activity
+                if google_place_id:
+                    logger.info(f"Found place_id from Google: {google_place_id}")
+                    # Check if we already have this place ID in our database
+                    activity = cls.query.filter_by(google_place_id=google_place_id).first()
+                    if activity:
+                        logger.info(f"Found existing activity with this place_id: {activity.name}")
+                        return activity
+                else:
+                    logger.warning("Google Places API returned data but no place_id")
+            else:
+                logger.info(f"No Google Places match found for: {name}")
         except Exception as e:
-            import logging
-            logging.error(f"Error matching with Google Places API: {str(e)}")
+            logger.error(f"Error matching with Google Places API: {str(e)}")
         
         # If no Google Places match, fallback to our usual name matching
         if not google_place_id:
+            logger.info(f"Falling back to name matching for: {name}")
             activity = cls.query.filter(db.func.lower(cls.name) == db.func.lower(name)).first()
-            
-            # Remove category filtering - match only by name
-            # No longer check category match
+            if activity:
+                logger.info(f"Found existing activity by name: {activity.name}")
+            else:
+                logger.info(f"No existing activity found with name: {name}")
         
         # If no activity found, create a new one
         if not activity:
+            logger.info(f"Creating new activity for: {name}")
             # Prepare data for the new activity
             activity_data = {
                 'name': name,
@@ -271,6 +299,7 @@ class Activity(db.Model):
             
             # Add Google Places data if available
             if place_data and google_place_id:
+                logger.info(f"Adding Google Places data to new activity")
                 activity_data.update({
                     'google_place_id': google_place_id,
                     'place_data': place_data,
@@ -285,12 +314,18 @@ class Activity(db.Model):
                     for component in place_data.get('address_components', []):
                         if 'locality' in component.get('types', []):
                             activity_data['city'] = component.get('long_name')
+                            logger.info(f"Found city from Google: {component.get('long_name')}")
                         elif 'country' in component.get('types', []):
                             activity_data['country'] = component.get('long_name')
+                            logger.info(f"Found country from Google: {component.get('long_name')}")
             
             activity = cls(**activity_data)
             db.session.add(activity)
             db.session.commit()
+            
+            # Log the newly created activity
+            activity_id = activity.id if activity else None
+            logger.info(f"Created new activity: {name} (ID: {activity_id})")
             
         return activity
 

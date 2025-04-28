@@ -1,0 +1,246 @@
+[2025-04-27 19:40:34] [INFO] [app] Application started
+[2025-04-27 19:40:34] [INFO] [test_google_places] ================================================================================
+[2025-04-27 19:40:34] [INFO] [test_google_places] TESTING GOOGLE PLACES API INTEGRATION
+[2025-04-27 19:40:34] [INFO] [test_google_places] ================================================================================
+[2025-04-27 19:40:34] [INFO] [test_google_places] Using Google Maps API key: AIzaS...nv80
+[2025-04-27 19:40:34] [INFO] [test_google_places] Testing with location: Eiffel Tower
+[2025-04-27 19:40:34] [INFO] [test_google_places] Category: landmark
+[2025-04-27 19:40:34] [INFO] [test_google_places] Search vicinity: Paris
+[2025-04-27 19:40:34] [INFO] [test_google_places] Destination country: France
+[2025-04-27 19:40:34] [INFO] [test_google_places] Calling Activity.get_or_create()...
+[2025-04-27 19:40:34] [INFO] [app.database.models] Activity.get_or_create called for: Eiffel Tower
+[2025-04-27 19:40:34] [INFO] [app.database.models] Category: landmark
+[2025-04-27 19:40:34] [INFO] [app.database.models] With search_vicinity: Paris
+[2025-04-27 19:40:34] [INFO] [app.database.models] With destination_country: France
+[2025-04-27 19:40:34] [INFO] [app.database.models] Making Google Places API call for: Eiffel Tower
+[2025-04-27 19:40:34] [INFO] [app.services.google_places_service] Searching Google Places API for: Eiffel Tower
+[2025-04-27 19:40:34] [INFO] [app.services.google_places_service] Category: landmark
+[2025-04-27 19:40:34] [INFO] [app.services.google_places_service] Search vicinity: Paris
+[2025-04-27 19:40:34] [INFO] [app.services.google_places_service] Destination country: France
+[2025-04-27 19:40:34] [INFO] [app.services.google_places_service] Making FindPlace API request for: Eiffel Tower
+[2025-04-27 19:40:35] [INFO] [app.services.google_places_service] FindPlace API response status: REQUEST_DENIED
+[2025-04-27 19:40:35] [WARNING] [app.services.google_places_service] FindPlace API returned non-OK status: REQUEST_DENIED
+[2025-04-27 19:40:35] [WARNING] [app.services.google_places_service] Error message: This API project is not authorized to use this API.
+[2025-04-27 19:40:35] [INFO] [app.services.google_places_service] No exact match found, trying text search with: Eiffel Tower landmark Paris
+[2025-04-27 19:40:35] [INFO] [app.services.google_places_service] Making TextSearch API request for query: Eiffel Tower landmark Paris
+[2025-04-27 19:40:35] [INFO] [app.services.google_places_service] TextSearch API response status: REQUEST_DENIED
+[2025-04-27 19:40:35] [WARNING] [app.services.google_places_service] TextSearch API returned non-OK status: REQUEST_DENIED
+[2025-04-27 19:40:35] [WARNING] [app.services.google_places_service] Error message: This API project is not authorized to use this API.
+[2025-04-27 19:40:35] [INFO] [app.database.models] No Google Places match found for: Eiffel Tower
+[2025-04-27 19:40:35] [INFO] [app.database.models] Falling back to name matching for: Eiffel Tower
+[2025-04-27 19:40:35] [INFO] [app.database.models] No existing activity found with name: Eiffel Tower
+[2025-04-27 19:40:35] [INFO] [app.database.models] Creating new activity for: Eiffel Tower
+[2025-04-27 19:40:35] [INFO] [app.database.models] Created new activity: Eiffel Tower (ID: 27)
+[2025-04-27 19:40:35] [INFO] [test_google_places] Activity created/found with ID: 27
+[2025-04-27 19:40:35] [ERROR] [test_google_places] Google Place ID was not populated!
+[2025-04-27 19:40:35] [ERROR] [test_google_places] Google Places API integration failed.
+[2025-04-28 06:34:32] [INFO] [app] Application started
+[2025-04-28 06:34:32] [INFO] [werkzeug] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[2025-04-28 06:34:32] [INFO] [werkzeug] [33mPress CTRL+C to quit[0m
+[2025-04-28 06:34:32] [INFO] [werkzeug]  * Restarting with stat
+[2025-04-28 06:34:33] [INFO] [app] Application started
+[2025-04-28 06:34:33] [WARNING] [werkzeug]  * Debugger is active!
+[2025-04-28 06:34:33] [INFO] [werkzeug]  * Debugger PIN: 547-989-235
+[2025-04-28 06:37:11] [INFO] [app] Application started
+[2025-04-28 06:37:11] [INFO] [test_google_places] ================================================================================
+[2025-04-28 06:37:11] [INFO] [test_google_places] TESTING GOOGLE PLACES API INTEGRATION
+[2025-04-28 06:37:11] [INFO] [test_google_places] ================================================================================
+[2025-04-28 06:37:11] [INFO] [test_google_places] Using Google Maps API key: AIzaS...nv80
+[2025-04-28 06:37:11] [INFO] [test_google_places] Testing with location: Eiffel Tower
+[2025-04-28 06:37:11] [INFO] [test_google_places] Category: landmark
+[2025-04-28 06:37:11] [INFO] [test_google_places] Search vicinity: Paris
+[2025-04-28 06:37:11] [INFO] [test_google_places] Destination country: France
+[2025-04-28 06:37:11] [INFO] [test_google_places] Calling Activity.get_or_create()...
+[2025-04-28 06:37:11] [INFO] [app.database.models] Activity.get_or_create called for: Eiffel Tower
+[2025-04-28 06:37:11] [INFO] [app.database.models] Category: landmark
+[2025-04-28 06:37:11] [INFO] [app.database.models] With search_vicinity: Paris
+[2025-04-28 06:37:11] [INFO] [app.database.models] With destination_country: France
+[2025-04-28 06:37:11] [INFO] [app.database.models] Making Google Places API call for: Eiffel Tower
+[2025-04-28 06:37:11] [INFO] [app.services.google_places_service] Searching Google Places API for: Eiffel Tower
+[2025-04-28 06:37:11] [INFO] [app.services.google_places_service] Category: landmark
+[2025-04-28 06:37:11] [INFO] [app.services.google_places_service] Search vicinity: Paris
+[2025-04-28 06:37:11] [INFO] [app.services.google_places_service] Destination country: France
+[2025-04-28 06:37:11] [INFO] [app.services.google_places_service] Making FindPlace API request for: Eiffel Tower
+[2025-04-28 06:37:11] [INFO] [app.services.google_places_service] FindPlace API response status: OK
+[2025-04-28 06:37:11] [INFO] [app.services.google_places_service] Found place_id for Eiffel Tower: ChIJLU7jZClu5kcR4PcOOO6p3I0
+[2025-04-28 06:37:11] [INFO] [app.services.google_places_service] Making PlaceDetails API request for place_id: ChIJLU7jZClu5kcR4PcOOO6p3I0
+[2025-04-28 06:37:12] [INFO] [app.services.google_places_service] PlaceDetails API response status: OK
+[2025-04-28 06:37:12] [INFO] [app.services.google_places_service] Successfully retrieved details for place: Eiffel Tower
+[2025-04-28 06:37:12] [INFO] [app.database.models] Google Places API returned data for place: Eiffel Tower
+[2025-04-28 06:37:12] [INFO] [app.database.models] Found place_id from Google: ChIJLU7jZClu5kcR4PcOOO6p3I0
+[2025-04-28 06:37:12] [INFO] [app.database.models] Creating new activity for: Eiffel Tower
+[2025-04-28 06:37:12] [INFO] [app.database.models] Adding Google Places data to new activity
+[2025-04-28 06:37:12] [INFO] [app.database.models] Found city from Google: Paris
+[2025-04-28 06:37:12] [INFO] [app.database.models] Found country from Google: France
+[2025-04-28 06:37:12] [INFO] [app.database.models] Created new activity: Eiffel Tower (ID: 28)
+[2025-04-28 06:37:12] [INFO] [test_google_places] Activity created/found with ID: 28
+[2025-04-28 06:37:12] [INFO] [test_google_places] Google Place ID: ChIJLU7jZClu5kcR4PcOOO6p3I0
+[2025-04-28 06:37:12] [INFO] [test_google_places] ========================================
+[2025-04-28 06:37:12] [INFO] [test_google_places] ACTIVITY DATA
+[2025-04-28 06:37:12] [INFO] [test_google_places] ========================================
+[2025-04-28 06:37:12] [INFO] [test_google_places] Name: Eiffel Tower
+[2025-04-28 06:37:12] [INFO] [test_google_places] Category: landmark
+[2025-04-28 06:37:12] [INFO] [test_google_places] Address: Av. Gustave Eiffel, 75007 Paris, France
+[2025-04-28 06:37:12] [INFO] [test_google_places] City: Paris
+[2025-04-28 06:37:12] [INFO] [test_google_places] Country: France
+[2025-04-28 06:37:12] [INFO] [test_google_places] Latitude: 48.85837009999999
+[2025-04-28 06:37:12] [INFO] [test_google_places] Longitude: 2.2944813
+[2025-04-28 06:37:12] [INFO] [test_google_places] Website URL: https://www.toureiffel.paris/fr
+[2025-04-28 06:37:12] [INFO] [test_google_places] Google Place ID: ChIJLU7jZClu5kcR4PcOOO6p3I0
+[2025-04-28 06:37:12] [INFO] [test_google_places] ========================================
+[2025-04-28 06:37:12] [INFO] [test_google_places] GOOGLE PLACES DATA
+[2025-04-28 06:37:12] [INFO] [test_google_places] ========================================
+[2025-04-28 06:37:12] [INFO] [test_google_places] name: Eiffel Tower
+[2025-04-28 06:37:12] [INFO] [test_google_places] place_id: ChIJLU7jZClu5kcR4PcOOO6p3I0
+[2025-04-28 06:37:12] [INFO] [test_google_places] formatted_address: Av. Gustave Eiffel, 75007 Paris, France
+[2025-04-28 06:37:12] [INFO] [test_google_places] types: ['tourist_attraction', 'point_of_interest', 'establishment']
+[2025-04-28 06:37:12] [INFO] [test_google_places] geometry.location: lat=48.85837009999999, lng=2.2944813
+[2025-04-28 06:37:12] [INFO] [test_google_places] ================================================================================
+[2025-04-28 06:37:12] [INFO] [test_google_places] TEST PASSED! Google Places API integration is working correctly.
+[2025-04-28 06:39:37] [INFO] [werkzeug]  * Detected change in '/Users/ezl/code/recs/test_google_places.py', reloading
+[2025-04-28 06:39:37] [INFO] [werkzeug]  * Restarting with stat
+[2025-04-28 06:39:38] [INFO] [app] Application started
+[2025-04-28 06:39:38] [WARNING] [werkzeug]  * Debugger is active!
+[2025-04-28 06:39:38] [INFO] [werkzeug]  * Debugger PIN: 547-989-235
+[2025-04-28 06:39:54] [INFO] [werkzeug]  * Detected change in '/Users/ezl/code/recs/test_google_places.py', reloading
+[2025-04-28 06:39:54] [INFO] [werkzeug]  * Restarting with stat
+[2025-04-28 06:39:55] [INFO] [app] Application started
+[2025-04-28 06:39:55] [WARNING] [werkzeug]  * Debugger is active!
+[2025-04-28 06:39:55] [INFO] [werkzeug]  * Debugger PIN: 547-989-235
+[2025-04-28 06:40:24] [INFO] [werkzeug]  * Detected change in '/Users/ezl/code/recs/app/__init__.py', reloading
+[2025-04-28 06:40:24] [INFO] [werkzeug]  * Restarting with stat
+[2025-04-28 06:40:24] [INFO] [app] Application started
+[2025-04-28 06:40:24] [WARNING] [werkzeug]  * Debugger is active!
+[2025-04-28 06:40:24] [INFO] [werkzeug]  * Debugger PIN: 547-989-235
+[2025-04-28 06:41:33] [INFO] [werkzeug]  * Detected change in '/Users/ezl/code/recs/test_google_places.py', reloading
+[2025-04-28 06:41:33] [INFO] [werkzeug]  * Restarting with stat
+[2025-04-28 06:41:33] [INFO] [app] Application started
+[2025-04-28 06:41:34] [WARNING] [werkzeug]  * Debugger is active!
+[2025-04-28 06:41:34] [INFO] [werkzeug]  * Debugger PIN: 547-989-235
+[2025-04-28 06:41:39] [INFO] [app] Application started
+[2025-04-28 06:41:39] [INFO] [test_google_places] ================================================================================
+[2025-04-28 06:41:39] [INFO] [test_google_places] TESTING GOOGLE PLACES API INTEGRATION
+[2025-04-28 06:41:39] [INFO] [test_google_places] ================================================================================
+[2025-04-28 06:41:39] [INFO] [test_google_places] Using Google Maps API key: AIzaS...nv80
+[2025-04-28 06:41:55] [INFO] [werkzeug]  * Detected change in '/Users/ezl/code/recs/test_google_places.py', reloading
+[2025-04-28 06:41:55] [INFO] [werkzeug]  * Restarting with stat
+[2025-04-28 06:41:55] [INFO] [app] Application started
+[2025-04-28 06:41:56] [WARNING] [werkzeug]  * Debugger is active!
+[2025-04-28 06:41:56] [INFO] [werkzeug]  * Debugger PIN: 547-989-235
+[2025-04-28 06:42:00] [INFO] [app] Application started
+[2025-04-28 06:42:00] [INFO] [test_google_places] ================================================================================
+[2025-04-28 06:42:00] [INFO] [test_google_places] TESTING GOOGLE PLACES API INTEGRATION
+[2025-04-28 06:42:00] [INFO] [test_google_places] ================================================================================
+[2025-04-28 06:42:00] [INFO] [test_google_places] Using Google Maps API key: AIzaS...nv80
+[2025-04-28 06:42:00] [INFO] [test_google_places] Calling GooglePlacesService.search_place()...
+[2025-04-28 06:42:16] [INFO] [werkzeug]  * Detected change in '/Users/ezl/code/recs/test_google_places.py', reloading
+[2025-04-28 06:42:16] [INFO] [werkzeug]  * Restarting with stat
+[2025-04-28 06:42:16] [INFO] [app] Application started
+[2025-04-28 06:42:17] [WARNING] [werkzeug]  * Debugger is active!
+[2025-04-28 06:42:17] [INFO] [werkzeug]  * Debugger PIN: 547-989-235
+[2025-04-28 06:42:22] [INFO] [app] Application started
+[2025-04-28 06:42:22] [INFO] [test_google_places] ================================================================================
+[2025-04-28 06:42:22] [INFO] [test_google_places] TESTING GOOGLE PLACES API INTEGRATION
+[2025-04-28 06:42:22] [INFO] [test_google_places] ================================================================================
+[2025-04-28 06:42:22] [INFO] [test_google_places] Using Google Maps API key: AIzaS...nv80
+[2025-04-28 06:42:22] [INFO] [test_google_places] Calling GooglePlacesService.find_place()...
+[2025-04-28 06:42:22] [INFO] [app.services.google_places_service] Searching Google Places API for: Eiffel Tower
+[2025-04-28 06:42:22] [INFO] [app.services.google_places_service] Search vicinity: Paris
+[2025-04-28 06:42:22] [INFO] [app.services.google_places_service] Destination country: France
+[2025-04-28 06:42:22] [INFO] [app.services.google_places_service] Making FindPlace API request for: Eiffel Tower
+[2025-04-28 06:42:23] [INFO] [app.services.google_places_service] FindPlace API response status: OK
+[2025-04-28 06:42:23] [INFO] [app.services.google_places_service] Found place_id for Eiffel Tower: ChIJLU7jZClu5kcR4PcOOO6p3I0
+[2025-04-28 06:42:23] [INFO] [app.services.google_places_service] Making PlaceDetails API request for place_id: ChIJLU7jZClu5kcR4PcOOO6p3I0
+[2025-04-28 06:42:23] [INFO] [app.services.google_places_service] PlaceDetails API response status: OK
+[2025-04-28 06:42:23] [INFO] [app.services.google_places_service] Successfully retrieved details for place: Eiffel Tower
+[2025-04-28 06:42:23] [INFO] [test_google_places] 
+=== Full Google Places API Response ===
+[2025-04-28 06:42:23] [INFO] [test_google_places] {
+  "address_components": [
+    {
+      "long_name": "Avenue Gustave Eiffel",
+      "short_name": "Av. Gustave Eiffel",
+      "types": [
+        "route"
+      ]
+    },
+    {
+      "long_name": "Paris",
+      "short_name": "Paris",
+      "types": [
+        "locality",
+        "political"
+      ]
+    },
+    {
+      "long_name": "Paris",
+      "short_name": "Paris",
+      "types": [
+        "administrative_area_level_2",
+        "political"
+      ]
+    },
+    {
+      "long_name": "\u00cele-de-France",
+      "short_name": "IDF",
+      "types": [
+        "administrative_area_level_1",
+        "political"
+      ]
+    },
+    {
+      "long_name": "France",
+      "short_name": "FR",
+      "types": [
+        "country",
+        "political"
+      ]
+    },
+    {
+      "long_name": "75007",
+      "short_name": "75007",
+      "types": [
+        "postal_code"
+      ]
+    }
+  ],
+  "formatted_address": "Av. Gustave Eiffel, 75007 Paris, France",
+  "geometry": {
+    "location": {
+      "lat": 48.85837009999999,
+      "lng": 2.2944813
+    },
+    "viewport": {
+      "northeast": {
+        "lat": 48.8599253,
+        "lng": 2.297770400000001
+      },
+      "southwest": {
+        "lat": 48.8561421,
+        "lng": 2.2919472
+      }
+    }
+  },
+  "name": "Eiffel Tower",
+  "place_id": "ChIJLU7jZClu5kcR4PcOOO6p3I0",
+  "types": [
+    "tourist_attraction",
+    "point_of_interest",
+    "establishment"
+  ],
+  "website": "https://www.toureiffel.paris/fr"
+}
+[2025-04-28 06:42:23] [INFO] [test_google_places] 
+=== End of Response ===
+
+[2025-04-28 06:42:23] [INFO] [test_google_places] ✅ Found Eiffel Tower!
+[2025-04-28 06:42:23] [INFO] [test_google_places] Place ID: ChIJLU7jZClu5kcR4PcOOO6p3I0
+[2025-04-28 06:42:23] [INFO] [test_google_places] Address: Av. Gustave Eiffel, 75007 Paris, France
+[2025-04-28 06:42:23] [INFO] [test_google_places] Types: ['tourist_attraction', 'point_of_interest', 'establishment']
+[2025-04-28 06:42:23] [INFO] [test_google_places] 
+✅ Activity created with Google Places data
+[2025-04-28 06:42:23] [INFO] [test_google_places] Activity ID: 27
+[2025-04-28 06:42:23] [INFO] [test_google_places] Google Place ID: ChIJLU7jZClu5kcR4PcOOO6p3I0
+[2025-04-28 06:42:23] [INFO] [test_google_places] 
+✅ Test completed successfully

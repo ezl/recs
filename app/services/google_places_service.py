@@ -7,11 +7,15 @@ This service is used by the Activity model to standardize place data.
 import os
 import logging
 import requests
+import json
 from urllib.parse import urlencode
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
 load_dotenv()
+
+# Configure logger
+logger = logging.getLogger(__name__)
 
 class GooglePlacesService:
     """Service for interacting with Google Places API"""
@@ -32,12 +36,18 @@ class GooglePlacesService:
         # Get API key from environment
         api_key = os.environ.get('GOOGLE_MAPS_API_KEY')
         if not api_key:
-            logging.warning("GOOGLE_MAPS_API_KEY not set in environment variables")
+            logger.warning("GOOGLE_MAPS_API_KEY not set in environment variables")
             # Print all environment variables for debugging (without showing their values)
-            logging.debug(f"Available environment variables: {', '.join(os.environ.keys())}")
+            logger.debug(f"Available environment variables: {', '.join(os.environ.keys())}")
             return None
             
-        logging.info(f"Searching Google Places API for: {name}")
+        logger.info(f"Searching Google Places API for: {name}")
+        if category:
+            logger.info(f"Category: {category}")
+        if kwargs.get('search_vicinity'):
+            logger.info(f"Search vicinity: {kwargs.get('search_vicinity')}")
+        if kwargs.get('destination_country'):
+            logger.info(f"Destination country: {kwargs.get('destination_country')}")
         
         try:
             # First try the Find Place API for exact matches
@@ -45,7 +55,7 @@ class GooglePlacesService:
             
             # If we found a place_id, get the details
             if place_id:
-                logging.info(f"Found place_id for {name}: {place_id}")
+                logger.info(f"Found place_id for {name}: {place_id}")
                 return cls._get_place_details(place_id, api_key)
                 
             # If no exact match, try a broader search with the Places Text Search API
@@ -64,11 +74,11 @@ class GooglePlacesService:
             elif destination_country:
                 search_query = f"{search_query} {destination_country}"
             
-            logging.info(f"No exact match found, trying text search with: {search_query}")    
+            logger.info(f"No exact match found, trying text search with: {search_query}")    
             return cls._text_search_place(search_query, api_key)
                 
         except Exception as e:
-            logging.error(f"Error in Google Places API: {str(e)}")
+            logger.error(f"Error in Google Places API: {str(e)}")
             return None
     
     @classmethod
@@ -93,11 +103,24 @@ class GooglePlacesService:
             params['locationbias'] = f'name:{kwargs.get("destination_country")}'
             
         url = f"{base_url}?{urlencode(params)}"
+        logger.info(f"Making FindPlace API request for: {name}")
+        
         response = requests.get(url)
         data = response.json()
         
+        # Log the response status
+        logger.info(f"FindPlace API response status: {data.get('status')}")
+        
         if data.get('status') == 'OK' and data.get('candidates'):
             return data['candidates'][0].get('place_id')
+        else:
+            # Log more details if not successful
+            if data.get('status') != 'OK':
+                logger.warning(f"FindPlace API returned non-OK status: {data.get('status')}")
+                if data.get('error_message'):
+                    logger.warning(f"Error message: {data.get('error_message')}")
+            elif not data.get('candidates'):
+                logger.info(f"FindPlace API returned no candidates for: {name}")
             
         return None
     
@@ -113,11 +136,20 @@ class GooglePlacesService:
         }
         
         url = f"{base_url}?{urlencode(params)}"
+        logger.info(f"Making PlaceDetails API request for place_id: {place_id}")
+        
         response = requests.get(url)
         data = response.json()
         
+        # Log the response status
+        logger.info(f"PlaceDetails API response status: {data.get('status')}")
+        
         if data.get('status') == 'OK':
+            logger.info(f"Successfully retrieved details for place: {data.get('result', {}).get('name')}")
             return data.get('result')
+        else:
+            if data.get('error_message'):
+                logger.warning(f"PlaceDetails API error: {data.get('error_message')}")
             
         return None
     
@@ -132,12 +164,26 @@ class GooglePlacesService:
         }
         
         url = f"{base_url}?{urlencode(params)}"
+        logger.info(f"Making TextSearch API request for query: {query}")
+        
         response = requests.get(url)
         data = response.json()
         
+        # Log the response status
+        logger.info(f"TextSearch API response status: {data.get('status')}")
+        
         if data.get('status') == 'OK' and data.get('results'):
+            logger.info(f"TextSearch API found {len(data.get('results'))} results")
             place_id = data['results'][0].get('place_id')
             if place_id:
+                logger.info(f"Using first result with place_id: {place_id}")
                 return cls._get_place_details(place_id, api_key)
+        else:
+            if data.get('status') != 'OK':
+                logger.warning(f"TextSearch API returned non-OK status: {data.get('status')}")
+                if data.get('error_message'):
+                    logger.warning(f"Error message: {data.get('error_message')}")
+            elif not data.get('results'):
+                logger.info(f"TextSearch API returned no results for query: {query}")
                 
         return None 

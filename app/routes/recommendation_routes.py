@@ -3,6 +3,9 @@ from flask import Blueprint, render_template, redirect, url_for, request, flash,
 from app.database import db
 from app.database.models import User, Trip, Recommendation, Activity, TripSubscription
 from app.services.ai_service import AIService
+import logging
+
+logger = logging.getLogger(__name__)
 
 recommendation_bp = Blueprint('recommendation', __name__)
 
@@ -15,44 +18,45 @@ def add_recommendation(slug):
 def process_recommendation(slug):
     trip = Trip.query.filter_by(slug=slug).first_or_404()
     
-    # Get unstructured recommendations from form
-    unstructured_recommendations = request.form.get('unstructured_recommendations', '')
-    recommender_name = request.form.get('recommender_name', '')
-    
-    if not unstructured_recommendations:
-        flash('Please provide some recommendations', 'error')
-        return redirect(url_for('recommendation.add_recommendation', slug=slug))
-    
+    # Collect recommendations from the form
     try:
-        # Call OpenAI API to extract structured recommendations
-        extracted_recommendations = AIService.extract_recommendations(unstructured_recommendations, trip.destination)
+        recommendations = []
+        for i in range(10):  # Support up to 10 recommendations
+            name = request.form.get(f'recommendation_{i}')
+            if name and name.strip():  # Only include non-empty recommendations
+                place_type = request.form.get(f'place_type_{i}', '')
+                website = request.form.get(f'website_url_{i}', '')
+                description = request.form.get(f'description_{i}', '')
+                
+                recommendations.append({
+                    'name': name.strip(),
+                    'type': place_type.strip() if place_type else '',
+                    'website_url': website.strip() if website else '',
+                    'description': description.strip() if description else ''
+                })
         
-        # If no recommendations were extracted, still show the confirmation page with the empty state
-        if not extracted_recommendations or len(extracted_recommendations) == 0:
-            return render_template(
-                'confirm_recommendations.html', 
-                trip=trip, 
-                extracted_recommendations=[],
-                recommender_name=recommender_name
-            )
+        recommender_name = request.form.get('recommender_name', '').strip()
         
-        # Render confirmation template with extracted recommendations
+        # If no recommendations, redirect back
+        if not recommendations:
+            flash('Please add at least one recommendation', 'error')
+            return redirect(url_for('recommendation.add_recommendation', slug=slug))
+            
         return render_template(
-            'confirm_recommendations.html', 
-            trip=trip, 
-            extracted_recommendations=extracted_recommendations,
+            'process_recommendation.html',
+            trip=trip,
+            recommendations=recommendations,
             recommender_name=recommender_name
         )
-    except ValueError as e:
-        flash(f'API Configuration Error: {str(e)}', 'error')
-        return redirect(url_for('recommendation.add_recommendation', slug=slug))
     except Exception as e:
+        logger.error(f"Error processing recommendations for trip {slug}: {str(e)}")
         flash(f'Error processing recommendations: {str(e)}', 'error')
         return redirect(url_for('recommendation.add_recommendation', slug=slug))
 
 @recommendation_bp.route('/trip/<slug>/save', methods=['POST'])
 def save_recommendations(slug):
     trip = Trip.query.filter_by(slug=slug).first_or_404()
+    logger.info(f"Saving recommendations for trip {slug} to {trip.destination}")
     
     recommendations = request.form.getlist('recommendations[]')
     descriptions = request.form.getlist('descriptions[]')
@@ -60,12 +64,16 @@ def save_recommendations(slug):
     website_urls = request.form.getlist('website_urls[]')
     recommender_name = request.form.get('recommender_name')
     
+    logger.info(f"Received {len(recommendations)} recommendations for trip {slug}")
+    
     # Filter out completely empty recommendations
     # Valid if: name is filled (description is optional)
     valid_indices = []
     for i, rec in enumerate(recommendations):
         if rec.strip():  # If recommendation name is not empty (description can be empty)
             valid_indices.append(i)
+    
+    logger.info(f"Found {len(valid_indices)} valid recommendations after filtering")
     
     # If no valid recommendations after filtering, redirect
     if not valid_indices:
@@ -88,22 +96,41 @@ def save_recommendations(slug):
             db.session.add(temp_user)
             db.session.commit()
             user_id = temp_user.id
+            logger.info(f"Created temporary user '{recommender_name}' with ID {user_id}")
         else:
             anon_user = User.query.filter_by(email='anonymous@example.com').first()
             if not anon_user:
                 anon_user = User(email='anonymous@example.com', name='Anonymous User')
                 db.session.add(anon_user)
                 db.session.commit()
+                logger.info("Created anonymous user")
             user_id = anon_user.id
+            logger.info(f"Using anonymous user with ID {user_id}")
+    
+    # Get destination context for better Google Places API matching
+    destination_context = {}
+    if trip.destination_display_name:
+        destination_context['search_vicinity'] = trip.destination_display_name
+    if trip.destination_country:
+        destination_context['destination_country'] = trip.destination_country
+    
+    logger.info(f"Using destination context: {destination_context}")
     
     # Create recommendations - only for valid indices
+    created_recommendations = []
     for i in valid_indices:
+        rec_name = recommendations[i]
+        logger.info(f"Processing recommendation: {rec_name}")
+        
         # First find or create the Activity
         activity = Activity.get_or_create(
-            name=recommendations[i],
+            name=rec_name,
             category=place_types[i] if i < len(place_types) and place_types[i] else None,
-            website_url=website_urls[i] if i < len(website_urls) and website_urls[i] else None
+            website_url=website_urls[i] if i < len(website_urls) and website_urls[i] else None,
+            **destination_context  # Pass destination context to improve Google Places matching
         )
+        
+        logger.info(f"Activity for '{rec_name}': ID={activity.id}, place_id={activity.google_place_id or 'None'}")
         
         # Then create the Recommendation which links this Activity to the Trip
         recommendation = Recommendation(
@@ -114,8 +141,10 @@ def save_recommendations(slug):
         )
         
         db.session.add(recommendation)
+        created_recommendations.append(recommendation)
     
     db.session.commit()
+    logger.info(f"Saved {len(created_recommendations)} recommendations for trip {slug}")
     
     # Redirect to thank you page
     return redirect(url_for('trip.thank_you_page', slug=trip.slug))

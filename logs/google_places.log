@@ -1,0 +1,54 @@
+[2025-04-27 19:40:34] [INFO] [app.database.models] Activity.get_or_create called for: Eiffel Tower
+[2025-04-27 19:40:34] [INFO] [app.database.models] Category: landmark
+[2025-04-27 19:40:34] [INFO] [app.database.models] With search_vicinity: Paris
+[2025-04-27 19:40:34] [INFO] [app.database.models] With destination_country: France
+[2025-04-27 19:40:34] [INFO] [app.database.models] Making Google Places API call for: Eiffel Tower
+[2025-04-27 19:40:34] [INFO] [app.services.google_places_service] Searching Google Places API for: Eiffel Tower
+[2025-04-27 19:40:34] [INFO] [app.services.google_places_service] Category: landmark
+[2025-04-27 19:40:34] [INFO] [app.services.google_places_service] Search vicinity: Paris
+[2025-04-27 19:40:34] [INFO] [app.services.google_places_service] Destination country: France
+[2025-04-27 19:40:34] [INFO] [app.services.google_places_service] Making FindPlace API request for: Eiffel Tower
+[2025-04-27 19:40:35] [INFO] [app.services.google_places_service] FindPlace API response status: REQUEST_DENIED
+[2025-04-27 19:40:35] [WARNING] [app.services.google_places_service] FindPlace API returned non-OK status: REQUEST_DENIED
+[2025-04-27 19:40:35] [WARNING] [app.services.google_places_service] Error message: This API project is not authorized to use this API.
+[2025-04-27 19:40:35] [INFO] [app.services.google_places_service] No exact match found, trying text search with: Eiffel Tower landmark Paris
+[2025-04-27 19:40:35] [INFO] [app.services.google_places_service] Making TextSearch API request for query: Eiffel Tower landmark Paris
+[2025-04-27 19:40:35] [INFO] [app.services.google_places_service] TextSearch API response status: REQUEST_DENIED
+[2025-04-27 19:40:35] [WARNING] [app.services.google_places_service] TextSearch API returned non-OK status: REQUEST_DENIED
+[2025-04-27 19:40:35] [WARNING] [app.services.google_places_service] Error message: This API project is not authorized to use this API.
+[2025-04-27 19:40:35] [INFO] [app.database.models] No Google Places match found for: Eiffel Tower
+[2025-04-27 19:40:35] [INFO] [app.database.models] Falling back to name matching for: Eiffel Tower
+[2025-04-27 19:40:35] [INFO] [app.database.models] No existing activity found with name: Eiffel Tower
+[2025-04-27 19:40:35] [INFO] [app.database.models] Creating new activity for: Eiffel Tower
+[2025-04-27 19:40:35] [INFO] [app.database.models] Created new activity: Eiffel Tower (ID: 27)
+[2025-04-28 06:37:11] [INFO] [app.database.models] Activity.get_or_create called for: Eiffel Tower
+[2025-04-28 06:37:11] [INFO] [app.database.models] Category: landmark
+[2025-04-28 06:37:11] [INFO] [app.database.models] With search_vicinity: Paris
+[2025-04-28 06:37:11] [INFO] [app.database.models] With destination_country: France
+[2025-04-28 06:37:11] [INFO] [app.database.models] Making Google Places API call for: Eiffel Tower
+[2025-04-28 06:37:11] [INFO] [app.services.google_places_service] Searching Google Places API for: Eiffel Tower
+[2025-04-28 06:37:11] [INFO] [app.services.google_places_service] Category: landmark
+[2025-04-28 06:37:11] [INFO] [app.services.google_places_service] Search vicinity: Paris
+[2025-04-28 06:37:11] [INFO] [app.services.google_places_service] Destination country: France
+[2025-04-28 06:37:11] [INFO] [app.services.google_places_service] Making FindPlace API request for: Eiffel Tower
+[2025-04-28 06:37:11] [INFO] [app.services.google_places_service] FindPlace API response status: OK
+[2025-04-28 06:37:11] [INFO] [app.services.google_places_service] Found place_id for Eiffel Tower: ChIJLU7jZClu5kcR4PcOOO6p3I0
+[2025-04-28 06:37:11] [INFO] [app.services.google_places_service] Making PlaceDetails API request for place_id: ChIJLU7jZClu5kcR4PcOOO6p3I0
+[2025-04-28 06:37:12] [INFO] [app.services.google_places_service] PlaceDetails API response status: OK
+[2025-04-28 06:37:12] [INFO] [app.services.google_places_service] Successfully retrieved details for place: Eiffel Tower
+[2025-04-28 06:37:12] [INFO] [app.database.models] Google Places API returned data for place: Eiffel Tower
+[2025-04-28 06:37:12] [INFO] [app.database.models] Found place_id from Google: ChIJLU7jZClu5kcR4PcOOO6p3I0
+[2025-04-28 06:37:12] [INFO] [app.database.models] Creating new activity for: Eiffel Tower
+[2025-04-28 06:37:12] [INFO] [app.database.models] Adding Google Places data to new activity
+[2025-04-28 06:37:12] [INFO] [app.database.models] Found city from Google: Paris
+[2025-04-28 06:37:12] [INFO] [app.database.models] Found country from Google: France
+[2025-04-28 06:37:12] [INFO] [app.database.models] Created new activity: Eiffel Tower (ID: 28)
+[2025-04-28 06:42:22] [INFO] [app.services.google_places_service] Searching Google Places API for: Eiffel Tower
+[2025-04-28 06:42:22] [INFO] [app.services.google_places_service] Search vicinity: Paris
+[2025-04-28 06:42:22] [INFO] [app.services.google_places_service] Destination country: France
+[2025-04-28 06:42:22] [INFO] [app.services.google_places_service] Making FindPlace API request for: Eiffel Tower
+[2025-04-28 06:42:23] [INFO] [app.services.google_places_service] FindPlace API response status: OK
+[2025-04-28 06:42:23] [INFO] [app.services.google_places_service] Found place_id for Eiffel Tower: ChIJLU7jZClu5kcR4PcOOO6p3I0
+[2025-04-28 06:42:23] [INFO] [app.services.google_places_service] Making PlaceDetails API request for place_id: ChIJLU7jZClu5kcR4PcOOO6p3I0
+[2025-04-28 06:42:23] [INFO] [app.services.google_places_service] PlaceDetails API response status: OK
+[2025-04-28 06:42:23] [INFO] [app.services.google_places_service] Successfully retrieved details for place: Eiffel Tower
