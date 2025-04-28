@@ -1,6 +1,9 @@
 // @ts-check
 const { test, expect } = require('@playwright/test');
 
+// Increase the test timeout since we're dealing with AI processing
+test.setTimeout(30000);
+
 test.describe('Recommendation Submission Process', () => {
   // Setup - create a trip before each test
   test.beforeEach(async ({ page }) => {
@@ -9,7 +12,7 @@ test.describe('Recommendation Submission Process', () => {
       await page.goto('/');
       
       // Wait for form to be loaded
-      await page.waitForSelector('#destination', { timeout: 1000 });
+      await page.waitForSelector('#destination', { timeout: 5000 });
       
       await page.fill('#destination', 'Tokyo');
       
@@ -20,8 +23,8 @@ test.describe('Recommendation Submission Process', () => {
       await page.waitForURL('**/user-info');
       
       // Wait for form to be loaded
-      await page.waitForSelector('#name', { timeout: 1000 });
-      await page.waitForSelector('#email', { timeout: 1000 });
+      await page.waitForSelector('#name', { timeout: 5000 });
+      await page.waitForSelector('#email', { timeout: 5000 });
       
       await page.fill('#name', 'Test Traveler');
       await page.fill('#email', 'traveler@example.com');
@@ -36,7 +39,7 @@ test.describe('Recommendation Submission Process', () => {
       await page.screenshot({ path: 'trip-detail-submission.png' });
       
       // Wait for share box to be visible
-      await page.waitForSelector('.share-box', { timeout: 1000 });
+      await page.waitForSelector('.share-box', { timeout: 5000 });
       
       // Navigate to recommendation page
       const inputField = await page.locator('.share-box input[type="text"]');
@@ -44,7 +47,7 @@ test.describe('Recommendation Submission Process', () => {
       await page.goto(shareLink);
       
       // Wait for recommendation form to load
-      await page.waitForSelector('#text-recommendations', { timeout: 1000 });
+      await page.waitForSelector('#text-recommendations', { timeout: 5000 });
     } catch (error) {
       console.error('Setup failed:', error.message);
       await page.screenshot({ path: 'setup-failure-submission.png' });
@@ -58,70 +61,67 @@ test.describe('Recommendation Submission Process', () => {
       await page.fill('#text-recommendations', 'You should visit Tokyo Tower and try sushi at Tsukiji Market. Also check out Shinjuku Gyoen for cherry blossoms in spring.');
       
       // Wait for the submit button to be enabled
-      await page.waitForSelector('#submit-button:not([disabled])', { timeout: 1000 });
+      await page.waitForSelector('#submit-button:not([disabled])', { timeout: 5000 });
       await expect(page.locator('#submit-button')).toBeEnabled();
       
-      // Click continue button
-      await page.click('#submit-button');
+      // Click continue button and wait for form submission
+      await Promise.all([
+        page.waitForNavigation({ waitUntil: 'networkidle' }),
+        page.click('#submit-button')
+      ]);
       
-      // Wait for recommendations to be processed
-      await page.waitForURL('**/trip/**/process');
-      
-      // Take a screenshot for debugging
-      await page.screenshot({ path: 'recommendations-processed.png' });
-      
-      // Wait for recommendation items to appear
-      await page.waitForSelector('.recommendation-item', { timeout: 1000 });
+      // Wait for recommendations container to appear
+      await page.waitForSelector('#recommendations-container', { timeout: 20000 });
       
       // Verify extracted recommendations
-      const recommendationItems = await page.locator('.recommendation-item').count();
+      const recommendationItems = await page.locator('#recommendations-container .recommendation-item').count();
       expect(recommendationItems).toBeGreaterThan(0);
       
       // Check if Tokyo Tower recommendation exists
-      const hasTowerRec = await page.locator('.recommendation-item h3:has-text("Tokyo Tower")').count() > 0;
+      const hasTowerRec = await page.locator('#recommendations-container .recommendation-item:has-text("Tokyo Tower")').count() > 0;
       
       // If Tokyo Tower isn't found, check for any recommendation
       if (!hasTowerRec) {
         // Get the first recommendation name for logging
-        const firstRecName = await page.locator('.recommendation-item h3').first().textContent();
+        const firstRecName = await page.locator('#recommendations-container .recommendation-item').first().textContent();
         console.log(`Tokyo Tower not found, but found recommendation: ${firstRecName}`);
         // We'll still pass if we got any recommendations
       } else {
         // If Tokyo Tower is found, verify it
-        const tokyoTowerRec = await page.locator('.recommendation-item h3:has-text("Tokyo Tower")');
+        const tokyoTowerRec = await page.locator('#recommendations-container .recommendation-item:has-text("Tokyo Tower")');
         expect(await tokyoTowerRec.count()).toBeGreaterThanOrEqual(1);
       }
       
       // Find any description field to fill
-      const descriptionField = await page.locator('textarea[id^="description_"]').first();
+      const descriptionField = await page.locator('textarea[name^="descriptions"]').first();
       if (await descriptionField.count() > 0) {
         await descriptionField.fill('This is a must-visit landmark with great views of the city!');
       }
       
       // Wait for submit button to be clickable
-      await page.waitForSelector('#submit-button', { timeout: 1000 });
+      await page.waitForSelector('#submit-button', { timeout: 5000 });
       
-      // Enter name and submit
+      // Click submit button
       await page.click('#submit-button');
       
-      // Wait for modal to appear
-      await page.waitForSelector('#modal-recommender-name', { timeout: 1000 });
+      // Wait for name modal to appear
+      await page.waitForSelector('#name-modal:not(.hidden)', { timeout: 5000 });
       await page.fill('#modal-recommender-name', 'Test Recommender');
       
-      // Wait for confirm button to be available
-      await page.waitForSelector('.submit-with-name', { timeout: 1000 });
+      // Wait for continue button to be enabled and click it
+      await page.waitForSelector('.submit-with-name:not([disabled])', { timeout: 5000 });
       await page.click('.submit-with-name');
       
-      // Wait for submission and redirect
-      await page.waitForURL('**/trip/**');
+      // Wait for submission and redirect to thank you page
+      await page.waitForURL('**/trip/**/thank-you');
       
-      // Verify we're on the trip page
+      // Verify we're on the thank you page
       const currentUrl = page.url();
-      expect(currentUrl).toContain('/trip/');
+      expect(currentUrl).toContain('/thank-you');
       
       // Try to verify flash message if present
-      if (await page.locator('.bg-green-100').count() > 0) {
-        const flashMessage = await page.locator('.bg-green-100');
+      const flashMessage = await page.locator('.flash-message');
+      if (await flashMessage.count() > 0) {
         await expect(flashMessage).toBeVisible();
       }
       
@@ -172,7 +172,7 @@ test.describe('Recommendation Submission Process', () => {
       await page.fill('#text-recommendations', 'Tokyo Tower');
       
       // Wait for the button to become enabled
-      await page.waitForSelector('#submit-button:not([disabled])', { timeout: 1000 });
+      await page.waitForSelector('#submit-button:not([disabled])', { timeout: 5000 });
       
       // Now button should be enabled
       await expect(page.locator('#submit-button')).toBeEnabled();
