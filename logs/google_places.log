@@ -61,3 +61,233 @@
 [2025-04-28 06:46:48] [INFO] [app.services.google_places_service] Making PlaceDetails API request for place_id: ChIJLU7jZClu5kcR4PcOOO6p3I0
 [2025-04-28 06:46:49] [INFO] [app.services.google_places_service] PlaceDetails API response status: OK
 [2025-04-28 06:46:49] [INFO] [app.services.google_places_service] Successfully retrieved details for place: Eiffel Tower
+[2025-04-28 06:49:01] [INFO] [app.database.models] Activity.get_or_create called for: Eiffel Tower
+[2025-04-28 06:49:01] [INFO] [app.database.models] Category: landmark
+[2025-04-28 06:49:01] [INFO] [app.database.models] With search_vicinity: Paris
+[2025-04-28 06:49:01] [INFO] [app.database.models] With destination_country: France
+[2025-04-28 06:49:01] [INFO] [app.database.models] Making Google Places API call for: Eiffel Tower
+[2025-04-28 06:49:01] [INFO] [app.services.google_places_service] Searching Google Places API for: Eiffel Tower
+[2025-04-28 06:49:01] [INFO] [app.services.google_places_service] Category: landmark
+[2025-04-28 06:49:01] [INFO] [app.services.google_places_service] Search vicinity: Paris
+[2025-04-28 06:49:01] [INFO] [app.services.google_places_service] Destination country: France
+[2025-04-28 06:49:01] [INFO] [app.services.google_places_service] Making FindPlace API request for: Eiffel Tower
+[2025-04-28 06:49:02] [INFO] [app.services.google_places_service] FindPlace API response status: OK
+[2025-04-28 06:49:02] [INFO] [app.services.google_places_service] Found place_id for Eiffel Tower: ChIJLU7jZClu5kcR4PcOOO6p3I0
+[2025-04-28 06:49:02] [INFO] [app.services.google_places_service] Making PlaceDetails API request for place_id: ChIJLU7jZClu5kcR4PcOOO6p3I0
+[2025-04-28 06:49:02] [INFO] [app.services.google_places_service] PlaceDetails API response status: OK
+[2025-04-28 06:49:02] [INFO] [app.services.google_places_service] Successfully retrieved details for place: Eiffel Tower
+[2025-04-28 06:49:02] [INFO] [app.database.models] Google Places API returned data for place: Eiffel Tower
+[2025-04-28 06:49:02] [INFO] [app.database.models] Found place_id from Google: ChIJLU7jZClu5kcR4PcOOO6p3I0
+[2025-04-28 06:49:02] [INFO] [app.database.models] Creating new activity for: Eiffel Tower
+[2025-04-28 06:49:02] [INFO] [app.database.models] Adding Google Places data to new activity
+[2025-04-28 06:49:02] [INFO] [app.database.models] Found city from Google: Paris
+[2025-04-28 06:49:02] [INFO] [app.database.models] Found country from Google: France
+[2025-04-28 06:49:02] [INFO] [app.database.models] Created new activity: Eiffel Tower (ID: 27)
+[2025-04-28 06:51:37] [INFO] [app.database.models] Activity.get_or_create called for: Asakusa
+[2025-04-28 06:51:37] [INFO] [app.database.models] Category: Historic district
+[2025-04-28 06:51:37] [INFO] [app.database.models] With search_vicinity: Tokyo
+[2025-04-28 06:51:37] [INFO] [app.database.models] With destination_country: Japan
+[2025-04-28 06:51:37] [INFO] [app.database.models] Making Google Places API call for: Asakusa
+[2025-04-28 06:51:37] [INFO] [app.services.google_places_service] Searching Google Places API for: Asakusa
+[2025-04-28 06:51:37] [INFO] [app.services.google_places_service] Category: Historic district
+[2025-04-28 06:51:37] [INFO] [app.services.google_places_service] Search vicinity: Tokyo
+[2025-04-28 06:51:37] [INFO] [app.services.google_places_service] Destination country: Japan
+[2025-04-28 06:51:37] [INFO] [app.services.google_places_service] Making FindPlace API request for: Asakusa
+[2025-04-28 06:51:38] [INFO] [app.services.google_places_service] FindPlace API response status: OK
+[2025-04-28 06:51:38] [INFO] [app.services.google_places_service] Found place_id for Asakusa: ChIJM1N_BMKOGGARZ0DHgTj9hHw
+[2025-04-28 06:51:38] [INFO] [app.services.google_places_service] Making PlaceDetails API request for place_id: ChIJM1N_BMKOGGARZ0DHgTj9hHw
+[2025-04-28 06:51:38] [INFO] [app.services.google_places_service] PlaceDetails API response status: OK
+[2025-04-28 06:51:38] [INFO] [app.services.google_places_service] Successfully retrieved details for place: Asakusa
+[2025-04-28 06:51:38] [INFO] [app.database.models] Google Places API returned data for place: Asakusa
+[2025-04-28 06:51:38] [INFO] [app.database.models] Found place_id from Google: ChIJM1N_BMKOGGARZ0DHgTj9hHw
+[2025-04-28 06:51:38] [INFO] [app.database.models] Creating new activity for: Asakusa
+[2025-04-28 06:51:38] [INFO] [app.database.models] Adding Google Places data to new activity
+[2025-04-28 06:51:38] [INFO] [app.database.models] Found city from Google: Taito City
+[2025-04-28 06:51:38] [INFO] [app.database.models] Found country from Google: Japan
+[2025-04-28 06:51:38] [INFO] [app.database.models] Created new activity: Asakusa (ID: 28)
+[2025-04-28 06:51:38] [INFO] [app.database.models] Activity.get_or_create called for: Asakusa
+[2025-04-28 06:51:38] [INFO] [app.database.models] Category: Historic area
+[2025-04-28 06:51:38] [INFO] [app.database.models] With search_vicinity: Tokyo
+[2025-04-28 06:51:38] [INFO] [app.database.models] With destination_country: Japan
+[2025-04-28 06:51:38] [INFO] [app.database.models] Making Google Places API call for: Asakusa
+[2025-04-28 06:51:38] [INFO] [app.services.google_places_service] Searching Google Places API for: Asakusa
+[2025-04-28 06:51:38] [INFO] [app.services.google_places_service] Category: Historic area
+[2025-04-28 06:51:38] [INFO] [app.services.google_places_service] Search vicinity: Tokyo
+[2025-04-28 06:51:38] [INFO] [app.services.google_places_service] Destination country: Japan
+[2025-04-28 06:51:38] [INFO] [app.services.google_places_service] Making FindPlace API request for: Asakusa
+[2025-04-28 06:51:39] [INFO] [app.services.google_places_service] FindPlace API response status: OK
+[2025-04-28 06:51:39] [INFO] [app.services.google_places_service] Found place_id for Asakusa: ChIJM1N_BMKOGGARZ0DHgTj9hHw
+[2025-04-28 06:51:39] [INFO] [app.services.google_places_service] Making PlaceDetails API request for place_id: ChIJM1N_BMKOGGARZ0DHgTj9hHw
+[2025-04-28 06:51:39] [INFO] [app.services.google_places_service] PlaceDetails API response status: OK
+[2025-04-28 06:51:39] [INFO] [app.services.google_places_service] Successfully retrieved details for place: Asakusa
+[2025-04-28 06:51:39] [INFO] [app.database.models] Google Places API returned data for place: Asakusa
+[2025-04-28 06:51:39] [INFO] [app.database.models] Found place_id from Google: ChIJM1N_BMKOGGARZ0DHgTj9hHw
+[2025-04-28 06:51:39] [INFO] [app.database.models] Found existing activity with this place_id: Asakusa
+[2025-04-28 06:51:39] [INFO] [app.database.models] Activity.get_or_create called for: TeamLab Planets
+[2025-04-28 06:51:39] [INFO] [app.database.models] Category: Interactive art exhibition
+[2025-04-28 06:51:39] [INFO] [app.database.models] With search_vicinity: Tokyo
+[2025-04-28 06:51:39] [INFO] [app.database.models] With destination_country: Japan
+[2025-04-28 06:51:39] [INFO] [app.database.models] Making Google Places API call for: TeamLab Planets
+[2025-04-28 06:51:39] [INFO] [app.services.google_places_service] Searching Google Places API for: TeamLab Planets
+[2025-04-28 06:51:39] [INFO] [app.services.google_places_service] Category: Interactive art exhibition
+[2025-04-28 06:51:39] [INFO] [app.services.google_places_service] Search vicinity: Tokyo
+[2025-04-28 06:51:39] [INFO] [app.services.google_places_service] Destination country: Japan
+[2025-04-28 06:51:39] [INFO] [app.services.google_places_service] Making FindPlace API request for: TeamLab Planets
+[2025-04-28 06:51:40] [INFO] [app.services.google_places_service] FindPlace API response status: OK
+[2025-04-28 06:51:40] [INFO] [app.services.google_places_service] Found place_id for TeamLab Planets: ChIJSeco5wiJGGARItbTS8lQ5G0
+[2025-04-28 06:51:40] [INFO] [app.services.google_places_service] Making PlaceDetails API request for place_id: ChIJSeco5wiJGGARItbTS8lQ5G0
+[2025-04-28 06:51:40] [INFO] [app.services.google_places_service] PlaceDetails API response status: OK
+[2025-04-28 06:51:40] [INFO] [app.services.google_places_service] Successfully retrieved details for place: teamLab Planets TOKYO DMM
+[2025-04-28 06:51:40] [INFO] [app.database.models] Google Places API returned data for place: teamLab Planets TOKYO DMM
+[2025-04-28 06:51:40] [INFO] [app.database.models] Found place_id from Google: ChIJSeco5wiJGGARItbTS8lQ5G0
+[2025-04-28 06:51:40] [INFO] [app.database.models] Creating new activity for: TeamLab Planets
+[2025-04-28 06:51:40] [INFO] [app.database.models] Adding Google Places data to new activity
+[2025-04-28 06:51:40] [INFO] [app.database.models] Found city from Google: Koto City
+[2025-04-28 06:51:40] [INFO] [app.database.models] Found country from Google: Japan
+[2025-04-28 06:51:40] [INFO] [app.database.models] Created new activity: TeamLab Planets (ID: 29)
+[2025-04-28 06:51:40] [INFO] [app.database.models] Activity.get_or_create called for: TeamLab Planets
+[2025-04-28 06:51:40] [INFO] [app.database.models] Category: Art Museum
+[2025-04-28 06:51:40] [INFO] [app.database.models] With search_vicinity: Tokyo
+[2025-04-28 06:51:40] [INFO] [app.database.models] With destination_country: Japan
+[2025-04-28 06:51:40] [INFO] [app.database.models] Making Google Places API call for: TeamLab Planets
+[2025-04-28 06:51:40] [INFO] [app.services.google_places_service] Searching Google Places API for: TeamLab Planets
+[2025-04-28 06:51:40] [INFO] [app.services.google_places_service] Category: Art Museum
+[2025-04-28 06:51:40] [INFO] [app.services.google_places_service] Search vicinity: Tokyo
+[2025-04-28 06:51:40] [INFO] [app.services.google_places_service] Destination country: Japan
+[2025-04-28 06:51:40] [INFO] [app.services.google_places_service] Making FindPlace API request for: TeamLab Planets
+[2025-04-28 06:51:40] [INFO] [app.services.google_places_service] FindPlace API response status: OK
+[2025-04-28 06:51:40] [INFO] [app.services.google_places_service] Found place_id for TeamLab Planets: ChIJSeco5wiJGGARItbTS8lQ5G0
+[2025-04-28 06:51:40] [INFO] [app.services.google_places_service] Making PlaceDetails API request for place_id: ChIJSeco5wiJGGARItbTS8lQ5G0
+[2025-04-28 06:51:41] [INFO] [app.services.google_places_service] PlaceDetails API response status: OK
+[2025-04-28 06:51:41] [INFO] [app.services.google_places_service] Successfully retrieved details for place: teamLab Planets TOKYO DMM
+[2025-04-28 06:51:41] [INFO] [app.database.models] Google Places API returned data for place: teamLab Planets TOKYO DMM
+[2025-04-28 06:51:41] [INFO] [app.database.models] Found place_id from Google: ChIJSeco5wiJGGARItbTS8lQ5G0
+[2025-04-28 06:51:41] [INFO] [app.database.models] Found existing activity with this place_id: TeamLab Planets
+[2025-04-28 06:51:41] [INFO] [app.database.models] Activity.get_or_create called for: Ramen Street
+[2025-04-28 06:51:41] [INFO] [app.database.models] Category: Restaurant
+[2025-04-28 06:51:41] [INFO] [app.database.models] With search_vicinity: Tokyo
+[2025-04-28 06:51:41] [INFO] [app.database.models] With destination_country: Japan
+[2025-04-28 06:51:41] [INFO] [app.database.models] Making Google Places API call for: Ramen Street
+[2025-04-28 06:51:41] [INFO] [app.services.google_places_service] Searching Google Places API for: Ramen Street
+[2025-04-28 06:51:41] [INFO] [app.services.google_places_service] Category: Restaurant
+[2025-04-28 06:51:41] [INFO] [app.services.google_places_service] Search vicinity: Tokyo
+[2025-04-28 06:51:41] [INFO] [app.services.google_places_service] Destination country: Japan
+[2025-04-28 06:51:41] [INFO] [app.services.google_places_service] Making FindPlace API request for: Ramen Street
+[2025-04-28 06:51:41] [INFO] [app.services.google_places_service] FindPlace API response status: OK
+[2025-04-28 06:51:41] [INFO] [app.services.google_places_service] Found place_id for Ramen Street: ChIJA6ITw0fGwoARSgap8a1UAYA
+[2025-04-28 06:51:41] [INFO] [app.services.google_places_service] Making PlaceDetails API request for place_id: ChIJA6ITw0fGwoARSgap8a1UAYA
+[2025-04-28 06:51:42] [INFO] [app.services.google_places_service] PlaceDetails API response status: OK
+[2025-04-28 06:51:42] [INFO] [app.services.google_places_service] Successfully retrieved details for place: Mr. Ramen
+[2025-04-28 06:51:42] [INFO] [app.database.models] Google Places API returned data for place: Mr. Ramen
+[2025-04-28 06:51:42] [INFO] [app.database.models] Found place_id from Google: ChIJA6ITw0fGwoARSgap8a1UAYA
+[2025-04-28 06:51:42] [INFO] [app.database.models] Creating new activity for: Ramen Street
+[2025-04-28 06:51:42] [INFO] [app.database.models] Adding Google Places data to new activity
+[2025-04-28 06:51:42] [INFO] [app.database.models] Found city from Google: Los Angeles
+[2025-04-28 06:51:42] [INFO] [app.database.models] Found country from Google: United States
+[2025-04-28 06:51:42] [INFO] [app.database.models] Created new activity: Ramen Street (ID: 30)
+[2025-04-28 06:51:42] [INFO] [app.database.models] Activity.get_or_create called for: Ramen Street (Tokyo Station)
+[2025-04-28 06:51:42] [INFO] [app.database.models] Category: Food
+[2025-04-28 06:51:42] [INFO] [app.database.models] With search_vicinity: Tokyo
+[2025-04-28 06:51:42] [INFO] [app.database.models] With destination_country: Japan
+[2025-04-28 06:51:42] [INFO] [app.database.models] Making Google Places API call for: Ramen Street (Tokyo Station)
+[2025-04-28 06:51:42] [INFO] [app.services.google_places_service] Searching Google Places API for: Ramen Street (Tokyo Station)
+[2025-04-28 06:51:42] [INFO] [app.services.google_places_service] Category: Food
+[2025-04-28 06:51:42] [INFO] [app.services.google_places_service] Search vicinity: Tokyo
+[2025-04-28 06:51:42] [INFO] [app.services.google_places_service] Destination country: Japan
+[2025-04-28 06:51:42] [INFO] [app.services.google_places_service] Making FindPlace API request for: Ramen Street (Tokyo Station)
+[2025-04-28 06:51:43] [INFO] [app.services.google_places_service] FindPlace API response status: OK
+[2025-04-28 06:51:43] [INFO] [app.services.google_places_service] Found place_id for Ramen Street (Tokyo Station): ChIJGeYlX_mLGGARwsJahMe-XZg
+[2025-04-28 06:51:43] [INFO] [app.services.google_places_service] Making PlaceDetails API request for place_id: ChIJGeYlX_mLGGARwsJahMe-XZg
+[2025-04-28 06:51:43] [INFO] [app.services.google_places_service] PlaceDetails API response status: OK
+[2025-04-28 06:51:43] [INFO] [app.services.google_places_service] Successfully retrieved details for place: Tokyo Ramen Street
+[2025-04-28 06:51:43] [INFO] [app.database.models] Google Places API returned data for place: Tokyo Ramen Street
+[2025-04-28 06:51:43] [INFO] [app.database.models] Found place_id from Google: ChIJGeYlX_mLGGARwsJahMe-XZg
+[2025-04-28 06:51:43] [INFO] [app.database.models] Creating new activity for: Ramen Street (Tokyo Station)
+[2025-04-28 06:51:43] [INFO] [app.database.models] Adding Google Places data to new activity
+[2025-04-28 06:51:43] [INFO] [app.database.models] Found city from Google: Chiyoda City
+[2025-04-28 06:51:43] [INFO] [app.database.models] Found country from Google: Japan
+[2025-04-28 06:51:43] [INFO] [app.database.models] Created new activity: Ramen Street (Tokyo Station) (ID: 31)
+[2025-04-28 06:51:43] [INFO] [app.database.models] Activity.get_or_create called for: Shibuya Scramble Crossing
+[2025-04-28 06:51:43] [INFO] [app.database.models] Category: Famous landmark
+[2025-04-28 06:51:43] [INFO] [app.database.models] With search_vicinity: Tokyo
+[2025-04-28 06:51:43] [INFO] [app.database.models] With destination_country: Japan
+[2025-04-28 06:51:43] [INFO] [app.database.models] Making Google Places API call for: Shibuya Scramble Crossing
+[2025-04-28 06:51:43] [INFO] [app.services.google_places_service] Searching Google Places API for: Shibuya Scramble Crossing
+[2025-04-28 06:51:43] [INFO] [app.services.google_places_service] Category: Famous landmark
+[2025-04-28 06:51:43] [INFO] [app.services.google_places_service] Search vicinity: Tokyo
+[2025-04-28 06:51:43] [INFO] [app.services.google_places_service] Destination country: Japan
+[2025-04-28 06:51:43] [INFO] [app.services.google_places_service] Making FindPlace API request for: Shibuya Scramble Crossing
+[2025-04-28 06:51:44] [INFO] [app.services.google_places_service] FindPlace API response status: OK
+[2025-04-28 06:51:44] [INFO] [app.services.google_places_service] Found place_id for Shibuya Scramble Crossing: ChIJK9EM68qLGGARacmu4KJj5SA
+[2025-04-28 06:51:44] [INFO] [app.services.google_places_service] Making PlaceDetails API request for place_id: ChIJK9EM68qLGGARacmu4KJj5SA
+[2025-04-28 06:51:44] [INFO] [app.services.google_places_service] PlaceDetails API response status: OK
+[2025-04-28 06:51:44] [INFO] [app.services.google_places_service] Successfully retrieved details for place: Shibuya Scramble Crossing
+[2025-04-28 06:51:44] [INFO] [app.database.models] Google Places API returned data for place: Shibuya Scramble Crossing
+[2025-04-28 06:51:44] [INFO] [app.database.models] Found place_id from Google: ChIJK9EM68qLGGARacmu4KJj5SA
+[2025-04-28 06:51:44] [INFO] [app.database.models] Creating new activity for: Shibuya Scramble Crossing
+[2025-04-28 06:51:44] [INFO] [app.database.models] Adding Google Places data to new activity
+[2025-04-28 06:51:44] [INFO] [app.database.models] Found city from Google: Shibuya
+[2025-04-28 06:51:44] [INFO] [app.database.models] Found country from Google: Japan
+[2025-04-28 06:51:44] [INFO] [app.database.models] Created new activity: Shibuya Scramble Crossing (ID: 32)
+[2025-04-28 06:51:44] [INFO] [app.database.models] Activity.get_or_create called for: Tsukiji Market
+[2025-04-28 06:51:44] [INFO] [app.database.models] Category: Market
+[2025-04-28 06:51:44] [INFO] [app.database.models] With search_vicinity: Tokyo
+[2025-04-28 06:51:44] [INFO] [app.database.models] With destination_country: Japan
+[2025-04-28 06:51:44] [INFO] [app.database.models] Making Google Places API call for: Tsukiji Market
+[2025-04-28 06:51:44] [INFO] [app.services.google_places_service] Searching Google Places API for: Tsukiji Market
+[2025-04-28 06:51:44] [INFO] [app.services.google_places_service] Category: Market
+[2025-04-28 06:51:44] [INFO] [app.services.google_places_service] Search vicinity: Tokyo
+[2025-04-28 06:51:44] [INFO] [app.services.google_places_service] Destination country: Japan
+[2025-04-28 06:51:44] [INFO] [app.services.google_places_service] Making FindPlace API request for: Tsukiji Market
+[2025-04-28 06:51:45] [INFO] [app.services.google_places_service] FindPlace API response status: OK
+[2025-04-28 06:51:45] [INFO] [app.services.google_places_service] Found place_id for Tsukiji Market: ChIJW2cLzSGLGGARXAKXv6EkbqI
+[2025-04-28 06:51:45] [INFO] [app.services.google_places_service] Making PlaceDetails API request for place_id: ChIJW2cLzSGLGGARXAKXv6EkbqI
+[2025-04-28 06:51:45] [INFO] [app.services.google_places_service] PlaceDetails API response status: OK
+[2025-04-28 06:51:45] [INFO] [app.services.google_places_service] Successfully retrieved details for place: Tsukiji Outer Market
+[2025-04-28 06:51:45] [INFO] [app.database.models] Google Places API returned data for place: Tsukiji Outer Market
+[2025-04-28 06:51:45] [INFO] [app.database.models] Found place_id from Google: ChIJW2cLzSGLGGARXAKXv6EkbqI
+[2025-04-28 06:51:45] [INFO] [app.database.models] Creating new activity for: Tsukiji Market
+[2025-04-28 06:51:45] [INFO] [app.database.models] Adding Google Places data to new activity
+[2025-04-28 06:51:45] [INFO] [app.database.models] Found city from Google: Chuo City
+[2025-04-28 06:51:45] [INFO] [app.database.models] Found country from Google: Japan
+[2025-04-28 06:51:45] [INFO] [app.database.models] Created new activity: Tsukiji Market (ID: 33)
+[2025-04-28 06:51:45] [INFO] [app.database.models] Activity.get_or_create called for: Nakameguro
+[2025-04-28 06:51:45] [INFO] [app.database.models] Category: Neighborhood
+[2025-04-28 06:51:45] [INFO] [app.database.models] With search_vicinity: Tokyo
+[2025-04-28 06:51:45] [INFO] [app.database.models] With destination_country: Japan
+[2025-04-28 06:51:45] [INFO] [app.database.models] Making Google Places API call for: Nakameguro
+[2025-04-28 06:51:45] [INFO] [app.services.google_places_service] Searching Google Places API for: Nakameguro
+[2025-04-28 06:51:45] [INFO] [app.services.google_places_service] Category: Neighborhood
+[2025-04-28 06:51:45] [INFO] [app.services.google_places_service] Search vicinity: Tokyo
+[2025-04-28 06:51:45] [INFO] [app.services.google_places_service] Destination country: Japan
+[2025-04-28 06:51:45] [INFO] [app.services.google_places_service] Making FindPlace API request for: Nakameguro
+[2025-04-28 06:51:46] [INFO] [app.services.google_places_service] FindPlace API response status: OK
+[2025-04-28 06:51:46] [INFO] [app.services.google_places_service] Found place_id for Nakameguro: ChIJAas2LziLGGAROimsxcM_Rqo
+[2025-04-28 06:51:46] [INFO] [app.services.google_places_service] Making PlaceDetails API request for place_id: ChIJAas2LziLGGAROimsxcM_Rqo
+[2025-04-28 06:51:46] [INFO] [app.services.google_places_service] PlaceDetails API response status: OK
+[2025-04-28 06:51:46] [INFO] [app.services.google_places_service] Successfully retrieved details for place: Nakameguro
+[2025-04-28 06:51:46] [INFO] [app.database.models] Google Places API returned data for place: Nakameguro
+[2025-04-28 06:51:46] [INFO] [app.database.models] Found place_id from Google: ChIJAas2LziLGGAROimsxcM_Rqo
+[2025-04-28 06:51:46] [INFO] [app.database.models] Creating new activity for: Nakameguro
+[2025-04-28 06:51:46] [INFO] [app.database.models] Adding Google Places data to new activity
+[2025-04-28 06:51:46] [INFO] [app.database.models] Found city from Google: Meguro City
+[2025-04-28 06:51:46] [INFO] [app.database.models] Found country from Google: Japan
+[2025-04-28 06:51:46] [INFO] [app.database.models] Created new activity: Nakameguro (ID: 34)
+[2025-04-28 06:51:46] [INFO] [app.database.models] Activity.get_or_create called for: Nakameguro
+[2025-04-28 06:51:46] [INFO] [app.database.models] Category: Neighborhood
+[2025-04-28 06:51:46] [INFO] [app.database.models] With search_vicinity: Tokyo
+[2025-04-28 06:51:46] [INFO] [app.database.models] With destination_country: Japan
+[2025-04-28 06:51:46] [INFO] [app.database.models] Making Google Places API call for: Nakameguro
+[2025-04-28 06:51:46] [INFO] [app.services.google_places_service] Searching Google Places API for: Nakameguro
+[2025-04-28 06:51:46] [INFO] [app.services.google_places_service] Category: Neighborhood
+[2025-04-28 06:51:46] [INFO] [app.services.google_places_service] Search vicinity: Tokyo
+[2025-04-28 06:51:46] [INFO] [app.services.google_places_service] Destination country: Japan
+[2025-04-28 06:51:46] [INFO] [app.services.google_places_service] Making FindPlace API request for: Nakameguro
+[2025-04-28 06:51:47] [INFO] [app.services.google_places_service] FindPlace API response status: OK
+[2025-04-28 06:51:47] [INFO] [app.services.google_places_service] Found place_id for Nakameguro: ChIJAas2LziLGGAROimsxcM_Rqo
+[2025-04-28 06:51:47] [INFO] [app.services.google_places_service] Making PlaceDetails API request for place_id: ChIJAas2LziLGGAROimsxcM_Rqo
+[2025-04-28 06:51:47] [INFO] [app.services.google_places_service] PlaceDetails API response status: OK
+[2025-04-28 06:51:47] [INFO] [app.services.google_places_service] Successfully retrieved details for place: Nakameguro
+[2025-04-28 06:51:47] [INFO] [app.database.models] Google Places API returned data for place: Nakameguro
+[2025-04-28 06:51:47] [INFO] [app.database.models] Found place_id from Google: ChIJAas2LziLGGAROimsxcM_Rqo
+[2025-04-28 06:51:47] [INFO] [app.database.models] Found existing activity with this place_id: Nakameguro

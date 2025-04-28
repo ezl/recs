@@ -451,3 +451,487 @@
 [2025-04-28 06:46:51] [INFO] [test_google_places] Google Place ID: ChIJLU7jZClu5kcR4PcOOO6p3I0
 [2025-04-28 06:46:51] [INFO] [test_google_places] 
 ✅ Test completed successfully
+[2025-04-28 06:48:36] [INFO] [werkzeug]  * Detected change in '/Users/ezl/code/recs/test_tokyo_trip.py', reloading
+[2025-04-28 06:48:36] [INFO] [werkzeug]  * Restarting with stat
+[2025-04-28 06:48:36] [INFO] [app] Application started
+[2025-04-28 06:48:37] [WARNING] [werkzeug]  * Debugger is active!
+[2025-04-28 06:48:37] [INFO] [werkzeug]  * Debugger PIN: 547-989-235
+[2025-04-28 06:48:56] [INFO] [werkzeug]  * Detected change in '/Users/ezl/code/recs/test_trip.py', reloading
+[2025-04-28 06:48:56] [INFO] [werkzeug]  * Restarting with stat
+[2025-04-28 06:48:56] [INFO] [app] Application started
+[2025-04-28 06:48:57] [WARNING] [werkzeug]  * Debugger is active!
+[2025-04-28 06:48:57] [INFO] [werkzeug]  * Debugger PIN: 547-989-235
+[2025-04-28 06:49:01] [INFO] [app] Application started
+[2025-04-28 06:49:01] [INFO] [test_trip] Connecting to database...
+[2025-04-28 06:49:01] [INFO] [test_trip] Created test user: test@example.com
+[2025-04-28 06:49:01] [INFO] [test_trip] Created test trip to Paris with slug: paris-apr-2025
+[2025-04-28 06:49:01] [INFO] [app.database.models] Activity.get_or_create called for: Eiffel Tower
+[2025-04-28 06:49:01] [INFO] [app.database.models] Category: landmark
+[2025-04-28 06:49:01] [INFO] [app.database.models] With search_vicinity: Paris
+[2025-04-28 06:49:01] [INFO] [app.database.models] With destination_country: France
+[2025-04-28 06:49:01] [INFO] [app.database.models] Making Google Places API call for: Eiffel Tower
+[2025-04-28 06:49:01] [INFO] [app.services.google_places_service] Searching Google Places API for: Eiffel Tower
+[2025-04-28 06:49:01] [INFO] [app.services.google_places_service] Category: landmark
+[2025-04-28 06:49:01] [INFO] [app.services.google_places_service] Search vicinity: Paris
+[2025-04-28 06:49:01] [INFO] [app.services.google_places_service] Destination country: France
+[2025-04-28 06:49:01] [INFO] [app.services.google_places_service] Making FindPlace API request for: Eiffel Tower
+[2025-04-28 06:49:02] [INFO] [app.services.google_places_service] FindPlace API response status: OK
+[2025-04-28 06:49:02] [INFO] [app.services.google_places_service] Found place_id for Eiffel Tower: ChIJLU7jZClu5kcR4PcOOO6p3I0
+[2025-04-28 06:49:02] [INFO] [app.services.google_places_service] Making PlaceDetails API request for place_id: ChIJLU7jZClu5kcR4PcOOO6p3I0
+[2025-04-28 06:49:02] [INFO] [app.services.google_places_service] PlaceDetails API response status: OK
+[2025-04-28 06:49:02] [INFO] [app.services.google_places_service] Successfully retrieved details for place: Eiffel Tower
+[2025-04-28 06:49:02] [INFO] [app.database.models] Google Places API returned data for place: Eiffel Tower
+[2025-04-28 06:49:02] [INFO] [app.database.models] Found place_id from Google: ChIJLU7jZClu5kcR4PcOOO6p3I0
+[2025-04-28 06:49:02] [INFO] [app.database.models] Creating new activity for: Eiffel Tower
+[2025-04-28 06:49:02] [INFO] [app.database.models] Adding Google Places data to new activity
+[2025-04-28 06:49:02] [INFO] [app.database.models] Found city from Google: Paris
+[2025-04-28 06:49:02] [INFO] [app.database.models] Found country from Google: France
+[2025-04-28 06:49:02] [INFO] [app.database.models] Created new activity: Eiffel Tower (ID: 27)
+[2025-04-28 06:49:02] [INFO] [test_trip] Created recommendation for Eiffel Tower
+[2025-04-28 06:49:02] [INFO] [test_trip] 
+Verification:
+[2025-04-28 06:49:02] [INFO] [test_trip] - Users: 20
+[2025-04-28 06:49:02] [INFO] [test_trip] - Trips: 10
+[2025-04-28 06:49:02] [INFO] [test_trip] - Activities: 27
+[2025-04-28 06:49:02] [INFO] [test_trip] - Recommendations: 34
+[2025-04-28 06:49:02] [INFO] [test_trip] 
+Test successful!
+[2025-04-28 06:49:04] [INFO] [app] Application started
+[2025-04-28 06:49:04] [INFO] [test_trip] Connecting to database...
+[2025-04-28 06:49:16] [INFO] [werkzeug]  * Detected change in '/Users/ezl/code/recs/test_trip.py', reloading
+[2025-04-28 06:49:16] [INFO] [werkzeug]  * Restarting with stat
+[2025-04-28 06:49:16] [INFO] [app] Application started
+[2025-04-28 06:49:17] [WARNING] [werkzeug]  * Debugger is active!
+[2025-04-28 06:49:17] [INFO] [werkzeug]  * Debugger PIN: 547-989-235
+[2025-04-28 06:49:20] [INFO] [app] Application started
+[2025-04-28 06:49:20] [INFO] [test_trip] Connecting to database...
+[2025-04-28 06:49:20] [INFO] [test_trip] Cleaned up 1 existing test trips
+[2025-04-28 06:49:20] [INFO] [test_trip] Created test trip to Paris with slug: paris-apr-2025
+[2025-04-28 06:49:42] [INFO] [werkzeug]  * Detected change in '/Users/ezl/code/recs/test_trip.py', reloading
+[2025-04-28 06:49:42] [INFO] [werkzeug]  * Restarting with stat
+[2025-04-28 06:49:43] [INFO] [app] Application started
+[2025-04-28 06:49:43] [WARNING] [werkzeug]  * Debugger is active!
+[2025-04-28 06:49:43] [INFO] [werkzeug]  * Debugger PIN: 547-989-235
+[2025-04-28 06:49:49] [INFO] [app] Application started
+[2025-04-28 06:49:49] [INFO] [test_trip] Connecting to database...
+[2025-04-28 06:49:49] [INFO] [test_trip] Cleaned up 1 existing test trips
+[2025-04-28 06:49:49] [INFO] [test_trip] Cleaned up existing test activities
+[2025-04-28 06:49:49] [INFO] [test_trip] Created test trip to Paris with slug: paris-apr-2025
+[2025-04-28 06:49:49] [INFO] [test_trip] Created recommendation for Eiffel Tower
+[2025-04-28 06:49:49] [INFO] [test_trip] 
+Verification:
+[2025-04-28 06:49:49] [INFO] [test_trip] - Users: 20
+[2025-04-28 06:49:49] [INFO] [test_trip] - Trips: 10
+[2025-04-28 06:49:49] [INFO] [test_trip] - Activities: 27
+[2025-04-28 06:49:49] [INFO] [test_trip] - Recommendations: 34
+[2025-04-28 06:49:49] [INFO] [test_trip] 
+Test successful!
+[2025-04-28 06:51:25] [INFO] [app] Application started
+[2025-04-28 06:51:25] [INFO] [test_trip] Connecting to database...
+[2025-04-28 06:51:26] [INFO] [test_trip] Cleaned up 1 existing test trips
+[2025-04-28 06:51:26] [INFO] [test_trip] Cleaned up existing test activities
+[2025-04-28 06:51:26] [INFO] [test_trip] Created test trip to Paris with slug: paris-apr-2025
+[2025-04-28 06:51:26] [INFO] [test_trip] Created recommendation for Eiffel Tower
+[2025-04-28 06:51:26] [INFO] [test_trip] 
+Verification:
+[2025-04-28 06:51:26] [INFO] [test_trip] - Users: 20
+[2025-04-28 06:51:26] [INFO] [test_trip] - Trips: 10
+[2025-04-28 06:51:26] [INFO] [test_trip] - Activities: 27
+[2025-04-28 06:51:26] [INFO] [test_trip] - Recommendations: 34
+[2025-04-28 06:51:26] [INFO] [test_trip] 
+Test successful!
+[2025-04-28 06:51:26] [INFO] [app] Application started
+[2025-04-28 06:51:26] [INFO] [test_tokyo_trip] Creating Tokyo trip with recommendations...
+[2025-04-28 06:51:26] [INFO] [test_tokyo_trip] Cleared existing recommendations
+[2025-04-28 06:51:26] [ERROR] [test_tokyo_trip] Mock data file not found: /Users/ezl/code/recs/mock_data/asakusa_response.json
+[2025-04-28 06:51:26] [ERROR] [test_tokyo_trip] Failed to load mock data for Asakusa
+[2025-04-28 06:51:26] [ERROR] [test_tokyo_trip] Mock data file not found: /Users/ezl/code/recs/mock_data/asakusa_response.json
+[2025-04-28 06:51:26] [ERROR] [test_tokyo_trip] Failed to load mock data for Asakusa
+[2025-04-28 06:51:26] [ERROR] [test_tokyo_trip] Mock data file not found: /Users/ezl/code/recs/mock_data/teamlab_planets_response.json
+[2025-04-28 06:51:26] [ERROR] [test_tokyo_trip] Failed to load mock data for TeamLab Planets
+[2025-04-28 06:51:26] [ERROR] [test_tokyo_trip] Mock data file not found: /Users/ezl/code/recs/mock_data/teamlab_planets_response.json
+[2025-04-28 06:51:26] [ERROR] [test_tokyo_trip] Failed to load mock data for TeamLab Planets
+[2025-04-28 06:51:26] [ERROR] [test_tokyo_trip] Mock data file not found: /Users/ezl/code/recs/mock_data/ramen_street_response.json
+[2025-04-28 06:51:26] [ERROR] [test_tokyo_trip] Failed to load mock data for Ramen Street
+[2025-04-28 06:51:26] [ERROR] [test_tokyo_trip] Mock data file not found: /Users/ezl/code/recs/mock_data/ramen_street_(tokyo_station)_response.json
+[2025-04-28 06:51:26] [ERROR] [test_tokyo_trip] Failed to load mock data for Ramen Street (Tokyo Station)
+[2025-04-28 06:51:26] [ERROR] [test_tokyo_trip] Mock data file not found: /Users/ezl/code/recs/mock_data/shibuya_scramble_crossing_response.json
+[2025-04-28 06:51:26] [ERROR] [test_tokyo_trip] Failed to load mock data for Shibuya Scramble Crossing
+[2025-04-28 06:51:26] [ERROR] [test_tokyo_trip] Mock data file not found: /Users/ezl/code/recs/mock_data/tsukiji_market_response.json
+[2025-04-28 06:51:26] [ERROR] [test_tokyo_trip] Failed to load mock data for Tsukiji Market
+[2025-04-28 06:51:26] [ERROR] [test_tokyo_trip] Mock data file not found: /Users/ezl/code/recs/mock_data/nakameguro_response.json
+[2025-04-28 06:51:26] [ERROR] [test_tokyo_trip] Failed to load mock data for Nakameguro
+[2025-04-28 06:51:26] [ERROR] [test_tokyo_trip] Mock data file not found: /Users/ezl/code/recs/mock_data/nakameguro_response.json
+[2025-04-28 06:51:26] [ERROR] [test_tokyo_trip] Failed to load mock data for Nakameguro
+[2025-04-28 06:51:26] [INFO] [test_tokyo_trip] Added 10 recommendations
+[2025-04-28 06:51:26] [INFO] [test_tokyo_trip] 
+Trip Details:
+[2025-04-28 06:51:26] [INFO] [test_tokyo_trip] Trip: Tokyo
+[2025-04-28 06:51:26] [INFO] [test_tokyo_trip] Slug: tokyo-apr-2025
+[2025-04-28 06:51:26] [INFO] [test_tokyo_trip] Recommendations count: 0
+[2025-04-28 06:51:26] [INFO] [test_tokyo_trip] 
+Grouped Recommendations:
+[2025-04-28 06:51:26] [INFO] [test_tokyo_trip] --------------------------------------------------------------------------------
+[2025-04-28 06:51:37] [INFO] [app] Application started
+[2025-04-28 06:51:37] [INFO] [test_tokyo_trip] Creating Tokyo trip with recommendations...
+[2025-04-28 06:51:37] [INFO] [test_tokyo_trip] Cleared existing recommendations
+[2025-04-28 06:51:37] [INFO] [app.database.models] Activity.get_or_create called for: Asakusa
+[2025-04-28 06:51:37] [INFO] [app.database.models] Category: Historic district
+[2025-04-28 06:51:37] [INFO] [app.database.models] With search_vicinity: Tokyo
+[2025-04-28 06:51:37] [INFO] [app.database.models] With destination_country: Japan
+[2025-04-28 06:51:37] [INFO] [app.database.models] Making Google Places API call for: Asakusa
+[2025-04-28 06:51:37] [INFO] [app.services.google_places_service] Searching Google Places API for: Asakusa
+[2025-04-28 06:51:37] [INFO] [app.services.google_places_service] Category: Historic district
+[2025-04-28 06:51:37] [INFO] [app.services.google_places_service] Search vicinity: Tokyo
+[2025-04-28 06:51:37] [INFO] [app.services.google_places_service] Destination country: Japan
+[2025-04-28 06:51:37] [INFO] [app.services.google_places_service] Making FindPlace API request for: Asakusa
+[2025-04-28 06:51:38] [INFO] [app.services.google_places_service] FindPlace API response status: OK
+[2025-04-28 06:51:38] [INFO] [app.services.google_places_service] Found place_id for Asakusa: ChIJM1N_BMKOGGARZ0DHgTj9hHw
+[2025-04-28 06:51:38] [INFO] [app.services.google_places_service] Making PlaceDetails API request for place_id: ChIJM1N_BMKOGGARZ0DHgTj9hHw
+[2025-04-28 06:51:38] [INFO] [app.services.google_places_service] PlaceDetails API response status: OK
+[2025-04-28 06:51:38] [INFO] [app.services.google_places_service] Successfully retrieved details for place: Asakusa
+[2025-04-28 06:51:38] [INFO] [app.database.models] Google Places API returned data for place: Asakusa
+[2025-04-28 06:51:38] [INFO] [app.database.models] Found place_id from Google: ChIJM1N_BMKOGGARZ0DHgTj9hHw
+[2025-04-28 06:51:38] [INFO] [app.database.models] Creating new activity for: Asakusa
+[2025-04-28 06:51:38] [INFO] [app.database.models] Adding Google Places data to new activity
+[2025-04-28 06:51:38] [INFO] [app.database.models] Found city from Google: Taito City
+[2025-04-28 06:51:38] [INFO] [app.database.models] Found country from Google: Japan
+[2025-04-28 06:51:38] [INFO] [app.database.models] Created new activity: Asakusa (ID: 28)
+[2025-04-28 06:51:38] [INFO] [test_tokyo_trip] Saved mock data to /Users/ezl/code/recs/mock_data/asakusa_response.json
+[2025-04-28 06:51:38] [INFO] [app.database.models] Activity.get_or_create called for: Asakusa
+[2025-04-28 06:51:38] [INFO] [app.database.models] Category: Historic area
+[2025-04-28 06:51:38] [INFO] [app.database.models] With search_vicinity: Tokyo
+[2025-04-28 06:51:38] [INFO] [app.database.models] With destination_country: Japan
+[2025-04-28 06:51:38] [INFO] [app.database.models] Making Google Places API call for: Asakusa
+[2025-04-28 06:51:38] [INFO] [app.services.google_places_service] Searching Google Places API for: Asakusa
+[2025-04-28 06:51:38] [INFO] [app.services.google_places_service] Category: Historic area
+[2025-04-28 06:51:38] [INFO] [app.services.google_places_service] Search vicinity: Tokyo
+[2025-04-28 06:51:38] [INFO] [app.services.google_places_service] Destination country: Japan
+[2025-04-28 06:51:38] [INFO] [app.services.google_places_service] Making FindPlace API request for: Asakusa
+[2025-04-28 06:51:39] [INFO] [app.services.google_places_service] FindPlace API response status: OK
+[2025-04-28 06:51:39] [INFO] [app.services.google_places_service] Found place_id for Asakusa: ChIJM1N_BMKOGGARZ0DHgTj9hHw
+[2025-04-28 06:51:39] [INFO] [app.services.google_places_service] Making PlaceDetails API request for place_id: ChIJM1N_BMKOGGARZ0DHgTj9hHw
+[2025-04-28 06:51:39] [INFO] [app.services.google_places_service] PlaceDetails API response status: OK
+[2025-04-28 06:51:39] [INFO] [app.services.google_places_service] Successfully retrieved details for place: Asakusa
+[2025-04-28 06:51:39] [INFO] [app.database.models] Google Places API returned data for place: Asakusa
+[2025-04-28 06:51:39] [INFO] [app.database.models] Found place_id from Google: ChIJM1N_BMKOGGARZ0DHgTj9hHw
+[2025-04-28 06:51:39] [INFO] [app.database.models] Found existing activity with this place_id: Asakusa
+[2025-04-28 06:51:39] [INFO] [app.database.models] Activity.get_or_create called for: TeamLab Planets
+[2025-04-28 06:51:39] [INFO] [app.database.models] Category: Interactive art exhibition
+[2025-04-28 06:51:39] [INFO] [app.database.models] With search_vicinity: Tokyo
+[2025-04-28 06:51:39] [INFO] [app.database.models] With destination_country: Japan
+[2025-04-28 06:51:39] [INFO] [app.database.models] Making Google Places API call for: TeamLab Planets
+[2025-04-28 06:51:39] [INFO] [app.services.google_places_service] Searching Google Places API for: TeamLab Planets
+[2025-04-28 06:51:39] [INFO] [app.services.google_places_service] Category: Interactive art exhibition
+[2025-04-28 06:51:39] [INFO] [app.services.google_places_service] Search vicinity: Tokyo
+[2025-04-28 06:51:39] [INFO] [app.services.google_places_service] Destination country: Japan
+[2025-04-28 06:51:39] [INFO] [app.services.google_places_service] Making FindPlace API request for: TeamLab Planets
+[2025-04-28 06:51:40] [INFO] [app.services.google_places_service] FindPlace API response status: OK
+[2025-04-28 06:51:40] [INFO] [app.services.google_places_service] Found place_id for TeamLab Planets: ChIJSeco5wiJGGARItbTS8lQ5G0
+[2025-04-28 06:51:40] [INFO] [app.services.google_places_service] Making PlaceDetails API request for place_id: ChIJSeco5wiJGGARItbTS8lQ5G0
+[2025-04-28 06:51:40] [INFO] [app.services.google_places_service] PlaceDetails API response status: OK
+[2025-04-28 06:51:40] [INFO] [app.services.google_places_service] Successfully retrieved details for place: teamLab Planets TOKYO DMM
+[2025-04-28 06:51:40] [INFO] [app.database.models] Google Places API returned data for place: teamLab Planets TOKYO DMM
+[2025-04-28 06:51:40] [INFO] [app.database.models] Found place_id from Google: ChIJSeco5wiJGGARItbTS8lQ5G0
+[2025-04-28 06:51:40] [INFO] [app.database.models] Creating new activity for: TeamLab Planets
+[2025-04-28 06:51:40] [INFO] [app.database.models] Adding Google Places data to new activity
+[2025-04-28 06:51:40] [INFO] [app.database.models] Found city from Google: Koto City
+[2025-04-28 06:51:40] [INFO] [app.database.models] Found country from Google: Japan
+[2025-04-28 06:51:40] [INFO] [app.database.models] Created new activity: TeamLab Planets (ID: 29)
+[2025-04-28 06:51:40] [INFO] [test_tokyo_trip] Saved mock data to /Users/ezl/code/recs/mock_data/teamlab_planets_response.json
+[2025-04-28 06:51:40] [INFO] [app.database.models] Activity.get_or_create called for: TeamLab Planets
+[2025-04-28 06:51:40] [INFO] [app.database.models] Category: Art Museum
+[2025-04-28 06:51:40] [INFO] [app.database.models] With search_vicinity: Tokyo
+[2025-04-28 06:51:40] [INFO] [app.database.models] With destination_country: Japan
+[2025-04-28 06:51:40] [INFO] [app.database.models] Making Google Places API call for: TeamLab Planets
+[2025-04-28 06:51:40] [INFO] [app.services.google_places_service] Searching Google Places API for: TeamLab Planets
+[2025-04-28 06:51:40] [INFO] [app.services.google_places_service] Category: Art Museum
+[2025-04-28 06:51:40] [INFO] [app.services.google_places_service] Search vicinity: Tokyo
+[2025-04-28 06:51:40] [INFO] [app.services.google_places_service] Destination country: Japan
+[2025-04-28 06:51:40] [INFO] [app.services.google_places_service] Making FindPlace API request for: TeamLab Planets
+[2025-04-28 06:51:40] [INFO] [app.services.google_places_service] FindPlace API response status: OK
+[2025-04-28 06:51:40] [INFO] [app.services.google_places_service] Found place_id for TeamLab Planets: ChIJSeco5wiJGGARItbTS8lQ5G0
+[2025-04-28 06:51:40] [INFO] [app.services.google_places_service] Making PlaceDetails API request for place_id: ChIJSeco5wiJGGARItbTS8lQ5G0
+[2025-04-28 06:51:41] [INFO] [app.services.google_places_service] PlaceDetails API response status: OK
+[2025-04-28 06:51:41] [INFO] [app.services.google_places_service] Successfully retrieved details for place: teamLab Planets TOKYO DMM
+[2025-04-28 06:51:41] [INFO] [app.database.models] Google Places API returned data for place: teamLab Planets TOKYO DMM
+[2025-04-28 06:51:41] [INFO] [app.database.models] Found place_id from Google: ChIJSeco5wiJGGARItbTS8lQ5G0
+[2025-04-28 06:51:41] [INFO] [app.database.models] Found existing activity with this place_id: TeamLab Planets
+[2025-04-28 06:51:41] [INFO] [app.database.models] Activity.get_or_create called for: Ramen Street
+[2025-04-28 06:51:41] [INFO] [app.database.models] Category: Restaurant
+[2025-04-28 06:51:41] [INFO] [app.database.models] With search_vicinity: Tokyo
+[2025-04-28 06:51:41] [INFO] [app.database.models] With destination_country: Japan
+[2025-04-28 06:51:41] [INFO] [app.database.models] Making Google Places API call for: Ramen Street
+[2025-04-28 06:51:41] [INFO] [app.services.google_places_service] Searching Google Places API for: Ramen Street
+[2025-04-28 06:51:41] [INFO] [app.services.google_places_service] Category: Restaurant
+[2025-04-28 06:51:41] [INFO] [app.services.google_places_service] Search vicinity: Tokyo
+[2025-04-28 06:51:41] [INFO] [app.services.google_places_service] Destination country: Japan
+[2025-04-28 06:51:41] [INFO] [app.services.google_places_service] Making FindPlace API request for: Ramen Street
+[2025-04-28 06:51:41] [INFO] [app.services.google_places_service] FindPlace API response status: OK
+[2025-04-28 06:51:41] [INFO] [app.services.google_places_service] Found place_id for Ramen Street: ChIJA6ITw0fGwoARSgap8a1UAYA
+[2025-04-28 06:51:41] [INFO] [app.services.google_places_service] Making PlaceDetails API request for place_id: ChIJA6ITw0fGwoARSgap8a1UAYA
+[2025-04-28 06:51:42] [INFO] [app.services.google_places_service] PlaceDetails API response status: OK
+[2025-04-28 06:51:42] [INFO] [app.services.google_places_service] Successfully retrieved details for place: Mr. Ramen
+[2025-04-28 06:51:42] [INFO] [app.database.models] Google Places API returned data for place: Mr. Ramen
+[2025-04-28 06:51:42] [INFO] [app.database.models] Found place_id from Google: ChIJA6ITw0fGwoARSgap8a1UAYA
+[2025-04-28 06:51:42] [INFO] [app.database.models] Creating new activity for: Ramen Street
+[2025-04-28 06:51:42] [INFO] [app.database.models] Adding Google Places data to new activity
+[2025-04-28 06:51:42] [INFO] [app.database.models] Found city from Google: Los Angeles
+[2025-04-28 06:51:42] [INFO] [app.database.models] Found country from Google: United States
+[2025-04-28 06:51:42] [INFO] [app.database.models] Created new activity: Ramen Street (ID: 30)
+[2025-04-28 06:51:42] [INFO] [test_tokyo_trip] Saved mock data to /Users/ezl/code/recs/mock_data/ramen_street_response.json
+[2025-04-28 06:51:42] [INFO] [app.database.models] Activity.get_or_create called for: Ramen Street (Tokyo Station)
+[2025-04-28 06:51:42] [INFO] [app.database.models] Category: Food
+[2025-04-28 06:51:42] [INFO] [app.database.models] With search_vicinity: Tokyo
+[2025-04-28 06:51:42] [INFO] [app.database.models] With destination_country: Japan
+[2025-04-28 06:51:42] [INFO] [app.database.models] Making Google Places API call for: Ramen Street (Tokyo Station)
+[2025-04-28 06:51:42] [INFO] [app.services.google_places_service] Searching Google Places API for: Ramen Street (Tokyo Station)
+[2025-04-28 06:51:42] [INFO] [app.services.google_places_service] Category: Food
+[2025-04-28 06:51:42] [INFO] [app.services.google_places_service] Search vicinity: Tokyo
+[2025-04-28 06:51:42] [INFO] [app.services.google_places_service] Destination country: Japan
+[2025-04-28 06:51:42] [INFO] [app.services.google_places_service] Making FindPlace API request for: Ramen Street (Tokyo Station)
+[2025-04-28 06:51:43] [INFO] [app.services.google_places_service] FindPlace API response status: OK
+[2025-04-28 06:51:43] [INFO] [app.services.google_places_service] Found place_id for Ramen Street (Tokyo Station): ChIJGeYlX_mLGGARwsJahMe-XZg
+[2025-04-28 06:51:43] [INFO] [app.services.google_places_service] Making PlaceDetails API request for place_id: ChIJGeYlX_mLGGARwsJahMe-XZg
+[2025-04-28 06:51:43] [INFO] [app.services.google_places_service] PlaceDetails API response status: OK
+[2025-04-28 06:51:43] [INFO] [app.services.google_places_service] Successfully retrieved details for place: Tokyo Ramen Street
+[2025-04-28 06:51:43] [INFO] [app.database.models] Google Places API returned data for place: Tokyo Ramen Street
+[2025-04-28 06:51:43] [INFO] [app.database.models] Found place_id from Google: ChIJGeYlX_mLGGARwsJahMe-XZg
+[2025-04-28 06:51:43] [INFO] [app.database.models] Creating new activity for: Ramen Street (Tokyo Station)
+[2025-04-28 06:51:43] [INFO] [app.database.models] Adding Google Places data to new activity
+[2025-04-28 06:51:43] [INFO] [app.database.models] Found city from Google: Chiyoda City
+[2025-04-28 06:51:43] [INFO] [app.database.models] Found country from Google: Japan
+[2025-04-28 06:51:43] [INFO] [app.database.models] Created new activity: Ramen Street (Tokyo Station) (ID: 31)
+[2025-04-28 06:51:43] [INFO] [test_tokyo_trip] Saved mock data to /Users/ezl/code/recs/mock_data/ramen_street_(tokyo_station)_response.json
+[2025-04-28 06:51:43] [INFO] [app.database.models] Activity.get_or_create called for: Shibuya Scramble Crossing
+[2025-04-28 06:51:43] [INFO] [app.database.models] Category: Famous landmark
+[2025-04-28 06:51:43] [INFO] [app.database.models] With search_vicinity: Tokyo
+[2025-04-28 06:51:43] [INFO] [app.database.models] With destination_country: Japan
+[2025-04-28 06:51:43] [INFO] [app.database.models] Making Google Places API call for: Shibuya Scramble Crossing
+[2025-04-28 06:51:43] [INFO] [app.services.google_places_service] Searching Google Places API for: Shibuya Scramble Crossing
+[2025-04-28 06:51:43] [INFO] [app.services.google_places_service] Category: Famous landmark
+[2025-04-28 06:51:43] [INFO] [app.services.google_places_service] Search vicinity: Tokyo
+[2025-04-28 06:51:43] [INFO] [app.services.google_places_service] Destination country: Japan
+[2025-04-28 06:51:43] [INFO] [app.services.google_places_service] Making FindPlace API request for: Shibuya Scramble Crossing
+[2025-04-28 06:51:44] [INFO] [app.services.google_places_service] FindPlace API response status: OK
+[2025-04-28 06:51:44] [INFO] [app.services.google_places_service] Found place_id for Shibuya Scramble Crossing: ChIJK9EM68qLGGARacmu4KJj5SA
+[2025-04-28 06:51:44] [INFO] [app.services.google_places_service] Making PlaceDetails API request for place_id: ChIJK9EM68qLGGARacmu4KJj5SA
+[2025-04-28 06:51:44] [INFO] [app.services.google_places_service] PlaceDetails API response status: OK
+[2025-04-28 06:51:44] [INFO] [app.services.google_places_service] Successfully retrieved details for place: Shibuya Scramble Crossing
+[2025-04-28 06:51:44] [INFO] [app.database.models] Google Places API returned data for place: Shibuya Scramble Crossing
+[2025-04-28 06:51:44] [INFO] [app.database.models] Found place_id from Google: ChIJK9EM68qLGGARacmu4KJj5SA
+[2025-04-28 06:51:44] [INFO] [app.database.models] Creating new activity for: Shibuya Scramble Crossing
+[2025-04-28 06:51:44] [INFO] [app.database.models] Adding Google Places data to new activity
+[2025-04-28 06:51:44] [INFO] [app.database.models] Found city from Google: Shibuya
+[2025-04-28 06:51:44] [INFO] [app.database.models] Found country from Google: Japan
+[2025-04-28 06:51:44] [INFO] [app.database.models] Created new activity: Shibuya Scramble Crossing (ID: 32)
+[2025-04-28 06:51:44] [INFO] [test_tokyo_trip] Saved mock data to /Users/ezl/code/recs/mock_data/shibuya_scramble_crossing_response.json
+[2025-04-28 06:51:44] [INFO] [app.database.models] Activity.get_or_create called for: Tsukiji Market
+[2025-04-28 06:51:44] [INFO] [app.database.models] Category: Market
+[2025-04-28 06:51:44] [INFO] [app.database.models] With search_vicinity: Tokyo
+[2025-04-28 06:51:44] [INFO] [app.database.models] With destination_country: Japan
+[2025-04-28 06:51:44] [INFO] [app.database.models] Making Google Places API call for: Tsukiji Market
+[2025-04-28 06:51:44] [INFO] [app.services.google_places_service] Searching Google Places API for: Tsukiji Market
+[2025-04-28 06:51:44] [INFO] [app.services.google_places_service] Category: Market
+[2025-04-28 06:51:44] [INFO] [app.services.google_places_service] Search vicinity: Tokyo
+[2025-04-28 06:51:44] [INFO] [app.services.google_places_service] Destination country: Japan
+[2025-04-28 06:51:44] [INFO] [app.services.google_places_service] Making FindPlace API request for: Tsukiji Market
+[2025-04-28 06:51:45] [INFO] [app.services.google_places_service] FindPlace API response status: OK
+[2025-04-28 06:51:45] [INFO] [app.services.google_places_service] Found place_id for Tsukiji Market: ChIJW2cLzSGLGGARXAKXv6EkbqI
+[2025-04-28 06:51:45] [INFO] [app.services.google_places_service] Making PlaceDetails API request for place_id: ChIJW2cLzSGLGGARXAKXv6EkbqI
+[2025-04-28 06:51:45] [INFO] [app.services.google_places_service] PlaceDetails API response status: OK
+[2025-04-28 06:51:45] [INFO] [app.services.google_places_service] Successfully retrieved details for place: Tsukiji Outer Market
+[2025-04-28 06:51:45] [INFO] [app.database.models] Google Places API returned data for place: Tsukiji Outer Market
+[2025-04-28 06:51:45] [INFO] [app.database.models] Found place_id from Google: ChIJW2cLzSGLGGARXAKXv6EkbqI
+[2025-04-28 06:51:45] [INFO] [app.database.models] Creating new activity for: Tsukiji Market
+[2025-04-28 06:51:45] [INFO] [app.database.models] Adding Google Places data to new activity
+[2025-04-28 06:51:45] [INFO] [app.database.models] Found city from Google: Chuo City
+[2025-04-28 06:51:45] [INFO] [app.database.models] Found country from Google: Japan
+[2025-04-28 06:51:45] [INFO] [app.database.models] Created new activity: Tsukiji Market (ID: 33)
+[2025-04-28 06:51:45] [INFO] [test_tokyo_trip] Saved mock data to /Users/ezl/code/recs/mock_data/tsukiji_market_response.json
+[2025-04-28 06:51:45] [INFO] [app.database.models] Activity.get_or_create called for: Nakameguro
+[2025-04-28 06:51:45] [INFO] [app.database.models] Category: Neighborhood
+[2025-04-28 06:51:45] [INFO] [app.database.models] With search_vicinity: Tokyo
+[2025-04-28 06:51:45] [INFO] [app.database.models] With destination_country: Japan
+[2025-04-28 06:51:45] [INFO] [app.database.models] Making Google Places API call for: Nakameguro
+[2025-04-28 06:51:45] [INFO] [app.services.google_places_service] Searching Google Places API for: Nakameguro
+[2025-04-28 06:51:45] [INFO] [app.services.google_places_service] Category: Neighborhood
+[2025-04-28 06:51:45] [INFO] [app.services.google_places_service] Search vicinity: Tokyo
+[2025-04-28 06:51:45] [INFO] [app.services.google_places_service] Destination country: Japan
+[2025-04-28 06:51:45] [INFO] [app.services.google_places_service] Making FindPlace API request for: Nakameguro
+[2025-04-28 06:51:46] [INFO] [app.services.google_places_service] FindPlace API response status: OK
+[2025-04-28 06:51:46] [INFO] [app.services.google_places_service] Found place_id for Nakameguro: ChIJAas2LziLGGAROimsxcM_Rqo
+[2025-04-28 06:51:46] [INFO] [app.services.google_places_service] Making PlaceDetails API request for place_id: ChIJAas2LziLGGAROimsxcM_Rqo
+[2025-04-28 06:51:46] [INFO] [app.services.google_places_service] PlaceDetails API response status: OK
+[2025-04-28 06:51:46] [INFO] [app.services.google_places_service] Successfully retrieved details for place: Nakameguro
+[2025-04-28 06:51:46] [INFO] [app.database.models] Google Places API returned data for place: Nakameguro
+[2025-04-28 06:51:46] [INFO] [app.database.models] Found place_id from Google: ChIJAas2LziLGGAROimsxcM_Rqo
+[2025-04-28 06:51:46] [INFO] [app.database.models] Creating new activity for: Nakameguro
+[2025-04-28 06:51:46] [INFO] [app.database.models] Adding Google Places data to new activity
+[2025-04-28 06:51:46] [INFO] [app.database.models] Found city from Google: Meguro City
+[2025-04-28 06:51:46] [INFO] [app.database.models] Found country from Google: Japan
+[2025-04-28 06:51:46] [INFO] [app.database.models] Created new activity: Nakameguro (ID: 34)
+[2025-04-28 06:51:46] [INFO] [test_tokyo_trip] Saved mock data to /Users/ezl/code/recs/mock_data/nakameguro_response.json
+[2025-04-28 06:51:46] [INFO] [app.database.models] Activity.get_or_create called for: Nakameguro
+[2025-04-28 06:51:46] [INFO] [app.database.models] Category: Neighborhood
+[2025-04-28 06:51:46] [INFO] [app.database.models] With search_vicinity: Tokyo
+[2025-04-28 06:51:46] [INFO] [app.database.models] With destination_country: Japan
+[2025-04-28 06:51:46] [INFO] [app.database.models] Making Google Places API call for: Nakameguro
+[2025-04-28 06:51:46] [INFO] [app.services.google_places_service] Searching Google Places API for: Nakameguro
+[2025-04-28 06:51:46] [INFO] [app.services.google_places_service] Category: Neighborhood
+[2025-04-28 06:51:46] [INFO] [app.services.google_places_service] Search vicinity: Tokyo
+[2025-04-28 06:51:46] [INFO] [app.services.google_places_service] Destination country: Japan
+[2025-04-28 06:51:46] [INFO] [app.services.google_places_service] Making FindPlace API request for: Nakameguro
+[2025-04-28 06:51:47] [INFO] [app.services.google_places_service] FindPlace API response status: OK
+[2025-04-28 06:51:47] [INFO] [app.services.google_places_service] Found place_id for Nakameguro: ChIJAas2LziLGGAROimsxcM_Rqo
+[2025-04-28 06:51:47] [INFO] [app.services.google_places_service] Making PlaceDetails API request for place_id: ChIJAas2LziLGGAROimsxcM_Rqo
+[2025-04-28 06:51:47] [INFO] [app.services.google_places_service] PlaceDetails API response status: OK
+[2025-04-28 06:51:47] [INFO] [app.services.google_places_service] Successfully retrieved details for place: Nakameguro
+[2025-04-28 06:51:47] [INFO] [app.database.models] Google Places API returned data for place: Nakameguro
+[2025-04-28 06:51:47] [INFO] [app.database.models] Found place_id from Google: ChIJAas2LziLGGAROimsxcM_Rqo
+[2025-04-28 06:51:47] [INFO] [app.database.models] Found existing activity with this place_id: Nakameguro
+[2025-04-28 06:51:47] [INFO] [test_tokyo_trip] Added 10 recommendations
+[2025-04-28 06:51:47] [INFO] [test_tokyo_trip] 
+Trip Details:
+[2025-04-28 06:51:47] [INFO] [test_tokyo_trip] Trip: Tokyo
+[2025-04-28 06:51:47] [INFO] [test_tokyo_trip] Slug: tokyo-apr-2025
+[2025-04-28 06:51:47] [INFO] [test_tokyo_trip] Recommendations count: 10
+[2025-04-28 06:51:47] [INFO] [test_tokyo_trip] 
+Grouped Recommendations:
+[2025-04-28 06:51:47] [INFO] [test_tokyo_trip] --------------------------------------------------------------------------------
+[2025-04-28 06:51:47] [INFO] [test_tokyo_trip] Activity: Asakusa (ID: 28)
+[2025-04-28 06:51:47] [INFO] [test_tokyo_trip] Category: Historic district
+[2025-04-28 06:51:47] [INFO] [test_tokyo_trip] Recommended by 2 people:
+[2025-04-28 06:51:47] [INFO] [test_tokyo_trip]   - Alpha: "Explore the traditional charm of Asakusa, featuring ancient temples, street food vendors, and a glimpse of old-school Tokyo vibes."
+[2025-04-28 06:51:47] [INFO] [test_tokyo_trip]   - Charlie: "Old-school Tokyo vibes, visit Sensoji Temple and grab some street snacks."
+[2025-04-28 06:51:47] [INFO] [test_tokyo_trip] --------------------------------------------------------------------------------
+[2025-04-28 06:51:47] [INFO] [test_tokyo_trip] Activity: TeamLab Planets (ID: 29)
+[2025-04-28 06:51:47] [INFO] [test_tokyo_trip] Category: Interactive art exhibition
+[2025-04-28 06:51:47] [INFO] [test_tokyo_trip] Recommended by 2 people:
+[2025-04-28 06:51:47] [INFO] [test_tokyo_trip]   - Alpha: "An immersive experience where visitors can walk through interactive art installations resembling a dream."
+[2025-04-28 06:51:47] [INFO] [test_tokyo_trip]   - Charlie: "Wild immersive art experience, feels like another world."
+[2025-04-28 06:51:47] [INFO] [test_tokyo_trip] --------------------------------------------------------------------------------
+[2025-04-28 06:51:47] [INFO] [test_tokyo_trip] Activity: Ramen Street (ID: 30)
+[2025-04-28 06:51:47] [INFO] [test_tokyo_trip] Category: Restaurant
+[2025-04-28 06:51:47] [INFO] [test_tokyo_trip] Recommended by 1 people:
+[2025-04-28 06:51:47] [INFO] [test_tokyo_trip]   - Bravo: "Don't miss Ramen Street at Tokyo Station for a must-try culinary experience in Tokyo."
+[2025-04-28 06:51:47] [INFO] [test_tokyo_trip] --------------------------------------------------------------------------------
+[2025-04-28 06:51:47] [INFO] [test_tokyo_trip] Activity: Ramen Street (Tokyo Station) (ID: 31)
+[2025-04-28 06:51:47] [INFO] [test_tokyo_trip] Category: Food
+[2025-04-28 06:51:47] [INFO] [test_tokyo_trip] Recommended by 1 people:
+[2025-04-28 06:51:47] [INFO] [test_tokyo_trip]   - Charlie: "A whole underground row of famous ramen shops, easy and delicious."
+[2025-04-28 06:51:47] [INFO] [test_tokyo_trip] --------------------------------------------------------------------------------
+[2025-04-28 06:51:47] [INFO] [test_tokyo_trip] Activity: Shibuya Scramble Crossing (ID: 32)
+[2025-04-28 06:51:47] [INFO] [test_tokyo_trip] Category: Famous landmark
+[2025-04-28 06:51:47] [INFO] [test_tokyo_trip] Recommended by 1 people:
+[2025-04-28 06:51:47] [INFO] [test_tokyo_trip]   - Alpha: "Experience the iconic and bustling Shibuya Scramble Crossing, and explore the charming streets of Shibuya."
+[2025-04-28 06:51:47] [INFO] [test_tokyo_trip] --------------------------------------------------------------------------------
+[2025-04-28 06:51:47] [INFO] [test_tokyo_trip] Activity: Tsukiji Market (ID: 33)
+[2025-04-28 06:51:47] [INFO] [test_tokyo_trip] Category: Market
+[2025-04-28 06:51:47] [INFO] [test_tokyo_trip] Recommended by 1 people:
+[2025-04-28 06:51:47] [INFO] [test_tokyo_trip]   - Alpha: "Experience the lively atmosphere of Tsukiji Market, known for its fresh seafood and sushi breakfast offerings."
+[2025-04-28 06:51:47] [INFO] [test_tokyo_trip] --------------------------------------------------------------------------------
+[2025-04-28 06:51:47] [INFO] [test_tokyo_trip] Activity: Nakameguro (ID: 34)
+[2025-04-28 06:51:47] [INFO] [test_tokyo_trip] Category: Neighborhood
+[2025-04-28 06:51:47] [INFO] [test_tokyo_trip] Recommended by 2 people:
+[2025-04-28 06:51:47] [INFO] [test_tokyo_trip]   - Bravo: "Nakameguro offers a peaceful morning by the river with opportunities to enjoy coffee and a leisurely walk."
+[2025-04-28 06:51:47] [INFO] [test_tokyo_trip]   - Charlie: "Chill riverside neighborhood, great for coffee shops and boutique shopping."
+[2025-04-28 06:51:47] [INFO] [test_tokyo_trip] --------------------------------------------------------------------------------
+[2025-04-28 06:51:55] [INFO] [app] Application started
+[2025-04-28 06:51:55] [INFO] [test_trip] Connecting to database...
+[2025-04-28 06:51:55] [INFO] [test_trip] Cleaned up 1 existing test trips
+[2025-04-28 06:51:55] [INFO] [test_trip] Cleaned up existing test activities
+[2025-04-28 06:51:55] [INFO] [test_trip] Created test trip to Paris with slug: paris-apr-2025
+[2025-04-28 06:51:55] [INFO] [test_trip] Created recommendation for Eiffel Tower
+[2025-04-28 06:51:55] [INFO] [test_trip] 
+Verification:
+[2025-04-28 06:51:55] [INFO] [test_trip] - Users: 20
+[2025-04-28 06:51:55] [INFO] [test_trip] - Trips: 10
+[2025-04-28 06:51:55] [INFO] [test_trip] - Activities: 34
+[2025-04-28 06:51:55] [INFO] [test_trip] - Recommendations: 23
+[2025-04-28 06:51:55] [INFO] [test_trip] 
+Test successful!
+[2025-04-28 06:51:55] [INFO] [app] Application started
+[2025-04-28 06:51:55] [INFO] [test_tokyo_trip] Creating Tokyo trip with recommendations...
+[2025-04-28 06:51:55] [INFO] [test_tokyo_trip] Cleared existing recommendations
+[2025-04-28 06:52:34] [INFO] [werkzeug]  * Detected change in '/Users/ezl/code/recs/test_tokyo_trip.py', reloading
+[2025-04-28 06:52:34] [INFO] [werkzeug]  * Restarting with stat
+[2025-04-28 06:52:34] [INFO] [app] Application started
+[2025-04-28 06:52:34] [WARNING] [werkzeug]  * Debugger is active!
+[2025-04-28 06:52:34] [INFO] [werkzeug]  * Debugger PIN: 547-989-235
+[2025-04-28 06:52:42] [INFO] [app] Application started
+[2025-04-28 06:52:42] [INFO] [test_trip] Connecting to database...
+[2025-04-28 06:52:42] [INFO] [test_trip] Cleaned up 1 existing test trips
+[2025-04-28 06:52:42] [INFO] [test_trip] Cleaned up existing test activities
+[2025-04-28 06:52:42] [INFO] [test_trip] Created test trip to Paris with slug: paris-apr-2025
+[2025-04-28 06:52:42] [INFO] [test_trip] Created recommendation for Eiffel Tower
+[2025-04-28 06:52:42] [INFO] [test_trip] 
+Verification:
+[2025-04-28 06:52:42] [INFO] [test_trip] - Users: 20
+[2025-04-28 06:52:42] [INFO] [test_trip] - Trips: 10
+[2025-04-28 06:52:42] [INFO] [test_trip] - Activities: 34
+[2025-04-28 06:52:42] [INFO] [test_trip] - Recommendations: 13
+[2025-04-28 06:52:42] [INFO] [test_trip] 
+Test successful!
+[2025-04-28 06:52:43] [INFO] [app] Application started
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip] Creating Tokyo trip with recommendations...
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip] Cleared existing recommendations
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip] Using existing activity: Asakusa (ID: 28)
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip] Using existing activity: Asakusa (ID: 28)
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip] Using existing activity: TeamLab Planets (ID: 29)
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip] Using existing activity: TeamLab Planets (ID: 29)
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip] Using existing activity: Ramen Street (ID: 30)
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip] Using existing activity: Ramen Street (Tokyo Station) (ID: 31)
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip] Using existing activity: Shibuya Scramble Crossing (ID: 32)
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip] Using existing activity: Tsukiji Market (ID: 33)
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip] Using existing activity: Nakameguro (ID: 34)
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip] Using existing activity: Nakameguro (ID: 34)
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip] Added 10 recommendations
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip] 
+Trip Details:
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip] Trip: Tokyo
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip] Slug: tokyo-apr-2025
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip] Recommendations count: 10
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip] 
+Grouped Recommendations:
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip] --------------------------------------------------------------------------------
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip] Activity: Asakusa (ID: 28)
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip] Category: Historic district
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip] Recommended by 2 people:
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip]   - Alpha: "Explore the traditional charm of Asakusa, featuring ancient temples, street food vendors, and a glimpse of old-school Tokyo vibes."
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip]   - Charlie: "Old-school Tokyo vibes, visit Sensoji Temple and grab some street snacks."
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip] --------------------------------------------------------------------------------
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip] Activity: TeamLab Planets (ID: 29)
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip] Category: Interactive art exhibition
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip] Recommended by 2 people:
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip]   - Alpha: "An immersive experience where visitors can walk through interactive art installations resembling a dream."
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip]   - Charlie: "Wild immersive art experience, feels like another world."
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip] --------------------------------------------------------------------------------
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip] Activity: Ramen Street (ID: 30)
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip] Category: Restaurant
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip] Recommended by 1 people:
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip]   - Bravo: "Don't miss Ramen Street at Tokyo Station for a must-try culinary experience in Tokyo."
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip] --------------------------------------------------------------------------------
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip] Activity: Ramen Street (Tokyo Station) (ID: 31)
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip] Category: Food
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip] Recommended by 1 people:
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip]   - Charlie: "A whole underground row of famous ramen shops, easy and delicious."
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip] --------------------------------------------------------------------------------
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip] Activity: Shibuya Scramble Crossing (ID: 32)
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip] Category: Famous landmark
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip] Recommended by 1 people:
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip]   - Alpha: "Experience the iconic and bustling Shibuya Scramble Crossing, and explore the charming streets of Shibuya."
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip] --------------------------------------------------------------------------------
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip] Activity: Tsukiji Market (ID: 33)
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip] Category: Market
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip] Recommended by 1 people:
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip]   - Alpha: "Experience the lively atmosphere of Tsukiji Market, known for its fresh seafood and sushi breakfast offerings."
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip] --------------------------------------------------------------------------------
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip] Activity: Nakameguro (ID: 34)
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip] Category: Neighborhood
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip] Recommended by 2 people:
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip]   - Bravo: "Nakameguro offers a peaceful morning by the river with opportunities to enjoy coffee and a leisurely walk."
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip]   - Charlie: "Chill riverside neighborhood, great for coffee shops and boutique shopping."
+[2025-04-28 06:52:43] [INFO] [test_tokyo_trip] --------------------------------------------------------------------------------
+[2025-04-28 06:54:39] [INFO] [app] Application started
+[2025-04-28 06:54:40] [INFO] [app] Application started

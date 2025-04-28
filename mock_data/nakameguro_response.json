@@ -1,0 +1,68 @@
+{
+  "address_components": [
+    {
+      "long_name": "Nakameguro",
+      "short_name": "Nakameguro",
+      "types": [
+        "sublocality_level_2",
+        "sublocality",
+        "political"
+      ]
+    },
+    {
+      "long_name": "Meguro City",
+      "short_name": "Meguro City",
+      "types": [
+        "locality",
+        "political"
+      ]
+    },
+    {
+      "long_name": "Tokyo",
+      "short_name": "Tokyo",
+      "types": [
+        "administrative_area_level_1",
+        "political"
+      ]
+    },
+    {
+      "long_name": "Japan",
+      "short_name": "JP",
+      "types": [
+        "country",
+        "political"
+      ]
+    },
+    {
+      "long_name": "153-0061",
+      "short_name": "153-0061",
+      "types": [
+        "postal_code"
+      ]
+    }
+  ],
+  "formatted_address": "Nakameguro, Meguro City, Tokyo 153-0061, Japan",
+  "geometry": {
+    "location": {
+      "lat": 35.6387161,
+      "lng": 139.7026251
+    },
+    "viewport": {
+      "northeast": {
+        "lat": 35.64654042020302,
+        "lng": 139.7102852738674
+      },
+      "southwest": {
+        "lat": 35.63351909678963,
+        "lng": 139.6931652254331
+      }
+    }
+  },
+  "name": "Nakameguro",
+  "place_id": "ChIJAas2LziLGGAROimsxcM_Rqo",
+  "types": [
+    "sublocality_level_2",
+    "sublocality",
+    "political"
+  ]
+}

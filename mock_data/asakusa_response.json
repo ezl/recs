@@ -1,0 +1,68 @@
+{
+  "address_components": [
+    {
+      "long_name": "Asakusa",
+      "short_name": "Asakusa",
+      "types": [
+        "sublocality_level_2",
+        "sublocality",
+        "political"
+      ]
+    },
+    {
+      "long_name": "Taito City",
+      "short_name": "Taito City",
+      "types": [
+        "locality",
+        "political"
+      ]
+    },
+    {
+      "long_name": "Tokyo",
+      "short_name": "Tokyo",
+      "types": [
+        "administrative_area_level_1",
+        "political"
+      ]
+    },
+    {
+      "long_name": "Japan",
+      "short_name": "JP",
+      "types": [
+        "country",
+        "political"
+      ]
+    },
+    {
+      "long_name": "111-0032",
+      "short_name": "111-0032",
+      "types": [
+        "postal_code"
+      ]
+    }
+  ],
+  "formatted_address": "Asakusa, Taito City, Tokyo 111-0032, Japan",
+  "geometry": {
+    "location": {
+      "lat": 35.7185858,
+      "lng": 139.7958849
+    },
+    "viewport": {
+      "northeast": {
+        "lat": 35.72336014845754,
+        "lng": 139.8055253758108
+      },
+      "southwest": {
+        "lat": 35.71076837540546,
+        "lng": 139.7919747696756
+      }
+    }
+  },
+  "name": "Asakusa",
+  "place_id": "ChIJM1N_BMKOGGARZ0DHgTj9hHw",
+  "types": [
+    "sublocality_level_2",
+    "sublocality",
+    "political"
+  ]
+}

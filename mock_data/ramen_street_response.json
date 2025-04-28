@@ -1,0 +1,91 @@
+{
+  "address_components": [
+    {
+      "long_name": "341 1/2",
+      "short_name": "341 1/2",
+      "types": [
+        "street_number"
+      ]
+    },
+    {
+      "long_name": "1st Street",
+      "short_name": "1st St",
+      "types": [
+        "route"
+      ]
+    },
+    {
+      "long_name": "Downtown Los Angeles",
+      "short_name": "Downtown Los Angeles",
+      "types": [
+        "neighborhood",
+        "political"
+      ]
+    },
+    {
+      "long_name": "Los Angeles",
+      "short_name": "Los Angeles",
+      "types": [
+        "locality",
+        "political"
+      ]
+    },
+    {
+      "long_name": "Los Angeles County",
+      "short_name": "Los Angeles County",
+      "types": [
+        "administrative_area_level_2",
+        "political"
+      ]
+    },
+    {
+      "long_name": "California",
+      "short_name": "CA",
+      "types": [
+        "administrative_area_level_1",
+        "political"
+      ]
+    },
+    {
+      "long_name": "United States",
+      "short_name": "US",
+      "types": [
+        "country",
+        "political"
+      ]
+    },
+    {
+      "long_name": "90012",
+      "short_name": "90012",
+      "types": [
+        "postal_code"
+      ]
+    }
+  ],
+  "formatted_address": "341 1/2 1st St, Los Angeles, CA 90012, USA",
+  "geometry": {
+    "location": {
+      "lat": 34.0497245,
+      "lng": -118.2397079
+    },
+    "viewport": {
+      "northeast": {
+        "lat": 34.0510245802915,
+        "lng": -118.2384100197085
+      },
+      "southwest": {
+        "lat": 34.0483266197085,
+        "lng": -118.2411079802915
+      }
+    }
+  },
+  "name": "Mr. Ramen",
+  "place_id": "ChIJA6ITw0fGwoARSgap8a1UAYA",
+  "types": [
+    "restaurant",
+    "food",
+    "point_of_interest",
+    "establishment"
+  ],
+  "website": "http://www.mrramendtla.com/"
+}
