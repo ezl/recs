@@ -935,3 +935,89 @@ Grouped Recommendations:
 [2025-04-28 06:52:43] [INFO] [test_tokyo_trip] --------------------------------------------------------------------------------
 [2025-04-28 06:54:39] [INFO] [app] Application started
 [2025-04-28 06:54:40] [INFO] [app] Application started
+[2025-04-28 06:56:30] [INFO] [app] Application started
+[2025-04-28 06:56:30] [INFO] [test_trip] Connecting to database...
+[2025-04-28 06:56:30] [INFO] [test_trip] Cleaned up 1 existing test trips
+[2025-04-28 06:56:30] [INFO] [test_trip] Cleaned up existing test activities
+[2025-04-28 06:56:30] [INFO] [test_trip] Created test trip to Paris with slug: paris-apr-2025
+[2025-04-28 06:56:30] [INFO] [test_trip] Created recommendation for Eiffel Tower
+[2025-04-28 06:56:30] [INFO] [test_trip] 
+Verification:
+[2025-04-28 06:56:30] [INFO] [test_trip] - Users: 20
+[2025-04-28 06:56:30] [INFO] [test_trip] - Trips: 10
+[2025-04-28 06:56:30] [INFO] [test_trip] - Activities: 34
+[2025-04-28 06:56:30] [INFO] [test_trip] - Recommendations: 23
+[2025-04-28 06:56:30] [INFO] [test_trip] 
+Test successful!
+[2025-04-28 06:56:30] [INFO] [app] Application started
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip] Creating Tokyo trip with recommendations...
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip] Cleared existing recommendations
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip] Using existing activity: Asakusa (ID: 28)
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip] Using existing activity: Asakusa (ID: 28)
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip] Using existing activity: TeamLab Planets (ID: 29)
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip] Using existing activity: TeamLab Planets (ID: 29)
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip] Using existing activity: Ramen Street (ID: 30)
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip] Using existing activity: Ramen Street (Tokyo Station) (ID: 31)
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip] Using existing activity: Shibuya Scramble Crossing (ID: 32)
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip] Using existing activity: Tsukiji Market (ID: 33)
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip] Using existing activity: Nakameguro (ID: 34)
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip] Using existing activity: Nakameguro (ID: 34)
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip] Added 10 recommendations
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip] 
+Trip Details:
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip] Trip: Tokyo
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip] Slug: tokyo-apr-2025
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip] Recommendations count: 10
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip] 
+Grouped Recommendations:
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip] --------------------------------------------------------------------------------
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip] Activity: Asakusa (ID: 28)
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip] Category: Historic district
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip] Recommended by 2 people:
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip]   - Alpha: "Explore the traditional charm of Asakusa, featuring ancient temples, street food vendors, and a glimpse of old-school Tokyo vibes."
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip]   - Charlie: "Old-school Tokyo vibes, visit Sensoji Temple and grab some street snacks."
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip] --------------------------------------------------------------------------------
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip] Activity: TeamLab Planets (ID: 29)
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip] Category: Interactive art exhibition
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip] Recommended by 2 people:
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip]   - Alpha: "An immersive experience where visitors can walk through interactive art installations resembling a dream."
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip]   - Charlie: "Wild immersive art experience, feels like another world."
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip] --------------------------------------------------------------------------------
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip] Activity: Ramen Street (ID: 30)
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip] Category: Restaurant
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip] Recommended by 1 people:
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip]   - Bravo: "Don't miss Ramen Street at Tokyo Station for a must-try culinary experience in Tokyo."
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip] --------------------------------------------------------------------------------
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip] Activity: Ramen Street (Tokyo Station) (ID: 31)
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip] Category: Food
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip] Recommended by 1 people:
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip]   - Charlie: "A whole underground row of famous ramen shops, easy and delicious."
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip] --------------------------------------------------------------------------------
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip] Activity: Shibuya Scramble Crossing (ID: 32)
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip] Category: Famous landmark
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip] Recommended by 1 people:
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip]   - Alpha: "Experience the iconic and bustling Shibuya Scramble Crossing, and explore the charming streets of Shibuya."
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip] --------------------------------------------------------------------------------
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip] Activity: Tsukiji Market (ID: 33)
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip] Category: Market
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip] Recommended by 1 people:
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip]   - Alpha: "Experience the lively atmosphere of Tsukiji Market, known for its fresh seafood and sushi breakfast offerings."
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip] --------------------------------------------------------------------------------
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip] Activity: Nakameguro (ID: 34)
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip] Category: Neighborhood
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip] Recommended by 2 people:
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip]   - Bravo: "Nakameguro offers a peaceful morning by the river with opportunities to enjoy coffee and a leisurely walk."
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip]   - Charlie: "Chill riverside neighborhood, great for coffee shops and boutique shopping."
+[2025-04-28 06:56:30] [INFO] [test_tokyo_trip] --------------------------------------------------------------------------------
+[2025-04-28 06:58:41] [INFO] [app] Application started
+[2025-04-28 06:58:42] [INFO] [app] Application started
+[2025-04-28 06:59:12] [INFO] [app] Application started
+[2025-04-28 06:59:12] [INFO] [app] Application started
+[2025-04-28 07:03:18] [INFO] [app] Application started
+[2025-04-28 07:03:19] [INFO] [app] Application started
+[2025-04-28 07:03:40] [INFO] [app] Application started
+[2025-04-28 07:03:40] [ERROR] [flask_migrate] Error: Path doesn't exist: '/Users/ezl/code/recs/e2e_tests/migrations'.  Please use the 'init' command to create a new scripts folder.
+[2025-04-28 07:04:28] [INFO] [app] Application started
+[2025-04-28 07:04:28] [ERROR] [flask_migrate] Error: Directory migrations already exists and is not empty
+[2025-04-28 07:04:32] [INFO] [app] Application started
+[2025-04-28 07:04:33] [INFO] [app] Application started

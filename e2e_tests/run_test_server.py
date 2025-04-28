@@ -9,7 +9,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from app import create_app
 from app.database import db
 import subprocess
-from flask_migrate import Migrate, upgrade
+from flask_migrate import Migrate, upgrade, init
 
 def reset_test_db():
     """Reset the test database to ensure clean state for tests"""
@@ -37,6 +37,12 @@ def reset_test_db():
         
         # Set up migrations
         migrate = Migrate(app, db)
+        
+        # Initialize migrations if they don't exist
+        migrations_dir = Path(__file__).parent / 'migrations'
+        if not migrations_dir.exists():
+            print("Initializing migrations...")
+            init()
         
         # Run migrations
         print("Running database migrations...")
