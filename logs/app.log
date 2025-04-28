@@ -244,3 +244,210 @@
 [2025-04-28 06:42:23] [INFO] [test_google_places] Google Place ID: ChIJLU7jZClu5kcR4PcOOO6p3I0
 [2025-04-28 06:42:23] [INFO] [test_google_places] 
 ✅ Test completed successfully
+[2025-04-28 06:46:45] [INFO] [werkzeug]  * Detected change in '/Users/ezl/code/recs/test_google_places.py', reloading
+[2025-04-28 06:46:45] [INFO] [werkzeug]  * Restarting with stat
+[2025-04-28 06:46:45] [INFO] [app] Application started
+[2025-04-28 06:46:46] [WARNING] [werkzeug]  * Debugger is active!
+[2025-04-28 06:46:46] [INFO] [werkzeug]  * Debugger PIN: 547-989-235
+[2025-04-28 06:46:48] [INFO] [app] Application started
+[2025-04-28 06:46:48] [INFO] [test_google_places] ================================================================================
+[2025-04-28 06:46:48] [INFO] [test_google_places] TESTING GOOGLE PLACES API INTEGRATION (use_real_api=True)
+[2025-04-28 06:46:48] [INFO] [test_google_places] ================================================================================
+[2025-04-28 06:46:48] [INFO] [test_google_places] Using real Google Places API with key: AIzaS...nv80
+[2025-04-28 06:46:48] [INFO] [test_google_places] Calling real GooglePlacesService.find_place()...
+[2025-04-28 06:46:48] [INFO] [app.services.google_places_service] Searching Google Places API for: Eiffel Tower
+[2025-04-28 06:46:48] [INFO] [app.services.google_places_service] Search vicinity: Paris
+[2025-04-28 06:46:48] [INFO] [app.services.google_places_service] Destination country: France
+[2025-04-28 06:46:48] [INFO] [app.services.google_places_service] Making FindPlace API request for: Eiffel Tower
+[2025-04-28 06:46:48] [INFO] [app.services.google_places_service] FindPlace API response status: OK
+[2025-04-28 06:46:48] [INFO] [app.services.google_places_service] Found place_id for Eiffel Tower: ChIJLU7jZClu5kcR4PcOOO6p3I0
+[2025-04-28 06:46:48] [INFO] [app.services.google_places_service] Making PlaceDetails API request for place_id: ChIJLU7jZClu5kcR4PcOOO6p3I0
+[2025-04-28 06:46:49] [INFO] [app.services.google_places_service] PlaceDetails API response status: OK
+[2025-04-28 06:46:49] [INFO] [app.services.google_places_service] Successfully retrieved details for place: Eiffel Tower
+[2025-04-28 06:46:49] [INFO] [test_google_places] 
+=== Full Google Places API Response ===
+[2025-04-28 06:46:49] [INFO] [test_google_places] {
+  "address_components": [
+    {
+      "long_name": "Avenue Gustave Eiffel",
+      "short_name": "Av. Gustave Eiffel",
+      "types": [
+        "route"
+      ]
+    },
+    {
+      "long_name": "Paris",
+      "short_name": "Paris",
+      "types": [
+        "locality",
+        "political"
+      ]
+    },
+    {
+      "long_name": "Paris",
+      "short_name": "Paris",
+      "types": [
+        "administrative_area_level_2",
+        "political"
+      ]
+    },
+    {
+      "long_name": "\u00cele-de-France",
+      "short_name": "IDF",
+      "types": [
+        "administrative_area_level_1",
+        "political"
+      ]
+    },
+    {
+      "long_name": "France",
+      "short_name": "FR",
+      "types": [
+        "country",
+        "political"
+      ]
+    },
+    {
+      "long_name": "75007",
+      "short_name": "75007",
+      "types": [
+        "postal_code"
+      ]
+    }
+  ],
+  "formatted_address": "Av. Gustave Eiffel, 75007 Paris, France",
+  "geometry": {
+    "location": {
+      "lat": 48.85837009999999,
+      "lng": 2.2944813
+    },
+    "viewport": {
+      "northeast": {
+        "lat": 48.8599253,
+        "lng": 2.297770400000001
+      },
+      "southwest": {
+        "lat": 48.8561421,
+        "lng": 2.2919472
+      }
+    }
+  },
+  "name": "Eiffel Tower",
+  "place_id": "ChIJLU7jZClu5kcR4PcOOO6p3I0",
+  "types": [
+    "tourist_attraction",
+    "point_of_interest",
+    "establishment"
+  ],
+  "website": "https://www.toureiffel.paris/fr"
+}
+[2025-04-28 06:46:49] [INFO] [test_google_places] 
+=== End of Response ===
+
+[2025-04-28 06:46:49] [INFO] [test_google_places] Saved mock data to /Users/ezl/code/recs/mock_data/eiffel_tower_response.json
+[2025-04-28 06:46:49] [INFO] [test_google_places] ✅ Found Eiffel Tower!
+[2025-04-28 06:46:49] [INFO] [test_google_places] Place ID: ChIJLU7jZClu5kcR4PcOOO6p3I0
+[2025-04-28 06:46:49] [INFO] [test_google_places] Address: Av. Gustave Eiffel, 75007 Paris, France
+[2025-04-28 06:46:49] [INFO] [test_google_places] Types: ['tourist_attraction', 'point_of_interest', 'establishment']
+[2025-04-28 06:46:49] [INFO] [test_google_places] 
+✅ Activity created with Google Places data
+[2025-04-28 06:46:49] [INFO] [test_google_places] Activity ID: 27
+[2025-04-28 06:46:49] [INFO] [test_google_places] Google Place ID: ChIJLU7jZClu5kcR4PcOOO6p3I0
+[2025-04-28 06:46:49] [INFO] [test_google_places] 
+✅ Test completed successfully
+[2025-04-28 06:46:51] [INFO] [app] Application started
+[2025-04-28 06:46:51] [INFO] [test_google_places] ================================================================================
+[2025-04-28 06:46:51] [INFO] [test_google_places] TESTING GOOGLE PLACES API INTEGRATION (use_real_api=False)
+[2025-04-28 06:46:51] [INFO] [test_google_places] ================================================================================
+[2025-04-28 06:46:51] [INFO] [test_google_places] Using mock Google Places API data
+[2025-04-28 06:46:51] [INFO] [test_google_places] Calling mock GooglePlacesService.find_place()...
+[2025-04-28 06:46:51] [INFO] [test_google_places] 
+=== Full Google Places API Response ===
+[2025-04-28 06:46:51] [INFO] [test_google_places] {
+  "address_components": [
+    {
+      "long_name": "Avenue Gustave Eiffel",
+      "short_name": "Av. Gustave Eiffel",
+      "types": [
+        "route"
+      ]
+    },
+    {
+      "long_name": "Paris",
+      "short_name": "Paris",
+      "types": [
+        "locality",
+        "political"
+      ]
+    },
+    {
+      "long_name": "Paris",
+      "short_name": "Paris",
+      "types": [
+        "administrative_area_level_2",
+        "political"
+      ]
+    },
+    {
+      "long_name": "\u00cele-de-France",
+      "short_name": "IDF",
+      "types": [
+        "administrative_area_level_1",
+        "political"
+      ]
+    },
+    {
+      "long_name": "France",
+      "short_name": "FR",
+      "types": [
+        "country",
+        "political"
+      ]
+    },
+    {
+      "long_name": "75007",
+      "short_name": "75007",
+      "types": [
+        "postal_code"
+      ]
+    }
+  ],
+  "formatted_address": "Av. Gustave Eiffel, 75007 Paris, France",
+  "geometry": {
+    "location": {
+      "lat": 48.85837009999999,
+      "lng": 2.2944813
+    },
+    "viewport": {
+      "northeast": {
+        "lat": 48.8599253,
+        "lng": 2.297770400000001
+      },
+      "southwest": {
+        "lat": 48.8561421,
+        "lng": 2.2919472
+      }
+    }
+  },
+  "name": "Eiffel Tower",
+  "place_id": "ChIJLU7jZClu5kcR4PcOOO6p3I0",
+  "types": [
+    "tourist_attraction",
+    "point_of_interest",
+    "establishment"
+  ],
+  "website": "https://www.toureiffel.paris/fr"
+}
+[2025-04-28 06:46:51] [INFO] [test_google_places] 
+=== End of Response ===
+
+[2025-04-28 06:46:51] [INFO] [test_google_places] ✅ Found Eiffel Tower!
+[2025-04-28 06:46:51] [INFO] [test_google_places] Place ID: ChIJLU7jZClu5kcR4PcOOO6p3I0
+[2025-04-28 06:46:51] [INFO] [test_google_places] Address: Av. Gustave Eiffel, 75007 Paris, France
+[2025-04-28 06:46:51] [INFO] [test_google_places] Types: ['tourist_attraction', 'point_of_interest', 'establishment']
+[2025-04-28 06:46:51] [INFO] [test_google_places] 
+✅ Activity created with Google Places data
+[2025-04-28 06:46:51] [INFO] [test_google_places] Activity ID: 27
+[2025-04-28 06:46:51] [INFO] [test_google_places] Google Place ID: ChIJLU7jZClu5kcR4PcOOO6p3I0
+[2025-04-28 06:46:51] [INFO] [test_google_places] 
+✅ Test completed successfully

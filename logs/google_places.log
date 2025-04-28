@@ -52,3 +52,12 @@
 [2025-04-28 06:42:23] [INFO] [app.services.google_places_service] Making PlaceDetails API request for place_id: ChIJLU7jZClu5kcR4PcOOO6p3I0
 [2025-04-28 06:42:23] [INFO] [app.services.google_places_service] PlaceDetails API response status: OK
 [2025-04-28 06:42:23] [INFO] [app.services.google_places_service] Successfully retrieved details for place: Eiffel Tower
+[2025-04-28 06:46:48] [INFO] [app.services.google_places_service] Searching Google Places API for: Eiffel Tower
+[2025-04-28 06:46:48] [INFO] [app.services.google_places_service] Search vicinity: Paris
+[2025-04-28 06:46:48] [INFO] [app.services.google_places_service] Destination country: France
+[2025-04-28 06:46:48] [INFO] [app.services.google_places_service] Making FindPlace API request for: Eiffel Tower
+[2025-04-28 06:46:48] [INFO] [app.services.google_places_service] FindPlace API response status: OK
+[2025-04-28 06:46:48] [INFO] [app.services.google_places_service] Found place_id for Eiffel Tower: ChIJLU7jZClu5kcR4PcOOO6p3I0
+[2025-04-28 06:46:48] [INFO] [app.services.google_places_service] Making PlaceDetails API request for place_id: ChIJLU7jZClu5kcR4PcOOO6p3I0
+[2025-04-28 06:46:49] [INFO] [app.services.google_places_service] PlaceDetails API response status: OK
+[2025-04-28 06:46:49] [INFO] [app.services.google_places_service] Successfully retrieved details for place: Eiffel Tower
