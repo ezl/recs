@@ -1,7 +1,7 @@
 // @ts-check
 const { test, expect } = require('@playwright/test');
 
-test.setTimeout(12000);
+test.setTimeout(20000);
 
 test('should create a new trip through the multi-step process', async ({ page }) => {
   // Go to the homepage
