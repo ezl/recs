@@ -14,6 +14,7 @@
             <div class="hidden md:flex items-center space-x-6">
                 <a href="{{ url_for('main.index') }}" class="inline-flex items-center text-gray-600 hover:text-primary-600 font-medium">Home</a>
                 <a href="{{ url_for('main.how_it_works') }}" class="inline-flex items-center text-gray-600 hover:text-primary-600 font-medium">How It Works</a>
+                <a href="#" class="inline-flex items-center text-gray-600 hover:text-primary-600 font-medium" onclick="alert('Coming soon'); return false;">Create A Guide</a>
                 {% if session.get('user_id') %}
                     <a href="{{ url_for('user.my_trips') }}" class="inline-flex items-center text-gray-600 hover:text-primary-600 font-medium">My Trips</a>
                     <a href="{{ url_for('auth.logout') }}" class="inline-flex items-center text-gray-600 hover:text-primary-600 font-medium">Logout</a>
@@ -28,6 +29,7 @@
             <div class="flex flex-col space-y-3">
                 <a href="{{ url_for('main.index') }}" class="text-gray-600 hover:text-primary-600 font-medium py-2">Home</a>
                 <a href="{{ url_for('main.how_it_works') }}" class="text-gray-600 hover:text-primary-600 font-medium py-2">How It Works</a>
+                <a href="#" class="text-gray-600 hover:text-primary-600 font-medium py-2" onclick="alert('Coming soon'); return false;">Create A Guide</a>
                 {% if session.get('user_id') %}
                     <a href="{{ url_for('user.my_trips') }}" class="text-gray-600 hover:text-primary-600 font-medium py-2">My Trips</a>
                     <a href="{{ url_for('auth.logout') }}" class="text-gray-600 hover:text-primary-600 font-medium py-2">Logout</a>
