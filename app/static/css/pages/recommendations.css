@@ -43,4 +43,98 @@ body.recommendation-page {
   margin-bottom: 1rem;
   z-index: 50;
   pointer-events: none;
+}
+
+/* Recommendations CSS */
+
+/* Card hover effect */
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* Link with icon styling */
+.link-icon {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  color: #4B5563;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+}
+
+.link-icon:hover {
+  background-color: #F3F4F6;
+  color: #1F2937;
+}
+
+/* Badge styling */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.badge-blue {
+  background-color: #EFF6FF;
+  color: #1D4ED8;
+  border: 1px solid #DBEAFE;
+}
+
+/* Map view styles */
+#recommendations-map {
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+/* Map info panel */
+#map-info-panel {
+  background-color: white;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+/* Custom Google Maps InfoWindow styling (applied via !important since Google Maps uses inline styles) */
+.gm-style .gm-style-iw-c {
+  padding: 12px !important;
+  border-radius: 8px !important;
+}
+
+.gm-style .gm-style-iw-d {
+  overflow: hidden !important;
+  max-height: none !important;
+}
+
+/* Toggle buttons styling */
+.view-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.view-toggle-btn.active {
+  background-color: #EFF6FF;
+  color: #1D4ED8;
+}
+
+.view-toggle-btn:not(.active) {
+  background-color: white;
+  color: #4B5563;
+}
+
+.view-toggle-btn:not(.active):hover {
+  color: #1F2937;
 } 

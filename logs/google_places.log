@@ -377,3 +377,91 @@
 [2025-04-28 08:16:43] [INFO] [app.database.models] Found city from Google: Irvine
 [2025-04-28 08:16:43] [INFO] [app.database.models] Found country from Google: United States
 [2025-04-28 08:16:43] [INFO] [app.database.models] Created new activity: Tim Ho Wan (ID: 39)
+[2025-04-28 10:57:38] [INFO] [app.database.models] Activity.get_or_create called for: Wrigley Field
+[2025-04-28 10:57:38] [INFO] [app.database.models] Category: Sports Stadium
+[2025-04-28 10:57:38] [INFO] [app.database.models] With search_vicinity: Chicago
+[2025-04-28 10:57:38] [INFO] [app.database.models] With destination_country: United States
+[2025-04-28 10:57:38] [INFO] [app.database.models] Making Google Places API call for: Wrigley Field
+[2025-04-28 10:57:38] [INFO] [app.services.google_places_service] Searching Google Places API for: Wrigley Field
+[2025-04-28 10:57:38] [INFO] [app.services.google_places_service] Category: Sports Stadium
+[2025-04-28 10:57:38] [INFO] [app.services.google_places_service] Search vicinity: Chicago
+[2025-04-28 10:57:38] [INFO] [app.services.google_places_service] Destination country: United States
+[2025-04-28 10:57:38] [INFO] [app.services.google_places_service] Making FindPlace API request for: Wrigley Field
+[2025-04-28 10:57:39] [INFO] [app.services.google_places_service] FindPlace API response status: OK
+[2025-04-28 10:57:39] [INFO] [app.services.google_places_service] Found place_id for Wrigley Field: ChIJId-a5bLTD4gRRtbdduE-6hw
+[2025-04-28 10:57:39] [INFO] [app.services.google_places_service] Making PlaceDetails API request for place_id: ChIJId-a5bLTD4gRRtbdduE-6hw
+[2025-04-28 10:57:39] [INFO] [app.services.google_places_service] PlaceDetails API response status: OK
+[2025-04-28 10:57:39] [INFO] [app.services.google_places_service] Successfully retrieved details for place: Wrigley Field
+[2025-04-28 10:57:39] [INFO] [app.database.models] Google Places API returned data for place: Wrigley Field
+[2025-04-28 10:57:39] [INFO] [app.database.models] Found place_id from Google: ChIJId-a5bLTD4gRRtbdduE-6hw
+[2025-04-28 10:57:39] [INFO] [app.database.models] Creating new activity for: Wrigley Field
+[2025-04-28 10:57:39] [INFO] [app.database.models] Adding Google Places data to new activity
+[2025-04-28 10:57:39] [INFO] [app.database.models] Found city from Google: Chicago
+[2025-04-28 10:57:39] [INFO] [app.database.models] Found country from Google: United States
+[2025-04-28 10:57:39] [INFO] [app.database.models] Created new activity: Wrigley Field (ID: 40)
+[2025-04-28 10:57:39] [INFO] [app.database.models] Activity.get_or_create called for: Weiner Circle
+[2025-04-28 10:57:39] [INFO] [app.database.models] Category: Restaurant
+[2025-04-28 10:57:39] [INFO] [app.database.models] With search_vicinity: Chicago
+[2025-04-28 10:57:39] [INFO] [app.database.models] With destination_country: United States
+[2025-04-28 10:57:39] [INFO] [app.database.models] Making Google Places API call for: Weiner Circle
+[2025-04-28 10:57:39] [INFO] [app.services.google_places_service] Searching Google Places API for: Weiner Circle
+[2025-04-28 10:57:39] [INFO] [app.services.google_places_service] Category: Restaurant
+[2025-04-28 10:57:39] [INFO] [app.services.google_places_service] Search vicinity: Chicago
+[2025-04-28 10:57:39] [INFO] [app.services.google_places_service] Destination country: United States
+[2025-04-28 10:57:39] [INFO] [app.services.google_places_service] Making FindPlace API request for: Weiner Circle
+[2025-04-28 10:57:39] [INFO] [app.services.google_places_service] FindPlace API response status: OK
+[2025-04-28 10:57:39] [INFO] [app.services.google_places_service] Found place_id for Weiner Circle: ChIJV9Z_rQ7TD4gREjGVxVAW8uE
+[2025-04-28 10:57:39] [INFO] [app.services.google_places_service] Making PlaceDetails API request for place_id: ChIJV9Z_rQ7TD4gREjGVxVAW8uE
+[2025-04-28 10:57:40] [INFO] [app.services.google_places_service] PlaceDetails API response status: OK
+[2025-04-28 10:57:40] [INFO] [app.services.google_places_service] Successfully retrieved details for place: The Wiener's Circle
+[2025-04-28 10:57:40] [INFO] [app.database.models] Google Places API returned data for place: The Wiener's Circle
+[2025-04-28 10:57:40] [INFO] [app.database.models] Found place_id from Google: ChIJV9Z_rQ7TD4gREjGVxVAW8uE
+[2025-04-28 10:57:40] [INFO] [app.database.models] Creating new activity for: Weiner Circle
+[2025-04-28 10:57:40] [INFO] [app.database.models] Adding Google Places data to new activity
+[2025-04-28 10:57:40] [INFO] [app.database.models] Found city from Google: Chicago
+[2025-04-28 10:57:40] [INFO] [app.database.models] Found country from Google: United States
+[2025-04-28 10:57:40] [INFO] [app.database.models] Created new activity: Weiner Circle (ID: 41)
+[2025-04-28 10:57:40] [INFO] [app.database.models] Activity.get_or_create called for: Good Ambler
+[2025-04-28 10:57:40] [INFO] [app.database.models] Category: Coffee Shop
+[2025-04-28 10:57:40] [INFO] [app.database.models] With search_vicinity: Chicago
+[2025-04-28 10:57:40] [INFO] [app.database.models] With destination_country: United States
+[2025-04-28 10:57:40] [INFO] [app.database.models] Making Google Places API call for: Good Ambler
+[2025-04-28 10:57:40] [INFO] [app.services.google_places_service] Searching Google Places API for: Good Ambler
+[2025-04-28 10:57:40] [INFO] [app.services.google_places_service] Category: Coffee Shop
+[2025-04-28 10:57:40] [INFO] [app.services.google_places_service] Search vicinity: Chicago
+[2025-04-28 10:57:40] [INFO] [app.services.google_places_service] Destination country: United States
+[2025-04-28 10:57:40] [INFO] [app.services.google_places_service] Making FindPlace API request for: Good Ambler
+[2025-04-28 10:57:40] [INFO] [app.services.google_places_service] FindPlace API response status: OK
+[2025-04-28 10:57:40] [INFO] [app.services.google_places_service] Found place_id for Good Ambler: ChIJDfFD0NItDogRWomokc_00D8
+[2025-04-28 10:57:40] [INFO] [app.services.google_places_service] Making PlaceDetails API request for place_id: ChIJDfFD0NItDogRWomokc_00D8
+[2025-04-28 10:57:40] [INFO] [app.services.google_places_service] PlaceDetails API response status: OK
+[2025-04-28 10:57:40] [INFO] [app.services.google_places_service] Successfully retrieved details for place: Good Ambler
+[2025-04-28 10:57:40] [INFO] [app.database.models] Google Places API returned data for place: Good Ambler
+[2025-04-28 10:57:40] [INFO] [app.database.models] Found place_id from Google: ChIJDfFD0NItDogRWomokc_00D8
+[2025-04-28 10:57:40] [INFO] [app.database.models] Creating new activity for: Good Ambler
+[2025-04-28 10:57:40] [INFO] [app.database.models] Adding Google Places data to new activity
+[2025-04-28 10:57:40] [INFO] [app.database.models] Found city from Google: Chicago
+[2025-04-28 10:57:40] [INFO] [app.database.models] Found country from Google: United States
+[2025-04-28 10:57:40] [INFO] [app.database.models] Created new activity: Good Ambler (ID: 42)
+[2025-04-28 10:57:40] [INFO] [app.database.models] Activity.get_or_create called for: Chicago River Architecture Tour
+[2025-04-28 10:57:40] [INFO] [app.database.models] Category: Tour
+[2025-04-28 10:57:40] [INFO] [app.database.models] With search_vicinity: Chicago
+[2025-04-28 10:57:40] [INFO] [app.database.models] With destination_country: United States
+[2025-04-28 10:57:40] [INFO] [app.database.models] Making Google Places API call for: Chicago River Architecture Tour
+[2025-04-28 10:57:40] [INFO] [app.services.google_places_service] Searching Google Places API for: Chicago River Architecture Tour
+[2025-04-28 10:57:40] [INFO] [app.services.google_places_service] Category: Tour
+[2025-04-28 10:57:40] [INFO] [app.services.google_places_service] Search vicinity: Chicago
+[2025-04-28 10:57:40] [INFO] [app.services.google_places_service] Destination country: United States
+[2025-04-28 10:57:40] [INFO] [app.services.google_places_service] Making FindPlace API request for: Chicago River Architecture Tour
+[2025-04-28 10:57:41] [INFO] [app.services.google_places_service] FindPlace API response status: OK
+[2025-04-28 10:57:41] [INFO] [app.services.google_places_service] Found place_id for Chicago River Architecture Tour: ChIJbz_TYaorDogRgAG-I7FKEM0
+[2025-04-28 10:57:41] [INFO] [app.services.google_places_service] Making PlaceDetails API request for place_id: ChIJbz_TYaorDogRgAG-I7FKEM0
+[2025-04-28 10:57:41] [INFO] [app.services.google_places_service] PlaceDetails API response status: OK
+[2025-04-28 10:57:41] [INFO] [app.services.google_places_service] Successfully retrieved details for place: Chicago River Boat Architecture Tours
+[2025-04-28 10:57:41] [INFO] [app.database.models] Google Places API returned data for place: Chicago River Boat Architecture Tours
+[2025-04-28 10:57:41] [INFO] [app.database.models] Found place_id from Google: ChIJbz_TYaorDogRgAG-I7FKEM0
+[2025-04-28 10:57:41] [INFO] [app.database.models] Creating new activity for: Chicago River Architecture Tour
+[2025-04-28 10:57:41] [INFO] [app.database.models] Adding Google Places data to new activity
+[2025-04-28 10:57:41] [INFO] [app.database.models] Found city from Google: Chicago
+[2025-04-28 10:57:41] [INFO] [app.database.models] Found country from Google: United States
+[2025-04-28 10:57:41] [INFO] [app.database.models] Created new activity: Chicago River Architecture Tour (ID: 43)

@@ -11,7 +11,13 @@ trip_bp = Blueprint('trip', __name__, url_prefix='/trip')
 @trip_bp.route('/<slug>')
 def view_trip(slug):
     trip = Trip.query.filter_by(slug=slug).first_or_404()
-    config = {'GOOGLE_MAPS_API_KEY': os.environ.get('GOOGLE_MAPS_API_KEY', '')}
+    
+    # Ensure Google Maps API key is loaded
+    api_key = os.environ.get('GOOGLE_MAPS_API_KEY', '')
+    if not api_key:
+        print("WARNING: GOOGLE_MAPS_API_KEY environment variable is not set!")
+    
+    config = {'GOOGLE_MAPS_API_KEY': api_key}
     return render_template('trip.html', trip=trip, config=config)
 
 @trip_bp.route('/<slug>/thank-you')

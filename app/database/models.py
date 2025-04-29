@@ -233,6 +233,14 @@ class Activity(db.Model):
         if kwargs.get('destination_country'):
             logger.info(f"With destination_country: {kwargs.get('destination_country')}")
             
+        # First check if we already have this activity by name
+        activity = cls.query.filter(db.func.lower(cls.name) == db.func.lower(name)).first()
+        if activity:
+            logger.info(f"Found existing activity by name: {activity.name}")
+            # Skip Google Places API call if we already have this activity
+            # (prevents repeatedly trying to get coordinates for places that don't have them)
+            return activity
+            
         from app.services.google_places_service import GooglePlacesService
         
         # First check if we have a Google Place ID in the kwargs and try to find by that

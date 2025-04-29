@@ -1606,3 +1606,413 @@ Grouped Recommendations:
 [2025-04-28 08:16:43] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:16:43] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
 [2025-04-28 08:16:43] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 08:16:43] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
 [2025-04-28 08:22:18] [INFO] [app] Application started
+[2025-04-28 10:43:27] [INFO] [app] Application started
+[2025-04-28 10:43:28] [INFO] [werkzeug] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[2025-04-28 10:43:28] [INFO] [werkzeug] [33mPress CTRL+C to quit[0m
+[2025-04-28 10:43:28] [INFO] [werkzeug]  * Restarting with stat
+[2025-04-28 10:43:28] [INFO] [app] Application started
+[2025-04-28 10:43:28] [WARNING] [werkzeug]  * Debugger is active!
+[2025-04-28 10:43:28] [INFO] [werkzeug]  * Debugger PIN: 758-588-791
+[2025-04-28 10:43:58] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:43:58] "GET / HTTP/1.1" 200 -
+[2025-04-28 10:43:58] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:43:58] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-28 10:43:58] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:43:58] "GET /static/css/pages/home.css HTTP/1.1" 200 -
+[2025-04-28 10:43:58] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:43:58] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-28 10:43:58] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:43:58] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-28 10:43:58] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:43:58] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-28 10:43:58] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:43:58] "GET /static/images/trip-hero.png?v=2 HTTP/1.1" 200 -
+[2025-04-28 10:43:59] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:43:59] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-28 10:44:07] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:44:07] "GET /admin HTTP/1.1" 200 -
+[2025-04-28 10:44:07] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:44:07] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-28 10:44:07] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:44:07] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-28 10:44:07] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:44:07] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-28 10:44:07] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:44:07] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-28 10:44:11] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:44:11] "GET /trip/chicago-apr-2025 HTTP/1.1" 200 -
+[2025-04-28 10:44:11] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:44:11] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-28 10:44:11] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:44:11] "[36mGET /static/css/pages/recommendations.css HTTP/1.1[0m" 304 -
+[2025-04-28 10:44:11] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:44:11] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-28 10:44:11] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:44:11] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-28 10:44:11] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:44:11] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-28 10:51:35] [INFO] [app] Application started
+[2025-04-28 10:51:42] [INFO] [app] Application started
+[2025-04-28 10:51:42] [INFO] [werkzeug] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5001
+[2025-04-28 10:51:42] [INFO] [werkzeug] [33mPress CTRL+C to quit[0m
+[2025-04-28 10:56:56] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:56:56] "GET /trip/chicago-apr-2025 HTTP/1.1" 200 -
+[2025-04-28 10:56:56] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:56:56] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-28 10:56:56] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:56:56] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-28 10:56:56] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:56:56] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-28 10:56:56] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:56:56] "GET /static/css/pages/recommendations.css HTTP/1.1" 200 -
+[2025-04-28 10:56:56] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:56:56] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-28 10:56:59] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:56:59] "GET /trip/chicago-apr-2025 HTTP/1.1" 200 -
+[2025-04-28 10:56:59] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:56:59] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-28 10:56:59] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:56:59] "GET /static/css/pages/recommendations.css HTTP/1.1" 200 -
+[2025-04-28 10:56:59] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:56:59] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-28 10:56:59] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:56:59] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-28 10:56:59] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:56:59] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-28 10:57:00] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:57:00] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-28 10:57:13] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:57:13] "GET /trip/chicago-apr-2025/add HTTP/1.1" 200 -
+[2025-04-28 10:57:13] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:57:13] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-28 10:57:13] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:57:13] "[36mGET /static/css/pages/recommendations.css HTTP/1.1[0m" 304 -
+[2025-04-28 10:57:13] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:57:13] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-28 10:57:13] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:57:13] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-28 10:57:13] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:57:13] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-28 10:57:13] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:57:13] "GET /static/js/pages/add_recommendation.js HTTP/1.1" 200 -
+[2025-04-28 10:57:25] [INFO] [app.services.ai_service] Extracting recommendations for destination: chicago
+[2025-04-28 10:57:25] [INFO] [app.services.ai_service] Input text length: 370 characters
+[2025-04-28 10:57:25] [INFO] [app.services.ai_service] Text sample: 'Go to wrigley field, it's awesome because there are cool baseball games and its especially fun in th...' (truncated)
+[2025-04-28 10:57:25] [INFO] [app.services.ai_service] Using API key starting with: sk-proj-...
+[2025-04-28 10:57:25] [INFO] [app.services.ai_service] Preparing request to OpenAI API
+[2025-04-28 10:57:25] [INFO] [app.services.ai_service] Sending request to OpenAI API using model: gpt-3.5-turbo
+[2025-04-28 10:57:28] [INFO] [app.services.ai_service] Received response from OpenAI API: status=200
+[2025-04-28 10:57:28] [INFO] [app.services.ai_service] OpenAI response content: '```json
+[
+    {
+        "name": "Wrigley Field",
+        "type": "Sports Stadium",
+        "website_...' (truncated)
+[2025-04-28 10:57:28] [INFO] [app.services.ai_service] Found JSON string from position 8 to 1051
+[2025-04-28 10:57:28] [INFO] [app.services.ai_service] Successfully parsed JSON data: 4 recommendations extracted
+[2025-04-28 10:57:28] [INFO] [app.services.ai_service] Recommendation 1: Wrigley Field (Sports Stadium)
+[2025-04-28 10:57:28] [INFO] [app.services.ai_service] Recommendation 2: Weiner Circle (Restaurant)
+[2025-04-28 10:57:28] [INFO] [app.services.ai_service] Recommendation 3: Good Ambler (Coffee Shop)
+[2025-04-28 10:57:28] [INFO] [app.services.ai_service] Recommendation 4: Chicago River Architecture Tour (Tour)
+[2025-04-28 10:57:28] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:57:28] "POST /trip/chicago-apr-2025/process HTTP/1.1" 200 -
+[2025-04-28 10:57:28] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:57:28] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-28 10:57:28] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:57:28] "GET /static/js/pages/confirm_recommendations.js HTTP/1.1" 200 -
+[2025-04-28 10:57:28] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:57:28] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-28 10:57:28] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:57:28] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-28 10:57:28] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:57:28] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-28 10:57:38] [INFO] [app.routes.recommendation_routes] Saving recommendations for trip chicago-apr-2025 to chicago
+[2025-04-28 10:57:38] [INFO] [app.routes.recommendation_routes] Received 4 recommendations for trip chicago-apr-2025
+[2025-04-28 10:57:38] [INFO] [app.routes.recommendation_routes] Found 4 valid recommendations after filtering
+[2025-04-28 10:57:38] [INFO] [app.routes.recommendation_routes] Created temporary user 'New Guy' with ID 22
+[2025-04-28 10:57:38] [INFO] [app.routes.recommendation_routes] Using destination context: {'search_vicinity': 'Chicago', 'destination_country': 'United States'}
+[2025-04-28 10:57:38] [INFO] [app.routes.recommendation_routes] Processing recommendation: Wrigley Field
+[2025-04-28 10:57:38] [INFO] [app.database.models] Activity.get_or_create called for: Wrigley Field
+[2025-04-28 10:57:38] [INFO] [app.database.models] Category: Sports Stadium
+[2025-04-28 10:57:38] [INFO] [app.database.models] With search_vicinity: Chicago
+[2025-04-28 10:57:38] [INFO] [app.database.models] With destination_country: United States
+[2025-04-28 10:57:38] [INFO] [app.database.models] Making Google Places API call for: Wrigley Field
+[2025-04-28 10:57:38] [INFO] [app.services.google_places_service] Searching Google Places API for: Wrigley Field
+[2025-04-28 10:57:38] [INFO] [app.services.google_places_service] Category: Sports Stadium
+[2025-04-28 10:57:38] [INFO] [app.services.google_places_service] Search vicinity: Chicago
+[2025-04-28 10:57:38] [INFO] [app.services.google_places_service] Destination country: United States
+[2025-04-28 10:57:38] [INFO] [app.services.google_places_service] Making FindPlace API request for: Wrigley Field
+[2025-04-28 10:57:39] [INFO] [app.services.google_places_service] FindPlace API response status: OK
+[2025-04-28 10:57:39] [INFO] [app.services.google_places_service] Found place_id for Wrigley Field: ChIJId-a5bLTD4gRRtbdduE-6hw
+[2025-04-28 10:57:39] [INFO] [app.services.google_places_service] Making PlaceDetails API request for place_id: ChIJId-a5bLTD4gRRtbdduE-6hw
+[2025-04-28 10:57:39] [INFO] [app.services.google_places_service] PlaceDetails API response status: OK
+[2025-04-28 10:57:39] [INFO] [app.services.google_places_service] Successfully retrieved details for place: Wrigley Field
+[2025-04-28 10:57:39] [INFO] [app.database.models] Google Places API returned data for place: Wrigley Field
+[2025-04-28 10:57:39] [INFO] [app.database.models] Found place_id from Google: ChIJId-a5bLTD4gRRtbdduE-6hw
+[2025-04-28 10:57:39] [INFO] [app.database.models] Creating new activity for: Wrigley Field
+[2025-04-28 10:57:39] [INFO] [app.database.models] Adding Google Places data to new activity
+[2025-04-28 10:57:39] [INFO] [app.database.models] Found city from Google: Chicago
+[2025-04-28 10:57:39] [INFO] [app.database.models] Found country from Google: United States
+[2025-04-28 10:57:39] [INFO] [app.database.models] Created new activity: Wrigley Field (ID: 40)
+[2025-04-28 10:57:39] [INFO] [app.routes.recommendation_routes] Activity for 'Wrigley Field': ID=40, place_id=ChIJId-a5bLTD4gRRtbdduE-6hw
+[2025-04-28 10:57:39] [INFO] [app.routes.recommendation_routes] Processing recommendation: Weiner Circle
+[2025-04-28 10:57:39] [INFO] [app.database.models] Activity.get_or_create called for: Weiner Circle
+[2025-04-28 10:57:39] [INFO] [app.database.models] Category: Restaurant
+[2025-04-28 10:57:39] [INFO] [app.database.models] With search_vicinity: Chicago
+[2025-04-28 10:57:39] [INFO] [app.database.models] With destination_country: United States
+[2025-04-28 10:57:39] [INFO] [app.database.models] Making Google Places API call for: Weiner Circle
+[2025-04-28 10:57:39] [INFO] [app.services.google_places_service] Searching Google Places API for: Weiner Circle
+[2025-04-28 10:57:39] [INFO] [app.services.google_places_service] Category: Restaurant
+[2025-04-28 10:57:39] [INFO] [app.services.google_places_service] Search vicinity: Chicago
+[2025-04-28 10:57:39] [INFO] [app.services.google_places_service] Destination country: United States
+[2025-04-28 10:57:39] [INFO] [app.services.google_places_service] Making FindPlace API request for: Weiner Circle
+[2025-04-28 10:57:39] [INFO] [app.services.google_places_service] FindPlace API response status: OK
+[2025-04-28 10:57:39] [INFO] [app.services.google_places_service] Found place_id for Weiner Circle: ChIJV9Z_rQ7TD4gREjGVxVAW8uE
+[2025-04-28 10:57:39] [INFO] [app.services.google_places_service] Making PlaceDetails API request for place_id: ChIJV9Z_rQ7TD4gREjGVxVAW8uE
+[2025-04-28 10:57:40] [INFO] [app.services.google_places_service] PlaceDetails API response status: OK
+[2025-04-28 10:57:40] [INFO] [app.services.google_places_service] Successfully retrieved details for place: The Wiener's Circle
+[2025-04-28 10:57:40] [INFO] [app.database.models] Google Places API returned data for place: The Wiener's Circle
+[2025-04-28 10:57:40] [INFO] [app.database.models] Found place_id from Google: ChIJV9Z_rQ7TD4gREjGVxVAW8uE
+[2025-04-28 10:57:40] [INFO] [app.database.models] Creating new activity for: Weiner Circle
+[2025-04-28 10:57:40] [INFO] [app.database.models] Adding Google Places data to new activity
+[2025-04-28 10:57:40] [INFO] [app.database.models] Found city from Google: Chicago
+[2025-04-28 10:57:40] [INFO] [app.database.models] Found country from Google: United States
+[2025-04-28 10:57:40] [INFO] [app.database.models] Created new activity: Weiner Circle (ID: 41)
+[2025-04-28 10:57:40] [INFO] [app.routes.recommendation_routes] Activity for 'Weiner Circle': ID=41, place_id=ChIJV9Z_rQ7TD4gREjGVxVAW8uE
+[2025-04-28 10:57:40] [INFO] [app.routes.recommendation_routes] Processing recommendation: Good Ambler
+[2025-04-28 10:57:40] [INFO] [app.database.models] Activity.get_or_create called for: Good Ambler
+[2025-04-28 10:57:40] [INFO] [app.database.models] Category: Coffee Shop
+[2025-04-28 10:57:40] [INFO] [app.database.models] With search_vicinity: Chicago
+[2025-04-28 10:57:40] [INFO] [app.database.models] With destination_country: United States
+[2025-04-28 10:57:40] [INFO] [app.database.models] Making Google Places API call for: Good Ambler
+[2025-04-28 10:57:40] [INFO] [app.services.google_places_service] Searching Google Places API for: Good Ambler
+[2025-04-28 10:57:40] [INFO] [app.services.google_places_service] Category: Coffee Shop
+[2025-04-28 10:57:40] [INFO] [app.services.google_places_service] Search vicinity: Chicago
+[2025-04-28 10:57:40] [INFO] [app.services.google_places_service] Destination country: United States
+[2025-04-28 10:57:40] [INFO] [app.services.google_places_service] Making FindPlace API request for: Good Ambler
+[2025-04-28 10:57:40] [INFO] [app.services.google_places_service] FindPlace API response status: OK
+[2025-04-28 10:57:40] [INFO] [app.services.google_places_service] Found place_id for Good Ambler: ChIJDfFD0NItDogRWomokc_00D8
+[2025-04-28 10:57:40] [INFO] [app.services.google_places_service] Making PlaceDetails API request for place_id: ChIJDfFD0NItDogRWomokc_00D8
+[2025-04-28 10:57:40] [INFO] [app.services.google_places_service] PlaceDetails API response status: OK
+[2025-04-28 10:57:40] [INFO] [app.services.google_places_service] Successfully retrieved details for place: Good Ambler
+[2025-04-28 10:57:40] [INFO] [app.database.models] Google Places API returned data for place: Good Ambler
+[2025-04-28 10:57:40] [INFO] [app.database.models] Found place_id from Google: ChIJDfFD0NItDogRWomokc_00D8
+[2025-04-28 10:57:40] [INFO] [app.database.models] Creating new activity for: Good Ambler
+[2025-04-28 10:57:40] [INFO] [app.database.models] Adding Google Places data to new activity
+[2025-04-28 10:57:40] [INFO] [app.database.models] Found city from Google: Chicago
+[2025-04-28 10:57:40] [INFO] [app.database.models] Found country from Google: United States
+[2025-04-28 10:57:40] [INFO] [app.database.models] Created new activity: Good Ambler (ID: 42)
+[2025-04-28 10:57:40] [INFO] [app.routes.recommendation_routes] Activity for 'Good Ambler': ID=42, place_id=ChIJDfFD0NItDogRWomokc_00D8
+[2025-04-28 10:57:40] [INFO] [app.routes.recommendation_routes] Processing recommendation: Chicago River Architecture Tour
+[2025-04-28 10:57:40] [INFO] [app.database.models] Activity.get_or_create called for: Chicago River Architecture Tour
+[2025-04-28 10:57:40] [INFO] [app.database.models] Category: Tour
+[2025-04-28 10:57:40] [INFO] [app.database.models] With search_vicinity: Chicago
+[2025-04-28 10:57:40] [INFO] [app.database.models] With destination_country: United States
+[2025-04-28 10:57:40] [INFO] [app.database.models] Making Google Places API call for: Chicago River Architecture Tour
+[2025-04-28 10:57:40] [INFO] [app.services.google_places_service] Searching Google Places API for: Chicago River Architecture Tour
+[2025-04-28 10:57:40] [INFO] [app.services.google_places_service] Category: Tour
+[2025-04-28 10:57:40] [INFO] [app.services.google_places_service] Search vicinity: Chicago
+[2025-04-28 10:57:40] [INFO] [app.services.google_places_service] Destination country: United States
+[2025-04-28 10:57:40] [INFO] [app.services.google_places_service] Making FindPlace API request for: Chicago River Architecture Tour
+[2025-04-28 10:57:41] [INFO] [app.services.google_places_service] FindPlace API response status: OK
+[2025-04-28 10:57:41] [INFO] [app.services.google_places_service] Found place_id for Chicago River Architecture Tour: ChIJbz_TYaorDogRgAG-I7FKEM0
+[2025-04-28 10:57:41] [INFO] [app.services.google_places_service] Making PlaceDetails API request for place_id: ChIJbz_TYaorDogRgAG-I7FKEM0
+[2025-04-28 10:57:41] [INFO] [app.services.google_places_service] PlaceDetails API response status: OK
+[2025-04-28 10:57:41] [INFO] [app.services.google_places_service] Successfully retrieved details for place: Chicago River Boat Architecture Tours
+[2025-04-28 10:57:41] [INFO] [app.database.models] Google Places API returned data for place: Chicago River Boat Architecture Tours
+[2025-04-28 10:57:41] [INFO] [app.database.models] Found place_id from Google: ChIJbz_TYaorDogRgAG-I7FKEM0
+[2025-04-28 10:57:41] [INFO] [app.database.models] Creating new activity for: Chicago River Architecture Tour
+[2025-04-28 10:57:41] [INFO] [app.database.models] Adding Google Places data to new activity
+[2025-04-28 10:57:41] [INFO] [app.database.models] Found city from Google: Chicago
+[2025-04-28 10:57:41] [INFO] [app.database.models] Found country from Google: United States
+[2025-04-28 10:57:41] [INFO] [app.database.models] Created new activity: Chicago River Architecture Tour (ID: 43)
+[2025-04-28 10:57:41] [INFO] [app.routes.recommendation_routes] Activity for 'Chicago River Architecture Tour': ID=43, place_id=ChIJbz_TYaorDogRgAG-I7FKEM0
+[2025-04-28 10:57:41] [INFO] [app.routes.recommendation_routes] Saved 4 recommendations for trip chicago-apr-2025
+[2025-04-28 10:57:41] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:57:41] "[32mPOST /trip/chicago-apr-2025/save HTTP/1.1[0m" 302 -
+[2025-04-28 10:57:42] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:57:42] "GET /trip/chicago-apr-2025/thank-you HTTP/1.1" 200 -
+[2025-04-28 10:57:42] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:57:42] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-28 10:57:42] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:57:42] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-28 10:57:42] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:57:42] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-28 10:57:42] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:57:42] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-28 10:57:43] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:57:43] "GET /trip/chicago-apr-2025 HTTP/1.1" 200 -
+[2025-04-28 10:57:43] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:57:43] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-28 10:57:43] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:57:43] "[36mGET /static/css/pages/recommendations.css HTTP/1.1[0m" 304 -
+[2025-04-28 10:57:43] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:57:43] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-28 10:57:43] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:57:43] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-28 10:57:43] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:57:43] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-28 10:58:06] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:58:06] "GET /trip/chicago-apr-2025 HTTP/1.1" 200 -
+[2025-04-28 10:58:06] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:58:06] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-28 10:58:06] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:58:06] "GET /static/css/pages/recommendations.css HTTP/1.1" 200 -
+[2025-04-28 10:58:06] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:58:06] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-28 10:58:06] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:58:06] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-28 10:58:06] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:58:06] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-28 10:58:07] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 10:58:07] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-28 15:05:17] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:05:17] "GET /trip/chicago-apr-2025 HTTP/1.1" 200 -
+[2025-04-28 15:05:17] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:05:17] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-28 15:05:17] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:05:17] "[36mGET /static/css/pages/recommendations.css HTTP/1.1[0m" 304 -
+[2025-04-28 15:05:17] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:05:17] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-28 15:05:17] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:05:17] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-28 15:05:17] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:05:17] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-28 15:06:33] [INFO] [app] Application started
+[2025-04-28 15:09:11] [INFO] [app] Application started
+[2025-04-28 15:09:11] [INFO] [werkzeug] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5001
+[2025-04-28 15:09:11] [INFO] [werkzeug] [33mPress CTRL+C to quit[0m
+[2025-04-28 15:12:12] [INFO] [app] Application started
+[2025-04-28 15:12:31] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:12:31] "GET / HTTP/1.1" 200 -
+[2025-04-28 15:12:31] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:12:31] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-28 15:12:31] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:12:31] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-28 15:12:31] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:12:31] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-28 15:12:31] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:12:31] "[36mGET /static/css/pages/home.css HTTP/1.1[0m" 304 -
+[2025-04-28 15:12:31] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:12:31] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-28 15:12:31] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:12:31] "GET /static/images/trip-hero.png?v=2 HTTP/1.1" 200 -
+[2025-04-28 15:12:32] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:12:32] "GET / HTTP/1.1" 200 -
+[2025-04-28 15:12:32] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:12:32] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-28 15:12:32] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:12:32] "GET /static/css/pages/home.css HTTP/1.1" 200 -
+[2025-04-28 15:12:32] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:12:32] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-28 15:12:32] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:12:32] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-28 15:12:32] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:12:32] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-28 15:12:33] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:12:33] "GET /static/images/trip-hero.png?v=2 HTTP/1.1" 200 -
+[2025-04-28 15:12:33] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:12:33] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-28 15:12:36] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:12:36] "GET /admin HTTP/1.1" 200 -
+[2025-04-28 15:12:36] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:12:36] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-28 15:12:36] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:12:36] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-28 15:12:36] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:12:36] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-28 15:12:36] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:12:36] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-28 15:12:39] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:12:39] "GET /trip/chicago-apr-2025 HTTP/1.1" 200 -
+[2025-04-28 15:12:39] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:12:39] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-28 15:12:39] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:12:39] "[36mGET /static/css/pages/recommendations.css HTTP/1.1[0m" 304 -
+[2025-04-28 15:12:39] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:12:39] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-28 15:12:39] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:12:39] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-28 15:12:39] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:12:39] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-28 15:12:40] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:12:40] "GET /trip/chicago-apr-2025 HTTP/1.1" 200 -
+[2025-04-28 15:12:40] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:12:40] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-28 15:12:40] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:12:40] "GET /static/css/pages/recommendations.css HTTP/1.1" 200 -
+[2025-04-28 15:12:40] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:12:40] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-28 15:12:40] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:12:40] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-28 15:12:40] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:12:40] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-28 15:12:40] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:12:40] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-28 15:14:00] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:14:00] "GET /trip/chicago-apr-2025 HTTP/1.1" 200 -
+[2025-04-28 15:14:00] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:14:00] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-28 15:14:00] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:14:00] "[36mGET /static/css/pages/recommendations.css HTTP/1.1[0m" 304 -
+[2025-04-28 15:14:00] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:14:00] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-28 15:14:00] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:14:00] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-28 15:14:00] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:14:00] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-28 15:14:01] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:14:01] "GET /trip/chicago-apr-2025 HTTP/1.1" 200 -
+[2025-04-28 15:14:01] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:14:01] "GET /static/css/pages/recommendations.css HTTP/1.1" 200 -
+[2025-04-28 15:14:01] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:14:01] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-28 15:14:01] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:14:01] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-28 15:14:01] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:14:01] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-28 15:14:01] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:14:01] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-28 15:14:22] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:14:22] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-28 15:14:22] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:14:22] "GET /trip/chicago-apr-2025 HTTP/1.1" 200 -
+[2025-04-28 15:14:22] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:14:22] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-28 15:14:22] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:14:22] "[36mGET /static/css/pages/recommendations.css HTTP/1.1[0m" 304 -
+[2025-04-28 15:14:22] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:14:22] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-28 15:14:22] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:14:22] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-28 15:14:22] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:14:22] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-28 15:14:22] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:14:22] "GET /trip/chicago-apr-2025 HTTP/1.1" 200 -
+[2025-04-28 15:14:22] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:14:22] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-28 15:14:22] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:14:22] "GET /static/css/pages/recommendations.css HTTP/1.1" 200 -
+[2025-04-28 15:14:22] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:14:22] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-28 15:14:22] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:14:22] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-28 15:14:22] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:14:22] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-28 15:14:23] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:14:23] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-28 15:15:25] [INFO] [app] Application started
+[2025-04-28 15:15:25] [INFO] [werkzeug] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5003
+[2025-04-28 15:15:25] [INFO] [werkzeug] [33mPress CTRL+C to quit[0m
+[2025-04-28 15:15:30] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:15:30] "GET /trip/chicago-apr-2025 HTTP/1.1" 200 -
+[2025-04-28 15:15:30] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:15:30] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-28 15:15:30] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:15:30] "GET /static/css/pages/recommendations.css HTTP/1.1" 200 -
+[2025-04-28 15:15:30] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:15:30] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-28 15:15:30] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:15:30] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-28 15:15:30] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:15:30] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-28 15:15:31] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:15:31] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-28 15:19:42] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:19:42] "GET /trip/chicago-apr-2025 HTTP/1.1" 200 -
+[2025-04-28 15:19:42] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:19:42] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-28 15:19:42] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:19:42] "GET /static/css/pages/recommendations.css HTTP/1.1" 200 -
+[2025-04-28 15:19:42] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:19:42] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-28 15:19:42] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:19:42] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-28 15:19:42] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:19:42] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-28 15:19:43] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:19:43] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-28 15:20:55] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:20:55] "GET /trip/chicago-apr-2025 HTTP/1.1" 200 -
+[2025-04-28 15:20:55] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:20:55] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-28 15:20:55] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:20:55] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-28 15:20:55] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:20:55] "GET /static/css/pages/recommendations.css HTTP/1.1" 200 -
+[2025-04-28 15:20:55] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:20:55] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-28 15:20:55] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:20:55] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-28 15:20:56] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:20:56] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-28 15:25:09] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:25:09] "GET /trip/chicago-apr-2025 HTTP/1.1" 200 -
+[2025-04-28 15:25:09] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:25:09] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-28 15:25:09] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:25:09] "GET /static/css/pages/recommendations.css HTTP/1.1" 200 -
+[2025-04-28 15:25:09] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:25:09] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-28 15:25:09] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:25:09] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-28 15:25:09] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:25:09] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-28 15:25:09] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:25:09] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-28 15:25:13] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:25:13] "GET /trip/chicago-apr-2025 HTTP/1.1" 200 -
+[2025-04-28 15:25:13] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:25:13] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-28 15:25:13] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:25:13] "[36mGET /static/css/pages/recommendations.css HTTP/1.1[0m" 304 -
+[2025-04-28 15:25:13] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:25:13] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-28 15:25:13] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:25:13] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-28 15:25:13] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:25:13] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-28 15:25:49] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:25:49] "GET /trip/chicago-apr-2025 HTTP/1.1" 200 -
+[2025-04-28 15:25:49] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:25:49] "GET /static/css/pages/recommendations.css HTTP/1.1" 200 -
+[2025-04-28 15:25:49] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:25:49] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-28 15:25:49] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:25:49] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-28 15:25:49] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:25:49] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-28 15:25:49] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:25:49] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-28 15:25:50] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:25:50] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-28 15:29:12] [INFO] [app] Application started
+[2025-04-28 15:29:12] [INFO] [werkzeug] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[2025-04-28 15:29:12] [INFO] [werkzeug] [33mPress CTRL+C to quit[0m
+[2025-04-28 15:29:12] [INFO] [werkzeug]  * Restarting with stat
+[2025-04-28 15:29:12] [INFO] [app] Application started
+[2025-04-28 15:29:13] [WARNING] [werkzeug]  * Debugger is active!
+[2025-04-28 15:29:13] [INFO] [werkzeug]  * Debugger PIN: 758-588-791
+[2025-04-28 15:29:19] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:29:19] "GET /trip/chicago-apr-2025 HTTP/1.1" 200 -
+[2025-04-28 15:29:20] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:29:20] "GET /static/css/pages/recommendations.css HTTP/1.1" 200 -
+[2025-04-28 15:29:20] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:29:20] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-28 15:29:20] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:29:20] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-28 15:29:20] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:29:20] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-28 15:29:20] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:29:20] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-28 15:29:20] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:29:20] "GET /trip/chicago-apr-2025 HTTP/1.1" 200 -
+[2025-04-28 15:29:20] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:29:20] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-28 15:29:20] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:29:20] "GET /static/css/pages/recommendations.css HTTP/1.1" 200 -
+[2025-04-28 15:29:20] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:29:20] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-28 15:29:20] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:29:20] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-28 15:29:20] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:29:20] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-28 15:29:21] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:29:21] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-28 15:29:52] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:29:52] "GET /trip/chicago-apr-2025 HTTP/1.1" 200 -
+[2025-04-28 15:29:52] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:29:52] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-28 15:29:52] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:29:52] "[36mGET /static/css/pages/recommendations.css HTTP/1.1[0m" 304 -
+[2025-04-28 15:29:52] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:29:52] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-28 15:29:52] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:29:52] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-28 15:29:52] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:29:52] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-28 15:29:53] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:29:53] "GET /trip/chicago-apr-2025 HTTP/1.1" 200 -
+[2025-04-28 15:29:53] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:29:53] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-28 15:29:53] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:29:53] "GET /static/css/pages/recommendations.css HTTP/1.1" 200 -
+[2025-04-28 15:29:53] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:29:53] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-28 15:29:53] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:29:53] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-28 15:29:53] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:29:53] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-28 15:29:53] [INFO] [werkzeug] 127.0.0.1 - - [28/Apr/2025 15:29:53] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-29 09:29:31] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:29:31] "GET /trip/chicago-apr-2025 HTTP/1.1" 200 -
+[2025-04-29 09:29:31] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:29:31] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-29 09:29:31] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:29:31] "[36mGET /static/css/pages/recommendations.css HTTP/1.1[0m" 304 -
+[2025-04-29 09:29:31] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:29:31] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-29 09:29:31] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:29:31] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-29 09:29:31] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:29:31] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-29 09:29:56] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:29:56] "GET /trip/chicago-apr-2025 HTTP/1.1" 200 -
+[2025-04-29 09:29:56] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:29:56] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-29 09:29:56] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:29:56] "[36mGET /static/css/pages/recommendations.css HTTP/1.1[0m" 304 -
+[2025-04-29 09:29:56] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:29:56] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-29 09:29:56] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:29:56] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-29 09:29:56] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:29:56] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-29 09:30:03] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:30:03] "GET /trip/chicago-apr-2025 HTTP/1.1" 200 -
+[2025-04-29 09:30:03] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:30:03] "GET /static/css/pages/recommendations.css HTTP/1.1" 200 -
+[2025-04-29 09:30:03] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:30:03] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-29 09:30:03] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:30:03] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-29 09:30:03] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:30:03] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-29 09:30:03] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:30:03] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-29 09:30:03] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:30:03] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-29 09:36:19] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:36:19] "GET /trip/chicago-apr-2025 HTTP/1.1" 200 -
+[2025-04-29 09:36:19] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:36:19] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-29 09:36:19] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:36:19] "GET /static/css/pages/recommendations.css HTTP/1.1" 200 -
+[2025-04-29 09:36:19] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:36:19] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-29 09:36:19] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:36:19] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-29 09:36:19] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:36:19] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-29 09:36:19] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:36:19] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-29 09:43:26] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:43:26] "GET /trip/chicago-apr-2025 HTTP/1.1" 200 -
+[2025-04-29 09:43:26] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:43:26] "GET /static/css/pages/recommendations.css HTTP/1.1" 200 -
+[2025-04-29 09:43:26] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:43:26] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-29 09:43:26] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:43:26] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-29 09:43:26] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:43:26] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-29 09:43:26] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:43:26] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-29 09:43:26] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:43:26] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-29 09:43:27] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:43:27] "GET /trip/chicago-apr-2025 HTTP/1.1" 200 -
+[2025-04-29 09:43:27] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:43:27] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-29 09:43:27] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:43:27] "GET /static/css/pages/recommendations.css HTTP/1.1" 200 -
+[2025-04-29 09:43:27] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:43:27] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-29 09:43:27] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:43:27] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-29 09:43:27] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:43:27] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-29 09:43:27] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:43:27] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-29 09:43:30] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:43:30] "GET /trip/chicago-apr-2025 HTTP/1.1" 200 -
+[2025-04-29 09:43:30] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:43:30] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-29 09:43:30] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:43:30] "GET /static/css/pages/recommendations.css HTTP/1.1" 200 -
+[2025-04-29 09:43:30] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:43:30] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-29 09:43:30] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:43:30] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-29 09:43:30] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:43:30] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-29 09:43:30] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:43:30] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-29 09:43:35] [INFO] [app] Application started
+[2025-04-29 09:43:36] [INFO] [werkzeug] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[2025-04-29 09:43:36] [INFO] [werkzeug] [33mPress CTRL+C to quit[0m
+[2025-04-29 09:43:36] [INFO] [werkzeug]  * Restarting with stat
+[2025-04-29 09:43:36] [INFO] [app] Application started
+[2025-04-29 09:43:36] [WARNING] [werkzeug]  * Debugger is active!
+[2025-04-29 09:43:36] [INFO] [werkzeug]  * Debugger PIN: 758-588-791
+[2025-04-29 09:43:40] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:43:40] "GET /trip/chicago-apr-2025 HTTP/1.1" 200 -
+[2025-04-29 09:43:40] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:43:40] "GET /static/css/pages/recommendations.css HTTP/1.1" 200 -
+[2025-04-29 09:43:40] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:43:40] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-29 09:43:40] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:43:40] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-29 09:43:40] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:43:40] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-29 09:43:40] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:43:40] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-29 09:43:41] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:43:41] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -

@@ -34,6 +34,22 @@
           Recommendations for {{ trip.traveler_name }}
         </h2>
         <div class="flex items-center space-x-2">
+          <!-- View toggle buttons -->
+          <div class="flex border border-gray-200 rounded-md overflow-hidden mr-2">
+            <button id="card-view-btn" class="inline-flex items-center px-3 py-1.5 bg-blue-100 text-blue-800 text-sm font-medium">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+              </svg>
+              Cards
+            </button>
+            <button id="map-view-btn" class="inline-flex items-center px-3 py-1.5 bg-white text-gray-600 hover:text-gray-900 text-sm font-medium">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4" />
+              </svg>
+              Map
+            </button>
+          </div>
+          
           <div id="search-container" class="relative flex items-center">
             <button id="toggle-search" class="inline-flex items-center px-2 py-1 text-gray-600 hover:text-gray-900 transition">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
@@ -98,11 +114,17 @@
         </div>
       </div>
       
-      <div class="grid md:grid-cols-2 gap-6">
+      <!-- Card View Container -->
+      <div id="card-view" class="grid md:grid-cols-2 gap-6">
         {% for group in grouped_recommendations %}
           <div class="card card-hover recommendation-card" 
                data-category="{{ group.activity.category }}"
-               data-contributors="{% for rec in group.recommendations %}{{ rec.author_id }}{% if not loop.last %},{% endif %}{% endfor %}">
+               data-contributors="{% for rec in group.recommendations %}{{ rec.author_id }}{% if not loop.last %},{% endif %}{% endfor %}"
+               data-activity-id="{{ group.activity.id }}"
+               data-lat="{{ group.activity.latitude or '' }}"
+               data-lng="{{ group.activity.longitude or '' }}"
+               data-name="{{ group.activity.name }}"
+               data-place-id="{{ group.activity.google_place_id or '' }}">
             <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ group.activity.name }}</h3>
             
             <div class="flex flex-wrap items-center gap-3 mb-3">
@@ -167,6 +189,23 @@
           </div>
         {% endfor %}
       </div>
+      
+      <!-- Map View Container -->
+      <div id="map-view" class="hidden" style="min-height: 500px;">
+        <div id="recommendations-map" class="w-full h-[500px] rounded-lg shadow-md border border-gray-300" style="position: relative; overflow: hidden; min-height: 500px;"></div>
+        <div id="map-info-panel" class="hidden mt-4 bg-white rounded-lg shadow p-4">
+          <h3 id="map-info-title" class="text-xl font-semibold text-gray-900 mb-2"></h3>
+          <div id="map-info-category" class="mb-2"></div>
+          <p id="map-info-content" class="text-gray-600"></p>
+        </div>
+        
+        <!-- Missing coordinates message -->
+        <div id="missing-coordinates-message" class="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg text-sm text-yellow-800 hidden">
+          <p class="font-medium">Some recommendations don't have location data:</p>
+          <ul id="missing-coordinates-list" class="list-disc pl-5 mt-2"></ul>
+          <p class="mt-2">These places can't be shown on the map because they don't have coordinates in our database.</p>
+        </div>
+      </div>
     </div>
   {% else %}
     <div class="card mb-8 bg-gray-50 text-center">
@@ -179,8 +218,63 @@
 {% endblock %}
 
 {% block scripts %}
+<!-- Google Maps API Script -->
+<script src="https://maps.googleapis.com/maps/api/js?key={{ config.GOOGLE_MAPS_API_KEY }}&callback=initMap" async defer></script>
+
 <script>
+  // Map initialization function (called by Google Maps API after loading)
+  function initMap() {
+    // This will be called when Google Maps API is loaded
+    if (window.setupMap && typeof window.setupMap === 'function') {
+      console.log('Setting up map...');
+      window.setupMap();
+    } else {
+      console.warn('setupMap function not found when Google Maps API loaded');
+    }
+  }
+
   document.addEventListener('DOMContentLoaded', function() {
+    // View toggle variables
+    const cardViewBtn = document.getElementById('card-view-btn');
+    const mapViewBtn = document.getElementById('map-view-btn');
+    const cardView = document.getElementById('card-view');
+    const mapView = document.getElementById('map-view');
+    
+    // Toggle view functions
+    cardViewBtn.addEventListener('click', function() {
+      // Show card view, hide map view
+      cardView.classList.remove('hidden');
+      mapView.classList.add('hidden');
+      
+      // Update button styles
+      cardViewBtn.classList.remove('bg-white', 'text-gray-600');
+      cardViewBtn.classList.add('bg-blue-100', 'text-blue-800');
+      mapViewBtn.classList.remove('bg-blue-100', 'text-blue-800');
+      mapViewBtn.classList.add('bg-white', 'text-gray-600');
+    });
+    
+    mapViewBtn.addEventListener('click', function() {
+      // Show map view, hide card view
+      mapView.classList.remove('hidden');
+      cardView.classList.add('hidden');
+      
+      // Force the map container to be visible with !important
+      // document.getElementById('map-view').style.cssText = "display: block !important; visibility: visible !important;";
+      // document.getElementById('recommendations-map').style.cssText = "display: block !important; height: 500px !important; width: 100% !important; visibility: visible !important;";
+      
+      // Update button styles
+      mapViewBtn.classList.remove('bg-white', 'text-gray-600');
+      mapViewBtn.classList.add('bg-blue-100', 'text-blue-800');
+      cardViewBtn.classList.remove('bg-blue-100', 'text-blue-800');
+      cardViewBtn.classList.add('bg-white', 'text-gray-600');
+      
+      // Trigger map resize event to ensure proper rendering
+      if (window.google && window.google.maps && window.map) {
+        google.maps.event.trigger(window.map, 'resize');
+        centerMap();
+      }
+    });
+    
     // Toggle filter section visibility
     const toggleFiltersBtn = document.getElementById('toggle-filters');
     const filterSection = document.getElementById('filter-section');
@@ -372,14 +466,15 @@
           activeFilters[filterType].add(filterValue);
         }
         
-        // Apply filters to cards
+        // Apply filters to cards and map markers
         applyFilters();
       });
     });
     
-    // Function to apply filters to recommendation cards
+    // Function to apply filters to recommendation cards and map markers
     function applyFilters() {
       const cards = document.querySelectorAll('.recommendation-card');
+      const markers = window.mapMarkers || [];
       
       cards.forEach(card => {
         const cardCategory = card.dataset.category;
@@ -405,8 +500,197 @@
         } else {
           card.classList.add('hidden');
         }
+        
+        // Find and update corresponding map marker visibility
+        if (window.map && markers.length > 0) {
+          const activityId = card.dataset.activityId;
+          const marker = markers.find(m => m.activityId === activityId);
+          if (marker) {
+            marker.setVisible(categoryMatch && contributorMatch);
+          }
+        }
       });
+      
+      // Update map bounds after filtering
+      if (window.centerMap) {
+        window.centerMap();
+      }
     }
+    
+    // Map setup function - will be called when the Google Maps API is loaded
+    window.mapMarkers = [];
+    window.infoWindows = [];
+    
+    window.setupMap = function() {
+      const recommendationsMap = document.getElementById('recommendations-map');
+      if (!recommendationsMap) {
+        return;
+      }
+      
+      // Force the map container element to be visible
+      // recommendationsMap.style.cssText = "display: block !important; height: 500px !important; width: 100% !important; visibility: visible !important;";
+      
+      const cards = document.querySelectorAll('.recommendation-card');
+      
+      // Extract location data
+      const locations = [];
+      const missingLocations = [];
+      
+      cards.forEach(card => {
+        const lat = parseFloat(card.dataset.lat);
+        const lng = parseFloat(card.dataset.lng);
+        const name = card.dataset.name;
+        
+        // Only add locations with valid coordinates
+        if (!isNaN(lat) && !isNaN(lng) && lat !== 0 && lng !== 0) {
+          locations.push({
+            lat,
+            lng,
+            name,
+            activityId: card.dataset.activityId,
+            category: card.dataset.category,
+            placeId: card.dataset.placeId,
+            element: card
+          });
+        } else {
+          // Track missing locations
+          missingLocations.push(name);
+        }
+      });
+      
+      // Show missing coordinates message if needed
+      const missingCoordinatesMessage = document.getElementById('missing-coordinates-message');
+      const missingCoordinatesList = document.getElementById('missing-coordinates-list');
+      
+      if (missingLocations.length > 0) {
+        // Clear previous list
+        missingCoordinatesList.innerHTML = '';
+        
+        // Add each missing location to the list
+        missingLocations.forEach(name => {
+          const listItem = document.createElement('li');
+          listItem.textContent = name;
+          missingCoordinatesList.appendChild(listItem);
+        });
+        
+        // Show the message
+        missingCoordinatesMessage.classList.remove('hidden');
+      } else {
+        // Hide the message if no missing locations
+        missingCoordinatesMessage.classList.add('hidden');
+      }
+      
+      if (locations.length === 0) {
+        // If no valid locations, show message in map container
+        recommendationsMap.innerHTML = '<div class="flex h-full items-center justify-center"><p class="text-gray-500">No location data available for these recommendations</p></div>';
+        return;
+      }
+      
+      // Calculate average center point if multiple locations
+      let centerLat = 0;
+      let centerLng = 0;
+      
+      locations.forEach(loc => {
+        centerLat += loc.lat;
+        centerLng += loc.lng;
+      });
+      
+      centerLat /= locations.length;
+      centerLng /= locations.length;
+      
+      // Create the map
+      window.map = new google.maps.Map(recommendationsMap, {
+        center: { lat: centerLat, lng: centerLng },
+        zoom: 12,
+        mapTypeControl: true,
+        fullscreenControl: true
+      });
+      
+      // Create info window for marker click events
+      const infoWindow = new google.maps.InfoWindow();
+      
+      // Create markers for each location
+      locations.forEach(location => {
+        const marker = new google.maps.Marker({
+          position: { lat: location.lat, lng: location.lng },
+          map: window.map,
+          title: location.name,
+          activityId: location.activityId,
+          animation: google.maps.Animation.DROP
+        });
+        
+        // Store marker reference for filtering
+        window.mapMarkers.push(marker);
+        
+        // Add click event to marker
+        marker.addListener('click', () => {
+          // Scroll to corresponding card in the card view
+          const card = location.element;
+          if (card) {
+            // Update info panel
+            const infoPanel = document.getElementById('map-info-panel');
+            const infoTitle = document.getElementById('map-info-title');
+            const infoCategory = document.getElementById('map-info-category');
+            const infoContent = document.getElementById('map-info-content');
+            
+            // Set info panel content
+            infoTitle.textContent = location.name;
+            
+            // Add category badge if available
+            if (location.category) {
+              infoCategory.innerHTML = `<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">${location.category}</span>`;
+            } else {
+              infoCategory.innerHTML = '';
+            }
+            
+            // Add recommendation descriptions
+            const descriptions = Array.from(card.querySelectorAll('.text-gray-600')).map(el => el.textContent);
+            if (descriptions.length > 0) {
+              infoContent.textContent = descriptions[0]; // Show first description
+            } else {
+              infoContent.textContent = 'No description available';
+            }
+            
+            // Show the info panel
+            infoPanel.classList.remove('hidden');
+          }
+          
+          // Open Google Maps info window
+          infoWindow.setContent(`
+            <div class="p-2">
+              <h3 class="font-semibold">${location.name}</h3>
+              ${location.category ? `<p class="text-sm text-gray-600">${location.category}</p>` : ''}
+              ${location.placeId ? `<a href="https://www.google.com/maps/place/?q=place_id:${location.placeId}" target="_blank" class="text-blue-600 text-sm hover:underline">View on Google Maps</a>` : ''}
+            </div>
+          `);
+          infoWindow.open(window.map, marker);
+        });
+      });
+      
+      // Center map function
+      window.centerMap = function() {
+        if (window.map && locations.length > 0) {
+          // Find visible markers based on active filters
+          const visibleMarkers = window.mapMarkers.filter(marker => marker.getVisible());
+          
+          if (visibleMarkers.length > 0) {
+            const bounds = new google.maps.LatLngBounds();
+            visibleMarkers.forEach(marker => {
+              bounds.extend(marker.getPosition());
+            });
+            window.map.fitBounds(bounds);
+            
+            // Adjust zoom level if there's only one marker
+            if (visibleMarkers.length === 1) {
+              window.map.setZoom(15);
+            }
+          }
+        }
+      };
+      
+      // Initial centering
+      window.centerMap();
+    };
   });
 </script>
 
