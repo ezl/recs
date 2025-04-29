@@ -258,10 +258,6 @@
       mapView.classList.remove('hidden');
       cardView.classList.add('hidden');
       
-      // Force the map container to be visible with !important
-      // document.getElementById('map-view').style.cssText = "display: block !important; visibility: visible !important;";
-      // document.getElementById('recommendations-map').style.cssText = "display: block !important; height: 500px !important; width: 100% !important; visibility: visible !important;";
-      
       // Update button styles
       mapViewBtn.classList.remove('bg-white', 'text-gray-600');
       mapViewBtn.classList.add('bg-blue-100', 'text-blue-800');
@@ -526,9 +522,6 @@
       if (!recommendationsMap) {
         return;
       }
-      
-      // Force the map container element to be visible
-      // recommendationsMap.style.cssText = "display: block !important; height: 500px !important; width: 100% !important; visibility: visible !important;";
       
       const cards = document.querySelectorAll('.recommendation-card');
       
