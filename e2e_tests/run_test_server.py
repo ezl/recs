@@ -10,6 +10,8 @@ import os
 import sys
 import shutil
 from pathlib import Path
+import sqlite3
+import time
 
 # Add parent directory to path so we can import from app
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -31,23 +33,66 @@ def reset_test_db():
     instance_dir = base_dir / 'instance'
     test_db_path = instance_dir / 'test.db'
     
-    # Remove test database if it exists
+    # Ensure we have complete cleanup - try multiple removal strategies
+    # 1. First try to drop all tables to ensure clean state if file exists
     if test_db_path.exists():
-        print(f"Removing existing test database: {test_db_path}")
-        os.remove(test_db_path)
+        print(f"Existing test database found: {test_db_path}")
+        try:
+            print("Attempting to drop all tables first...")
+            # Connect directly to the SQLite database and drop all tables
+            conn = sqlite3.connect(str(test_db_path))
+            cursor = conn.cursor()
+            
+            # Get all table names
+            cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%';")
+            tables = cursor.fetchall()
+            
+            # Drop each table
+            for table in tables:
+                print(f"  - Dropping table: {table[0]}")
+                cursor.execute(f"DROP TABLE IF EXISTS {table[0]}")
+            
+            conn.commit()
+            conn.close()
+            print("All tables dropped successfully.")
+        except Exception as e:
+            print(f"Error dropping tables: {e}")
+    
+    # 2. Remove the file completely
+    try:
+        if test_db_path.exists():
+            print(f"Removing test database file: {test_db_path}")
+            os.remove(test_db_path)
+            # Small delay to ensure file is fully released by OS
+            time.sleep(0.5)
+    except Exception as e:
+        print(f"Error removing database file: {e}")
+        # If we can't remove it, try to truncate it
+        try:
+            with open(test_db_path, 'wb') as f:
+                f.truncate(0)
+            print("Database file truncated.")
+        except Exception as e2:
+            print(f"Error truncating database file: {e2}")
+    
+    # Ensure instance directory exists
+    instance_dir.mkdir(exist_ok=True)
     
     # Create the test app to initialize the database
     app = create_app()
     
     with app.app_context():
         print("Creating test database tables...")
+        
+        # Create all tables directly without migrations first
         db.create_all()
+        print("Base tables created with SQLAlchemy.")
         
         # Set up migrations
         migrate = Migrate(app, db)
         
         # Initialize migrations if they don't exist
-        migrations_dir = Path(__file__).parent / 'migrations'
+        migrations_dir = base_dir / 'migrations'
         if not migrations_dir.exists():
             print("Initializing migrations...")
             init()
@@ -58,10 +103,10 @@ def reset_test_db():
             upgrade()
             print("✅ Migrations completed successfully")
         except Exception as e:
-            print(f"❌ Error running migrations: {e}")
-            # Continue anyway as the db.create_all() should have created the basic schema
+            print(f"❌ Warning: Migration issue: {e}")
+            print("Continuing with base schema as tables are already created")
         
-        # Commit the changes
+        # Ensure changes are committed
         db.session.commit()
     
     print("✅ Test database has been reset and initialized")
