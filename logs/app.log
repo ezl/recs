@@ -2016,3 +2016,5 @@ Grouped Recommendations:
 [2025-04-29 09:43:40] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:43:40] "GET /static/js/main.js HTTP/1.1" 200 -
 [2025-04-29 09:43:40] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:43:40] "GET /static/js/form-validation.js HTTP/1.1" 200 -
 [2025-04-29 09:43:41] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:43:41] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-30 08:33:02] [INFO] [app] Application started
+[2025-04-30 08:33:02] [INFO] [app] Application started

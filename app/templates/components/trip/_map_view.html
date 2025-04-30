@@ -1,0 +1,18 @@
+<!-- Map view component for trip page -->
+<!-- Expects variables: grouped_recommendations -->
+
+<div id="map-view" class="hidden" style="min-height: 500px;">
+  <div id="recommendations-map" class="w-full h-[500px] rounded-lg shadow-md border border-gray-300" style="position: relative; overflow: hidden; min-height: 500px;"></div>
+  <div id="map-info-panel" class="hidden mt-4 bg-white rounded-lg shadow p-4">
+    <h3 id="map-info-title" class="text-xl font-semibold text-gray-900 mb-2"></h3>
+    <div id="map-info-category" class="mb-2"></div>
+    <p id="map-info-content" class="text-gray-600"></p>
+  </div>
+  
+  <!-- Missing coordinates message -->
+  <div id="missing-coordinates-message" class="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg text-sm text-yellow-800 hidden">
+    <p class="font-medium">Some recommendations don't have location data:</p>
+    <ul id="missing-coordinates-list" class="list-disc pl-5 mt-2"></ul>
+    <p class="mt-2">These places can't be shown on the map because they don't have coordinates in our database.</p>
+  </div>
+</div> 

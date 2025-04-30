@@ -50,22 +50,9 @@
             </button>
           </div>
           
-          <div id="search-container" class="relative flex items-center">
-            <button id="toggle-search" class="inline-flex items-center px-2 py-1 text-gray-600 hover:text-gray-900 transition">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-              </svg>
-              <span class="ml-1">Search</span>
-            </button>
-            <div id="search-input-container" class="hidden absolute right-0 top-0 transform translate-y-0 z-10 bg-white rounded shadow-md">
-              <input 
-                id="search-input" 
-                class="w-64 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500" 
-                type="text" 
-                placeholder="Search recommendations..."
-              >
-            </div>
-          </div>
+          <!-- Include search controls component -->
+          {% include 'components/trip/_search_controls.html' %}
+          
           <button id="toggle-filters" class="inline-flex items-center px-2 py-1 text-gray-600 hover:text-gray-900 transition">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 0 1-.659 1.591l-5.432 5.432a2.25 2.25 0 0 0-.659 1.591v2.927a2.25 2.25 0 0 1-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 0 0-.659-1.591L3.659 7.409A2.25 2.25 0 0 1 3 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0 1 12 3Z" />
@@ -81,131 +68,18 @@
         {{ contributors|length }} contributors, {{ grouped_recommendations|length }} activities, {{ trip.recommendations|length }} recommendations
       </p>
       
-      <!-- Filter Pills Section -->
-      <div id="filter-section" class="mb-6 hidden">
-        <!-- Contributor Filter -->
-        <div class="mb-4">
-          <h3 class="text-gray-700 font-medium mb-2">Filter by Contributor</h3>
-          <div class="flex flex-wrap gap-2">
-            {% for contributor in contributors %}
-              <button class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-blue-100 text-blue-800 border border-blue-200 hover:bg-blue-200 transition active" data-filter-type="contributor" data-filter-value="{{ contributor.id }}">
-                {{ contributor.name if contributor.name else contributor.email }}
-              </button>
-            {% endfor %}
-          </div>
-        </div>
-        
-        <!-- Recommendation Type Filter -->
-        <div>
-          <h3 class="text-gray-700 font-medium mb-2">Filter by Recommendation Type</h3>
-          <div class="flex flex-wrap gap-2">
-            {% set categories = [] %}
-            {% for group in grouped_recommendations %}
-              {% if group.activity.category and group.activity.category not in categories %}
-                {% set _ = categories.append(group.activity.category) %}
-              {% endif %}
-            {% endfor %}
-            {% for category in categories %}
-              <button class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-blue-100 text-blue-800 border border-blue-200 hover:bg-blue-200 transition active" data-filter-type="category" data-filter-value="{{ category }}">
-                {{ category }}
-              </button>
-            {% endfor %}
-          </div>
-        </div>
-      </div>
+      <!-- Include filter controls component -->
+      {% include 'components/trip/_filter_controls.html' %}
       
       <!-- Card View Container -->
       <div id="card-view" class="grid md:grid-cols-2 gap-6">
         {% for group in grouped_recommendations %}
-          <div class="card card-hover recommendation-card" 
-               data-category="{{ group.activity.category }}"
-               data-contributors="{% for rec in group.recommendations %}{{ rec.author_id }}{% if not loop.last %},{% endif %}{% endfor %}"
-               data-activity-id="{{ group.activity.id }}"
-               data-lat="{{ group.activity.latitude or '' }}"
-               data-lng="{{ group.activity.longitude or '' }}"
-               data-name="{{ group.activity.name }}"
-               data-place-id="{{ group.activity.google_place_id or '' }}">
-            <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ group.activity.name }}</h3>
-            
-            <div class="flex flex-wrap items-center gap-3 mb-3">
-              {% if group.activity.category %}
-                <span class="badge badge-blue">{{ group.activity.category }}</span>
-              {% endif %}
-              
-              {% if group.activity.website_url %}
-                <a href="{{ group.activity.website_url }}" target="_blank" rel="noopener noreferrer" class="link-icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-1">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" />
-                  </svg>
-                  Website
-                </a>
-              {% endif %}
-            </div>
-            
-            <!-- Recommenders section -->
-            <div class="mb-4">
-              <p class="text-gray-500 text-sm mb-2">
-                Recommended by 
-                {% if group.recommendations|length > 1 %}
-                  {{ group.recommendations|length }} people:
-                {% else %}
-                  {% set rec = group.recommendations[0] %}
-                  {% if rec.author.name and rec.author.email != 'anonymous@example.com' %}
-                    {{ rec.author.name }}
-                  {% elif rec.author.email != 'anonymous@example.com' %}
-                    {{ rec.author.email }}
-                  {% else %}
-                    a friend
-                  {% endif %}
-                {% endif %}
-              </p>
-              
-              {% if group.recommendations|length > 1 %}
-                <div class="pl-4 border-l-2 border-gray-200 space-y-3">
-                  {% for rec in group.recommendations %}
-                    <div>
-                      <p class="text-sm font-medium text-gray-700">
-                        {% if rec.author.name and rec.author.email != 'anonymous@example.com' %}
-                          {{ rec.author.name }}
-                        {% elif rec.author.email != 'anonymous@example.com' %}
-                          {{ rec.author.email }}
-                        {% else %}
-                          Friend
-                        {% endif %}:
-                      </p>
-                      {% if rec.description %}
-                        <p class="text-gray-600 text-sm">{{ rec.description }}</p>
-                      {% endif %}
-                    </div>
-                  {% endfor %}
-                </div>
-              {% else %}
-                {% set rec = group.recommendations[0] %}
-                {% if rec.description %}
-                  <p class="text-gray-600">{{ rec.description }}</p>
-                {% endif %}
-              {% endif %}
-            </div>
-          </div>
+          {% include 'components/trip/_recommendation_card.html' %}
         {% endfor %}
       </div>
       
-      <!-- Map View Container -->
-      <div id="map-view" class="hidden" style="min-height: 500px;">
-        <div id="recommendations-map" class="w-full h-[500px] rounded-lg shadow-md border border-gray-300" style="position: relative; overflow: hidden; min-height: 500px;"></div>
-        <div id="map-info-panel" class="hidden mt-4 bg-white rounded-lg shadow p-4">
-          <h3 id="map-info-title" class="text-xl font-semibold text-gray-900 mb-2"></h3>
-          <div id="map-info-category" class="mb-2"></div>
-          <p id="map-info-content" class="text-gray-600"></p>
-        </div>
-        
-        <!-- Missing coordinates message -->
-        <div id="missing-coordinates-message" class="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg text-sm text-yellow-800 hidden">
-          <p class="font-medium">Some recommendations don't have location data:</p>
-          <ul id="missing-coordinates-list" class="list-disc pl-5 mt-2"></ul>
-          <p class="mt-2">These places can't be shown on the map because they don't have coordinates in our database.</p>
-        </div>
-      </div>
+      <!-- Include map view component -->
+      {% include 'components/trip/_map_view.html' %}
     </div>
   {% else %}
     <div class="card mb-8 bg-gray-50 text-center">

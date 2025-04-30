@@ -327,3 +327,32 @@ If you encounter the "activities.google_place_id does not exist" error in produc
 4. Restart your application server
 
 For Render.com deployments, you can use the Web Shell to execute these commands directly in the production environment.
+
+# Refactoring Proposals
+
+This repository contains proposals for refactoring several large files in the codebase to improve maintainability and organization. Each proposal is in a separate file for clarity.
+
+## Files to Refactor
+
+1. [Trip HTML Template Refactoring](refactoring_trip_html.md) - Breaking up the large 694-line trip.html template into smaller, component-based files using a feature-based organization approach.
+
+2. [Add Recommendation JS Refactoring](refactoring_add_recommendation_js.md) - Refactoring the 552-line add_recommendation.js file into modular components that each handle a specific responsibility.
+
+3. [Database Models Refactoring](refactoring_models_py.md) - Converting the 375-line models.py file into a package with domain-specific model files.
+
+## Implementation Guidelines
+
+For implementing these refactoring proposals:
+
+1. Create a dedicated branch for each refactoring task
+2. Implement changes incrementally, testing after each significant change
+3. Ensure all tests pass before and after refactoring
+4. Have another team member review the changes before merging
+5. Document any issues or challenges encountered during refactoring
+
+These refactorings are designed to:
+- Improve code organization
+- Make the codebase more maintainable
+- Support collaborative development
+- Make future changes easier
+- Follow standard best practices for component organization
