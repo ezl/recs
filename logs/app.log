@@ -2018,3 +2018,209 @@ Grouped Recommendations:
 [2025-04-29 09:43:41] [INFO] [werkzeug] 127.0.0.1 - - [29/Apr/2025 09:43:41] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
 [2025-04-30 08:33:02] [INFO] [app] Application started
 [2025-04-30 08:33:02] [INFO] [app] Application started
+[2025-04-30 17:11:26] [INFO] [app] Application started
+[2025-04-30 17:11:26] [INFO] [werkzeug] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[2025-04-30 17:11:26] [INFO] [werkzeug] [33mPress CTRL+C to quit[0m
+[2025-04-30 17:11:26] [INFO] [werkzeug]  * Restarting with stat
+[2025-04-30 17:11:26] [INFO] [app] Application started
+[2025-04-30 17:11:27] [WARNING] [werkzeug]  * Debugger is active!
+[2025-04-30 17:11:27] [INFO] [werkzeug]  * Debugger PIN: 758-588-791
+[2025-04-30 17:11:39] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 17:11:39] "GET / HTTP/1.1" 200 -
+[2025-04-30 17:11:39] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 17:11:39] "GET /static/css/pages/home.css HTTP/1.1" 200 -
+[2025-04-30 17:11:39] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 17:11:39] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-30 17:11:39] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 17:11:39] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-30 17:11:39] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 17:11:39] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-30 17:11:39] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 17:11:39] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-30 17:11:44] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 17:11:44] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-30 17:11:44] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 17:11:44] "GET /static/images/trip-hero.png?v=2 HTTP/1.1" 200 -
+[2025-04-30 17:12:26] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 17:12:26] "[32mPOST /create-trip HTTP/1.1[0m" 302 -
+[2025-04-30 17:12:26] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 17:12:26] "GET /user-info HTTP/1.1" 200 -
+[2025-04-30 17:12:26] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 17:12:26] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-30 17:12:26] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 17:12:26] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-30 17:12:26] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 17:12:26] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-30 17:12:26] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 17:12:26] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-30 17:13:02] [INFO] [app.services.ai_service] Getting destination suggestions for query: Boston
+[2025-04-30 17:13:02] [INFO] [app.services.ai_service] Using API key starting with: sk-proj-...
+[2025-04-30 17:13:02] [INFO] [app.services.ai_service] Preparing request to OpenAI API for destination suggestions
+[2025-04-30 17:13:02] [INFO] [app.services.ai_service] Sending request to OpenAI API using model: gpt-3.5-turbo
+[2025-04-30 17:13:03] [ERROR] [app.services.ai_service] Error in destination suggestions: ('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))
+[2025-04-30 17:13:03] [ERROR] [app.services.ai_service] Traceback (most recent call last):
+  File "/Users/ezl/code/recs/.venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+  File "/Users/ezl/code/recs/.venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "/Users/ezl/code/recs/.venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+  File "/Users/ezl/code/recs/.venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 1093, in _validate_conn
+    conn.connect()
+  File "/Users/ezl/code/recs/.venv/lib/python3.9/site-packages/urllib3/connection.py", line 741, in connect
+    sock_and_verified = _ssl_wrap_socket_and_match_hostname(
+  File "/Users/ezl/code/recs/.venv/lib/python3.9/site-packages/urllib3/connection.py", line 920, in _ssl_wrap_socket_and_match_hostname
+    ssl_sock = ssl_wrap_socket(
+  File "/Users/ezl/code/recs/.venv/lib/python3.9/site-packages/urllib3/util/ssl_.py", line 480, in ssl_wrap_socket
+    ssl_sock = _ssl_wrap_socket_impl(sock, context, tls_in_tls, server_hostname)
+  File "/Users/ezl/code/recs/.venv/lib/python3.9/site-packages/urllib3/util/ssl_.py", line 524, in _ssl_wrap_socket_impl
+    return ssl_context.wrap_socket(sock, server_hostname=server_hostname)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/ssl.py", line 500, in wrap_socket
+    return self.sslsocket_class._create(
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/ssl.py", line 1040, in _create
+    self.do_handshake()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/ssl.py", line 1309, in do_handshake
+    self._sslobj.do_handshake()
+ConnectionResetError: [Errno 54] Connection reset by peer
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/ezl/code/recs/.venv/lib/python3.9/site-packages/requests/adapters.py", line 667, in send
+    resp = conn.urlopen(
+  File "/Users/ezl/code/recs/.venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+  File "/Users/ezl/code/recs/.venv/lib/python3.9/site-packages/urllib3/util/retry.py", line 474, in increment
+    raise reraise(type(error), error, _stacktrace)
+  File "/Users/ezl/code/recs/.venv/lib/python3.9/site-packages/urllib3/util/util.py", line 38, in reraise
+    raise value.with_traceback(tb)
+  File "/Users/ezl/code/recs/.venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+  File "/Users/ezl/code/recs/.venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "/Users/ezl/code/recs/.venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+  File "/Users/ezl/code/recs/.venv/lib/python3.9/site-packages/urllib3/connectionpool.py", line 1093, in _validate_conn
+    conn.connect()
+  File "/Users/ezl/code/recs/.venv/lib/python3.9/site-packages/urllib3/connection.py", line 741, in connect
+    sock_and_verified = _ssl_wrap_socket_and_match_hostname(
+  File "/Users/ezl/code/recs/.venv/lib/python3.9/site-packages/urllib3/connection.py", line 920, in _ssl_wrap_socket_and_match_hostname
+    ssl_sock = ssl_wrap_socket(
+  File "/Users/ezl/code/recs/.venv/lib/python3.9/site-packages/urllib3/util/ssl_.py", line 480, in ssl_wrap_socket
+    ssl_sock = _ssl_wrap_socket_impl(sock, context, tls_in_tls, server_hostname)
+  File "/Users/ezl/code/recs/.venv/lib/python3.9/site-packages/urllib3/util/ssl_.py", line 524, in _ssl_wrap_socket_impl
+    return ssl_context.wrap_socket(sock, server_hostname=server_hostname)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/ssl.py", line 500, in wrap_socket
+    return self.sslsocket_class._create(
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/ssl.py", line 1040, in _create
+    self.do_handshake()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/ssl.py", line 1309, in do_handshake
+    self._sslobj.do_handshake()
+urllib3.exceptions.ProtocolError: ('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/ezl/code/recs/app/services/ai_service.py", line 228, in get_destination_suggestions
+    response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=data)
+  File "/Users/ezl/code/recs/.venv/lib/python3.9/site-packages/requests/api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+  File "/Users/ezl/code/recs/.venv/lib/python3.9/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/Users/ezl/code/recs/.venv/lib/python3.9/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/Users/ezl/code/recs/.venv/lib/python3.9/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "/Users/ezl/code/recs/.venv/lib/python3.9/site-packages/requests/adapters.py", line 682, in send
+    raise ConnectionError(err, request=request)
+requests.exceptions.ConnectionError: ('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))
+
+[2025-04-30 17:13:03] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 17:13:03] "[32mPOST /complete-trip HTTP/1.1[0m" 302 -
+[2025-04-30 17:13:03] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 17:13:03] "GET /trip/boston-apr-2025 HTTP/1.1" 200 -
+[2025-04-30 17:13:03] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 17:13:03] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-30 17:13:03] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 17:13:03] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-30 17:13:03] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 17:13:03] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-30 17:13:03] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 17:13:03] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-30 17:13:03] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 17:13:03] "[36mGET /static/css/pages/recommendations.css HTTP/1.1[0m" 304 -
+[2025-04-30 17:13:03] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 17:13:03] "[36mGET /static/js/components/trip/view_toggler.js HTTP/1.1[0m" 304 -
+[2025-04-30 17:13:03] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 17:13:03] "[36mGET /static/js/components/trip/recommendation_filter.js HTTP/1.1[0m" 304 -
+[2025-04-30 17:13:03] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 17:13:03] "[36mGET /static/js/components/trip/recommendation_map.js HTTP/1.1[0m" 304 -
+[2025-04-30 17:13:03] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 17:13:03] "[36mGET /static/js/pages/trip.js HTTP/1.1[0m" 304 -
+[2025-04-30 17:30:08] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 17:30:08] "GET /auth/login HTTP/1.1" 200 -
+[2025-04-30 17:30:08] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 17:30:08] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-30 17:30:08] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 17:30:08] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-30 17:30:08] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 17:30:08] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-30 17:30:08] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 17:30:08] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-30 17:30:14] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 17:30:14] "POST /auth/login HTTP/1.1" 200 -
+[2025-04-30 17:30:14] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 17:30:14] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-30 17:30:14] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 17:30:14] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-30 17:30:14] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 17:30:14] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-30 17:30:14] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 17:30:14] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-30 17:31:17] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 17:31:17] "[32mGET /auth/verify/4nJX8iP5eQyquoLsI1gq2EiAJZuj2KDBAsj5Y9eQ7xA HTTP/1.1[0m" 302 -
+[2025-04-30 17:31:17] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 17:31:17] "GET /my-trips HTTP/1.1" 200 -
+[2025-04-30 17:31:17] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 17:31:17] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-30 17:31:17] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 17:31:17] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-30 17:31:17] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 17:31:17] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-30 17:31:17] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 17:31:17] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-30 17:37:42] [INFO] [werkzeug]  * Detected change in '/Users/ezl/code/recs/app/routes/user_routes.py', reloading
+[2025-04-30 17:37:42] [INFO] [werkzeug]  * Restarting with stat
+[2025-04-30 17:37:42] [INFO] [app] Application started
+[2025-04-30 17:37:43] [WARNING] [werkzeug]  * Debugger is active!
+[2025-04-30 17:37:43] [INFO] [werkzeug]  * Debugger PIN: 758-588-791
+[2025-04-30 17:38:05] [INFO] [werkzeug]  * Detected change in '/Users/ezl/code/recs/app/routes/user_routes.py', reloading
+[2025-04-30 17:38:05] [INFO] [werkzeug]  * Restarting with stat
+[2025-04-30 17:38:05] [INFO] [app] Application started
+[2025-04-30 17:38:06] [WARNING] [werkzeug]  * Debugger is active!
+[2025-04-30 17:38:06] [INFO] [werkzeug]  * Debugger PIN: 758-588-791
+[2025-04-30 17:50:48] [INFO] [werkzeug]  * Detected change in '/Users/ezl/code/recs/app/routes/user_routes.py', reloading
+[2025-04-30 17:50:48] [INFO] [werkzeug]  * Restarting with stat
+[2025-04-30 17:50:48] [INFO] [app] Application started
+[2025-04-30 17:50:49] [WARNING] [werkzeug]  * Debugger is active!
+[2025-04-30 17:50:49] [INFO] [werkzeug]  * Debugger PIN: 758-588-791
+[2025-04-30 17:51:30] [INFO] [werkzeug]  * Detected change in '/Users/ezl/code/recs/app/routes/user_routes.py', reloading
+[2025-04-30 17:51:31] [INFO] [werkzeug]  * Restarting with stat
+[2025-04-30 17:51:31] [INFO] [app] Application started
+[2025-04-30 17:51:31] [WARNING] [werkzeug]  * Debugger is active!
+[2025-04-30 17:51:31] [INFO] [werkzeug]  * Debugger PIN: 758-588-791
+[2025-04-30 17:51:52] [INFO] [werkzeug]  * Detected change in '/Users/ezl/code/recs/app/routes/user_routes.py', reloading
+[2025-04-30 17:51:52] [INFO] [werkzeug]  * Restarting with stat
+[2025-04-30 17:51:52] [INFO] [app] Application started
+[2025-04-30 17:51:53] [WARNING] [werkzeug]  * Debugger is active!
+[2025-04-30 17:51:53] [INFO] [werkzeug]  * Debugger PIN: 758-588-791
+[2025-04-30 17:53:38] [INFO] [werkzeug]  * Detected change in '/Users/ezl/code/recs/app/routes/user_routes.py', reloading
+[2025-04-30 17:53:38] [INFO] [werkzeug]  * Restarting with stat
+[2025-04-30 17:53:38] [INFO] [app] Application started
+[2025-04-30 17:53:39] [WARNING] [werkzeug]  * Debugger is active!
+[2025-04-30 17:53:39] [INFO] [werkzeug]  * Debugger PIN: 758-588-791
+[2025-04-30 17:55:45] [INFO] [werkzeug]  * Detected change in '/Users/ezl/code/recs/app/routes/user_routes.py', reloading
+[2025-04-30 17:55:45] [INFO] [werkzeug]  * Restarting with stat
+[2025-04-30 17:55:46] [INFO] [app] Application started
+[2025-04-30 17:55:46] [WARNING] [werkzeug]  * Debugger is active!
+[2025-04-30 17:55:46] [INFO] [werkzeug]  * Debugger PIN: 758-588-791
+[2025-04-30 17:56:28] [INFO] [werkzeug]  * Detected change in '/Users/ezl/code/recs/app/routes/user_routes.py', reloading
+[2025-04-30 17:56:28] [INFO] [werkzeug]  * Restarting with stat
+[2025-04-30 17:56:28] [INFO] [app] Application started
+[2025-04-30 17:56:29] [WARNING] [werkzeug]  * Debugger is active!
+[2025-04-30 17:56:29] [INFO] [werkzeug]  * Debugger PIN: 758-588-791
+[2025-04-30 17:56:49] [INFO] [werkzeug]  * Detected change in '/Users/ezl/code/recs/app/routes/user_routes.py', reloading
+[2025-04-30 17:56:49] [INFO] [werkzeug]  * Restarting with stat
+[2025-04-30 17:56:50] [INFO] [app] Application started
+[2025-04-30 17:56:50] [WARNING] [werkzeug]  * Debugger is active!
+[2025-04-30 17:56:50] [INFO] [werkzeug]  * Debugger PIN: 758-588-791
+[2025-04-30 17:57:29] [INFO] [werkzeug]  * Detected change in '/Users/ezl/code/recs/app/auth.py', reloading
+[2025-04-30 17:57:29] [INFO] [werkzeug]  * Restarting with stat
+[2025-04-30 17:57:29] [INFO] [app] Application started
+[2025-04-30 17:57:30] [WARNING] [werkzeug]  * Debugger is active!
+[2025-04-30 17:57:30] [INFO] [werkzeug]  * Debugger PIN: 758-588-791
+[2025-04-30 17:57:35] [INFO] [werkzeug]  * Detected change in '/Users/ezl/code/recs/app/routes/user_routes.py', reloading
+[2025-04-30 17:57:35] [INFO] [werkzeug]  * Restarting with stat
+[2025-04-30 17:57:35] [INFO] [app] Application started
+[2025-04-30 17:57:35] [WARNING] [werkzeug]  * Debugger is active!
+[2025-04-30 17:57:35] [INFO] [werkzeug]  * Debugger PIN: 758-588-791
+[2025-04-30 17:57:50] [INFO] [werkzeug]  * Detected change in '/Users/ezl/code/recs/app/auth.py', reloading
+[2025-04-30 17:57:50] [INFO] [werkzeug]  * Restarting with stat
+[2025-04-30 17:57:50] [INFO] [app] Application started
+[2025-04-30 17:57:50] [WARNING] [werkzeug]  * Debugger is active!
+[2025-04-30 17:57:50] [INFO] [werkzeug]  * Debugger PIN: 758-588-791
+[2025-04-30 17:58:04] [INFO] [werkzeug]  * Detected change in '/Users/ezl/code/recs/app/auth.py', reloading
+[2025-04-30 17:58:04] [INFO] [werkzeug]  * Restarting with stat
+[2025-04-30 17:58:04] [INFO] [app] Application started
+[2025-04-30 17:58:04] [WARNING] [werkzeug]  * Debugger is active!
+[2025-04-30 17:58:04] [INFO] [werkzeug]  * Debugger PIN: 758-588-791
+[2025-04-30 17:58:29] [INFO] [werkzeug]  * Detected change in '/Users/ezl/code/recs/auth_backup.py', reloading
+[2025-04-30 17:58:29] [INFO] [werkzeug]  * Restarting with stat
+[2025-04-30 17:58:29] [INFO] [app] Application started
+[2025-04-30 17:58:29] [WARNING] [werkzeug]  * Debugger is active!
+[2025-04-30 17:58:30] [INFO] [werkzeug]  * Debugger PIN: 758-588-791
+[2025-04-30 17:58:45] [INFO] [werkzeug]  * Detected change in '/Users/ezl/code/recs/app/auth.py', reloading
+[2025-04-30 17:58:45] [INFO] [werkzeug]  * Restarting with stat
+[2025-04-30 17:58:45] [INFO] [app] Application started
+[2025-04-30 17:58:46] [WARNING] [werkzeug]  * Debugger is active!
+[2025-04-30 17:58:46] [INFO] [werkzeug]  * Debugger PIN: 758-588-791

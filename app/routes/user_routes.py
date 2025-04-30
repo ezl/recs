@@ -3,6 +3,8 @@ from flask import Blueprint, render_template, redirect, url_for, request, flash,
 from app.database import db
 from app.database.models import User, Trip
 from app.services.ai_service import AIService
+from datetime import datetime
+from flask import current_app
 
 user_bp = Blueprint('user', __name__)
 
@@ -84,22 +86,81 @@ def complete_trip():
         session['temp_name'] = name
         return redirect(url_for('user.name_resolution'))
     
-    # If user doesn't exist or name matches, proceed with trip creation
+    # SCENARIO A: If user doesn't exist, create and auto-authenticate
     if not user:
         # Create new user
         user = User(email=email, name=name)
         db.session.add(user)
         db.session.commit()
+        
+        # Automatically authenticate the new user
+        session['user_id'] = user.id
+        session['user_email'] = user.email
+        
+        # Update last login time
+        user.last_login_at = datetime.utcnow()
+        db.session.commit()
+        
+        print(f"New user created and auto-authenticated: {user.id}")
+        
+    # SCENARIO B: If user exists and name matches, redirect to auth with auto-triggered email
+    elif user.name and user.name == name:
+        print(f"Existing user with matching name: {user.id}")
+        
+        # Generate a trip before redirecting to auth
+        trip = create_trip_for_user(user, destination, name)
+        
+        # Generate auth token and send email
+        from app.auth import generate_auth_token, send_auth_email
+        token_string, user = generate_auth_token(email)
+        send_auth_email(email, token_string)
+        
+        # Redirect to check email page with next parameter for redirect after auth
+        template_args = {
+            'email': email, 
+            'message': 'For security, we need to verify it\'s you since this email is already registered.'
+        }
+        
+        # Store the next URL in the session
+        session['auth_next'] = url_for('trip.view_trip', slug=trip.slug)
+        
+        # Only include the auth_link in debug mode (and not using real emails)
+        if current_app.debug and not current_app.config.get('FORCE_REAL_EMAILS', False):
+            auth_link = url_for('auth.verify_token', token=token_string, _external=True)
+            template_args['auth_link'] = auth_link
+            
+        return render_template('auth/check_email.html', **template_args)
+    
+    # Update name if it was null (should be rare but handled for completeness)
     elif not user.name:
-        # Update name if it was null
         user.name = name
         db.session.commit()
+        
+        # Automatically authenticate the user
+        session['user_id'] = user.id
+        session['user_email'] = user.email
+        
+        # Update last login time
+        user.last_login_at = datetime.utcnow()
+        db.session.commit()
     
+    # Create trip
+    trip = create_trip_for_user(user, destination, name)
+    
+    # Clean up session data that's no longer needed
+    for key in ['temp_destination', 'temp_email', 'temp_name']:
+        if key in session:
+            session.pop(key)
+    
+    return redirect(url_for('trip.view_trip', slug=trip.slug))
+
+def create_trip_for_user(user, destination, traveler_name):
+    """Helper function to create a trip for a user"""
     # Generate a unique share token
     share_token = str(uuid.uuid4())[:8]
     
     # Generate slug
-    slug = Trip.generate_slug(destination, name)
+    slug = Trip.generate_slug(destination, traveler_name)
     
     # Check if slug already exists and modify if needed
     base_slug = slug
@@ -120,7 +181,7 @@ def complete_trip():
     # Create trip
     trip = Trip(
         destination=destination,
-        traveler_name=name,
+        traveler_name=traveler_name,
         share_token=share_token,
         slug=slug,
         user_id=user.id
@@ -135,12 +196,7 @@ def complete_trip():
     db.session.add(trip)
     db.session.commit()
     
-    # Clean up session data that's no longer needed
-    for key in ['temp_destination', 'temp_email', 'temp_name']:
-        if key in session:
-            session.pop(key)
-    
-    return redirect(url_for('trip.view_trip', slug=trip.slug))
+    return trip
 
 @user_bp.route('/name-resolution')
 def name_resolution():
@@ -199,60 +255,62 @@ def resolve_name():
         user = User(email=email, name=resolved_name)
         db.session.add(user)
         print(f"Created new user with email={email}, name={resolved_name}")
+        
+        # Automatically authenticate the new user (SCENARIO A)
+        session['user_id'] = user.id
+        session['user_email'] = user.email
+        
+        # Update last login time
+        user.last_login_at = datetime.utcnow()
+        db.session.commit()
     else:
         # Update the user's name with the resolved name
         print(f"Updating user name from '{user.name}' to '{resolved_name}'")
         user.name = resolved_name
+        db.session.commit()
+        
+        # SCENARIO C: After name resolution, redirect to auth with auto-triggered email
+        print(f"Redirecting to auth after name resolution for user: {user.id}")
+        
+        # Generate a trip before redirecting to auth
+        trip = create_trip_for_user(user, destination, resolved_name)
+        
+        # Generate auth token and send email
+        from app.auth import generate_auth_token, send_auth_email
+        token_string, user = generate_auth_token(email)
+        send_auth_email(email, token_string)
+        
+        # Redirect to check email page
+        template_args = {
+            'email': email,
+            'message': 'Thanks for confirming your name. For security, we need to verify your identity since this email is already registered.'
+        }
+        
+        # Store the next URL in the session
+        session['auth_next'] = url_for('trip.view_trip', slug=trip.slug)
+        
+        # Only include the auth_link in debug mode (and not using real emails)
+        if current_app.debug and not current_app.config.get('FORCE_REAL_EMAILS', False):
+            auth_link = url_for('auth.verify_token', token=token_string, _external=True)
+            template_args['auth_link'] = auth_link
+            
+        # Clean up session data
+        for key in ['temp_destination', 'temp_email', 'temp_name']:
+            if key in session:
+                session.pop(key)
+                
+        return render_template('auth/check_email.html', **template_args)
     
-    db.session.commit()
-    
-    # Generate a unique share token
-    share_token = str(uuid.uuid4())[:8]
-    
-    # Generate slug
-    slug = Trip.generate_slug(destination, resolved_name)
-    
-    # Check if slug already exists and modify if needed
-    base_slug = slug
-    counter = 1
-    while Trip.query.filter_by(slug=slug).first():
-        slug = f"{base_slug}-{counter}"
-        counter += 1
-    
-    # Get destination information from OpenAI
-    try:
-        destinations = AIService.get_destination_suggestions(destination)
-        main_destination = destinations[0] if destinations else None
-    except Exception as e:
-        # Log the error but continue with trip creation
-        print(f"Error getting destination suggestions: {str(e)}")
-        main_destination = None
-    
-    # Create trip
-    trip = Trip(
-        destination=destination,
-        traveler_name=resolved_name,
-        share_token=share_token,
-        slug=slug,
-        user_id=user.id
-    )
-    
-    # Add destination information if available
-    if main_destination:
-        trip.destination_info = destinations
-        trip.destination_display_name = main_destination.get('name')
-        trip.destination_country = main_destination.get('country')
-    
-    db.session.add(trip)
-    db.session.commit()
-    print(f"Created trip with slug={slug}, destination={destination}, user_id={user.id}")
+    # Create trip - only reached if we created a new user
+    trip = create_trip_for_user(user, destination, resolved_name)
     
     # Clean up session variables
     for key in ['temp_destination', 'temp_email', 'temp_name']:
         if key in session:
             session.pop(key)
     
-    print(f"Redirecting to trip page: /trip/{slug}")
+    print(f"Created trip with slug={trip.slug}, destination={destination}, user_id={user.id}")
+    
     return redirect(url_for('trip.view_trip', slug=trip.slug))
 
 @user_bp.route('/my-trips')

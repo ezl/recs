@@ -16,11 +16,17 @@
             <p class="text-xl font-semibold">{{ email }}</p>
         </div>
         
+        {% if message %}
+        <div class="bg-blue-50 border border-blue-200 p-4 rounded-md mb-6">
+            <p class="text-blue-700">{{ message }}</p>
+        </div>
+        {% endif %}
+        
         <div class="bg-gray-50 p-4 rounded-md mb-6">
             <p class="text-gray-700">Please check your email and click the login link to access your account. The link will expire in 10 minutes.</p>
         </div>
         
-        {% if config.DEBUG %}
+        {% if auth_link %}
         <div class="bg-amber-50 border border-amber-200 p-4 rounded-md mb-6">
             <p class="text-amber-700 font-medium mb-2">Debug Mode: Quick Login Link</p>
             <p class="text-gray-700 text-sm mb-3">This direct login link is only shown in development for convenience.</p>

@@ -164,6 +164,12 @@ def verify_token(token):
     session['user_email'] = user.email
     
     flash('You have been logged in successfully', 'success')
+    
+    # Check if we have a next URL to redirect to
+    next_url = session.pop('auth_next', None)
+    if next_url:
+        return redirect(next_url)
+    
     return redirect(url_for('user.my_trips'))
 
 @auth.route('/logout')
