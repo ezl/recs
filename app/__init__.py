@@ -3,7 +3,7 @@ Main Flask application.
 For end-to-end testing, see /e2e_tests/README.md
 """
 
-from flask import Flask
+from flask import Flask, g, session
 import atexit
 from datetime import datetime, timedelta
 import os
@@ -56,11 +56,54 @@ def create_app():
     from app.auth import auth
     app.register_blueprint(auth)
     
+    # Load current user on each request
+    @app.before_request
+    def load_current_user():
+        g.user = None
+        user_id = session.get('user_id')
+        if user_id:
+            g.user = User.query.get(user_id)
+    
     # Add context processor for template variables
     from datetime import datetime
     @app.context_processor
     def inject_now():
         return {'now': datetime.now()}
+    
+    # Add current_user to template context
+    @app.context_processor
+    def inject_user():
+        return {'current_user': g.user}
+    
+    # Helper function for checking resource ownership
+    def is_owner(user, resource):
+        """Check if the given user is the owner of the resource"""
+        if not user:
+            return False
+        
+        # For Trip objects
+        if hasattr(resource, 'user_id'):
+            return user.id == resource.user_id
+        
+        # For other types of resources that might have an owner
+        if hasattr(resource, 'author_id'):
+            return user.id == resource.author_id
+            
+        return False
+    
+    # Add is_owner helper to template context
+    @app.context_processor
+    def inject_helpers():
+        def is_authenticated(user=None):
+            """Check if a user is authenticated. If no user is provided, checks the current user."""
+            if user is not None:
+                return user is not None
+            return g.user is not None
+            
+        return {
+            'is_owner': is_owner,
+            'is_authenticated': is_authenticated
+        }
     
     # Setup token cleanup on app shutdown
     from app.database import db

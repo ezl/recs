@@ -2224,3 +2224,130 @@ requests.exceptions.ConnectionError: ('Connection aborted.', ConnectionResetErro
 [2025-04-30 17:58:45] [INFO] [app] Application started
 [2025-04-30 17:58:46] [WARNING] [werkzeug]  * Debugger is active!
 [2025-04-30 17:58:46] [INFO] [werkzeug]  * Debugger PIN: 758-588-791
+[2025-04-30 18:05:56] [INFO] [app] Application started
+[2025-04-30 18:05:57] [INFO] [werkzeug] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[2025-04-30 18:05:57] [INFO] [werkzeug] [33mPress CTRL+C to quit[0m
+[2025-04-30 18:05:57] [INFO] [werkzeug]  * Restarting with stat
+[2025-04-30 18:05:57] [INFO] [app] Application started
+[2025-04-30 18:05:57] [WARNING] [werkzeug]  * Debugger is active!
+[2025-04-30 18:05:57] [INFO] [werkzeug]  * Debugger PIN: 758-588-791
+[2025-04-30 18:06:04] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:06:04] "GET /trip/chicago-apr-2025 HTTP/1.1" 200 -
+[2025-04-30 18:06:04] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:06:04] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-30 18:06:04] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:06:04] "GET /static/css/pages/recommendations.css HTTP/1.1" 200 -
+[2025-04-30 18:06:04] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:06:04] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-30 18:06:04] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:06:04] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-30 18:06:04] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:06:04] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-30 18:06:04] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:06:04] "GET /static/js/components/trip/view_toggler.js HTTP/1.1" 200 -
+[2025-04-30 18:06:04] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:06:04] "GET /static/js/components/trip/recommendation_filter.js HTTP/1.1" 200 -
+[2025-04-30 18:06:04] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:06:04] "GET /static/js/components/trip/recommendation_map.js HTTP/1.1" 200 -
+[2025-04-30 18:06:04] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:06:04] "GET /static/js/pages/trip.js HTTP/1.1" 200 -
+[2025-04-30 18:06:09] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:06:09] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-30 18:08:54] [INFO] [werkzeug]  * Detected change in '/Users/ezl/code/recs/app/routes/trip_routes.py', reloading
+[2025-04-30 18:08:54] [INFO] [werkzeug]  * Restarting with stat
+[2025-04-30 18:08:54] [INFO] [app] Application started
+[2025-04-30 18:08:55] [WARNING] [werkzeug]  * Debugger is active!
+[2025-04-30 18:08:55] [INFO] [werkzeug]  * Debugger PIN: 758-588-791
+[2025-04-30 18:11:26] [INFO] [werkzeug]  * Detected change in '/Users/ezl/code/recs/app/__init__.py', reloading
+[2025-04-30 18:11:26] [INFO] [werkzeug]  * Restarting with stat
+[2025-04-30 18:11:26] [INFO] [app] Application started
+[2025-04-30 18:11:27] [WARNING] [werkzeug]  * Debugger is active!
+[2025-04-30 18:11:27] [INFO] [werkzeug]  * Debugger PIN: 758-588-791
+[2025-04-30 18:11:38] [INFO] [werkzeug]  * Detected change in '/Users/ezl/code/recs/app/routes/trip_routes.py', reloading
+[2025-04-30 18:11:38] [INFO] [werkzeug]  * Restarting with stat
+[2025-04-30 18:11:38] [INFO] [app] Application started
+[2025-04-30 18:11:38] [WARNING] [werkzeug]  * Debugger is active!
+[2025-04-30 18:11:38] [INFO] [werkzeug]  * Debugger PIN: 758-588-791
+[2025-04-30 18:16:43] [INFO] [werkzeug]  * Detected change in '/Users/ezl/code/recs/app/__init__.py', reloading
+[2025-04-30 18:16:43] [INFO] [werkzeug]  * Restarting with stat
+[2025-04-30 18:16:44] [INFO] [app] Application started
+[2025-04-30 18:16:44] [WARNING] [werkzeug]  * Debugger is active!
+[2025-04-30 18:16:44] [INFO] [werkzeug]  * Debugger PIN: 758-588-791
+[2025-04-30 18:16:54] [INFO] [werkzeug]  * Detected change in '/Users/ezl/code/recs/app/__init__.py', reloading
+[2025-04-30 18:16:54] [INFO] [werkzeug]  * Restarting with stat
+[2025-04-30 18:16:55] [INFO] [app] Application started
+[2025-04-30 18:16:55] [WARNING] [werkzeug]  * Debugger is active!
+[2025-04-30 18:16:55] [INFO] [werkzeug]  * Debugger PIN: 758-588-791
+[2025-04-30 18:17:15] [INFO] [werkzeug]  * Detected change in '/Users/ezl/code/recs/app/__init__.py', reloading
+[2025-04-30 18:17:15] [INFO] [werkzeug]  * Restarting with stat
+[2025-04-30 18:17:16] [INFO] [app] Application started
+[2025-04-30 18:17:16] [WARNING] [werkzeug]  * Debugger is active!
+[2025-04-30 18:17:16] [INFO] [werkzeug]  * Debugger PIN: 758-588-791
+[2025-04-30 18:17:24] [INFO] [werkzeug]  * Detected change in '/Users/ezl/code/recs/app/__init__.py', reloading
+[2025-04-30 18:17:24] [INFO] [werkzeug]  * Restarting with stat
+[2025-04-30 18:17:24] [INFO] [app] Application started
+[2025-04-30 18:17:25] [WARNING] [werkzeug]  * Debugger is active!
+[2025-04-30 18:17:25] [INFO] [werkzeug]  * Debugger PIN: 758-588-791
+[2025-04-30 18:17:34] [INFO] [werkzeug]  * Detected change in '/Users/ezl/code/recs/app/__init__.py', reloading
+[2025-04-30 18:17:34] [INFO] [werkzeug]  * Restarting with stat
+[2025-04-30 18:17:34] [INFO] [app] Application started
+[2025-04-30 18:17:34] [WARNING] [werkzeug]  * Debugger is active!
+[2025-04-30 18:17:34] [INFO] [werkzeug]  * Debugger PIN: 758-588-791
+[2025-04-30 18:20:47] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:20:47] "GET /trip/chicago-apr-2025 HTTP/1.1" 200 -
+[2025-04-30 18:20:47] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:20:47] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-30 18:20:47] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:20:47] "[36mGET /static/js/components/trip/recommendation_filter.js HTTP/1.1[0m" 304 -
+[2025-04-30 18:20:47] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:20:47] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-30 18:20:47] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:20:47] "[36mGET /static/js/components/trip/view_toggler.js HTTP/1.1[0m" 304 -
+[2025-04-30 18:20:47] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:20:47] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-30 18:20:47] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:20:47] "[36mGET /static/css/pages/recommendations.css HTTP/1.1[0m" 304 -
+[2025-04-30 18:20:47] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:20:47] "[36mGET /static/js/components/trip/recommendation_map.js HTTP/1.1[0m" 304 -
+[2025-04-30 18:20:47] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:20:47] "[36mGET /static/js/pages/trip.js HTTP/1.1[0m" 304 -
+[2025-04-30 18:20:47] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:20:47] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-30 18:20:50] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:20:50] "GET /trip/chicago-apr-2025 HTTP/1.1" 200 -
+[2025-04-30 18:20:50] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:20:50] "GET /static/css/pages/recommendations.css HTTP/1.1" 200 -
+[2025-04-30 18:20:50] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:20:50] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-30 18:20:50] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:20:50] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-30 18:20:50] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:20:50] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-30 18:20:50] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:20:50] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-30 18:20:50] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:20:50] "GET /static/js/components/trip/view_toggler.js HTTP/1.1" 200 -
+[2025-04-30 18:20:50] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:20:50] "GET /static/js/components/trip/recommendation_filter.js HTTP/1.1" 200 -
+[2025-04-30 18:20:50] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:20:50] "GET /static/js/components/trip/recommendation_map.js HTTP/1.1" 200 -
+[2025-04-30 18:20:50] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:20:50] "GET /static/js/pages/trip.js HTTP/1.1" 200 -
+[2025-04-30 18:20:54] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:20:54] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-30 18:23:36] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:23:36] "[35m[1mGET /trip/chicago-apr-2025 HTTP/1.1[0m" 500 -
+[2025-04-30 18:23:36] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:23:36] "GET /trip/chicago-apr-2025?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+[2025-04-30 18:23:36] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:23:36] "GET /trip/chicago-apr-2025?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+[2025-04-30 18:23:36] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:23:36] "GET /trip/chicago-apr-2025?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+[2025-04-30 18:23:36] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:23:36] "GET /trip/chicago-apr-2025?__debugger__=yes&cmd=resource&f=console.png&s=UHb8VGR9yhsK1dwaVug7 HTTP/1.1" 200 -
+[2025-04-30 18:23:45] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:23:45] "GET /trip/chicago-apr-2025 HTTP/1.1" 200 -
+[2025-04-30 18:23:45] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:23:45] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-30 18:23:45] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:23:45] "GET /static/css/pages/recommendations.css HTTP/1.1" 200 -
+[2025-04-30 18:23:45] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:23:45] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-30 18:23:45] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:23:45] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-30 18:23:45] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:23:45] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-30 18:23:45] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:23:45] "GET /static/js/components/trip/view_toggler.js HTTP/1.1" 200 -
+[2025-04-30 18:23:45] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:23:45] "GET /static/js/components/trip/recommendation_filter.js HTTP/1.1" 200 -
+[2025-04-30 18:23:45] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:23:45] "GET /static/js/components/trip/recommendation_map.js HTTP/1.1" 200 -
+[2025-04-30 18:23:45] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:23:45] "GET /static/js/pages/trip.js HTTP/1.1" 200 -
+[2025-04-30 18:23:47] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:23:47] "GET /trip/chicago-apr-2025 HTTP/1.1" 200 -
+[2025-04-30 18:23:47] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:23:47] "GET /static/css/pages/recommendations.css HTTP/1.1" 200 -
+[2025-04-30 18:23:47] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:23:47] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-04-30 18:23:47] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:23:47] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-04-30 18:23:47] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:23:47] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-04-30 18:23:47] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:23:47] "GET /static/js/components/trip/recommendation_filter.js HTTP/1.1" 200 -
+[2025-04-30 18:23:47] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:23:47] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-04-30 18:23:47] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:23:47] "GET /static/js/components/trip/view_toggler.js HTTP/1.1" 200 -
+[2025-04-30 18:23:47] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:23:47] "GET /static/js/components/trip/recommendation_map.js HTTP/1.1" 200 -
+[2025-04-30 18:23:47] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:23:47] "GET /static/js/pages/trip.js HTTP/1.1" 200 -
+[2025-04-30 18:23:50] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:23:50] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-30 18:23:52] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:23:52] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-30 18:24:00] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:24:00] "GET /trip/chicago-apr-2025 HTTP/1.1" 200 -
+[2025-04-30 18:24:00] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:24:00] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-30 18:24:00] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:24:00] "[36mGET /static/css/pages/recommendations.css HTTP/1.1[0m" 304 -
+[2025-04-30 18:24:00] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:24:00] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-30 18:24:00] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:24:00] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-30 18:24:00] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:24:00] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-30 18:24:00] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:24:00] "[36mGET /static/js/components/trip/recommendation_filter.js HTTP/1.1[0m" 304 -
+[2025-04-30 18:24:00] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:24:00] "[36mGET /static/js/components/trip/view_toggler.js HTTP/1.1[0m" 304 -
+[2025-04-30 18:24:00] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:24:00] "[36mGET /static/js/components/trip/recommendation_map.js HTTP/1.1[0m" 304 -
+[2025-04-30 18:24:00] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:24:00] "[36mGET /static/js/pages/trip.js HTTP/1.1[0m" 304 -
+[2025-04-30 18:24:01] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:24:01] "GET /trip/chicago-apr-2025 HTTP/1.1" 200 -
+[2025-04-30 18:24:01] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:24:01] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-04-30 18:24:01] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:24:01] "[36mGET /static/css/pages/recommendations.css HTTP/1.1[0m" 304 -
+[2025-04-30 18:24:01] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:24:01] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-04-30 18:24:01] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:24:01] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-04-30 18:24:01] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:24:01] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-04-30 18:24:01] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:24:01] "[36mGET /static/js/components/trip/recommendation_map.js HTTP/1.1[0m" 304 -
+[2025-04-30 18:24:01] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:24:01] "[36mGET /static/js/components/trip/view_toggler.js HTTP/1.1[0m" 304 -
+[2025-04-30 18:24:01] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:24:01] "[36mGET /static/js/components/trip/recommendation_filter.js HTTP/1.1[0m" 304 -
+[2025-04-30 18:24:01] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 18:24:01] "[36mGET /static/js/pages/trip.js HTTP/1.1[0m" 304 -

@@ -10,7 +10,11 @@
 <div class="page-container py-10">
   <div class="mb-10">
     <h1 class="page-title">
-      {{ trip.traveler_name }}, you're going to {{ trip.destination }}!
+      {% if is_owner(current_user, trip) %}
+        {{ trip.traveler_name|title }}, You're Going To {{ trip.destination|title }}!
+      {% else %}
+        {{ trip.traveler_name|title }}'s {{ trip.destination|title }} Trip Recommendations
+      {% endif %}
     </h1>
     
     <!-- Share box component for getting recommendations from friends -->
