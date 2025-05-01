@@ -20,7 +20,11 @@
       <div class="flex items-start sm:items-center">
         <div class="mt-3 text-center sm:mt-0 sm:text-left w-full">
           <h3 class="text-xl font-semibold leading-6 text-gray-900" id="name-modal-title">
-            One Last Step
+            {% if trip_mode == 'create_mode' %}
+              Confirm Your Name
+            {% else %}
+              One Last Step
+            {% endif %}
           </h3>
         </div>
       </div>
@@ -28,7 +32,11 @@
       <!-- Modal body -->
       <div class="mt-3">
         <div class="space-y-4">
-          <p class="text-gray-600">Please tell us your name so {{ trip.traveler_name }} knows who gave these great recommendations.</p>
+          {% if trip_mode == 'create_mode' %}
+            <p class="text-gray-600">Please confirm your name for the guide.</p>
+          {% else %}
+            <p class="text-gray-600">Please tell us your name so {{ trip.traveler_name }} knows who gave these great recommendations.</p>
+          {% endif %}
           
           <div>
             <label for="modal-recommender-name" class="block text-gray-800 font-semibold mb-2">Your Name <span class="text-red-500">*</span></label>

@@ -8,23 +8,30 @@ from flask import current_app
 
 user_bp = Blueprint('user', __name__)
 
+@user_bp.route('/create-guide')
+def create_guide():
+    """Entry point for creating a shareable trip guide"""
+    return render_template('create_guide.html')
+
 @user_bp.route('/create-trip', methods=['POST'])
 def create_trip():
     destination = request.form.get('destination')
+    trip_mode = request.form.get('trip_mode', 'request_mode')  # Default to request_mode
     
     # Log for debugging
-    print(f"create_trip received destination='{destination}'")
+    print(f"create_trip received destination='{destination}', mode='{trip_mode}'")
     
     if not destination:
         flash('Please enter a destination', 'error')
         return redirect(url_for('main.index'))
     
-    # Store destination in session for the next step
+    # Store destination and mode in session for the next step
     # Do not clear all session data as it might affect other functionality
     session['temp_destination'] = destination
+    session['trip_mode'] = trip_mode
     session.modified = True  # Ensure session is saved
     
-    print(f"create_trip set session temp_destination='{session.get('temp_destination')}'")
+    print(f"create_trip set session temp_destination='{session.get('temp_destination')}', trip_mode='{session.get('trip_mode')}'")
     
     # Redirect to the user info page
     return redirect(url_for('user.user_info'))
@@ -121,8 +128,16 @@ def complete_trip():
             'message': 'For security, we need to verify it\'s you since this email is already registered.'
         }
         
-        # Store the next URL in the session
-        session['auth_next'] = url_for('trip.view_trip', slug=trip.slug)
+        # Store the next URL in the session based on trip mode
+        trip_mode = session.get('trip_mode', 'request_mode')
+        if trip_mode == 'create_mode':
+            # For guide creators, redirect to add recommendations after auth
+            session['auth_next'] = url_for('recommendation.add_recommendation', slug=trip.slug)
+            print(f"Setting auth_next for create_mode to add_recommendation: {session['auth_next']}")
+        else:
+            # For recommendation requesters, redirect to trip view after auth
+            session['auth_next'] = url_for('trip.view_trip', slug=trip.slug)
+            print(f"Setting auth_next for request_mode to view_trip: {session['auth_next']}")
         
         # Only include the auth_link in debug mode (and not using real emails)
         if current_app.debug and not current_app.config.get('FORCE_REAL_EMAILS', False):
@@ -152,7 +167,16 @@ def complete_trip():
         if key in session:
             session.pop(key)
     
-    return redirect(url_for('trip.view_trip', slug=trip.slug))
+    # Determine redirect based on trip mode
+    trip_mode = session.pop('trip_mode', 'request_mode')
+    if trip_mode == 'create_mode':
+        # For guide creators, redirect to the add recommendation page
+        print(f"Redirecting guide creator to add recommendations for trip {trip.slug}")
+        return redirect(url_for('recommendation.add_recommendation', slug=trip.slug))
+    else:
+        # For recommendation requesters, redirect to view the trip page
+        print(f"Redirecting recommendation requester to view trip {trip.slug}")
+        return redirect(url_for('trip.view_trip', slug=trip.slug))
 
 def create_trip_for_user(user, destination, traveler_name):
     """Helper function to create a trip for a user"""
@@ -204,6 +228,7 @@ def name_resolution():
     destination = session.get('temp_destination')
     email = session.get('temp_email')
     new_name = session.get('temp_name')
+    trip_mode = session.get('trip_mode', 'request_mode')  # Preserve trip mode
     
     if not destination or not email or not new_name:
         flash('Please start by entering your destination', 'error')
@@ -216,6 +241,9 @@ def name_resolution():
         return redirect(url_for('user.complete_trip'))
     
     previous_name = user.name
+    
+    # Ensure trip_mode stays in session
+    session['trip_mode'] = trip_mode
     
     return render_template(
         'name_resolution.html',
@@ -286,8 +314,16 @@ def resolve_name():
             'message': 'Thanks for confirming your name. For security, we need to verify your identity since this email is already registered.'
         }
         
-        # Store the next URL in the session
-        session['auth_next'] = url_for('trip.view_trip', slug=trip.slug)
+        # Store the next URL in the session based on trip mode
+        trip_mode = session.get('trip_mode', 'request_mode')
+        if trip_mode == 'create_mode':
+            # For guide creators, redirect to add recommendations after auth
+            session['auth_next'] = url_for('recommendation.add_recommendation', slug=trip.slug)
+            print(f"Setting auth_next for create_mode to add_recommendation: {session['auth_next']}")
+        else:
+            # For recommendation requesters, redirect to trip view after auth
+            session['auth_next'] = url_for('trip.view_trip', slug=trip.slug)
+            print(f"Setting auth_next for request_mode to view_trip: {session['auth_next']}")
         
         # Only include the auth_link in debug mode (and not using real emails)
         if current_app.debug and not current_app.config.get('FORCE_REAL_EMAILS', False):
@@ -311,7 +347,16 @@ def resolve_name():
     
     print(f"Created trip with slug={trip.slug}, destination={destination}, user_id={user.id}")
     
-    return redirect(url_for('trip.view_trip', slug=trip.slug))
+    # Determine redirect based on trip mode
+    trip_mode = session.pop('trip_mode', 'request_mode')
+    if trip_mode == 'create_mode':
+        # For guide creators, redirect to the add recommendation page
+        print(f"Redirecting guide creator to add recommendations for trip {trip.slug}")
+        return redirect(url_for('recommendation.add_recommendation', slug=trip.slug))
+    else:
+        # For recommendation requesters, redirect to view the trip page
+        print(f"Redirecting recommendation requester to view trip {trip.slug}")
+        return redirect(url_for('trip.view_trip', slug=trip.slug))
 
 @user_bp.route('/my-trips')
 def my_trips():

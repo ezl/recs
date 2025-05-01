@@ -86,15 +86,19 @@ document.addEventListener('DOMContentLoaded', function() {
             return; // Prevent showing name modal and form submission
         }
         
-        // Show name modal if needed - only if there are no validation errors
-        if (!recommenderNameInput.value) {
-            nameModal.classList.remove('hidden');
-            modalRecommenderName.focus();
+        // Check if we're in create_mode - if so, skip the name modal
+        const tripModeElement = document.querySelector('[data-trip-mode]');
+        const tripMode = tripModeElement ? tripModeElement.dataset.tripMode : 'request_mode';
+        
+        // In create_mode, or if we already have a recommender name, submit directly
+        if (tripMode === 'create_mode' || recommenderNameInput.value) {
+            submitForm();
             return;
         }
         
-        // Submit the form - empty recommendations will be filtered out in submitForm()
-        submitForm();
+        // Show name modal for request_mode if we don't have a name yet
+        nameModal.classList.remove('hidden');
+        modalRecommenderName.focus();
     });
     
     // Name modal handlers
@@ -336,6 +340,10 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
+        // If in create_mode and recommender name is not set, server will use the user's name
+        const tripModeElement = document.querySelector('[data-trip-mode]');
+        const tripMode = tripModeElement ? tripModeElement.dataset.tripMode : 'request_mode';
+        
         // Show loading state
         submitButton.disabled = true;
         submitButton.querySelector('span').textContent = 'Sending...';
@@ -345,10 +353,18 @@ document.addEventListener('DOMContentLoaded', function() {
         // Show loading overlay with appropriate messages
         if (typeof showLoadingOverlay === 'function') {
             const travelerName = document.querySelector('[data-traveler-name]')?.dataset.travelerName || 'your friend';
-            showLoadingOverlay(
-                "Saving your recommendations...",
-                `We're adding your places to ${travelerName}'s trip`
-            );
+            
+            if (tripMode === 'create_mode') {
+                showLoadingOverlay(
+                    "Saving your guide...",
+                    `We're adding your favorite places to your ${travelerName} guide`
+                );
+            } else {
+                showLoadingOverlay(
+                    "Saving your recommendations...",
+                    `We're adding your places to ${travelerName}'s trip`
+                );
+            }
         }
         
         // Submit the form

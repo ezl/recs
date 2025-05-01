@@ -51,6 +51,75 @@ async function createTrip(page, destination, userName, userEmail) {
 }
 
 /**
+ * Creates a new guide (as opposed to requesting recommendations)
+ * @param {import('@playwright/test').Page} page
+ * @param {string} destination
+ * @param {string} userName
+ * @param {string} userEmail
+ * @returns {Promise<string>} The trip slug for the created guide
+ */
+async function createGuide(page, destination, userName, userEmail) {
+  try {
+    // Navigate to the create guide page
+    await page.goto('/create-guide');
+    
+    // Wait for form to be loaded
+    await page.waitForSelector('#destination', { timeout: 5000 });
+    await page.fill('#destination', destination);
+    
+    // Submit the form
+    await page.click('button[type="submit"]');
+    
+    // Wait for navigation to the user info page
+    await page.waitForURL('**/user-info');
+    
+    // Wait for form to be loaded
+    await page.waitForSelector('#name', { timeout: 5000 });
+    await page.waitForSelector('#email', { timeout: 5000 });
+    
+    await page.fill('#name', userName);
+    await page.fill('#email', userEmail);
+    
+    // Submit the form
+    await page.click('button[type="submit"]');
+    
+    // Handle different possible redirects:
+    
+    // 1. If user needs to resolve name conflict
+    if (page.url().includes('/name-resolution')) {
+      // Select the new name radio button
+      await page.locator('#new-name-radio').click();
+      await page.click('button[type="submit"]');
+    }
+    
+    // 2. If user needs to authenticate via email
+    if (page.url().includes('/check_email')) {
+      // In test environment, auth link should be displayed
+      const authLink = await page.locator('a:has-text("Click here to log in")');
+      if (await authLink.count() > 0) {
+        await authLink.click();
+      } else {
+        throw new Error('Auth link not found on check_email page');
+      }
+    }
+    
+    // Wait for navigation to the add recommendation page (different from createTrip)
+    await page.waitForURL('**/trip/**/add', { timeout: 10000 });
+    
+    // Extract the trip slug from the URL
+    const url = page.url();
+    const matches = url.match(/\/trip\/([^\/]+)\/add/);
+    const tripSlug = matches ? matches[1] : '';
+    
+    return tripSlug;
+  } catch (error) {
+    console.error('Guide creation failed:', error.message);
+    await page.screenshot({ path: 'guide-creation-failure.png' });
+    throw error;
+  }
+}
+
+/**
  * Submits recommendations for a trip and optionally completes the process
  * @param {import('@playwright/test').Page} page
  * @param {string} shareLink
@@ -111,5 +180,6 @@ async function submitRecommendations(page, shareLink, recommendations, recommend
 
 module.exports = {
   createTrip,
+  createGuide,
   submitRecommendations
 }; 

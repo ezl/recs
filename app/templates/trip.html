@@ -11,21 +11,23 @@
   <div class="mb-10">
     <h1 class="page-title">
       {% if is_owner(current_user, trip) %}
-        {{ trip.traveler_name|title }}, You're Going To {{ trip.destination|title }}!
+        Your {{ trip.destination|title }} Trip Recommendations
       {% else %}
         {{ trip.traveler_name|title }}'s {{ trip.destination|title }} Trip Recommendations
       {% endif %}
     </h1>
     
     <!-- Share box component for getting recommendations from friends -->
-    {% with 
-      id = trip.id, 
-      title = "Ask your friends for recommendations", 
-      description = "Send this link to your friends or post it on social media to get recommendations!", 
-      share_url = url_for('recommendation.add_recommendation', slug=trip.slug, _external=True) 
-    %}
-      {% include 'components/share_box.html' %}
-    {% endwith %}
+    {% if is_owner(current_user, trip) %}
+      {% with 
+        id = trip.id, 
+        title = "Ask your friends for recommendations", 
+        description = "Send this link to your friends or post it on social media to get recommendations", 
+        share_url = url_for('recommendation.add_recommendation', slug=trip.slug, _external=True) 
+      %}
+        {% include 'components/share_box.html' %}
+      {% endwith %}
+    {% endif %}
   </div>
 
   <!-- Destination information component -->
@@ -35,7 +37,7 @@
     <div class="mb-8">
       <div class="flex items-center justify-between mb-2">
         <h2 class="section-title">
-          Recommendations for {{ trip.traveler_name }}
+          Recommendations
         </h2>
         <div class="flex items-center space-x-2">
           <!-- View toggle component (card/map views) -->

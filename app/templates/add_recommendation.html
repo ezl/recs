@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 
-{% block title %}Recommend Places for {{ trip.traveler_name }}'s Trip to {{ trip.destination }} | Recs{% endblock %}
+{% block title %}
+    {% if session.get('trip_mode') == 'create_mode' %}
+        Add Places to Your {{ trip.destination }} Guide | Recs
+    {% else %}
+        Recommend Places for {{ trip.traveler_name }}'s Trip to {{ trip.destination }} | Recs
+    {% endif %}
+{% endblock %}
 
 {% block head_extras %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/pages/recommendations.css') }}">
@@ -21,7 +27,11 @@
 <div class="container mx-auto px-4 py-10">
     <div class="flex items-center justify-between mb-8">
         <h1 class="page-title text-left">
-            {{ trip.traveler_name }} is going to {{ trip.destination }}. Where should they go?
+            {% if session.get('trip_mode') == 'create_mode' %}
+                Share your favorite places in {{ trip.destination }}
+            {% else %}
+                {{ trip.traveler_name }} is going to {{ trip.destination }}. Where should they go?
+            {% endif %}
             <button type="button" id="toggle-input-btn" class="inline-flex items-center px-3 py-1 bg-primary-100 text-primary-600 rounded-full text-sm font-medium hover:bg-primary-200 transition">
                 <span id="text-mode-label" class="hidden">Type instead</span>
                 <span id="audio-mode-label">Speak instead</span>

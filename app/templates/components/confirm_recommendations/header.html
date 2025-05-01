@@ -1,9 +1,17 @@
 <div class="container mx-auto px-4 py-10 max-w-5xl">
   <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 text-center">
-    Your {{ trip.destination }} Recommendations
+    {% if session.get('trip_mode') == 'create_mode' %}
+      Your {{ trip.destination }} Guide
+    {% else %}
+      Your {{ trip.destination }} Recommendations
+    {% endif %}
   </h1>
   
   <p class="text-lg text-gray-600 mb-8 text-center max-w-3xl mx-auto" data-traveler-name="{{ trip.traveler_name }}">
-    Include details or add more recommendations to make {{ trip.traveler_name }}'s trip to {{ trip.destination }} even better.
+    {% if session.get('trip_mode') == 'create_mode' %}
+      Review and refine your guide to {{ trip.destination }}. You can add more places or edit the details.
+    {% else %}
+      Include details or add more recommendations to make {{ trip.traveler_name }}'s trip to {{ trip.destination }} even better.
+    {% endif %}
   </p>
 </div> 

@@ -38,7 +38,8 @@ def process_recommendation(slug):
             'confirm_recommendations.html',
             trip=trip,
             extracted_recommendations=recommendations,
-            recommender_name=request.form.get('recommender_name', '').strip()
+            recommender_name=request.form.get('recommender_name', '').strip(),
+            trip_mode=session.get('trip_mode', 'request_mode')
         )
     except Exception as e:
         logger.error(f"Error processing recommendations: {str(e)}")
@@ -72,12 +73,21 @@ def save_recommendations(slug):
         flash('Please add at least one recommendation', 'error')
         return redirect(url_for('recommendation.add_recommendation', slug=slug))
     
+    # Check if user is logged in and get trip_mode
+    user_id = session.get('user_id')
+    trip_mode = session.get('trip_mode', 'request_mode')
+    
+    # In create_mode, if no recommender_name but user is logged in, we can use the user's name
+    if trip_mode == 'create_mode' and user_id and not recommender_name:
+        user = User.query.get(user_id)
+        if user and user.name:
+            recommender_name = user.name
+            logger.info(f"Using authenticated user's name '{recommender_name}' for create_mode")
+    
+    # For request_mode, we still require a recommender name
     if not recommender_name:
         flash('Please provide your name', 'error')
         return redirect(url_for('recommendation.process_recommendation', slug=slug))
-    
-    # Check if user is logged in
-    user_id = session.get('user_id')
     
     # If not logged in, use the anonymous user or create temporary user
     if not user_id:
@@ -138,8 +148,14 @@ def save_recommendations(slug):
     db.session.commit()
     logger.info(f"Saved {len(created_recommendations)} recommendations for trip {slug}")
     
-    # Redirect to thank you page
-    return redirect(url_for('trip.thank_you_page', slug=trip.slug))
+    # Different redirect based on trip mode
+    if trip_mode == 'create_mode':
+        # For guide creators, redirect directly to trip view with success message
+        flash(f'Awesome! We saved those recommendations to your guide for {trip.destination}.', 'success')
+        return redirect(url_for('trip.view_trip', slug=trip.slug))
+    else:
+        # For regular recommenders, redirect to thank you page
+        return redirect(url_for('trip.thank_you_page', slug=trip.slug))
 
 @recommendation_bp.route('/trip/<slug>/save-email', methods=['POST'])
 def save_recommender_email(slug):

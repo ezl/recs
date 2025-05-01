@@ -1,0 +1,41 @@
+{% set trip_mode = trip_mode|default('request_mode') %}
+{% set submit_text = submit_text|default('Start') %}
+{% set label_text = label_text|default('Where are you going?') %}
+{% set placeholder = placeholder|default('Enter a city or location') %}
+
+<form action="{{ url_for('user.create_trip') }}" method="POST" class="space-y-6" data-validate>
+  <div class="mb-4">
+    <label for="destination" class="block text-gray-700 font-medium mb-2">{{ label_text }}</label>
+    <div class="flex overflow-hidden rounded-lg">
+      <input 
+        type="text" 
+        id="destination" 
+        name="destination" 
+        class="flex-1 px-4 py-3 border-2 border-gray-300 rounded-l-lg focus:ring-primary-500 focus:border-primary-500"
+        placeholder="{{ placeholder }}"
+        required
+      >
+      <input type="hidden" name="trip_mode" value="{{ trip_mode }}">
+      <button type="submit" class="px-6 py-3 bg-primary-600 text-white font-medium border-2 border-primary-600 rounded-r-lg hover:bg-primary-700 transition btn-disabled" disabled>
+        {{ submit_text }}
+      </button>
+    </div>
+  </div>
+</form>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const destinationInput = document.getElementById('destination');
+  const submitButton = document.querySelector('button[type="submit"]');
+  
+  destinationInput.addEventListener('input', function() {
+    if (this.value.trim().length > 0) {
+      submitButton.disabled = false;
+      submitButton.classList.remove('btn-disabled');
+    } else {
+      submitButton.disabled = true;
+      submitButton.classList.add('btn-disabled');
+    }
+  });
+});
+</script> 

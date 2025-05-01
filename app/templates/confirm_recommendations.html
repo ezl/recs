@@ -1,57 +1,63 @@
 {% extends "base.html" %}
 
-{% block title %}Confirm Your Recommendations for {{ trip.traveler_name }} | Recs{% endblock %}
+{% block title %}
+    {% if session.get('trip_mode') == 'create_mode' %}
+        Confirm Places for Your {{ trip.destination }} Guide | Recs
+    {% else %}
+        Confirm Your Recommendations for {{ trip.traveler_name }} | Recs
+    {% endif %}
+{% endblock %}
 
 {% block head_scripts %}
 <script src="{{ url_for('static', filename='js/pages/confirm_recommendations.js') }}"></script>
 {% endblock %}
 
 {% block content %}
-<div class="container mx-auto px-4 py-10 max-w-5xl">
-  {% include 'components/confirm_recommendations/header.html' %}
+<div class="container mx-auto px-4 py-10 max-w-5xl" data-trip-mode="{{ trip_mode or 'request_mode' }}">
+  {% include 'components/confirm_recommendations/header.html' with context %}
   
   {% if not extracted_recommendations or extracted_recommendations|length == 0 %}
-    {% include 'components/confirm_recommendations/empty_state.html' %}
+    {% include 'components/confirm_recommendations/empty_state.html' with context %}
     
     <!-- Form to manually add recommendations when none were detected -->
     <form method="POST" action="{{ url_for('recommendation.save_recommendations', slug=trip.slug) }}" class="space-y-6" id="recommendations-form">
       <!-- Hidden recommender name field that will be filled by the modal -->
       <input type="hidden" id="recommender_name" name="recommender_name" value="{{ recommender_name }}">
       
-      {% include 'components/confirm_recommendations/form_header.html' %}
+      {% include 'components/confirm_recommendations/form_header.html' with context %}
       
       <!-- Recommendations Container -->
       <div id="recommendations-container" class="space-y-4">
         <!-- Manual recommendations will be added here via JavaScript -->
       </div>
       
-      {% include 'components/confirm_recommendations/action_buttons.html' %}
+      {% include 'components/confirm_recommendations/action_buttons.html' with context %}
     </form>
   {% else %}
     <form method="POST" action="{{ url_for('recommendation.save_recommendations', slug=trip.slug) }}" class="space-y-6" id="recommendations-form">
       <!-- Hidden recommender name field that will be filled by the modal -->
       <input type="hidden" id="recommender_name" name="recommender_name" value="{{ recommender_name }}">
       
-      {% include 'components/confirm_recommendations/form_header.html' %}
+      {% include 'components/confirm_recommendations/form_header.html' with context %}
       
       <!-- Recommendations Container -->
       <div id="recommendations-container" class="space-y-4">
         {% for item in extracted_recommendations %}
           {% with index=loop.index %}
-            {% include 'components/confirm_recommendations/recommendation_item.html' %}
+            {% include 'components/confirm_recommendations/recommendation_item.html' with context %}
           {% endwith %}
         {% endfor %}
       </div>
       
-      {% include 'components/confirm_recommendations/action_buttons.html' %}
+      {% include 'components/confirm_recommendations/action_buttons.html' with context %}
     </form>
   {% endif %}
 </div>
 
 <!-- Template for new recommendation item (hidden) -->
 <template id="new-recommendation-template">
-  {% include 'components/additional_recommendation_item_template.html' %}
+  {% include 'components/additional_recommendation_item_template.html' with context %}
 </template>
 
-{% include 'components/confirm_recommendations/name_modal.html' %}
+{% include 'components/confirm_recommendations/name_modal.html' with context %}
 {% endblock %} 
