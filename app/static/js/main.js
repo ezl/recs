@@ -31,6 +31,34 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         console.warn('showLoadingOverlay function not found, but form has data-show-loading attribute');
       }
+      
+      // Handle submit button to show spinner and disable
+      const submitButton = this.querySelector('button[type="submit"]');
+      if (submitButton) {
+        // Disable the button
+        submitButton.disabled = true;
+        submitButton.classList.add('btn-disabled');
+        
+        // Update visual state for spinner
+        const textSpan = submitButton.querySelector('span');
+        if (textSpan) {
+          textSpan.textContent = 'Processing...';
+        }
+        
+        // Toggle spinner visibility
+        const arrowIcon = submitButton.querySelector('svg:not(#spinner)');
+        const spinner = submitButton.querySelector('#spinner');
+        
+        if (arrowIcon) {
+          arrowIcon.classList.add('hidden');
+        }
+        
+        if (spinner) {
+          spinner.classList.remove('hidden');
+        }
+        
+        console.log('Submit button updated with spinner');
+      }
     });
     
     console.log('Added submit handler with loading overlay to form:', form.id || form.action || 'unnamed form');
