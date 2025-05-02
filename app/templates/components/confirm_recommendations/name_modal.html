@@ -1,3 +1,6 @@
+{% set trip = trip|default({}) %}
+{% set trip_mode = trip_mode|default(session.get('trip_mode', 'request_mode') if session is defined else 'request_mode') %}
+
 <!-- Name Input Modal -->
 <div 
   id="name-modal" 

@@ -14,50 +14,48 @@
 
 {% block content %}
 <div class="container mx-auto px-4 py-10 max-w-5xl" data-trip-mode="{{ trip_mode or 'request_mode' }}">
-  {% include 'components/confirm_recommendations/header.html' with context %}
+  {% include 'components/confirm_recommendations/header.html' %}
   
   {% if not extracted_recommendations or extracted_recommendations|length == 0 %}
-    {% include 'components/confirm_recommendations/empty_state.html' with context %}
+    {% include 'components/confirm_recommendations/empty_state.html' %}
     
     <!-- Form to manually add recommendations when none were detected -->
     <form method="POST" action="{{ url_for('recommendation.save_recommendations', slug=trip.slug) }}" class="space-y-6" id="recommendations-form">
       <!-- Hidden recommender name field that will be filled by the modal -->
       <input type="hidden" id="recommender_name" name="recommender_name" value="{{ recommender_name }}">
       
-      {% include 'components/confirm_recommendations/form_header.html' with context %}
+      {% include 'components/confirm_recommendations/form_header.html' %}
       
       <!-- Recommendations Container -->
       <div id="recommendations-container" class="space-y-4">
         <!-- Manual recommendations will be added here via JavaScript -->
       </div>
       
-      {% include 'components/confirm_recommendations/action_buttons.html' with context %}
+      {% include 'components/confirm_recommendations/action_buttons.html' %}
     </form>
   {% else %}
     <form method="POST" action="{{ url_for('recommendation.save_recommendations', slug=trip.slug) }}" class="space-y-6" id="recommendations-form">
       <!-- Hidden recommender name field that will be filled by the modal -->
       <input type="hidden" id="recommender_name" name="recommender_name" value="{{ recommender_name }}">
       
-      {% include 'components/confirm_recommendations/form_header.html' with context %}
+      {% include 'components/confirm_recommendations/form_header.html' %}
       
       <!-- Recommendations Container -->
       <div id="recommendations-container" class="space-y-4">
         {% for item in extracted_recommendations %}
-          {% with index=loop.index %}
-            {% include 'components/confirm_recommendations/recommendation_item.html' with context %}
-          {% endwith %}
+          {% include 'components/confirm_recommendations/recommendation_item.html' %}
         {% endfor %}
       </div>
       
-      {% include 'components/confirm_recommendations/action_buttons.html' with context %}
+      {% include 'components/confirm_recommendations/action_buttons.html' %}
     </form>
   {% endif %}
 </div>
 
 <!-- Template for new recommendation item (hidden) -->
 <template id="new-recommendation-template">
-  {% include 'components/additional_recommendation_item_template.html' with context %}
+  {% include 'components/additional_recommendation_item_template.html' %}
 </template>
 
-{% include 'components/confirm_recommendations/name_modal.html' with context %}
+{% include 'components/confirm_recommendations/name_modal.html' %}
 {% endblock %} 

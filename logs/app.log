@@ -3580,3 +3580,312 @@ check out the...' (truncated)
 [2025-04-30 22:42:49] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 22:42:49] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
 [2025-04-30 22:42:49] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 22:42:49] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
 [2025-04-30 22:42:49] [INFO] [werkzeug] 127.0.0.1 - - [30/Apr/2025 22:42:49] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-04-30 22:48:29] [INFO] [app] Application started
+[2025-04-30 22:48:30] [INFO] [app] Application started
+[2025-04-30 23:01:30] [INFO] [app] Application started
+[2025-04-30 23:01:31] [INFO] [app] Application started
+[2025-04-30 23:02:59] [INFO] [app] Application started
+[2025-04-30 23:03:00] [INFO] [app] Application started
+[2025-04-30 23:05:23] [INFO] [app] Application started
+[2025-04-30 23:05:24] [INFO] [app] Application started
+[2025-05-02 06:51:45] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:51:45] "GET / HTTP/1.1" 200 -
+[2025-05-02 06:51:45] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:51:45] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-05-02 06:51:45] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:51:45] "[36mGET /static/css/pages/home.css HTTP/1.1[0m" 304 -
+[2025-05-02 06:51:45] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:51:45] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:51:45] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:51:45] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:51:45] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:51:45] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-05-02 06:51:45] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:51:45] "[36mGET /static/images/trip-hero.png?v=2 HTTP/1.1[0m" 304 -
+[2025-05-02 06:51:45] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:51:45] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-05-02 06:51:46] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:51:46] "GET / HTTP/1.1" 200 -
+[2025-05-02 06:51:46] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:51:46] "GET /static/css/tailwind.css HTTP/1.1" 200 -
+[2025-05-02 06:51:46] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:51:46] "GET /static/css/pages/home.css HTTP/1.1" 200 -
+[2025-05-02 06:51:46] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:51:46] "GET /static/js/utils/loading.js HTTP/1.1" 200 -
+[2025-05-02 06:51:46] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:51:46] "GET /static/js/form-validation.js HTTP/1.1" 200 -
+[2025-05-02 06:51:46] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:51:46] "GET /static/js/main.js HTTP/1.1" 200 -
+[2025-05-02 06:51:46] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:51:46] "GET /static/images/trip-hero.png?v=2 HTTP/1.1" 200 -
+[2025-05-02 06:51:46] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:51:46] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-05-02 06:51:48] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:51:48] "[32mPOST /create-trip HTTP/1.1[0m" 302 -
+[2025-05-02 06:51:48] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:51:48] "GET /user-info HTTP/1.1" 200 -
+[2025-05-02 06:51:49] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:51:49] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-05-02 06:51:49] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:51:49] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:51:49] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:51:49] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:51:49] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:51:49] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:51:49] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:51:49] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-05-02 06:52:07] [INFO] [app.services.ai_service] Getting destination suggestions for query: tokyo
+[2025-05-02 06:52:07] [INFO] [app.services.ai_service] Using API key starting with: sk-proj-...
+[2025-05-02 06:52:07] [INFO] [app.services.ai_service] Preparing request to OpenAI API for destination suggestions
+[2025-05-02 06:52:07] [INFO] [app.services.ai_service] Sending request to OpenAI API using model: gpt-3.5-turbo
+[2025-05-02 06:52:11] [INFO] [app.services.ai_service] Received response from OpenAI API: status=200
+[2025-05-02 06:52:11] [INFO] [app.services.ai_service] OpenAI response content: '```json
+[
+    {
+        "name": "Tokyo",
+        "country": "Japan",
+        "description": "Tokyo, ...' (truncated)
+[2025-05-02 06:52:11] [INFO] [app.services.ai_service] Found JSON string from position 8 to 1413
+[2025-05-02 06:52:11] [INFO] [app.services.ai_service] Successfully parsed JSON data: 3 destinations extracted
+[2025-05-02 06:52:11] [INFO] [app.services.ai_service] Destination 1: Tokyo (Japan)
+[2025-05-02 06:52:11] [INFO] [app.services.ai_service] Destination 2: Tokyo Disneyland (Japan)
+[2025-05-02 06:52:11] [INFO] [app.services.ai_service] Destination 3: Tsukiji Fish Market (Japan)
+[2025-05-02 06:52:11] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:52:11] "[32mPOST /complete-trip HTTP/1.1[0m" 302 -
+[2025-05-02 06:52:11] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:52:11] "GET /trip/tokyo-may-2025 HTTP/1.1" 200 -
+[2025-05-02 06:52:11] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:52:11] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-05-02 06:52:11] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:52:11] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:52:11] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:52:11] "[36mGET /static/css/pages/recommendations.css HTTP/1.1[0m" 304 -
+[2025-05-02 06:52:11] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:52:11] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:52:11] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:52:11] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:52:11] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:52:11] "[36mGET /static/js/components/trip/view_toggler.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:52:11] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:52:11] "[36mGET /static/js/components/trip/recommendation_filter.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:52:11] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:52:11] "[36mGET /static/js/components/trip/recommendation_map.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:52:11] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:52:11] "[36mGET /static/js/pages/trip.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:52:11] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:52:11] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-05-02 06:52:19] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:52:19] "GET / HTTP/1.1" 200 -
+[2025-05-02 06:52:19] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:52:19] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-05-02 06:52:19] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:52:19] "[36mGET /static/css/pages/home.css HTTP/1.1[0m" 304 -
+[2025-05-02 06:52:19] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:52:19] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:52:19] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:52:19] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:52:19] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:52:19] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:52:19] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:52:19] "[36mGET /static/images/trip-hero.png?v=2 HTTP/1.1[0m" 304 -
+[2025-05-02 06:52:21] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:52:21] "[32mPOST /create-trip HTTP/1.1[0m" 302 -
+[2025-05-02 06:52:22] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:52:22] "GET /user-info HTTP/1.1" 200 -
+[2025-05-02 06:52:22] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:52:22] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-05-02 06:52:22] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:52:22] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:52:22] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:52:22] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:52:22] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:52:22] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:52:22] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:52:22] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-05-02 06:52:26] [INFO] [app.services.ai_service] Getting destination suggestions for query: aewfasd
+[2025-05-02 06:52:26] [INFO] [app.services.ai_service] Using API key starting with: sk-proj-...
+[2025-05-02 06:52:26] [INFO] [app.services.ai_service] Preparing request to OpenAI API for destination suggestions
+[2025-05-02 06:52:26] [INFO] [app.services.ai_service] Sending request to OpenAI API using model: gpt-3.5-turbo
+[2025-05-02 06:52:28] [INFO] [app.services.ai_service] Received response from OpenAI API: status=200
+[2025-05-02 06:52:28] [INFO] [app.services.ai_service] OpenAI response content: '```json
+[
+    {
+        "name": "Aswan",
+        "country": "Egypt",
+        "description": "Aswan i...' (truncated)
+[2025-05-02 06:52:28] [INFO] [app.services.ai_service] Found JSON string from position 8 to 1431
+[2025-05-02 06:52:28] [INFO] [app.services.ai_service] Successfully parsed JSON data: 3 destinations extracted
+[2025-05-02 06:52:28] [INFO] [app.services.ai_service] Destination 1: Aswan (Egypt)
+[2025-05-02 06:52:28] [INFO] [app.services.ai_service] Destination 2: Warsaw (Poland)
+[2025-05-02 06:52:28] [INFO] [app.services.ai_service] Destination 3: Stavanger (Norway)
+[2025-05-02 06:52:28] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:52:28] "POST /complete-trip HTTP/1.1" 200 -
+[2025-05-02 06:52:28] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:52:28] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-05-02 06:52:28] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:52:28] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:52:28] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:52:28] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:52:28] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:52:28] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:52:28] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:52:28] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-05-02 06:57:50] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:57:50] "[32mPOST /create-trip HTTP/1.1[0m" 302 -
+[2025-05-02 06:57:50] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:57:50] "GET /user-info HTTP/1.1" 200 -
+[2025-05-02 06:57:50] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:57:50] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:57:50] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:57:50] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-05-02 06:57:50] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:57:50] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:57:50] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:57:50] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:57:50] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:57:50] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-05-02 06:57:57] [INFO] [app.services.ai_service] Getting destination suggestions for query: aewfasdasd
+[2025-05-02 06:57:57] [INFO] [app.services.ai_service] Using API key starting with: sk-proj-...
+[2025-05-02 06:57:57] [INFO] [app.services.ai_service] Preparing request to OpenAI API for destination suggestions
+[2025-05-02 06:57:57] [INFO] [app.services.ai_service] Sending request to OpenAI API using model: gpt-3.5-turbo
+[2025-05-02 06:58:00] [INFO] [app.services.ai_service] Received response from OpenAI API: status=200
+[2025-05-02 06:58:00] [INFO] [app.services.ai_service] OpenAI response content: '```json
+[
+    {
+        "name": "Asuncion",
+        "country": "Paraguay",
+        "description": "A...' (truncated)
+[2025-05-02 06:58:00] [INFO] [app.services.ai_service] Found JSON string from position 8 to 1586
+[2025-05-02 06:58:00] [INFO] [app.services.ai_service] Successfully parsed JSON data: 3 destinations extracted
+[2025-05-02 06:58:00] [INFO] [app.services.ai_service] Destination 1: Asuncion (Paraguay)
+[2025-05-02 06:58:00] [INFO] [app.services.ai_service] Destination 2: Warsaw (Poland)
+[2025-05-02 06:58:00] [INFO] [app.services.ai_service] Destination 3: Sidney (United States)
+[2025-05-02 06:58:00] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:00] "POST /complete-trip HTTP/1.1" 200 -
+[2025-05-02 06:58:00] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:00] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-05-02 06:58:00] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:00] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:58:00] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:00] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:58:00] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:00] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:58:00] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:00] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-05-02 06:58:15] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:15] "[32mGET /auth/verify/zmaI04eYIq3KsbOa5TlDYTfErhHs-zXZz4m6-7mijmA HTTP/1.1[0m" 302 -
+[2025-05-02 06:58:15] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:15] "GET /trip/aewfasdasd-may-2025 HTTP/1.1" 200 -
+[2025-05-02 06:58:15] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:15] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-05-02 06:58:15] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:15] "[36mGET /static/css/pages/recommendations.css HTTP/1.1[0m" 304 -
+[2025-05-02 06:58:15] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:15] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:58:15] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:15] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:58:15] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:15] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:58:15] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:15] "[36mGET /static/js/components/trip/recommendation_filter.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:58:15] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:15] "[36mGET /static/js/components/trip/view_toggler.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:58:15] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:15] "[36mGET /static/js/components/trip/recommendation_map.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:58:15] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:15] "[36mGET /static/js/pages/trip.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:58:15] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:15] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-05-02 06:58:19] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:19] "GET /my-trips HTTP/1.1" 200 -
+[2025-05-02 06:58:19] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:19] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-05-02 06:58:19] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:19] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:58:19] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:19] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:58:19] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:19] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:58:20] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:20] "GET / HTTP/1.1" 200 -
+[2025-05-02 06:58:20] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:20] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-05-02 06:58:20] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:20] "[36mGET /static/css/pages/home.css HTTP/1.1[0m" 304 -
+[2025-05-02 06:58:20] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:20] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:58:20] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:20] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:58:20] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:20] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:58:20] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:20] "[36mGET /static/images/trip-hero.png?v=2 HTTP/1.1[0m" 304 -
+[2025-05-02 06:58:24] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:24] "[32mPOST /create-trip HTTP/1.1[0m" 302 -
+[2025-05-02 06:58:24] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:24] "GET /user-info HTTP/1.1" 200 -
+[2025-05-02 06:58:24] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:24] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:58:24] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:24] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:58:24] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:24] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-05-02 06:58:24] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:24] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:58:24] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:24] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-05-02 06:58:30] [INFO] [app.services.ai_service] Getting destination suggestions for query: New new
+[2025-05-02 06:58:30] [INFO] [app.services.ai_service] Using API key starting with: sk-proj-...
+[2025-05-02 06:58:30] [INFO] [app.services.ai_service] Preparing request to OpenAI API for destination suggestions
+[2025-05-02 06:58:30] [INFO] [app.services.ai_service] Sending request to OpenAI API using model: gpt-3.5-turbo
+[2025-05-02 06:58:33] [INFO] [app.services.ai_service] Received response from OpenAI API: status=200
+[2025-05-02 06:58:33] [INFO] [app.services.ai_service] OpenAI response content: '```json
+[
+    {
+        "name": "New Delhi",
+        "country": "India",
+        "description": "New...' (truncated)
+[2025-05-02 06:58:33] [INFO] [app.services.ai_service] Found JSON string from position 8 to 1726
+[2025-05-02 06:58:33] [INFO] [app.services.ai_service] Successfully parsed JSON data: 3 destinations extracted
+[2025-05-02 06:58:33] [INFO] [app.services.ai_service] Destination 1: New Delhi (India)
+[2025-05-02 06:58:33] [INFO] [app.services.ai_service] Destination 2: New Orleans (United States)
+[2025-05-02 06:58:33] [INFO] [app.services.ai_service] Destination 3: Newcastle (Australia)
+[2025-05-02 06:58:33] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:33] "[32mPOST /complete-trip HTTP/1.1[0m" 302 -
+[2025-05-02 06:58:33] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:33] "GET /trip/new-new-may-2025 HTTP/1.1" 200 -
+[2025-05-02 06:58:33] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:33] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-05-02 06:58:33] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:33] "[36mGET /static/css/pages/recommendations.css HTTP/1.1[0m" 304 -
+[2025-05-02 06:58:33] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:33] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:58:33] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:33] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:58:33] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:33] "[36mGET /static/js/components/trip/view_toggler.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:58:33] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:33] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:58:33] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:33] "[36mGET /static/js/components/trip/recommendation_filter.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:58:33] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:33] "[36mGET /static/js/components/trip/recommendation_map.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:58:33] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:33] "[36mGET /static/js/pages/trip.js HTTP/1.1[0m" 304 -
+[2025-05-02 06:58:33] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 06:58:33] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-05-02 07:03:27] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:03:27] "GET / HTTP/1.1" 200 -
+[2025-05-02 07:03:27] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:03:27] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-05-02 07:03:27] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:03:27] "[36mGET /static/css/pages/home.css HTTP/1.1[0m" 304 -
+[2025-05-02 07:03:27] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:03:27] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-05-02 07:03:27] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:03:27] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-05-02 07:03:27] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:03:27] "[36mGET /static/images/trip-hero.png?v=2 HTTP/1.1[0m" 304 -
+[2025-05-02 07:03:27] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:03:27] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-05-02 07:03:31] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:03:31] "[32mPOST /create-trip HTTP/1.1[0m" 302 -
+[2025-05-02 07:03:31] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:03:31] "GET /user-info HTTP/1.1" 200 -
+[2025-05-02 07:03:31] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:03:31] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-05-02 07:03:31] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:03:31] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-05-02 07:03:31] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:03:31] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-05-02 07:03:31] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:03:31] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-05-02 07:03:31] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:03:31] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-05-02 07:03:37] [INFO] [app.services.ai_service] Getting destination suggestions for query: readafad
+[2025-05-02 07:03:37] [INFO] [app.services.ai_service] Using API key starting with: sk-proj-...
+[2025-05-02 07:03:37] [INFO] [app.services.ai_service] Preparing request to OpenAI API for destination suggestions
+[2025-05-02 07:03:37] [INFO] [app.services.ai_service] Sending request to OpenAI API using model: gpt-3.5-turbo
+[2025-05-02 07:03:41] [INFO] [app.services.ai_service] Received response from OpenAI API: status=200
+[2025-05-02 07:03:41] [INFO] [app.services.ai_service] OpenAI response content: '```json
+[
+    {
+        "name": "Rafah",
+        "country": "Palestine",
+        "description": "Raf...' (truncated)
+[2025-05-02 07:03:41] [INFO] [app.services.ai_service] Found JSON string from position 8 to 1541
+[2025-05-02 07:03:41] [INFO] [app.services.ai_service] Successfully parsed JSON data: 3 destinations extracted
+[2025-05-02 07:03:41] [INFO] [app.services.ai_service] Destination 1: Rafah (Palestine)
+[2025-05-02 07:03:41] [INFO] [app.services.ai_service] Destination 2: Radaur (India)
+[2025-05-02 07:03:41] [INFO] [app.services.ai_service] Destination 3: Farad (Sweden)
+[2025-05-02 07:03:41] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:03:41] "[32mPOST /complete-trip HTTP/1.1[0m" 302 -
+[2025-05-02 07:03:41] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:03:41] "GET /trip/readafad-may-2025 HTTP/1.1" 200 -
+[2025-05-02 07:03:41] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:03:41] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-05-02 07:03:41] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:03:41] "[36mGET /static/css/pages/recommendations.css HTTP/1.1[0m" 304 -
+[2025-05-02 07:03:41] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:03:41] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-05-02 07:03:41] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:03:41] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-05-02 07:03:41] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:03:41] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-05-02 07:03:41] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:03:41] "[36mGET /static/js/components/trip/view_toggler.js HTTP/1.1[0m" 304 -
+[2025-05-02 07:03:41] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:03:41] "[36mGET /static/js/components/trip/recommendation_filter.js HTTP/1.1[0m" 304 -
+[2025-05-02 07:03:41] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:03:41] "[36mGET /static/js/components/trip/recommendation_map.js HTTP/1.1[0m" 304 -
+[2025-05-02 07:03:41] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:03:41] "[36mGET /static/js/pages/trip.js HTTP/1.1[0m" 304 -
+[2025-05-02 07:03:41] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:03:41] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-05-02 07:03:43] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:03:43] "GET / HTTP/1.1" 200 -
+[2025-05-02 07:03:43] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:03:43] "[36mGET /static/css/pages/home.css HTTP/1.1[0m" 304 -
+[2025-05-02 07:03:43] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:03:43] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-05-02 07:03:43] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:03:43] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-05-02 07:03:43] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:03:43] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-05-02 07:03:43] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:03:43] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-05-02 07:03:43] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:03:43] "[36mGET /static/images/trip-hero.png?v=2 HTTP/1.1[0m" 304 -
+[2025-05-02 07:03:46] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:03:46] "[32mPOST /create-trip HTTP/1.1[0m" 302 -
+[2025-05-02 07:03:46] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:03:46] "GET /user-info HTTP/1.1" 200 -
+[2025-05-02 07:03:46] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:03:46] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-05-02 07:03:46] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:03:46] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-05-02 07:03:46] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:03:46] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-05-02 07:03:46] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:03:46] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-05-02 07:03:46] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:03:46] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-05-02 07:03:56] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:03:56] "[32mPOST /complete-trip HTTP/1.1[0m" 302 -
+[2025-05-02 07:03:56] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:03:56] "GET /name-resolution HTTP/1.1" 200 -
+[2025-05-02 07:03:56] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:03:56] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-05-02 07:03:56] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:03:56] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-05-02 07:03:56] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:03:56] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-05-02 07:03:56] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:03:56] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-05-02 07:03:56] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:03:56] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-05-02 07:04:02] [INFO] [app.services.ai_service] Getting destination suggestions for query: 4hq3oeraklds
+[2025-05-02 07:04:02] [INFO] [app.services.ai_service] Using API key starting with: sk-proj-...
+[2025-05-02 07:04:02] [INFO] [app.services.ai_service] Preparing request to OpenAI API for destination suggestions
+[2025-05-02 07:04:02] [INFO] [app.services.ai_service] Sending request to OpenAI API using model: gpt-3.5-turbo
+[2025-05-02 07:04:06] [INFO] [app.services.ai_service] Received response from OpenAI API: status=200
+[2025-05-02 07:04:06] [INFO] [app.services.ai_service] OpenAI response content: '```json
+[
+    {
+        "name": "Tokyo",
+        "country": "Japan",
+        "description": "Tokyo, ...' (truncated)
+[2025-05-02 07:04:06] [INFO] [app.services.ai_service] Found JSON string from position 8 to 1691
+[2025-05-02 07:04:06] [INFO] [app.services.ai_service] Successfully parsed JSON data: 3 destinations extracted
+[2025-05-02 07:04:06] [INFO] [app.services.ai_service] Destination 1: Tokyo (Japan)
+[2025-05-02 07:04:06] [INFO] [app.services.ai_service] Destination 2: Rio de Janeiro (Brazil)
+[2025-05-02 07:04:06] [INFO] [app.services.ai_service] Destination 3: Sydney (Australia)
+[2025-05-02 07:04:06] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:04:06] "POST /resolve-name HTTP/1.1" 200 -
+[2025-05-02 07:04:06] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:04:06] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-05-02 07:04:06] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:04:06] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-05-02 07:04:06] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:04:06] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-05-02 07:04:06] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:04:06] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-05-02 07:04:06] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:04:06] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-05-02 07:04:18] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:04:18] "GET /auth/login HTTP/1.1" 200 -
+[2025-05-02 07:04:18] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:04:18] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-05-02 07:04:18] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:04:18] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-05-02 07:04:18] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:04:18] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-05-02 07:04:18] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:04:18] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-05-02 07:04:24] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:04:24] "GET / HTTP/1.1" 200 -
+[2025-05-02 07:04:24] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:04:24] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-05-02 07:04:24] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:04:24] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-05-02 07:04:24] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:04:24] "[36mGET /static/css/pages/home.css HTTP/1.1[0m" 304 -
+[2025-05-02 07:04:24] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:04:24] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-05-02 07:04:24] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:04:24] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-05-02 07:04:24] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:04:24] "[36mGET /static/images/trip-hero.png?v=2 HTTP/1.1[0m" 304 -
+[2025-05-02 07:04:27] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:04:27] "[32mPOST /create-trip HTTP/1.1[0m" 302 -
+[2025-05-02 07:04:27] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:04:27] "GET /user-info HTTP/1.1" 200 -
+[2025-05-02 07:04:27] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:04:27] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-05-02 07:04:27] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:04:27] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-05-02 07:04:27] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:04:27] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-05-02 07:04:27] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:04:27] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-05-02 07:04:27] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:04:27] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-05-02 07:04:31] [INFO] [app.services.ai_service] Getting destination suggestions for query: eajfjdfadslf
+[2025-05-02 07:04:31] [INFO] [app.services.ai_service] Using API key starting with: sk-proj-...
+[2025-05-02 07:04:31] [INFO] [app.services.ai_service] Preparing request to OpenAI API for destination suggestions
+[2025-05-02 07:04:31] [INFO] [app.services.ai_service] Sending request to OpenAI API using model: gpt-3.5-turbo
+[2025-05-02 07:04:36] [INFO] [app.services.ai_service] Received response from OpenAI API: status=200
+[2025-05-02 07:04:36] [INFO] [app.services.ai_service] OpenAI response content: '```json
+[
+    {
+        "name": "Eidfjord",
+        "country": "Norway",
+        "description": "Eid...' (truncated)
+[2025-05-02 07:04:36] [INFO] [app.services.ai_service] Found JSON string from position 8 to 1986
+[2025-05-02 07:04:36] [INFO] [app.services.ai_service] Successfully parsed JSON data: 3 destinations extracted
+[2025-05-02 07:04:36] [INFO] [app.services.ai_service] Destination 1: Eidfjord (Norway)
+[2025-05-02 07:04:36] [INFO] [app.services.ai_service] Destination 2: Albuquerque (United States)
+[2025-05-02 07:04:36] [INFO] [app.services.ai_service] Destination 3: Fes (Morocco)
+[2025-05-02 07:04:36] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:04:36] "POST /complete-trip HTTP/1.1" 200 -
+[2025-05-02 07:04:36] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:04:36] "[36mGET /static/css/tailwind.css HTTP/1.1[0m" 304 -
+[2025-05-02 07:04:36] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:04:36] "[36mGET /static/js/utils/loading.js HTTP/1.1[0m" 304 -
+[2025-05-02 07:04:36] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:04:36] "[36mGET /static/js/form-validation.js HTTP/1.1[0m" 304 -
+[2025-05-02 07:04:36] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:04:36] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+[2025-05-02 07:04:36] [INFO] [werkzeug] 127.0.0.1 - - [02/May/2025 07:04:36] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -

@@ -1,3 +1,7 @@
+{% set item = item|default({}) %}
+{% set index = index|default(loop.index if loop is defined else 0) %}
+{% set trip = trip|default({}) %}
+
 <div class="bg-white rounded-xl p-6 border border-gray-200 shadow-sm transition hover:shadow-md recommendation-item" id="recommendation-{{ index }}">
   <div class="flex flex-col md:flex-row gap-6">
     <!-- Recommendation Details -->
