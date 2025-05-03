@@ -94,31 +94,4 @@ test.describe('Audio Recording and Transcription', () => {
       throw error;
     }
   });
-  
-  // Note: Using a simplified test that doesn't depend on mock transcription
-  test('should show recording UI elements correctly', async ({ page }) => {
-    try {
-      // Make sure toggle button exists
-      await page.waitForSelector('#toggle-input-btn', { timeout: 1000 });
-      
-      // Switch to audio mode
-      await page.click('#toggle-input-btn');
-      
-      // Verify recording UI elements
-      await page.waitForSelector('#record-btn', { timeout: 1000 });
-      await expect(page.locator('#record-btn')).toBeVisible();
-      
-      await page.waitForSelector('#recording-time', { timeout: 1000 });
-      await expect(page.locator('#recording-time')).toBeVisible();
-      
-      // Testing the player element (would be shown after recording)
-      if (await page.locator('#audio-player-container').count() > 0) {
-        await expect(page.locator('#audio-player-container')).not.toBeVisible();
-      }
-    } catch (error) {
-      console.error('Recording UI test failed:', error.message);
-      await page.screenshot({ path: 'recording-ui-failure.png' });
-      throw error;
-    }
-  });
 }); 

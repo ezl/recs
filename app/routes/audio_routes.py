@@ -15,7 +15,7 @@ audio_bp = Blueprint('audio', __name__)
 @audio_bp.route('/api/transcribe', methods=['POST'])
 def transcribe_audio():
     """
-    Endpoint to handle audio transcription and process it into recommendations
+    Endpoint to handle audio transcription
     """
     print("=== TRANSCRIBE API CALLED ===")
     
@@ -90,45 +90,11 @@ def transcribe_audio():
         print(f"Successfully transcribed text: '{transcription[:100]}...' (truncated)")
         print(f"Full transcription: {transcription}")
         
-        # Process the transcription to extract recommendations
-        print("Extracting recommendations from transcription...")
-        try:
-            extracted_recommendations = AIService.extract_recommendations(transcription, destination)
-            print(f"Extracted {len(extracted_recommendations)} recommendations")
-            
-            # Log the actual recommendations for debugging
-            print(f"Recommendation details: {json.dumps(extracted_recommendations, indent=2)}")
-            
-            if not extracted_recommendations or len(extracted_recommendations) == 0:
-                print("WARNING: No recommendations were extracted from the transcription")
-                return jsonify({
-                    "status": "success",
-                    "recommendations": [],
-                    "transcription": transcription
-                }), 200
-            
-            response = jsonify({
-                "status": "success",
-                "recommendations": extracted_recommendations,
-                "transcription": transcription
-            })
-            print("response:")
-            print(response)
-            
-            return response, 200
-            
-        except Exception as extract_error:
-            print(f"ERROR during recommendation extraction: {str(extract_error)}")
-            import traceback
-            print(f"Extraction error traceback: {traceback.format_exc()}")
-            
-            # Return the transcription even if recommendation extraction failed
-            return jsonify({
-                "status": "partial_success",
-                "error": f"Transcription succeeded but recommendation extraction failed: {str(extract_error)}",
-                "transcription": transcription,
-                "recommendations": []
-            }), 200
+        # Return just the transcription - recommendations will be handled by the same flow as text input
+        return jsonify({
+            "status": "success",
+            "transcription": transcription
+        }), 200
     
     except Exception as e:
         import traceback
@@ -162,19 +128,57 @@ def process_audio_recommendation(slug):
     trip = Trip.query.filter_by(slug=slug).first_or_404()
     
     try:
-        # Get the pre-extracted recommendations from the request body
-        data = request.json
-        print(f"Parsed JSON data type: {type(data)}")
+        # Get data from either JSON or form data
+        data = None
+        
+        # Check if coming from form data (new approach)
+        if 'recommendations_data' in request.form:
+            print("Getting recommendations from form data")
+            try:
+                form_data = request.form.get('recommendations_data', '')
+                data = json.loads(form_data)
+                print(f"Successfully parsed recommendations from form data, type: {type(data)}")
+            except Exception as form_error:
+                print(f"Error parsing form data: {str(form_error)}")
+                print(f"Raw form data: {request.form.get('recommendations_data', '')[:200]}...")
+                return redirect(url_for('recommendation.add_recommendation', slug=slug, error="Invalid audio data"))
+        else:
+            # Fallback to JSON parsing (original approach)
+            try:
+                data = request.json
+                print(f"Parsed JSON data type: {type(data)}")
+            except Exception as json_error:
+                print(f"ERROR parsing JSON: {str(json_error)}")
+                print(f"Raw request data: {request.get_data().decode('utf-8', errors='replace')[:500]}...")
+                return redirect(url_for('recommendation.add_recommendation', slug=slug, error="Invalid JSON data"))
+        
+        # Log a sample of the data (truncated for logs)
+        if data:
+            data_sample = str(data)[:500] + "..." if len(str(data)) > 500 else str(data)
+            print(f"Received data sample: {data_sample}")
         
         if not data:
-            print("ERROR: No data in request.json")
-            print(f"Raw request data: {request.get_data()[:200]}...")
-            return jsonify({"error": "No data received in request"}), 400
+            print("ERROR: No data received")
+            flash('No recommendation data received', 'error')
+            return redirect(url_for('recommendation.add_recommendation', slug=slug))
         
         if not isinstance(data, list):
             print(f"ERROR: Data is not a list, it's a {type(data)}")
             print(f"Data content: {data}")
-            return jsonify({"error": "Invalid recommendations data format - expected list"}), 400
+            
+            # Try to handle if data is a string representation of a list
+            if isinstance(data, str) and data.startswith('[') and data.endswith(']'):
+                try:
+                    import json
+                    data = json.loads(data)
+                    print("Successfully converted string to list")
+                except Exception as e:
+                    print(f"Failed to convert string to list: {str(e)}")
+                    flash('Invalid recommendation data format', 'error')
+                    return redirect(url_for('recommendation.add_recommendation', slug=slug))
+            else:
+                flash('Invalid recommendation data format', 'error')
+                return redirect(url_for('recommendation.add_recommendation', slug=slug))
         
         # Log the data for debugging
         print(f"Storing {len(data)} recommendations in session: {data}")
@@ -209,7 +213,7 @@ def process_audio_recommendation(slug):
                 'request_id': request_id  # Add request ID for tracking
             }
         
-        # Return URL to redirect to
+        # Get URL to redirect to
         redirect_url = url_for('audio.confirm_audio_recommendations', slug=slug)
         
         # Add fallback query param with encoded data
@@ -225,27 +229,17 @@ def process_audio_recommendation(slug):
         from flask import get_flashed_messages
         get_flashed_messages()  # This forces a session save
         
-        # Log response details
-        from flask import make_response
-        response = jsonify({
-            "status": "success",
-            "redirect_url": redirect_url,
-            "request_id": request_id
-        })
-        
-        # Add diagnostic information to response
-        response.headers['X-Request-ID'] = request_id
-        print(f"Response headers: {response.headers}")
-        
-        return response, 200
+        # Return a redirect response instead of JSON
+        print(f"=== REDIRECTING TO: {redirect_url} ===")
+        return redirect(redirect_url)
         
     except Exception as e:
         import traceback
         print(f"ERROR in process_audio_recommendation: {str(e)}")
         print(f"Traceback: {traceback.format_exc()}")
-        print(f"Request headers: {dict(request.headers)}")
         
-        return jsonify({"error": str(e)}), 500
+        flash('Error processing audio recommendations', 'error')
+        return redirect(url_for('recommendation.add_recommendation', slug=slug))
 
 @audio_bp.route('/trip/<slug>/confirm-audio', methods=['GET'])
 def confirm_audio_recommendations(slug):
@@ -294,14 +288,33 @@ def confirm_audio_recommendations(slug):
     
     # Check if we need to use fallback data from query parameter
     fallback_param = request.args.get('fb')
+    print(f"Fallback parameter present: {bool(fallback_param)}")
+    
     if (not extracted_recommendations or not isinstance(extracted_recommendations, list) or len(extracted_recommendations) == 0) and fallback_param:
         print(f"Using fallback data from query parameter")
         try:
             # Decode the fallback data
             import json
             import base64
-            fallback_data = json.loads(base64.urlsafe_b64decode(fallback_param).decode())
-            print(f"Decoded fallback data: {fallback_data}")
+            
+            # Handle URL-safe decoding
+            padded_fb = fallback_param + '=' * (4 - len(fallback_param) % 4)
+            
+            try:
+                decoded_data = base64.urlsafe_b64decode(padded_fb).decode()
+                print(f"Decoded fallback data (raw): {decoded_data[:200]}...")
+                fallback_data = json.loads(decoded_data)
+                print(f"Parsed fallback data: {fallback_data}")
+            except Exception as decode_error:
+                print(f"Error decoding with padding: {str(decode_error)}")
+                # Try without padding as a fallback
+                try:
+                    decoded_data = base64.urlsafe_b64decode(fallback_param).decode()
+                    fallback_data = json.loads(decoded_data)
+                    print(f"Decoded without padding: {fallback_data}")
+                except Exception as e:
+                    print(f"Error decoding without padding: {str(e)}")
+                    raise
             
             # Check if request_id is in fallback data for correlation
             fallback_req_id = fallback_data.get('request_id', 'NO_ID')
