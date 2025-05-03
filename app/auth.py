@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 import requests
 from app.database import db
 from app.database.models import User, AuthToken
+import logging
 
 # Temporary toggle to enable real email sending in dev mode
 FORCE_REAL_EMAILS = False
@@ -142,15 +143,25 @@ def login():
 
 @auth.route('/verify/<token>')
 def verify_token(token):
+    logger = logging.getLogger(__name__)
+    
+    logger.info(f"=================== VERIFY TOKEN ROUTE CALLED ===================")
+    logger.info(f"Token: {token[:10]}...")
+    logger.info(f"Request URL: {request.url}")
+    logger.info(f"Session data before processing: {dict(session)}")
+    logger.info(f"Current trip_mode: '{session.get('trip_mode', 'NOT SET')}'")
+    
     # Get token from database
     db_token = AuthToken.get_valid_token(token)
     
     if not db_token:
+        logger.warning(f"Invalid or expired login token: {token[:10]}...")
         flash('Invalid or expired login link', 'error')
         return redirect(url_for('auth.login'))
     
     # Token is valid - log the user in
     user = db_token.user
+    logger.info(f"Valid token for user: {user.id} ({user.email})")
     
     # Mark token as used
     db_token.used = True
@@ -163,13 +174,28 @@ def verify_token(token):
     session['user_id'] = user.id
     session['user_email'] = user.email
     
+    # Make sure we preserve trip_mode if it exists
+    trip_mode = session.get('trip_mode')
+    if trip_mode:
+        logger.info(f"Preserving trip_mode '{trip_mode}' after authentication")
+        # Explicitly set it again to ensure it's not lost
+        session['trip_mode'] = trip_mode
+        session.modified = True
+    
+    logger.info(f"Session data after authentication: {dict(session)}")
+    
     flash('You have been logged in successfully', 'success')
     
     # Check if we have a next URL to redirect to
     next_url = session.pop('auth_next', None)
+    logger.info(f"Next URL after authentication: {next_url}")
+    logger.info(f"trip_mode after popping auth_next: '{session.get('trip_mode', 'NOT SET')}'")
+    
     if next_url:
+        logger.info(f"Redirecting to next_url: {next_url}")
         return redirect(next_url)
     
+    logger.info(f"No next_url, redirecting to my_trips")
     return redirect(url_for('user.my_trips'))
 
 @auth.route('/logout')

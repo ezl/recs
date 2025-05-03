@@ -13,7 +13,9 @@
 {% endblock %}
 
 {% block content %}
-<div class="container mx-auto px-4 py-10 max-w-5xl" data-trip-mode="{{ trip_mode or 'request_mode' }}">
+<div class="container mx-auto px-4 py-10 max-w-5xl" 
+     data-trip-mode="{{ trip_mode or 'request_mode' }}"
+     {% if user_authenticated %}data-user-authenticated="true"{% endif %}>
   {% include 'components/confirm_recommendations/header.html' %}
   
   {% if not extracted_recommendations or extracted_recommendations|length == 0 %}

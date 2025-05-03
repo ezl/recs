@@ -5,8 +5,10 @@ from app.database.models import User, Trip
 from app.services.ai_service import AIService
 from datetime import datetime
 from flask import current_app
+import logging
 
 user_bp = Blueprint('user', __name__)
+logger = logging.getLogger(__name__)
 
 @user_bp.route('/create-guide')
 def create_guide():
@@ -20,6 +22,11 @@ def create_trip():
     
     # Log for debugging
     print(f"create_trip received destination='{destination}', mode='{trip_mode}'")
+    logger.info(f"=================== CREATE TRIP ROUTE CALLED ===================")
+    logger.info(f"Request method: {request.method}")
+    logger.info(f"Request URL: {request.url}")
+    logger.info(f"Session data before processing: {dict(session)}")
+    logger.info(f"Form data: destination='{destination}', trip_mode='{trip_mode}'")
     
     if not destination:
         flash('Please enter a destination', 'error')
@@ -32,6 +39,8 @@ def create_trip():
     session.modified = True  # Ensure session is saved
     
     print(f"create_trip set session temp_destination='{session.get('temp_destination')}', trip_mode='{session.get('trip_mode')}'")
+    logger.info(f"Session after update: temp_destination='{session.get('temp_destination')}', trip_mode='{session.get('trip_mode')}'")
+    logger.info(f"Session data after processing: {dict(session)}")
     
     # Redirect to the user info page
     return redirect(url_for('user.user_info'))
@@ -64,11 +73,18 @@ def complete_trip():
     # Log the request for debugging
     print(f"complete_trip received: destination='{destination}', name='{name}', email='{email}'")
     print(f"session contains: temp_destination='{session.get('temp_destination')}'")
+    logger.info(f"=================== COMPLETE TRIP ROUTE CALLED ===================")
+    logger.info(f"Request method: {request.method}")
+    logger.info(f"Request URL: {request.url}")
+    logger.info(f"Form data: destination='{destination}', name='{name}', email='{email}'")
+    logger.info(f"Session data before processing: {dict(session)}")
+    logger.info(f"Current trip_mode: '{session.get('trip_mode', 'NOT SET')}'")
     
     # If destination is missing from form, try to get it from session
     if not destination:
         destination = session.get('temp_destination')
         print(f"Falling back to session destination: '{destination}'")
+        logger.info(f"Destination missing from form, using session value: '{destination}'")
     
     # Validate input
     if not destination:
@@ -91,6 +107,7 @@ def complete_trip():
         session['temp_destination'] = destination
         session['temp_email'] = email
         session['temp_name'] = name
+        logger.info(f"Redirecting to name resolution, trip_mode preserved: '{session.get('trip_mode', 'NOT SET')}'")
         return redirect(url_for('user.name_resolution'))
     
     # SCENARIO A: If user doesn't exist, create and auto-authenticate
@@ -109,10 +126,13 @@ def complete_trip():
         db.session.commit()
         
         print(f"New user created and auto-authenticated: {user.id}")
+        logger.info(f"New user created and auto-authenticated: {user.id}")
+        logger.info(f"Current trip_mode after user creation: '{session.get('trip_mode', 'NOT SET')}'")
         
     # SCENARIO B: If user exists and name matches, redirect to auth with auto-triggered email
     elif user.name and user.name == name:
         print(f"Existing user with matching name: {user.id}")
+        logger.info(f"Existing user with matching name: {user.id}")
         
         # Generate a trip before redirecting to auth
         trip = create_trip_for_user(user, destination, name)
@@ -130,20 +150,25 @@ def complete_trip():
         
         # Store the next URL in the session based on trip mode
         trip_mode = session.get('trip_mode', 'request_mode')
+        logger.info(f"Trip mode before setting auth_next: '{trip_mode}'")
+        
         if trip_mode == 'create_mode':
             # For guide creators, redirect to add recommendations after auth
             session['auth_next'] = url_for('recommendation.add_recommendation', slug=trip.slug)
             print(f"Setting auth_next for create_mode to add_recommendation: {session['auth_next']}")
+            logger.info(f"Setting auth_next for create_mode to add_recommendation: {session['auth_next']}")
         else:
             # For recommendation requesters, redirect to trip view after auth
             session['auth_next'] = url_for('trip.view_trip', slug=trip.slug)
             print(f"Setting auth_next for request_mode to view_trip: {session['auth_next']}")
+            logger.info(f"Setting auth_next for request_mode to view_trip: {session['auth_next']}")
         
         # Only include the auth_link in debug mode (and not using real emails)
         if current_app.debug and not current_app.config.get('FORCE_REAL_EMAILS', False):
             auth_link = url_for('auth.verify_token', token=token_string, _external=True)
             template_args['auth_link'] = auth_link
-            
+        
+        logger.info(f"Redirecting to check_email, trip_mode preserved: '{session.get('trip_mode', 'NOT SET')}'")
         return render_template('auth/check_email.html', **template_args)
     
     # Update name if it was null (should be rare but handled for completeness)
@@ -158,6 +183,8 @@ def complete_trip():
         # Update last login time
         user.last_login_at = datetime.utcnow()
         db.session.commit()
+        logger.info(f"Updated user name and authenticated: {user.id}")
+        logger.info(f"Current trip_mode after user update: '{session.get('trip_mode', 'NOT SET')}'")
     
     # Create trip
     trip = create_trip_for_user(user, destination, name)
@@ -168,14 +195,18 @@ def complete_trip():
             session.pop(key)
     
     # Determine redirect based on trip mode
-    trip_mode = session.pop('trip_mode', 'request_mode')
+    trip_mode = session.get('trip_mode', 'request_mode')
+    logger.info(f"Getting trip_mode from session with value: '{trip_mode}'")
+    
     if trip_mode == 'create_mode':
         # For guide creators, redirect to the add recommendation page
         print(f"Redirecting guide creator to add recommendations for trip {trip.slug}")
+        logger.info(f"Redirecting guide creator to add recommendations for trip {trip.slug}")
         return redirect(url_for('recommendation.add_recommendation', slug=trip.slug))
     else:
         # For recommendation requesters, redirect to view the trip page
         print(f"Redirecting recommendation requester to view trip {trip.slug}")
+        logger.info(f"Redirecting recommendation requester to view trip {trip.slug}")
         return redirect(url_for('trip.view_trip', slug=trip.slug))
 
 def create_trip_for_user(user, destination, traveler_name):
@@ -348,7 +379,7 @@ def resolve_name():
     print(f"Created trip with slug={trip.slug}, destination={destination}, user_id={user.id}")
     
     # Determine redirect based on trip mode
-    trip_mode = session.pop('trip_mode', 'request_mode')
+    trip_mode = session.get('trip_mode', 'request_mode')
     if trip_mode == 'create_mode':
         # For guide creators, redirect to the add recommendation page
         print(f"Redirecting guide creator to add recommendations for trip {trip.slug}")

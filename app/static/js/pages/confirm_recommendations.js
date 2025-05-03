@@ -86,17 +86,26 @@ document.addEventListener('DOMContentLoaded', function() {
             return; // Prevent showing name modal and form submission
         }
         
-        // Check if we're in create_mode - if so, skip the name modal
+        // Check if we're in create_mode or user is authenticated
         const tripModeElement = document.querySelector('[data-trip-mode]');
         const tripMode = tripModeElement ? tripModeElement.dataset.tripMode : 'request_mode';
         
-        // In create_mode, or if we already have a recommender name, submit directly
+        console.log('Modal check conditions:', {
+            tripMode,
+            hasRecommenderName: !!recommenderNameInput.value
+        });
+        
+        // Skip modal ONLY if:
+        // 1. In create_mode OR
+        // 2. Recommender name is already provided
         if (tripMode === 'create_mode' || recommenderNameInput.value) {
+            console.log('Skipping modal, submitting form directly');
             submitForm();
             return;
         }
         
-        // Show name modal for request_mode if we don't have a name yet
+        // Show name modal for request_mode, regardless of authentication status
+        console.log('Showing name modal for request_mode');
         nameModal.classList.remove('hidden');
         modalRecommenderName.focus();
     });
