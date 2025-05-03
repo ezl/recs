@@ -33,7 +33,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const audioModeLabel = document.getElementById('audio-mode-label');
     const textInputContainer = document.getElementById('text-input-container');
     const audioInputContainer = document.getElementById('audio-input-container');
-    const audioRecommendations = document.getElementById('audio-recommendations');
     
     // Audio recording elements
     const recordBtn = document.getElementById('record-btn');
@@ -150,8 +149,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Log the form data before submission
         const formData = new FormData(form);
         console.log('Form data to be submitted:', {
-            unstructured_recommendations: formData.get('unstructured_recommendations'),
-            audio_recommendations: formData.get('audio_recommendations')
+            unstructured_recommendations: formData.get('unstructured_recommendations')
         });
         
         // Show loading overlay
@@ -352,6 +350,9 @@ document.addEventListener('DOMContentLoaded', function() {
             micWaves.classList.add('hidden');
             recordingStatus.textContent = 'Processing...';
             
+            // Immediately show transcription status for a smoother experience
+            transcriptionStatus.classList.remove('hidden');
+            
             // Ensure audio player remains hidden
             audioPlayerContainer.classList.add('hidden');
             
@@ -441,97 +442,44 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log("RECEIVED DATA:", data);
             console.log("Data structure:", JSON.stringify(data, null, 2));
             
-            // Check if we received a transcription even if recommendations failed
+            // Check if we received a transcription
             if (data.transcription) {
                 console.log("Transcription received, first 100 chars:", data.transcription.substring(0, 100));
                 console.log("Transcription length:", data.transcription.length);
+                
+                // Silently switch to text mode
+                if (audioMode) {
+                    // Keep the transcription status visible to indicate processing
+                    transcriptionStatus.classList.remove('hidden');
+                    transcriptionStatus.querySelector('span').textContent = 'Processing your recommendations...';
+                    
+                    // Switch to text mode but hide the transition
+                    audioMode = false;
+                    
+                    // Hide audio input container without animation
+                    audioInputContainer.style.display = 'none';
+                    audioInputContainer.classList.remove('show-audio');
+                    
+                    // Don't show text container yet - keep the UI looking like we're processing the audio
+                    textInputContainer.classList.add('hidden');
+                    
+                    // Fill the text area with the transcription
+                    textRecommendations.value = data.transcription;
+                    
+                    // Force validation to enable the submit button
+                    validateTextInput();
+                    
+                    console.log("Filled text area with transcription and validated");
+                    
+                    // Auto-submit the form after a short delay to ensure everything is ready
+                    setTimeout(() => {
+                        console.log("Auto-submitting form with transcribed text");
+                        submitForm();
+                    }, 100);
+                }
             } else {
                 console.warn("No transcription in response");
-            }
-            
-            // Check for recommendations
-            if (data.recommendations) {
-                console.log(`Recommendations received: ${data.recommendations.length} items`);
-                data.recommendations.forEach((rec, i) => {
-                    console.log(`Recommendation ${i+1}: ${rec.name} (${rec.type || 'No type'})`);
-                });
-            } else {
-                console.warn("No recommendations in response");
-            }
-            
-            // Check for partial success (transcription succeeded but recommendations failed)
-            if (data.status === "partial_success") {
-                console.warn("Partial success - got transcription but recommendation extraction failed:", data.error);
-                
-                // Create an emergency fallback with just the transcription
-                const fallbackRecommendation = [{
-                    name: "Recommendations from recording",
-                    type: "",
-                    website_url: "",
-                    description: data.transcription
-                }];
-                
-                console.log("Created fallback recommendation with transcription text");
-                
-                // Store the fallback recommendation
-                audioRecommendations.value = JSON.stringify(fallbackRecommendation);
-                console.log("Set audioRecommendations.value to:", audioRecommendations.value);
-                
-                // Allow form submission
-                submitButton.disabled = false;
-                submitButton.classList.remove('btn-disabled');
-                console.log("Submit button enabled for partial success");
-                
-                // Automatically submit the form
-                console.log("CALLING: submitForm() with partial success data");
-                submitForm();
-                return;
-            }
-            
-            // Store the transcribed text in a hidden field to be submitted with the form
-            if (data.recommendations && data.recommendations.length > 0) {
-                console.log(`PROCESSING: ${data.recommendations.length} recommendations for form submission`);
-                
-                // Store the recommendations in the hidden input
-                audioRecommendations.value = JSON.stringify(data.recommendations);
-                console.log("Set audioRecommendations.value to JSON string of length:", audioRecommendations.value.length);
-                
-                // Allow form submission
-                submitButton.disabled = false;
-                submitButton.classList.remove('btn-disabled');
-                console.log("Submit button enabled for recommendations");
-                
-                // Automatically submit the form
-                console.log("CALLING: submitForm() with recommendations data");
-                submitForm();
-            } else {
-                console.error("No recommendations found in response:", data);
-                
-                // If we have a transcription but no recommendations, create a fallback
-                if (data.transcription) {
-                    console.log("Creating fallback from transcription since no recommendations were extracted");
-                    const fallbackRecommendation = [{
-                        name: "Recommendations from recording",
-                        type: "",
-                        website_url: "",
-                        description: data.transcription
-                    }];
-                    
-                    // Store the fallback recommendation
-                    audioRecommendations.value = JSON.stringify(fallbackRecommendation);
-                    console.log("Set audioRecommendations.value with fallback:", audioRecommendations.value);
-                    
-                    // Allow form submission
-                    submitButton.disabled = false;
-                    submitButton.classList.remove('btn-disabled');
-                    console.log("Submit button enabled for fallback");
-                    
-                    // Automatically submit the form
-                    console.log("CALLING: submitForm() with fallback recommendation");
-                    submitForm();
-                } else {
-                    throw new Error("Server returned success but no recommendations or transcription were found");
-                }
+                throw new Error("No transcription returned from the server");
             }
         } catch (error) {
             console.error('Error processing audio:', error);
@@ -545,8 +493,10 @@ document.addEventListener('DOMContentLoaded', function() {
             audioMode = true; // Needs to be true before toggle changes it
             toggleBtn.click();
         } finally {
-            // Hide transcription status
-            transcriptionStatus.classList.add('hidden');
+            // Keep transcription status visible if we're submitting, otherwise hide it
+            if (!textInputContainer.classList.contains('hidden')) {
+                transcriptionStatus.classList.add('hidden');
+            }
             console.log("Transcription process completed");
         }
     }
