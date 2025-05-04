@@ -24,7 +24,7 @@ test.describe('Recommendation Grouping Functionality', () => {
     }
   });
 
-  test('should group identical recommendations from multiple users', async ({ page }) => {
+  test('should group identical recommendations from multiple users', async ({ browser, page }) => {
     // Set timeout for this specific test
     test.setTimeout(60000);
     
@@ -36,24 +36,33 @@ test.describe('Recommendation Grouping Functionality', () => {
         "Chicago Board of Trade - an iconic building in downtown chicago"
       ].join('\n\n');
       
-      await submitRecommendations(page, shareLink, andrewRecommendations, 'Andrew');
+      // Create a fresh context for Andrew
+      const andrewContext = await browser.newContext();
+      const andrewPage = await andrewContext.newPage();
+      await submitRecommendations(andrewPage, shareLink, andrewRecommendations, 'Andrew');
       console.log('Submitted recommendations from Andrew');
-      
+      await andrewContext.close();
       // User 2: Betty's recommendations
       const bettyRecommendations = [
         "Pequods - they're known for their pizza but i love their calamari!",
         "Wrigley Field - an amazing experience on a Friday afternoon if you can go to a home game"
       ].join('\n\n');
       
-      await submitRecommendations(page, shareLink, bettyRecommendations, 'Betty');
+      // Create a fresh context for Betty
+      const bettyContext = await browser.newContext();
+      const bettyPage = await bettyContext.newPage();
+      await submitRecommendations(bettyPage, shareLink, bettyRecommendations, 'Betty');
       console.log('Submitted recommendations from Betty');
-      
+      await bettyContext.close();
       // User 3: Charlie's recommendations
       const charlieRecommendations = "Wrigley field - Go cubs!";
       
-      await submitRecommendations(page, shareLink, charlieRecommendations, 'Charlie');
+      // Create a fresh context for Charlie
+      const charlieContext = await browser.newContext();
+      const charliePage = await charlieContext.newPage();
+      await submitRecommendations(charliePage, shareLink, charlieRecommendations, 'Charlie');
       console.log('Submitted recommendations from Charlie');
-      
+      await charlieContext.close();
       // Navigate to the trip page to see all recommendations
       // Extract the trip URL from the share link (remove the /add part)
       const tripUrl = shareLink.replace('/add', '');
