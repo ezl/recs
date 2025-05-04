@@ -33,8 +33,7 @@ test.describe('Recommendation Grouping Functionality', () => {
       const andrewRecommendations = [
         "Wrigley Field - a great place to watch a cubs game",
         "Pequod's Pizza - the best pizza in chicago",
-        "Chicago Board of Trade - an iconic building in downtown chicago",
-        "Momotaro - the best sushi"
+        "Chicago Board of Trade - an iconic building in downtown chicago"
       ].join('\n\n');
       
       await submitRecommendations(page, shareLink, andrewRecommendations, 'Andrew');
@@ -92,7 +91,7 @@ test.describe('Recommendation Grouping Functionality', () => {
       console.log('Test passed: Wrigley Field card contains all three users');
     } catch (error) {
       console.error('Grouping test failed:', error.message);
-      await page.screenshot({ path: 'grouping-test-failure.png' });
+      await page.locator('#card-view').screenshot({ path: 'grouping-test-failure.png' });
       throw error;
     }
   });

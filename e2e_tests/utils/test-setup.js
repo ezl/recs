@@ -442,7 +442,7 @@ async function submitRecommendations(page, shareLink, recommendations, recommend
     
     // Wait for recommendation form to load
     console.log('Waiting for recommendations form');
-    await page.waitForSelector('#text-recommendations', { timeout: 10000 });
+    await page.waitForSelector('#text-recommendations', { timeout: 2000 });
     
     // Enter recommendation text
     console.log('Entering recommendation text');
@@ -450,7 +450,7 @@ async function submitRecommendations(page, shareLink, recommendations, recommend
     
     // Wait for the submit button to be enabled
     console.log('Waiting for submit button to be enabled');
-    await page.waitForSelector('#submit-button:not([disabled])', { timeout: 10000 });
+    await page.waitForSelector('#submit-button:not([disabled])', { timeout: 2000 });
     await expect(page.locator('#submit-button')).toBeEnabled();
     
     // Click submit button to process recommendations
@@ -459,7 +459,7 @@ async function submitRecommendations(page, shareLink, recommendations, recommend
     
     // Wait for recommendations container to appear
     console.log('Waiting for recommendations container');
-    await page.waitForSelector('#recommendations-container', { timeout: 15000 });
+    await page.waitForSelector('#recommendations-container', { timeout: 5000 });
     
     // Wait for the submit button to be enabled again
     console.log('Waiting for submit button to be enabled again');
