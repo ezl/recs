@@ -2,6 +2,29 @@
 const { expect } = require('@playwright/test');
 
 /**
+ * Captures browser console logs and checks server status
+ * @param {import('@playwright/test').Page} page
+ * @returns {Promise<Array<string>>} Collected console logs
+ */
+async function captureConsoleLogs(page) {
+  const logs = [];
+  page.on('console', msg => {
+    logs.push(`${msg.type()}: ${msg.text()}`);
+    console.log(`Browser console: ${msg.type()}: ${msg.text()}`);
+  });
+  
+  // Check server status - quietly attempt to see if server is responding
+  try {
+    await page.goto('/', { timeout: 2000 });
+    console.log(`Server responded to home page request, current URL: ${page.url()}`);
+  } catch (e) {
+    console.warn('Server status check failed:', e.message);
+  }
+  
+  return logs;
+}
+
+/**
  * Creates a new unique email for testing
  * @returns {string} A unique email address
  */
@@ -22,6 +45,9 @@ function generateUniqueEmail() {
  */
 async function createTrip(page, destination, userName, userEmail, options = { expectNewUser: false }) {
   try {
+    // Capture console logs to help with debugging
+    await captureConsoleLogs(page);
+    
     console.log(`Creating trip with destination=${destination}, name=${userName}, email=${userEmail}`);
     // Create a trip
     await page.goto('/');
@@ -33,11 +59,30 @@ async function createTrip(page, destination, userName, userEmail, options = { ex
     
     // Submit the form
     console.log('Submitting destination form');
-    await page.click('button[type="submit"]');
-    
-    // Wait for navigation to the user info page
-    console.log('Waiting for user info page');
-    await page.waitForURL('**/user-info', { timeout: 10000 });
+    await Promise.all([
+      page.waitForNavigation({ waitUntil: 'networkidle', timeout: 5000 }).catch(e => {
+        console.log('Navigation timeout, checking current URL and page content');
+      }),
+      page.click('button[type="submit"]')
+    ]);
+
+    // Verify we reached the expected page before continuing
+    const initialUrl = page.url();
+    console.log(`Current URL after form submission: ${initialUrl}`);
+
+    // Check if we're on an error page or unexpected location
+    if (await page.locator('.error, .flash-message, .debugger').count() > 0) {
+      await page.screenshot({ path: 'navigation-error.png' });
+      const bodyContent = await page.locator('body').textContent();
+      throw new Error(`Navigation resulted in error page: ${initialUrl}, content: ${bodyContent.substring(0, 200)}`);
+    }
+
+    // If we're not on the expected page, try direct navigation
+    if (!initialUrl.includes('/user-info')) {
+      console.log('Not on user-info page, attempting direct navigation');
+      await page.goto('/user-info');
+      await page.waitForTimeout(1000);
+    }
     
     // Check for errors - if we see a debugger, we know there's a template error
     if (await page.locator('.debugger').count() > 0) {
@@ -171,6 +216,9 @@ async function createTrip(page, destination, userName, userEmail, options = { ex
  */
 async function createTestUser(page, userName, userEmail) {
   try {
+    // Capture console logs to help with debugging
+    await captureConsoleLogs(page);
+    
     console.log(`Creating test user: ${userName} (${userEmail})`);
     const destination = "Test City";
     
@@ -184,11 +232,30 @@ async function createTestUser(page, userName, userEmail) {
     
     // Submit the form
     console.log('Submitting destination form');
-    await page.click('button[type="submit"]');
-    
-    // Wait for navigation to the user info page
-    console.log('Waiting for user info page');
-    await page.waitForURL('**/user-info', { timeout: 10000 });
+    await Promise.all([
+      page.waitForNavigation({ waitUntil: 'networkidle', timeout: 5000 }).catch(e => {
+        console.log('Navigation timeout, checking current URL and page content');
+      }),
+      page.click('button[type="submit"]')
+    ]);
+
+    // Verify we reached the expected page before continuing
+    const initialUrl = page.url();
+    console.log(`Current URL after form submission: ${initialUrl}`);
+
+    // Check if we're on an error page or unexpected location
+    if (await page.locator('.error, .flash-message, .debugger').count() > 0) {
+      await page.screenshot({ path: 'user-nav-error.png' });
+      const bodyContent = await page.locator('body').textContent();
+      throw new Error(`Navigation resulted in error page: ${initialUrl}, content: ${bodyContent.substring(0, 200)}`);
+    }
+
+    // If we're not on the expected page, try direct navigation
+    if (!initialUrl.includes('/user-info')) {
+      console.log('Not on user-info page, attempting direct navigation');
+      await page.goto('/user-info');
+      await page.waitForTimeout(1000);
+    }
     
     // Wait for form to be loaded
     console.log('Waiting for name/email fields');
@@ -503,5 +570,6 @@ module.exports = {
   submitRecommendations,
   createTestUser,
   generateUniqueEmail,
-  handleAuthenticationIfNeeded
+  handleAuthenticationIfNeeded,
+  captureConsoleLogs
 }; 

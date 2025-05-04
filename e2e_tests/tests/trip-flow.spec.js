@@ -56,64 +56,84 @@ test.describe('New User Trip Creation', () => {
  * Test for returning user authentication flow
  */
 test.describe('Returning User Authentication', () => {
-  // Set up a test user before tests
+  // Generate unique email for test isolation
+  const userEmail = generateUniqueEmail();
   const userName = 'Returning Test User';
-  const userEmail = 'returning-user@example.com';
   
-  test('should authenticate returning user and redirect to trip page', async ({ page }) => {
+  test('should authenticate returning user and redirect to trip page', async ({ browser }) => {
+    // Use separate browser contexts for clean state
+    // First context for creating the initial user
+    const context1 = await browser.newContext();
+    const setupPage = await context1.newPage();
+    
     try {
-      // Create the test user first (in the same context)
       console.log('Creating test user first...');
+      console.log(`Using unique email: ${userEmail}`);
       
-      // Ensure we start fresh
-      await page.goto('/');
-      await page.waitForTimeout(1000);
+      // Create the test user
+      await createTestUser(setupPage, userName, userEmail);
       
-      await createTestUser(page, userName, userEmail);
+      // Close first context to ensure clean separation
+      await context1.close();
       
-      // Navigate back to homepage and clear any potential cookies/session
-      await page.goto('/');
-      await page.waitForTimeout(2000);
+      // Create a new context for the returning user flow
+      const context2 = await browser.newContext();
+      const page = await context2.newPage();
       
-      console.log('Now testing returning user flow...');
-      // Create trip with the same user info to trigger auth flow
-      const shareLink = await createTrip(
-        page, 
-        'Rome', 
-        userName, 
-        userEmail, 
-        { expectNewUser: false }
-      );
-      
-      // At this point, we should have:
-      // 1. Created a test user
-      // 2. Created a trip as the returning user
-      // 3. Gone through the auth flow
-      // 4. Been redirected to the trip page
-      
-      // Verify we're on the trip page by examining content
-      const tripTitle = await page.locator('h1').textContent();
-      console.log(`Trip page title: ${tripTitle}`);
-      expect(tripTitle).toContain('Rome');
-      
-      // Verify share link exists and has the expected format
-      console.log(`Final share link: ${shareLink}`);
-      expect(shareLink).toBeTruthy();
-      expect(shareLink).toContain('/add');
-      
-      // Verify URL contains /trip/
-      const finalUrl = page.url();
-      console.log(`Final URL: ${finalUrl}`);
-      expect(finalUrl).toContain('/trip/');
-      
-      // Ensure share box is visible
-      const shareBox = await page.locator('.share-box');
-      await expect(shareBox).toBeVisible();
-      
+      try {
+        console.log('Now testing returning user flow...');
+        
+        // Create trip with the same user info to trigger auth flow
+        const shareLink = await createTrip(
+          page, 
+          'Rome', 
+          userName, 
+          userEmail, 
+          { expectNewUser: false }
+        );
+        
+        // At this point, we should have:
+        // 1. Created a test user
+        // 2. Created a trip as the returning user
+        // 3. Gone through the auth flow
+        // 4. Been redirected to the trip page
+        
+        // Verify we're on the trip page by examining content
+        await page.waitForSelector('h1', { state: 'visible', timeout: 3000 });
+        const tripTitle = await page.locator('h1').textContent();
+        console.log(`Trip page title: ${tripTitle}`);
+        expect(tripTitle).toContain('Rome');
+        
+        // Verify share link exists and has the expected format
+        await page.waitForSelector('.share-box input[type="text"]', { state: 'visible', timeout: 3000 });
+        const inputField = await page.locator('.share-box input[type="text"]');
+        const actualShareLink = await inputField.inputValue();
+        console.log(`Final share link: ${actualShareLink}`);
+        expect(actualShareLink).toBeTruthy();
+        expect(actualShareLink).toContain('/add');
+        
+        // Verify URL contains /trip/
+        const finalUrl = page.url();
+        console.log(`Final URL: ${finalUrl}`);
+        expect(finalUrl).toContain('/trip/');
+        
+        // Ensure share box is visible
+        const shareBox = await page.locator('.share-box');
+        await expect(shareBox).toBeVisible();
+        
+        // Clean up
+        await context2.close();
+      } catch (error) {
+        console.error('Returning user test failed:', error.message);
+        console.log(`Current URL at failure: ${page.url()}`);
+        await page.screenshot({ path: 'returning-user-test-failure.png' });
+        await context2.close();
+        throw error;
+      }
     } catch (error) {
-      console.error('Returning user test failed:', error.message);
-      console.log(`Current URL at failure: ${page.url()}`);
-      await page.screenshot({ path: 'returning-user-test-failure.png' });
+      console.error('Setup failed:', error.message);
+      await setupPage.screenshot({ path: 'setup-user-failure.png' });
+      await context1.close();
       throw error;
     }
   });
