@@ -218,7 +218,7 @@
   }
 
   .hero-subtext {
-    @apply text-md text-gray-400 italic max-w-2xl mx-auto;
+    @apply text-base text-gray-400 italic max-w-2xl mx-auto;
   }
 
   /* ==========================================================================
