@@ -9,7 +9,7 @@
 {% block content %}
 <div class="container mx-auto px-4 py-16">
   <!-- Hero Image Section -->
-  <div class="hero-image-container mb-12">
+  <div class="w-4/5 md:w-3/5 mx-auto my-8 relative mb-12">
     <img 
       {% if config.FLASK_ENV == 'production' %}
       src="{{ url_for('static', filename='images/trip-hero.png', _external=True, _scheme='https', v='2') }}"
@@ -18,7 +18,7 @@
       {% endif %}
       alt="Trip planning visual with colorful cards showing destinations and recommendations" 
       class="mx-auto rounded-lg"
-      style="max-height: 30vh;""
+      style="max-height: 30vh;"
     >
   </div>
 

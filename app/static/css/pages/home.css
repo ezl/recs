@@ -6,12 +6,3 @@
 body, main {
   background-color: white !important;
 }
-
-.hero-image-container {
-  /* Add animation for the hero image to fade in */
-  max-width: 60%;
-  margin: 2em auto;
-  position: relative;
-  /*min-height: 200px;*/
-  border-radius: 0.5rem;
-}
