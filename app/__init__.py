@@ -3,7 +3,7 @@ Main Flask application.
 For end-to-end testing, see /e2e_tests/README.md
 """
 
-from flask import Flask, g, session
+from flask import Flask, g, session, request, redirect
 import atexit
 from datetime import datetime, timedelta
 import os
@@ -36,6 +36,20 @@ def create_app():
     
     # Set longer session lifetime
     app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=1)
+    
+    # Configure URL handling to enforce trailing slashes
+    app.url_map.strict_slashes = False
+    
+    # Add middleware to redirect non-trailing slash URLs to trailing slash versions
+    @app.before_request
+    def redirect_to_trailing_slash():
+        # Skip for static files and some specific endpoints
+        if request.path.startswith('/static/') or request.path == '/favicon.ico':
+            return
+            
+        # If path doesn't end with / and doesn't have an extension, add a trailing slash
+        if not request.path.endswith('/') and '.' not in request.path.split('/')[-1]:
+            return redirect(request.path + '/' + (f'?{request.query_string.decode()}' if request.query_string else ''), code=301)
     
     # Initialize database
     from app.database import init_db

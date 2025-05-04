@@ -21,6 +21,9 @@ class Config:
     MAIL_FROM_EMAIL = os.environ.get('MAIL_FROM_EMAIL', 'noreply@example.com')
     MAIL_FROM_NAME = os.environ.get('MAIL_FROM_NAME', 'Recs App')
     RESEND_API_KEY = os.environ.get('RESEND_API_KEY', '')
+    
+    # URL configuration
+    PREFERRED_URL_SCHEME = 'http'
 
 class DevConfig(Config):
     """Development config."""
