@@ -35,11 +35,11 @@
 
   {% if trip.recommendations %}
     <div class="mb-8">
-      <div class="flex items-center justify-between mb-2">
+      <div class="flex flex-wrap items-center justify-between mb-2 gap-2">
         <h2 class="section-title">
           Recommendations
         </h2>
-        <div class="flex items-center space-x-2">
+        <div class="flex flex-wrap items-center gap-2">
           <!-- View toggle component (card/map views) -->
           {% include 'components/trip/_view_toggle.html' %}
           

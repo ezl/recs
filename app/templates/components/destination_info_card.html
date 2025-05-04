@@ -2,6 +2,18 @@
 {% set destination = trip.destination_info[0] %}
 <div class="mb-8 bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200">
     <div class="grid md:grid-cols-3">
+        <!-- Map placeholder -->
+        <div class="bg-gray-100 flex items-center justify-center">
+            <div class="text-center w-full">
+                {% set map_url = "https://maps.googleapis.com/maps/api/staticmap?center=" ~ destination.name|urlencode ~ "," ~ destination.country|urlencode ~ "&zoom=11&size=400x400&key=" ~ config['GOOGLE_MAPS_API_KEY'] %}
+                
+                <div class="w-full h-[220px] md:h-full flex items-center justify-center rounded border border-gray-200 overflow-hidden">
+                    <img src="{{ map_url }}" alt="Map of {{ destination.name }}" class="w-full h-full object-cover">
+                </div>
+    
+            </div>
+        </div>
+        
         <!-- Destination information -->
         <div class="md:col-span-2 p-6">
             {% if destination.description %}
@@ -38,19 +50,6 @@
                 </div>
             </div>
             {% endif %}
-        </div>
-        
-        <!-- Map placeholder -->
-        <div class="bg-gray-100 flex items-center justify-center">
-            <div class="text-center p-4 w-full">
-                {% set map_url = "https://maps.googleapis.com/maps/api/staticmap?center=" ~ destination.name|urlencode ~ "," ~ destination.country|urlencode ~ "&zoom=10&size=400x400&key=" ~ config['GOOGLE_MAPS_API_KEY'] %}
-                
-                <div class="w-full h-[220px] flex items-center justify-center rounded border border-gray-200 overflow-hidden">
-                    <img src="{{ map_url }}" alt="Map of {{ destination.name }}" class="w-full h-full object-cover">
-                </div>
-                
-                <p class="mt-2 text-sm text-gray-500">Map of {{ destination.name }}</p>
-            </div>
         </div>
     </div>
 </div>
