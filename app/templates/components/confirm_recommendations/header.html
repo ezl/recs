@@ -10,7 +10,7 @@
     {% endif %}
   </h1>
   
-  <p class="text-lg text-gray-600 mb-8 text-center max-w-3xl mx-auto" data-traveler-name="{{ trip.traveler_name }}">
+  <p class="hero-subtext mb-8 text-center max-w-3xl mx-auto" data-traveler-name="{{ trip.traveler_name }}">
     {% if session.get('trip_mode') == 'create_mode' %}
       Review and refine your guide to {{ trip.destination }}. You can add more places or edit the details.
     {% else %}
