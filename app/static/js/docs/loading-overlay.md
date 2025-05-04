@@ -73,7 +73,7 @@ window.location.href = "/trip/123";
 // Show loading before API call
 showLoadingOverlay("Saving Recommendations", "Storing your great ideas...");
 
-fetch('/api/recommendations', {
+fetch('/api/recommendations/', {
   method: 'POST',
   body: JSON.stringify(data)
 })

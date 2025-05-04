@@ -10,12 +10,12 @@ import logging
 user_bp = Blueprint('user', __name__)
 logger = logging.getLogger(__name__)
 
-@user_bp.route('/create-guide')
+@user_bp.route('/create-guide/')
 def create_guide():
     """Entry point for creating a shareable trip guide"""
     return render_template('create_guide.html')
 
-@user_bp.route('/create-trip', methods=['POST'])
+@user_bp.route('/create-trip/', methods=['POST'])
 def create_trip():
     destination = request.form.get('destination')
     trip_mode = request.form.get('trip_mode', 'request_mode')  # Default to request_mode
@@ -45,7 +45,7 @@ def create_trip():
     # Redirect to the user info page
     return redirect(url_for('user.user_info'))
 
-@user_bp.route('/user-info')
+@user_bp.route('/user-info/')
 def user_info():
     # Check if we have a destination in the session
     destination = session.get('temp_destination')
@@ -63,7 +63,7 @@ def user_info():
     
     return render_template('user_info.html', destination=destination)
 
-@user_bp.route('/complete-trip', methods=['POST'])
+@user_bp.route('/complete-trip/', methods=['POST'])
 def complete_trip():
     # Get form data
     destination = request.form.get('destination')
@@ -253,7 +253,7 @@ def create_trip_for_user(user, destination, traveler_name):
     
     return trip
 
-@user_bp.route('/name-resolution')
+@user_bp.route('/name-resolution/')
 def name_resolution():
     # Check if we have the necessary information in the session
     destination = session.get('temp_destination')
@@ -284,7 +284,7 @@ def name_resolution():
         new_name=new_name
     )
 
-@user_bp.route('/resolve-name', methods=['POST'])
+@user_bp.route('/resolve-name/', methods=['POST'])
 def resolve_name():
     """Handle the name resolution form submission."""
     # Log form data for debugging
@@ -389,7 +389,7 @@ def resolve_name():
         print(f"Redirecting recommendation requester to view trip {trip.slug}")
         return redirect(url_for('trip.view_trip', slug=trip.slug))
 
-@user_bp.route('/my-trips')
+@user_bp.route('/my-trips/')
 def my_trips():
     # Check if user is logged in
     user_id = session.get('user_id')

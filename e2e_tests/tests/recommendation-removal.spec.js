@@ -37,7 +37,7 @@ async function setupTestEnvironment(page) {
     
     // Wait for recommendations to be processed
     console.log('Waiting for recommendations to be processed');
-    await page.waitForURL('**/trip/**/process', { timeout: 15000 });
+    await page.waitForURL('**/trip/**/process/', { timeout: 15000 });
     
     // Wait for recommendation items to appear
     console.log('Waiting for recommendation items to appear');
@@ -426,7 +426,7 @@ test('should submit recommendations after removal', async ({ page }) => {
   
   // Wait for submission and redirect with increased timeout
   console.log('Waiting for redirect after submission');
-  await page.waitForURL('**/trip/**', { timeout: 15000 });
+  await page.waitForURL('**/trip/**/', { timeout: 15000 });
   
   // Verify we're on a trip page
   const currentUrl = page.url();

@@ -23,7 +23,7 @@ test.describe('Audio Recording Interface', () => {
       // Verify share link exists and has the expected format
       console.log(`Share link for audio tests: ${shareLink}`);
       expect(shareLink).toBeTruthy();
-      expect(shareLink).toContain('/add');
+      expect(shareLink).toContain('/add/');
     } catch (error) {
       console.error('Setup failed:', error.message);
       await page.screenshot({ path: 'audio-setup-failure.png' });

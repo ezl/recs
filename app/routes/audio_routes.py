@@ -12,7 +12,7 @@ from app.services.ai_service import AIService
 
 audio_bp = Blueprint('audio', __name__)
 
-@audio_bp.route('/api/transcribe', methods=['POST'])
+@audio_bp.route('/api/transcribe/', methods=['POST'])
 def transcribe_audio():
     """
     Endpoint to handle audio transcription

@@ -117,7 +117,7 @@ def send_auth_email(email, token):
     
     return auth_link
 
-@auth.route('/login', methods=['GET', 'POST'])
+@auth.route('/login/', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         email = request.form.get('email')
@@ -141,7 +141,7 @@ def login():
     
     return render_template('auth/login.html')
 
-@auth.route('/verify/<token>')
+@auth.route('/verify/<token>/')
 def verify_token(token):
     logger = logging.getLogger(__name__)
     
@@ -198,7 +198,7 @@ def verify_token(token):
     logger.info(f"No next_url, redirecting to my_trips")
     return redirect(url_for('user.my_trips'))
 
-@auth.route('/logout')
+@auth.route('/logout/')
 def logout():
     # Clear the session
     session.clear()

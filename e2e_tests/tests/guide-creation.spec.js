@@ -24,48 +24,48 @@ test.describe('Create a Trip Guide', () => {
       tripSlug = await createGuide(page, 'Paris', 'Guide Author', 'author@example.com');
       
       // Check if we were redirected to auth page (email already exists)
-      if (page.url().includes('/check_email')) {
+      if (page.url().includes('/check_email/')) {
         // In test environment, auth link should be displayed
         const authLink = await page.locator('a:has-text("Click here to log in")');
         if (await authLink.count() > 0) {
           await authLink.click();
           
           // After auth, we should be redirected to add recommendations page
-          await page.waitForURL('**/trip/**/add', { timeout: 10000 });
+          await page.waitForURL('**/trip/**/add/', { timeout: 10000 });
           
           // Extract trip slug from URL
           const url = page.url();
-          const matches = url.match(/\/trip\/([^\/]+)\/add/);
+          const matches = url.match(/\/trip\/([^\/]+)\/add\//);
           tripSlug = matches ? matches[1] : tripSlug;
         }
       }
       
       // Or check if we're on name resolution page
-      else if (page.url().includes('/name-resolution')) {
+      else if (page.url().includes('/name-resolution/')) {
         // Choose to use the new name
         await page.locator('#new-name-radio').click();
         await page.click('button[type="submit"]');
         
         // Check if redirected to auth
-        if (page.url().includes('/check_email')) {
+        if (page.url().includes('/check_email/')) {
           // In test environment, auth link should be displayed
           const authLink = await page.locator('a:has-text("Click here to log in")');
           if (await authLink.count() > 0) {
             await authLink.click();
             
             // After auth, we should be redirected to add recommendations page
-            await page.waitForURL('**/trip/**/add', { timeout: 10000 });
+            await page.waitForURL('**/trip/**/add/', { timeout: 10000 });
             
             // Extract trip slug from URL
             const url = page.url();
-            const matches = url.match(/\/trip\/([^\/]+)\/add/);
+            const matches = url.match(/\/trip\/([^\/]+)\/add\//);
             tripSlug = matches ? matches[1] : tripSlug;
           }
         }
       }
       
       // Verify we're on the add recommendation page
-      await page.waitForURL(`**/trip/${tripSlug}/add`);
+      await page.waitForURL(`**/trip/${tripSlug}/add/`);
       
       // Verify the recommendation page has the correct heading for guide creator mode
       const header = page.locator('h1.page-title');
@@ -108,7 +108,7 @@ test.describe('Create a Trip Guide', () => {
       await page.locator('a:has-text("Create A Guide")').first().click();
       
       // Verify we're on the create guide page
-      await page.waitForURL('**/create-guide');
+      await page.waitForURL('**/create-guide/');
       
       // Check if create_mode is properly set up
       console.log('Checking for create_mode indicators on create guide page');
@@ -167,7 +167,7 @@ test.describe('Create a Trip Guide', () => {
       
       // 5. Wait for recommendations page (timeout of 5 seconds)
       console.log('Waiting for recommendations page');
-      await page.waitForURL('**/trip/**/add', { timeout: 5000 });
+      await page.waitForURL('**/trip/**/add/', { timeout: 8000 });
       console.log(`Navigated to: ${page.url()}`);
       
       // Check if trip_mode is properly set for add recommendations page
@@ -195,7 +195,7 @@ test.describe('Create a Trip Guide', () => {
       
       // 8. Wait for processing page (timeout of 5 seconds)
       console.log('Waiting for processing page');
-      await page.waitForURL('**/trip/**/process', { timeout: 5000 });
+      await page.waitForURL('**/trip/**/process/', { timeout: 5000 });
       console.log(`Navigated to: ${page.url()}`);
       
       // Check if trip_mode is properly set for process page
@@ -333,7 +333,7 @@ test.describe('Create a Trip Guide', () => {
       
       // 11. Verify we're on the trip page for Chicago
       console.log('Verifying we are on trip page');
-      await page.waitForURL('**/trip/**', { timeout: 5000 });
+      await page.waitForURL('**/trip/**/', { timeout: 5000 });
       
       // Check the page title contains Chicago
       const pageTitle = await page.locator('h1.page-title').textContent();

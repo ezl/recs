@@ -34,7 +34,7 @@ test.describe('New User Trip Creation', () => {
       
       // Verify share link exists
       expect(shareLink).toBeTruthy();
-      expect(shareLink).toContain('/add');
+      expect(shareLink).toContain('/add/');
       
       // Verify some trip page elements
       const tripTitle = await page.locator('h1');
@@ -110,7 +110,7 @@ test.describe('Returning User Authentication', () => {
         const actualShareLink = await linkElement.getAttribute('href');
         console.log(`Final share link: ${actualShareLink}`);
         expect(actualShareLink).toBeTruthy();
-        expect(actualShareLink).toContain('/add');
+        expect(actualShareLink).toContain('/add/');
         
         // Verify URL contains /trip/
         const finalUrl = page.url();
@@ -175,7 +175,7 @@ test.describe('Recommendation Submission', () => {
       await submitRecommendations(page, shareLink, recommendations, 'Test Recommender');
       
       // Verify we're on the thank you page
-      expect(page.url()).toContain('/thank-you');
+      expect(page.url()).toContain('/thank-you/');
       
       // Check for thank you page elements
       const pageTitle = await page.locator('h1').first();

@@ -420,7 +420,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log(`Request start time: ${startTime.toISOString()}`);
             
             // Use fetch to send the audio file to the server for transcription
-            const response = await fetch('/api/transcribe', {
+            const response = await fetch('/api/transcribe/', {
                 method: 'POST',
                 body: formData
             });

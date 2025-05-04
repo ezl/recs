@@ -8,7 +8,7 @@ from app.services.ai_service import AIService
 
 trip_bp = Blueprint('trip', __name__, url_prefix='/trip')
 
-@trip_bp.route('/<slug>')
+@trip_bp.route('/<slug>/')
 def view_trip(slug):
     trip = Trip.query.filter_by(slug=slug).first_or_404()
     
@@ -20,7 +20,7 @@ def view_trip(slug):
     config = {'GOOGLE_MAPS_API_KEY': api_key}
     return render_template('trip.html', trip=trip, config=config)
 
-@trip_bp.route('/<slug>/thank-you')
+@trip_bp.route('/<slug>/thank-you/')
 def thank_you_page(slug):
     """
     Thank you page for recommendation submissions
@@ -29,7 +29,7 @@ def thank_you_page(slug):
     return render_template('thank_you.html', trip=trip)
 
 # Legacy route to handle old share_token links
-@trip_bp.route('/<token>', endpoint='recommendation_request')
+@trip_bp.route('/<token>/', endpoint='recommendation_request')
 def recommendation_request(token):
     trip = Trip.query.filter_by(share_token=token).first_or_404()
     return redirect(url_for('trip.view_trip', slug=trip.slug)) 

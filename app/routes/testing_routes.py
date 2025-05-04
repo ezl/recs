@@ -6,7 +6,7 @@ from app.database.models import Trip
 
 testing_bp = Blueprint('testing', __name__)
 
-@testing_bp.route('/test-session')
+@testing_bp.route('/test-session/')
 def test_session():
     """
     Test route for verifying session functionality
@@ -61,7 +61,7 @@ def test_session():
             <ul>
                 <li><a href="/verify-session">Verify Session (Same tab)</a></li>
                 <li><a href="/verify-session" target="_blank">Verify Session (New tab)</a></li>
-                <li><a href="javascript:fetch('/verify-session-ajax').then(r=>r.json()).then(data=>alert('Session test: ' + (data.success ? 'SUCCESS' : 'FAILED') + '\\n\\nStored: {test_id}\\nRetrieved: ' + data.value))">Verify Session (AJAX)</a></li>
+                <li><a href="javascript:fetch('/verify-session-ajax/').then(r=>r.json()).then(data=>alert('Session test: ' + (data.success ? 'SUCCESS' : 'FAILED') + '\n\nStored: {test_id}\nRetrieved: ' + data.value))">Verify Session (AJAX)</a></li>
             </ul>
         </div>
         
@@ -80,7 +80,7 @@ def test_session():
     
     return html
 
-@testing_bp.route('/verify-session')
+@testing_bp.route('/verify-session/')
 def verify_session():
     """Verify the session value from test-session route"""
     session_test = session.get('session_test', 'NOT FOUND')
@@ -126,7 +126,7 @@ def verify_session():
     
     return html
 
-@testing_bp.route('/verify-session-ajax')
+@testing_bp.route('/verify-session-ajax/')
 def verify_session_ajax():
     """Verify the session value via AJAX"""
     session_test = session.get('session_test', 'NOT FOUND')
@@ -141,7 +141,7 @@ def verify_session_ajax():
         'value': session_test
     })
 
-@testing_bp.route('/test-session-redirect')
+@testing_bp.route('/test-session-redirect/')
 def test_session_redirect():
     """Set a session value and redirect to test persistence through redirects"""
     # Create a unique test value
@@ -162,7 +162,7 @@ def test_session_redirect():
     # Redirect to verification page
     return redirect(url_for('testing.verify_session_redirect'))
 
-@testing_bp.route('/verify-session-redirect')
+@testing_bp.route('/verify-session-redirect/')
 def verify_session_redirect():
     """Verify the session after redirect"""
     redirect_test = session.get('redirect_test', 'NOT FOUND')
@@ -208,7 +208,7 @@ def verify_session_redirect():
     
     return html
 
-@testing_bp.route('/test-fallback/<slug>')
+@testing_bp.route('/test-fallback/<slug>/')
 def test_fallback(slug):
     """
     Test route that creates a direct link to the confirmation page with a fallback parameter

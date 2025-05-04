@@ -5,7 +5,7 @@ from app.database import db
 
 admin_bp = Blueprint('admin', __name__)
 
-@admin_bp.route('/admin')
+@admin_bp.route('/admin/')
 def admin_dashboard():
     """Simple admin dashboard for debugging database entries"""
     # Get all data from the database

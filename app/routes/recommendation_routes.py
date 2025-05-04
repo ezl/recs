@@ -10,12 +10,12 @@ logger = logging.getLogger(__name__)
 
 recommendation_bp = Blueprint('recommendation', __name__)
 
-@recommendation_bp.route('/trip/<slug>/add', methods=['GET'])
+@recommendation_bp.route('/trip/<slug>/add/', methods=['GET'])
 def add_recommendation(slug):
     trip = Trip.query.filter_by(slug=slug).first_or_404()
     return render_template('add_recommendation.html', trip=trip)
 
-@recommendation_bp.route('/trip/<slug>/process', methods=['POST'])
+@recommendation_bp.route('/trip/<slug>/process/', methods=['POST'])
 def process_recommendation(slug):
     logger.info(f"=================== PROCESS RECOMMENDATION ROUTE CALLED ===================")
     logger.info(f"Request method: {request.method}")
@@ -78,7 +78,7 @@ def process_recommendation(slug):
         flash('There was an error processing your recommendations. Please try again.', 'error')
         return redirect(url_for('recommendation.add_recommendation', slug=slug))
 
-@recommendation_bp.route('/trip/<slug>/save', methods=['POST'])
+@recommendation_bp.route('/trip/<slug>/save/', methods=['POST'])
 def save_recommendations(slug):
     logger.info(f"=================== SAVE RECOMMENDATIONS ROUTE CALLED ===================")
     logger.info(f"Request method: {request.method}")
@@ -210,7 +210,7 @@ def save_recommendations(slug):
         flash('There was an error saving your recommendations. Please try again.', 'error')
         return redirect(url_for('recommendation.add_recommendation', slug=slug))
 
-@recommendation_bp.route('/trip/<slug>/save-email', methods=['POST'])
+@recommendation_bp.route('/trip/<slug>/save-email/', methods=['POST'])
 def save_recommender_email(slug):
     """
     Save email address of recommender who wants to be notified

@@ -554,7 +554,7 @@ async function submitRecommendations(page, shareLink, recommendations, recommend
       
       // Wait for submission and redirect to thank you page
       console.log('Waiting for thank you page');
-      await page.waitForURL('**/trip/**/thank-you', { timeout: 15000 });
+      await page.waitForURL('**/trip/**/thank-you/', { timeout: 15000 });
       console.log('Successfully submitted recommendations');
     }
   } catch (error) {

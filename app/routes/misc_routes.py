@@ -8,7 +8,7 @@ misc_bp = Blueprint('main', __name__)
 def index():
     return render_template('index.html')
 
-@misc_bp.route('/how-it-works')
+@misc_bp.route('/how-it-works/')
 def how_it_works():
     """How it works page explaining the recommendation system"""
     return render_template('how_it_works.html')

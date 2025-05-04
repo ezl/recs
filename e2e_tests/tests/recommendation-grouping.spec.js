@@ -65,7 +65,7 @@ test.describe('Recommendation Grouping Functionality', () => {
       await charlieContext.close();
       // Navigate to the trip page to see all recommendations
       // Extract the trip URL from the share link (remove the /add part)
-      const tripUrl = shareLink.replace('/add', '');
+      const tripUrl = shareLink.replace('/add/', '/');
       await page.goto(tripUrl);
       console.log(`Navigated to trip page: ${tripUrl}`);
       

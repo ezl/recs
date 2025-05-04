@@ -33,7 +33,7 @@ test.describe('Create Trip and Get Recommendations from One Person', () => {
       
       // Verify we're on the thank you page
       const currentUrl = page.url();
-      expect(currentUrl).toContain('/thank-you');
+      expect(currentUrl).toContain('/thank-you/');
       
       // Try to verify flash message if present
       const flashMessage = await page.locator('.flash-message');
@@ -78,7 +78,7 @@ test.describe('Create Trip and Get Recommendations from One Person', () => {
         await page.click('#submit-button');
         
         // We should still be on the same page
-        expect(page.url()).toContain('/add');
+        expect(page.url()).toContain('/add/');
       } else {
         // Verify button is disabled with empty input
         await expect(page.locator('#submit-button')).toBeDisabled();
