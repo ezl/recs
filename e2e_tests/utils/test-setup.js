@@ -195,8 +195,8 @@ async function createTrip(page, destination, userName, userEmail, options = { ex
     // Get the share link
     console.log('Looking for share box');
     await page.waitForSelector('.share-box', { timeout: 10000 });
-    const inputField = await page.locator('.share-box input[type="text"]');
-    const shareLink = await inputField.inputValue();
+    const linkElement = await page.locator('.share-box a[id^="share-link-"]');
+    const shareLink = await linkElement.getAttribute('href');
     
     console.log(`Share link: ${shareLink}`);
     return shareLink;

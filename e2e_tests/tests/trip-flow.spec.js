@@ -105,9 +105,9 @@ test.describe('Returning User Authentication', () => {
         expect(tripTitle).toContain('Rome');
         
         // Verify share link exists and has the expected format
-        await page.waitForSelector('.share-box input[type="text"]', { state: 'visible', timeout: 3000 });
-        const inputField = await page.locator('.share-box input[type="text"]');
-        const actualShareLink = await inputField.inputValue();
+        await page.waitForSelector('.share-box', { state: 'visible', timeout: 3000 });
+        const linkElement = await page.locator('.share-box a[id^="share-link-"]');
+        const actualShareLink = await linkElement.getAttribute('href');
         console.log(`Final share link: ${actualShareLink}`);
         expect(actualShareLink).toBeTruthy();
         expect(actualShareLink).toContain('/add');

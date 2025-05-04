@@ -12,31 +12,43 @@
   <h3 class="text-xl font-semibold text-primary-800 mb-3">{{ title }}</h3>
   <p class="text-gray-700 mb-4">{{ description }}</p>
   <div class="relative" id="share-container-{{ id|default('default') }}">
-    <input 
-      type="text" 
-      id="share-link-{{ id|default('default') }}" 
-      value="{{ share_url }}" 
-      class="form-input pr-10 bg-white text-gray-800 cursor-pointer"
-      readonly
-    >
-    <button 
-      class="icon-btn absolute inset-y-0 right-0 px-3 flex items-center text-gray-500 hover:text-primary-600"
-      title="Copy to clipboard"
-      id="copy-icon-{{ id|default('default') }}"
-      aria-label="Copy link to clipboard"
-      type="button"
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184" />
-      </svg>
-    </button>
-    <div class="absolute inset-0 bg-primary-50 bg-opacity-90 flex items-center justify-center rounded hidden" id="copy-feedback-{{ id|default('default') }}">
-      <span class="text-primary-600 font-medium flex items-center">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5 mr-2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-        </svg>
-        Copied to clipboard!
-      </span>
+    <div class="flex items-center space-x-2">
+      <!-- Clickable link that opens in a new window -->
+      <a 
+        href="{{ share_url }}" 
+        id="share-link-{{ id|default('default') }}" 
+        class="text-primary-600 hover:text-primary-800 underline truncate flex-grow"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {{ share_url }}
+      </a>
+      
+      <!-- Copy to clipboard button -->
+      <div class="relative">
+        <button 
+          class="flex items-center px-3 py-2 bg-primary-100 hover:bg-primary-200 text-primary-700 rounded transition"
+          id="copy-button-{{ id|default('default') }}"
+          aria-label="Copy link to clipboard"
+          title="Copy to clipboard"
+          type="button"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5 mr-1">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184" />
+          </svg>
+          Copy to clipboard
+        </button>
+        
+        <!-- Feedback element positioned over the button only -->
+        <div class="absolute inset-0 bg-primary-50 bg-opacity-90 flex items-center justify-center rounded hidden" id="copy-feedback-{{ id|default('default') }}">
+          <span class="text-primary-600 font-medium flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5 mr-2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+            </svg>
+            Copied!
+          </span>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -50,34 +62,19 @@
       
       // Get references to elements for this specific share box
       const shareId = "{{ id|default('default') }}";
-      const input = document.getElementById(`share-link-${shareId}`);
-      const button = document.getElementById(`copy-icon-${shareId}`);
+      const link = document.getElementById(`share-link-${shareId}`);
+      const button = document.getElementById(`copy-button-${shareId}`);
       const feedbackElement = document.getElementById(`copy-feedback-${shareId}`);
-      
-      // Flag to avoid processing select events we trigger programmatically
-      let isSelectingProgrammatically = false;
       
       // Store timeout ID to clear any pending timeouts
       let feedbackTimeout = null;
       
-      if (input && button && feedbackElement) {
+      if (link && button && feedbackElement) {
         // Function to handle copying and showing feedback
-        const copyToClipboardAndShowFeedback = (source) => {
-          console.log(`Copy function called from: ${source}`);
+        const copyToClipboardAndShowFeedback = () => {
+          console.log('Copy function called');
           
-          // Mark that we're about to programmatically select text
-          isSelectingProgrammatically = true;
-          
-          // Select the text
-          input.select();
-          console.log('Text selected');
-          
-          const text = input.value;
-          
-          // After a short delay, we can allow select events again
-          setTimeout(() => {
-            isSelectingProgrammatically = false;
-          }, 100);
+          const text = link.href;
           
           // Use Clipboard API (modern approach)
           navigator.clipboard.writeText(text).then(() => {
@@ -101,8 +98,18 @@
           }).catch(err => {
             console.log('Clipboard API failed, using fallback', err);
             
+            // Create a temporary textarea to copy from
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed'; // Prevent scrolling to the element
+            document.body.appendChild(textarea);
+            textarea.select();
+            
             // Fallback to older method for browsers that don't support Clipboard API
             document.execCommand('copy');
+            
+            // Clean up
+            document.body.removeChild(textarea);
             
             // Clear any existing timeout
             if (feedbackTimeout) {
@@ -122,34 +129,13 @@
           });
         };
         
-        // Add click event to the input to select all text and copy to clipboard
-        input.addEventListener('click', function(e) {
-          console.log('Input clicked');
-          // Prevent event propagation to avoid duplicate events
-          e.preventDefault();
-          e.stopPropagation();
-          
-          copyToClipboardAndShowFeedback('input click');
-        });
-        
-        // Monitor for select events, but ignore the ones we trigger ourselves
-        input.addEventListener('select', function(e) {
-          console.log('Input select event triggered, programmatic:', isSelectingProgrammatically);
-          
-          // If this select event wasn't triggered by our code, ignore it
-          if (!isSelectingProgrammatically) {
-            // Just log it, don't take any action
-            console.log('Ignoring user-initiated select event');
-          }
-        });
-        
         // Add click event to the button to copy the text
         button.addEventListener('click', function(e) {
           console.log('Button clicked');
           e.preventDefault();
           e.stopPropagation();
           
-          copyToClipboardAndShowFeedback('button click');
+          copyToClipboardAndShowFeedback();
         });
       }
     });
