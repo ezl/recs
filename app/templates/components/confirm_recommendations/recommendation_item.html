@@ -2,14 +2,36 @@
 {% set index = index|default(loop.index if loop is defined else 0) %}
 {% set trip = trip|default({}) %}
 
-<div class="bg-white rounded-xl p-6 border border-gray-200 shadow-sm transition hover:shadow-md recommendation-item" id="recommendation-{{ index }}">
-  <div class="flex flex-col md:flex-row gap-6">
+<div class="bg-white rounded-xl p-6 border border-gray-200 shadow-sm transition hover:shadow-md recommendation-item relative" id="recommendation-{{ index }}">
+  <!-- Mobile view: Title with delete button -->
+  <div class="flex items-start justify-between mb-1 md:hidden">
+    <h3 class="font-bold text-lg text-gray-900">{{ item.name }}</h3>
+    <button type="button" class="ml-2 p-1 rounded-full text-red-500 hover:bg-red-50 hover:text-red-700 transition remove-recommendation flex-shrink-0" 
+            data-index="{{ index }}" aria-label="Remove recommendation">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Desktop view: Delete button in absolute position -->
+  <div class="hidden md:block absolute top-4 right-4">
+    <button type="button" class="p-1 rounded-full text-red-500 hover:bg-red-50 hover:text-red-700 transition remove-recommendation" 
+            data-index="{{ index }}" aria-label="Remove recommendation">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+
+  <div class="flex flex-col md:flex-row gap-4">
     <!-- Recommendation Details -->
     <div class="md:w-2/5">
-      <h3 class="font-bold text-lg text-gray-900 mb-2">{{ item.name }}</h3>
+      <!-- Desktop only title - mobile title is above -->
+      <h3 class="hidden md:block font-bold text-lg text-gray-900 mb-1">{{ item.name }}</h3>
       
       {% if item.type %}
-      <div class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary-100 text-primary-800 mb-3">
+      <div class="inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-medium bg-primary-100 text-primary-800">
         {{ item.type }}
       </div>
       {% endif %}
@@ -20,26 +42,16 @@
     </div>
     
     <!-- Description Textarea -->
-    <div class="md:w-3/5 flex flex-col">
+    <div class="md:w-3/5 flex flex-col mt-2 md:mt-0 md:pr-10">
       <!-- Mobile specific label -->
-      <label class="md:hidden text-gray-700 font-medium mb-1 text-sm">Why do you recommend it?</label>
+      <label class="md:hidden text-gray-700 font-medium text-sm mb-0.5">Why do you recommend it?</label>
       <textarea 
         id="description_{{ index }}" 
         name="descriptions[]" 
-        class="flex-1 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+        class="flex-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
         rows="3" 
         placeholder="What makes this place special? Any tips for {{ trip.traveler_name }}?"
       >{{ item.description }}</textarea>
-    </div>
-    
-    <!-- Delete button (works on all screen sizes) -->
-    <div class="flex items-start">
-      <button type="button" class="p-2 rounded-full text-red-500 hover:bg-red-50 hover:text-red-700 transition remove-recommendation" 
-              data-index="{{ index }}" aria-label="Remove recommendation">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-        </svg>
-      </button>
     </div>
   </div>
 </div> 

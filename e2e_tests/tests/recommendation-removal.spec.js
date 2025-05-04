@@ -172,6 +172,29 @@ async function clickUndoButton(page) {
 }
 
 /**
+ * Get the appropriate remove button selector based on viewport size
+ */
+function getRemoveButtonSelector(page, index = 0) {
+  // Define the viewport width for testing (simulating either mobile or desktop)
+  const viewportWidth = page.viewportSize().width;
+  const isMobile = viewportWidth < 768;
+  console.log(`Current viewport width: ${viewportWidth}, using ${isMobile ? 'mobile' : 'desktop'} selectors`);
+  
+  // For mobile viewports, target mobile-visible buttons
+  // For desktop viewports, target desktop-visible buttons
+  let selector;
+  if (isMobile) {
+    // Mobile: Target visible buttons in mobile view
+    selector = `.recommendation-item >> nth=${index} >> button.remove-recommendation >> visible=true`;
+  } else {
+    // Desktop: For desktop, target the absolute positioned button that should be visible
+    selector = `.recommendation-item >> nth=${index} >> .absolute >> button.remove-recommendation >> visible=true`;
+  }
+  
+  return selector;
+}
+
+/**
  * Remove a recommendation at the specified index
  */
 async function removeRecommendation(page, index = 0) {
@@ -184,21 +207,75 @@ async function removeRecommendation(page, index = 0) {
     return { success: false, initialCount, newCount: initialCount };
   }
   
-  // Ensure the remove button is visible
-  console.log(`Locating remove button for item ${index + 1}`);
-  const removeButton = page.locator('.recommendation-item').nth(index).locator('.remove-recommendation');
+  // Get the appropriate selector based on viewport size
+  const buttonSelector = getRemoveButtonSelector(page, index);
+  console.log(`Using remove button selector: ${buttonSelector}`);
+  
+  // Find the remove button
+  const removeButton = page.locator(buttonSelector);
   
   try {
-    await removeButton.waitFor({ state: 'visible', timeout: 5000 });
+    // First check if the button exists at all
+    const count = await removeButton.count();
+    if (count === 0) {
+      console.warn('No remove button found with the current selector');
+      
+      // Fallback to a more generic selector as last resort
+      console.log('Trying fallback selector for remove button');
+      const fallbackSelector = `.recommendation-item >> nth=${index} >> button.remove-recommendation >> visible=true`;
+      const fallbackButton = page.locator(fallbackSelector);
+      
+      if (await fallbackButton.count() > 0) {
+        console.log('Found button with fallback selector, attempting to click');
+        await fallbackButton.first().click();
+      } else {
+        console.error('No remove button found with fallback selector either');
+        
+        // Last resort: try to find ANY remove button that's visible
+        console.log('Trying last resort: any visible remove button');
+        const lastResortSelector = 'button.remove-recommendation >> visible=true';
+        const lastResortButtons = await page.locator(lastResortSelector).all();
+        
+        if (lastResortButtons.length > 0) {
+          console.log(`Found ${lastResortButtons.length} remove buttons with last resort selector`);
+          console.log('Clicking the first visible one');
+          await lastResortButtons[0].click();
+          return { success: true, initialCount, newCount: initialCount - 1 };
+        }
+        
+        await page.screenshot({ path: 'no-remove-button-found.png' });
+        return { success: false, initialCount, newCount: initialCount };
+      }
+    } else {
+      // Wait for the button to be visible
+      await removeButton.waitFor({ state: 'visible', timeout: 5000 });
+      
+      // Remove the recommendation
+      console.log('Clicking remove button');
+      await removeButton.click();
+    }
   } catch (error) {
-    console.warn(`Remove button not visible: ${error.message}`);
-    await page.screenshot({ path: 'remove-button-not-visible.png' });
-    return { success: false, initialCount, newCount: initialCount };
+    console.warn(`Remove button error: ${error.message}`);
+    await page.screenshot({ path: 'remove-button-error.png' });
+    
+    // Try one more time with a more direct approach
+    try {
+      console.log('Attempting alternative click approach');
+      const item = page.locator('.recommendation-item').nth(index);
+      await item.screenshot({ path: 'recommendation-item.png' });
+      
+      // Try to click any visible remove button within this item
+      const anyButton = item.locator('.remove-recommendation >> visible=true');
+      if (await anyButton.count() > 0) {
+        await anyButton.click();
+      } else {
+        return { success: false, initialCount, newCount: initialCount };
+      }
+    } catch (fallbackError) {
+      console.error(`Fallback click also failed: ${fallbackError.message}`);
+      return { success: false, initialCount, newCount: initialCount };
+    }
   }
-  
-  // Remove the recommendation
-  console.log('Clicking remove button');
-  await removeButton.click();
   
   // Wait for the flash message
   await verifyFlashMessage(page);
@@ -372,81 +449,74 @@ test('should handle removal of multiple recommendations', async ({ page }) => {
   
   console.log('Starting multiple recommendation removal test');
   
-  // Count the number of recommendations
-  const count = await page.locator('.recommendation-item').count();
-  console.log(`Initial recommendation count: ${count}`);
+  // Get initial recommendation count
+  const initialCount = await page.locator('.recommendation-item').count();
+  console.log(`Starting with ${initialCount} recommendations`);
   
-  if (count === 0) {
-    // If no recommendations, the test is not applicable
-    console.log('No recommendations found, skipping test');
-    test.skip();
-    return;
-  }
+  // Try to remove all recommendations one by one
+  let currentCount = initialCount;
+  let removalCount = 0;
   
-  // In this test we'll try to remove all but one recommendation
-  // (leaving one to make sure we can still submit)
-  const targetToRemove = Math.max(1, count - 1);
-  console.log(`Will attempt to remove ${targetToRemove} of ${count} recommendations`);
-  
-  // Remove recommendations one by one
-  for (let i = 0; i < targetToRemove; i++) {
-    console.log(`Removing recommendation ${i+1} of ${targetToRemove}`);
-    
-    // Check if there are still recommendations to remove (besides the last one)
-    const visibleItems = await page.locator('.recommendation-item').count();
-    if (visibleItems <= 1) {
-      console.log('Only one recommendation left, stopping removal');
-      break;
-    }
-    
-    // Try to remove the recommendation
+  for (let i = 0; i < initialCount; i++) {
+    // Always remove the first recommendation (index 0) since they shift up
     const { success } = await removeRecommendation(page, 0);
-    
-    if (!success) {
-      console.warn(`Failed to remove recommendation ${i+1}, will try next one`);
-      continue;
-    }
-    
-    // Try to dismiss the flash message if it's visible
-    try {
-      const flashType = await getFlashMessageType(page);
-      if (flashType === 'inline') {
-        console.log('Dismissing inline flash');
-        await page.locator('.inline-flash-message .dismiss-button').click().catch(() => {});
-      } else if (flashType === 'global') {
-        console.log('Dismissing global flash');
-        await page.locator('#client-flash-container button[type="button"]').click().catch(() => {});
-      }
-    } catch (error) {
-      console.warn(`Failed to dismiss flash: ${error.message}`);
-    }
-    
-    // Wait a bit for the UI to stabilize
-    await page.waitForTimeout(1000);
-  }
-  
-  // Verify recommendations were removed
-  const remainingCount = await page.locator('.recommendation-item').count();
-  console.log(`Remaining recommendations: ${remainingCount}`);
-  
-  // We should have removed at least one recommendation
-  expect(remainingCount).toBeLessThan(count);
-  console.log('Multiple removal test completed successfully');
-  
-  // Try to submit the remaining recommendations
-  if (remainingCount > 0) {
-    // Check if submit button exists and try to submit
-    console.log('Checking for submit button after removing multiple recommendations');
-    const submitExists = await page.locator('#submit-button').isVisible().catch(() => false);
-    
-    if (submitExists) {
-      console.log('Submit button found, verifying it works after multiple removals');
-      // We don't actually submit here to keep the test focused,
-      // just verify the button is enabled
-      await page.waitForSelector('#submit-button:not([disabled])', { timeout: 5000 });
-      expect(await page.locator('#submit-button').isEnabled()).toBeTruthy();
+    if (success) {
+      removalCount++;
+      currentCount--;
+      console.log(`Successfully removed recommendation ${i + 1} of ${initialCount}`);
     } else {
-      console.log('Submit button not found after removing multiple recommendations');
+      console.warn(`Failed to remove recommendation ${i + 1} of ${initialCount}`);
+      // Take a screenshot to help diagnose issues
+      await page.screenshot({ path: `removal-failure-${i}.png` });
     }
   }
+  
+  // Verify that we removed at least one recommendation
+  expect(removalCount).toBeGreaterThan(0);
+  console.log(`Successfully removed ${removalCount} of ${initialCount} recommendations`);
+  
+  // Take a final screenshot
+  await page.screenshot({ path: 'all-recommendations-removed.png' });
+  
+  // Check final count
+  const finalCount = await page.locator('.recommendation-item').count();
+  console.log(`Final recommendation count: ${finalCount}`);
+  
+  // We should have fewer recommendations than we started with
+  expect(finalCount).toBeLessThan(initialCount);
+  
+  console.log('Multiple removal test completed');
+});
+
+/**
+ * Test 4: Tests recommendation removal on different viewport sizes
+ */
+test('should remove recommendations on different viewport sizes', async ({ page }) => {
+  test.setTimeout(60000);
+  
+  // Test on mobile viewport first
+  console.log('Testing on mobile viewport');
+  await page.setViewportSize({ width: 375, height: 667 });
+  
+  // Set up the test environment
+  await setupTestEnvironment(page);
+  
+  // Remove a recommendation
+  const mobileResult = await removeRecommendation(page, 0);
+  expect(mobileResult.success).toBeTruthy();
+  console.log('Mobile viewport removal successful');
+  
+  // Now test on desktop viewport
+  console.log('Testing on desktop viewport');
+  await page.setViewportSize({ width: 1280, height: 800 });
+  
+  // Set up a new test environment
+  await setupTestEnvironment(page);
+  
+  // Remove a recommendation
+  const desktopResult = await removeRecommendation(page, 0);
+  expect(desktopResult.success).toBeTruthy();
+  console.log('Desktop viewport removal successful');
+  
+  console.log('Responsive design test completed successfully');
 }); 

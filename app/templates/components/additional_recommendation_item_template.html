@@ -8,52 +8,60 @@
   a new recommendation is created.
 -->
 
-<div class="bg-white rounded-xl p-6 border border-gray-200 shadow-sm transition hover:shadow-md recommendation-item">
-  <div class="flex flex-col md:flex-row gap-6">
+<div class="bg-white rounded-xl p-6 border border-gray-200 shadow-sm transition hover:shadow-md recommendation-item relative">
+  <!-- Desktop view: Delete button in absolute position -->
+  <div class="hidden md:block absolute top-4 right-4">
+    <button type="button" class="p-1 rounded-full text-red-500 hover:bg-red-50 hover:text-red-700 transition remove-recommendation" 
+            data-index="PLACEHOLDER_INDEX" aria-label="Remove recommendation">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+
+  <div class="flex flex-col md:flex-row gap-4">
     <!-- Recommendation Details -->
-    <div class="md:w-2/5 mb-4 md:mb-0">
-      <label for="recommendation_PLACEHOLDER_INDEX" class="block text-gray-700 font-medium mb-1 text-sm">Recommendation</label>
+    <div class="md:w-2/5 mb-2 md:mb-0">
+      <!-- Mobile: Label with delete button -->
+      <div class="flex justify-between items-start md:block">
+        <label for="recommendation_PLACEHOLDER_INDEX" class="block text-gray-700 font-medium mb-0.5 text-sm">Recommendation</label>
+        <button type="button" class="ml-2 p-1 rounded-full text-red-500 hover:bg-red-50 hover:text-red-700 transition remove-recommendation flex-shrink-0 md:hidden" 
+                data-index="PLACEHOLDER_INDEX" aria-label="Remove recommendation">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
       <input 
         type="text" 
         id="recommendation_PLACEHOLDER_INDEX" 
         name="recommendations[]" 
-        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500" 
+        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500" 
         placeholder="Name of restaurant, activity, place, etc."
       >
       
-      <div class="mt-3">
-        <label for="place_type_PLACEHOLDER_INDEX" class="block text-gray-700 font-medium mb-1 text-sm">Type (optional)</label>
+      <div class="mt-2">
+        <label for="place_type_PLACEHOLDER_INDEX" class="block text-gray-700 font-medium mb-0.5 text-sm">Type (optional)</label>
         <input 
           type="text" 
           id="place_type_PLACEHOLDER_INDEX" 
           name="place_types[]" 
-          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500" 
+          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500" 
           placeholder="Restaurant, Museum, Beach, etc."
         >
       </div>
-      
     </div>
     
     <!-- Description Textarea -->
-    <div class="md:w-3/5 flex flex-col">
-      <label for="description_PLACEHOLDER_INDEX" class="block text-gray-700 font-medium mb-1 text-sm">Why do you recommend it?</label>
+    <div class="md:w-3/5 flex flex-col mt-2 md:mt-0 md:pr-10">
+      <label for="description_PLACEHOLDER_INDEX" class="block text-gray-700 font-medium mb-0.5 text-sm">Why do you recommend it?</label>
       <textarea 
         id="description_PLACEHOLDER_INDEX" 
         name="descriptions[]" 
-        class="flex-1 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500" 
+        class="flex-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500" 
         rows="3" 
         placeholder="What makes this place special? Any tips for {{ trip.traveler_name }}?"
       ></textarea>
-    </div>
-    
-    <!-- Delete button (works on all screen sizes) -->
-    <div class="flex items-start">
-      <button type="button" class="p-2 rounded-full text-red-500 hover:bg-red-50 hover:text-red-700 transition remove-recommendation" 
-              data-index="PLACEHOLDER_INDEX" aria-label="Remove recommendation">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-        </svg>
-      </button>
     </div>
   </div>
 </div> 
