@@ -103,7 +103,7 @@ async function createTrip(page, destination, userName, userEmail, options = { ex
     await page.click('button[type="submit"]');
     
     // Wait for content to update
-    await page.waitForTimeout(3000);
+    await page.waitForTimeout(2000);
     
     // Check for loading overlay and wait for it to disappear if present
     const hasLoadingOverlay = await page.locator('.loading-overlay, .loading-screen').count() > 0;
@@ -419,7 +419,7 @@ async function createGuide(page, destination, userName, userEmail) {
     
     // Wait for navigation to the user info page
     console.log('Waiting for user info page');
-    await page.waitForURL('**/user-info', { timeout: 10000 });
+    await page.waitForURL('**/user-info/', { timeout: 5000 });
     
     // Check for errors - if we see a debugger, we know there's a template error
     if (await page.locator('.debugger').count() > 0) {
@@ -447,7 +447,7 @@ async function createGuide(page, destination, userName, userEmail) {
     console.log(`Current URL after form submission: ${currentUrl}`);
     
     // 1. If user needs to resolve name conflict
-    if (currentUrl.includes('/name-resolution')) {
+    if (currentUrl.includes('/name-resolution/')) {
       console.log('Handling name resolution page');
       await page.waitForSelector('#new-name-radio', { timeout: 5000 });
       await page.locator('#new-name-radio').click();
@@ -456,7 +456,7 @@ async function createGuide(page, destination, userName, userEmail) {
     }
     
     // 2. If user needs to authenticate via email
-    if (page.url().includes('/check_email')) {
+    if (page.url().includes('/check_email/')) {
       console.log('Handling email authentication page');
       await page.waitForSelector('body', { timeout: 5000 });
       
@@ -475,7 +475,7 @@ async function createGuide(page, destination, userName, userEmail) {
     
     // Wait for navigation to the add recommendation page (different from createTrip)
     console.log('Waiting for add recommendation page');
-    await page.waitForURL('**/trip/**/add', { timeout: 15000 });
+    await page.waitForURL('**/trip/**/add/', { timeout: 5000 });
     
     // Extract the trip slug from the URL
     const url = page.url();
