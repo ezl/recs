@@ -30,7 +30,7 @@
   - Add E2E test in `e2e_tests/tests/api/test_destinations_api.spec.js` to verify endpoint functionality
   - Add documentation
 
-- [ ] **Step 2.2: Create Google Places API endpoint**
+- [x] **Step 2.2: Create Google Places API endpoint**
   - Implement `/api/destinations/google-places/` endpoint
   - Create helper service to search Google Places API
   - Normalize results to match our Destination model format

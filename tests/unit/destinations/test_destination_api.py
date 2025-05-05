@@ -1,6 +1,7 @@
 import pytest
 from flask import url_for
 from app.database.models import Destination
+from unittest.mock import patch
 
 def test_database_search_endpoint_with_no_query(client):
     """Test database search endpoint validation when no query is provided"""
@@ -73,4 +74,72 @@ def test_database_search_endpoint_with_results(client, app, db):
         # Clean up the test data
         for dest in destinations:
             db.session.delete(dest)
-        db.session.commit() 
+        db.session.commit()
+
+def test_google_places_search_endpoint_with_no_query(client):
+    """Test Google Places search endpoint validation when no query is provided"""
+    response = client.get('/api/destinations/google-places/')
+    assert response.status_code == 400
+    data = response.get_json()
+    assert data['status'] == 'error'
+    assert data['message'] == 'Query must be at least 2 characters'
+    assert data['results'] == []
+
+def test_google_places_search_endpoint_with_short_query(client):
+    """Test Google Places search endpoint validation when query is too short"""
+    response = client.get('/api/destinations/google-places/?query=a')
+    assert response.status_code == 400
+    data = response.get_json()
+    assert data['status'] == 'error'
+    assert data['message'] == 'Query must be at least 2 characters'
+    assert data['results'] == []
+
+def test_google_places_search_endpoint_mock_mode(client):
+    """Test Google Places search endpoint in mock mode"""
+    response = client.get('/api/destinations/google-places/?query=Paris&mock=true')
+    assert response.status_code == 200
+    data = response.get_json()
+    assert data['status'] == 'success'
+    assert len(data['results']) == 1
+    
+    # Verify mock data format
+    mock_result = data['results'][0]
+    assert mock_result['name'] == 'Mock Paris City'
+    assert mock_result['country'] == 'Mock Country'
+    assert mock_result['source'] == 'google_places'
+    assert mock_result['google_place_id'] == 'mock_place_id_123'
+    assert mock_result['latitude'] == 12.345
+    assert mock_result['longitude'] == 67.890
+
+@patch('app.services.google_places_service.GooglePlacesService.search_destinations')
+def test_google_places_search_endpoint_with_service_mock(mock_search, client):
+    """Test Google Places search endpoint with mocked service response"""
+    # Set up the mock
+    mock_search.return_value = [
+        {
+            'id': None,
+            'name': 'Berlin',
+            'display_name': 'Berlin, Germany',
+            'country': 'Germany',
+            'type': 'city',
+            'latitude': 52.520008,
+            'longitude': 13.404954,
+            'google_place_id': 'ChIJAVkDPzdOqEcRcDteW0YgIQQ',
+            'source': 'google_places'
+        }
+    ]
+    
+    response = client.get('/api/destinations/google-places/?query=Berlin')
+    assert response.status_code == 200
+    data = response.get_json()
+    assert data['status'] == 'success'
+    assert len(data['results']) == 1
+    
+    # Verify we got the mock data
+    result = data['results'][0]
+    assert result['name'] == 'Berlin'
+    assert result['country'] == 'Germany'
+    assert result['source'] == 'google_places'
+    
+    # Verify the mock was called with correct arguments
+    mock_search.assert_called_once_with('Berlin') 

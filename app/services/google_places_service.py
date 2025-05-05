@@ -82,6 +82,126 @@ class GooglePlacesService:
             return None
     
     @classmethod
+    def search_destinations(cls, query):
+        """
+        Search for destinations using Google Places API
+        
+        Args:
+            query (str): The search query for destinations
+            
+        Returns:
+            list: List of destination dictionaries with standardized format
+        """
+        # Get API key from environment
+        api_key = os.environ.get('GOOGLE_MAPS_API_KEY')
+        if not api_key:
+            logger.warning("GOOGLE_MAPS_API_KEY not set in environment variables")
+            return []
+        
+        logger.info(f"Searching destinations using Google Places API for: {query}")
+        
+        try:
+            # Use the autocomplete API which is optimized for destination search
+            base_url = "https://maps.googleapis.com/maps/api/place/autocomplete/json"
+            
+            params = {
+                'input': query,
+                'types': '(cities)',  # Focus on cities, regions, and countries
+                'key': api_key
+            }
+            
+            url = f"{base_url}?{urlencode(params)}"
+            logger.info(f"Making Places Autocomplete API request for: {query}")
+            
+            response = requests.get(url)
+            data = response.json()
+            
+            # Log the response status
+            logger.info(f"Places Autocomplete API response status: {data.get('status')}")
+            
+            if data.get('status') != 'OK':
+                if data.get('error_message'):
+                    logger.warning(f"Places Autocomplete API error: {data.get('error_message')}")
+                return []
+            
+            predictions = data.get('predictions', [])
+            logger.info(f"Found {len(predictions)} predictions from Places Autocomplete API")
+            
+            results = []
+            # Get details for each prediction
+            for prediction in predictions[:5]:  # Limit to top 5 results
+                place_id = prediction.get('place_id')
+                if place_id:
+                    place_details = cls._get_place_details(place_id, api_key)
+                    if place_details:
+                        # Extract relevant information and format according to our standard
+                        destination = cls._format_place_as_destination(place_details)
+                        if destination:
+                            results.append(destination)
+            
+            logger.info(f"Returning {len(results)} formatted destination results")
+            return results
+            
+        except Exception as e:
+            logger.error(f"Error in Google Places API destination search: {str(e)}")
+            return []
+    
+    @classmethod
+    def _format_place_as_destination(cls, place_details):
+        """
+        Format Google Places API result as a destination
+        
+        Args:
+            place_details (dict): Place details from Google Places API
+            
+        Returns:
+            dict: Formatted destination dictionary
+        """
+        if not place_details:
+            return None
+            
+        # Extract country from address components
+        country = None
+        address_components = place_details.get('address_components', [])
+        for component in address_components:
+            if 'country' in component.get('types', []):
+                country = component.get('long_name')
+                break
+        
+        # Get location data
+        geometry = place_details.get('geometry', {})
+        location = geometry.get('location', {})
+        
+        # Determine the type of place based on the types
+        types = place_details.get('types', [])
+        place_type = None
+        if 'locality' in types or 'administrative_area_level_3' in types:
+            place_type = 'city'
+        elif 'administrative_area_level_1' in types:
+            place_type = 'region'
+        elif 'country' in types:
+            place_type = 'country'
+        else:
+            place_type = 'place'
+        
+        # Create a display name that includes the country
+        name = place_details.get('name', '')
+        formatted_address = place_details.get('formatted_address', '')
+        display_name = formatted_address if formatted_address else name
+        
+        return {
+            'id': None,  # External results don't have database IDs
+            'name': name,
+            'display_name': display_name,
+            'country': country,
+            'type': place_type,
+            'latitude': location.get('lat'),
+            'longitude': location.get('lng'),
+            'google_place_id': place_details.get('place_id'),
+            'source': 'google_places'
+        }
+    
+    @classmethod
     def _find_place_id(cls, name, api_key, **kwargs):
         """Find a place ID using the Find Place API"""
         base_url = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json"
