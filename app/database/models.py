@@ -92,6 +92,98 @@ class Post(db.Model):
     def __repr__(self):
         return f'<Post {self.title}>'
 
+class Destination(db.Model):
+    """
+    Represents a travel destination such as a city, region, or country.
+    Used to standardize destination data across trips and enable features
+    like autosuggest and destination metadata.
+    """
+    __tablename__ = 'destinations'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255), nullable=False)
+    display_name = db.Column(db.String(255), nullable=True)
+    country = db.Column(db.String(100), nullable=True)
+    type = db.Column(db.String(50), nullable=True)  # city, region, country, etc.
+    
+    # Geographical data
+    latitude = db.Column(db.Float, nullable=True)
+    longitude = db.Column(db.Float, nullable=True)
+    population = db.Column(db.Integer, nullable=True)
+    travel_popularity = db.Column(db.Float, nullable=True)  # A metric for travel popularity if available
+    
+    # External references
+    google_place_id = db.Column(db.String(255), nullable=True, unique=True, index=True)
+    place_data = db.Column(db.JSON, nullable=True)  # Store additional place data
+    
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    # Relationship with trips
+    trips = db.relationship('Trip', backref='destination_obj', lazy=True)
+    
+    def __repr__(self):
+        return f'<Destination {self.name}, {self.country if self.country else "Unknown"}>'
+    
+    @classmethod
+    def get_or_create(cls, name, country=None, **kwargs):
+        """
+        Find an existing destination by name and country or create a new one.
+        
+        Args:
+            name: The destination name
+            country: Optional country name
+            **kwargs: Additional attributes for the destination
+            
+        Returns:
+            Destination object
+        """
+        import logging
+        logger = logging.getLogger(__name__)
+        
+        logger.info(f"Destination.get_or_create called for: {name}")
+        if country:
+            logger.info(f"Country: {country}")
+            destination = cls.query.filter(
+                db.func.lower(cls.name) == db.func.lower(name),
+                db.func.lower(cls.country) == db.func.lower(country)
+            ).first()
+        else:
+            destination = cls.query.filter(
+                db.func.lower(cls.name) == db.func.lower(name)
+            ).first()
+        
+        if destination:
+            logger.info(f"Found existing destination: {destination.name}")
+            return destination
+            
+        # Check if we have a Google Place ID and try to find by that
+        google_place_id = kwargs.get('google_place_id')
+        if google_place_id:
+            logger.info(f"Searching by provided place_id: {google_place_id}")
+            destination = cls.query.filter_by(google_place_id=google_place_id).first()
+            if destination:
+                logger.info(f"Found existing destination with place_id: {destination.name}")
+                return destination
+        
+        # If no destination found, create a new one
+        logger.info(f"Creating new destination for: {name}")
+        display_name = kwargs.pop('display_name', name)
+        if country and not display_name.endswith(country):
+            display_name = f"{name}, {country}"
+            
+        destination = cls(
+            name=name,
+            display_name=display_name,
+            country=country,
+            **kwargs
+        )
+        db.session.add(destination)
+        db.session.commit()
+        
+        logger.info(f"Created new destination: {name} (ID: {destination.id})")
+        return destination
+
 class Trip(db.Model):
     __tablename__ = 'trips'
     
@@ -108,6 +200,9 @@ class Trip(db.Model):
     destination_info = db.Column(db.JSON, nullable=True)
     destination_display_name = db.Column(db.String(255), nullable=True)
     destination_country = db.Column(db.String(100), nullable=True)
+    
+    # New foreign key to Destination model (nullable for backward compatibility)
+    destination_id = db.Column(db.Integer, db.ForeignKey('destinations.id'), nullable=True)
     
     recommendations = db.relationship('Recommendation', backref='trip', lazy=True, cascade='all, delete-orphan')
     subscriptions = db.relationship('TripSubscription', backref='trip', lazy=True, cascade='all, delete-orphan')
