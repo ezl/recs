@@ -21,7 +21,7 @@
 
 ## Phase 2: Backend API for Destination Search
 
-- [ ] **Step 2.1: Create separate database search endpoint**
+- [x] **Step 2.1: Create separate database search endpoint**
   - Implement `/api/destinations/database/` endpoint
   - Add route to search Destination model
   - Return formatted JSON response
