@@ -67,4 +67,7 @@ package-lock.json
 yarn.lock
 
 # Build outputs
-app/static/css/tailwind.css 
+app/static/css/tailwind.css
+
+# Log files
+logs/*.log 
