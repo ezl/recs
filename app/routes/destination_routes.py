@@ -3,6 +3,7 @@ from flask import Blueprint, request, jsonify
 from app.database import db
 from app.database.models import Destination
 from app.services.google_places_service import GooglePlacesService
+from app.services.openstreetmap_service import OpenStreetMapService
 import logging
 
 # Set up logger
@@ -107,6 +108,57 @@ def search_destinations_google_places():
         results = GooglePlacesService.search_destinations(query)
     
     logger.info(f"Returning {len(results)} Google Places API results")
+    
+    return jsonify({
+        "status": "success",
+        "results": results
+    }), 200
+
+@destination_bp.route('/api/destinations/openstreetmap/', methods=['GET'])
+def search_destinations_openstreetmap():
+    """
+    API endpoint to search destinations using OpenStreetMap Nominatim API
+    Returns destinations matching the query from OpenStreetMap
+    """
+    logger.info("=== OPENSTREETMAP DESTINATION SEARCH API CALLED ===")
+    
+    # Get query parameter
+    query = request.args.get('query', '')
+    
+    if not query or len(query) < 2:
+        logger.info(f"Search rejected - query too short: '{query}'")
+        return jsonify({
+            "status": "error",
+            "message": "Query must be at least 2 characters",
+            "results": []
+        }), 400
+    
+    logger.info(f"Searching OpenStreetMap API for destinations matching: '{query}'")
+    
+    # Check if we're in test mode
+    use_mock = request.args.get('mock', 'false').lower() == 'true'
+    
+    if use_mock:
+        logger.info("Using mock OpenStreetMap API response for testing")
+        # Return a mock response for testing
+        results = [
+            {
+                "id": None,
+                "name": f"Mock OSM {query}",
+                "display_name": f"Mock OSM {query}, Mock OSM Country",
+                "country": "Mock OSM Country",
+                "type": "city",
+                "latitude": 34.567,
+                "longitude": 89.012,
+                "osm_id": "12345678",
+                "source": "openstreetmap"
+            }
+        ]
+    else:
+        # Use the actual OpenStreetMap API
+        results = OpenStreetMapService.search_destinations(query)
+    
+    logger.info(f"Returning {len(results)} OpenStreetMap API results")
     
     return jsonify({
         "status": "success",

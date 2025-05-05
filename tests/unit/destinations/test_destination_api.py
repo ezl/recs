@@ -142,4 +142,72 @@ def test_google_places_search_endpoint_with_service_mock(mock_search, client):
     assert result['source'] == 'google_places'
     
     # Verify the mock was called with correct arguments
-    mock_search.assert_called_once_with('Berlin') 
+    mock_search.assert_called_once_with('Berlin')
+
+def test_openstreetmap_search_endpoint_with_no_query(client):
+    """Test OpenStreetMap search endpoint validation when no query is provided"""
+    response = client.get('/api/destinations/openstreetmap/')
+    assert response.status_code == 400
+    data = response.get_json()
+    assert data['status'] == 'error'
+    assert data['message'] == 'Query must be at least 2 characters'
+    assert data['results'] == []
+
+def test_openstreetmap_search_endpoint_with_short_query(client):
+    """Test OpenStreetMap search endpoint validation when query is too short"""
+    response = client.get('/api/destinations/openstreetmap/?query=a')
+    assert response.status_code == 400
+    data = response.get_json()
+    assert data['status'] == 'error'
+    assert data['message'] == 'Query must be at least 2 characters'
+    assert data['results'] == []
+
+def test_openstreetmap_search_endpoint_mock_mode(client):
+    """Test OpenStreetMap search endpoint in mock mode"""
+    response = client.get('/api/destinations/openstreetmap/?query=Rome&mock=true')
+    assert response.status_code == 200
+    data = response.get_json()
+    assert data['status'] == 'success'
+    assert len(data['results']) == 1
+    
+    # Verify mock data format
+    mock_result = data['results'][0]
+    assert mock_result['name'] == 'Mock OSM Rome'
+    assert mock_result['country'] == 'Mock OSM Country'
+    assert mock_result['source'] == 'openstreetmap'
+    assert mock_result['osm_id'] == '12345678'
+    assert mock_result['latitude'] == 34.567
+    assert mock_result['longitude'] == 89.012
+
+@patch('app.services.openstreetmap_service.OpenStreetMapService.search_destinations')
+def test_openstreetmap_search_endpoint_with_service_mock(mock_search, client):
+    """Test OpenStreetMap search endpoint with mocked service response"""
+    # Set up the mock
+    mock_search.return_value = [
+        {
+            'id': None,
+            'name': 'Tokyo',
+            'display_name': 'Tokyo, Japan',
+            'country': 'Japan',
+            'type': 'city',
+            'latitude': 35.6762,
+            'longitude': 139.6503,
+            'osm_id': '123456789',
+            'source': 'openstreetmap'
+        }
+    ]
+    
+    response = client.get('/api/destinations/openstreetmap/?query=Tokyo')
+    assert response.status_code == 200
+    data = response.get_json()
+    assert data['status'] == 'success'
+    assert len(data['results']) == 1
+    
+    # Verify we got the mock data
+    result = data['results'][0]
+    assert result['name'] == 'Tokyo'
+    assert result['country'] == 'Japan'
+    assert result['source'] == 'openstreetmap'
+    
+    # Verify the mock was called with correct arguments
+    mock_search.assert_called_once_with('Tokyo') 

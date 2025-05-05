@@ -39,7 +39,7 @@
   - Set up environment variable to toggle between real and mock API in tests
   - Run all tests to ensure they pass
 
-- [ ] **Step 2.3: Create OpenStreetMap API endpoint** (Future enhancement)
+- [x] **Step 2.3: Create OpenStreetMap API endpoint** (Future enhancement)
   - Implement `/api/destinations/openstreetmap/` endpoint for additional data source
   - Create helper function to search OpenStreetMap Nominatim
   - Normalize results to match our format
