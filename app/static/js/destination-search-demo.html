@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destination Search Demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Include destination search library -->
+    <script src="/static/js/destination-search.js"></script>
+    <style>
+        .code-block {
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            overflow-x: auto;
+        }
+        .tab-panel {
+            display: none;
+        }
+        .tab-panel.active {
+            display: block;
+        }
+        .code-tab {
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 4px 4px 0 0;
+        }
+        .code-tab.active {
+            background-color: #f8f9fa;
+            border-bottom: 2px solid #4f46e5;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-8 text-center">Destination Search API Documentation & Demo</h1>
+        
+        <!-- Live Demo Section -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Live Demo</h2>
+            <div class="flex flex-col md:flex-row gap-4 mb-6">
+                <div class="flex-grow">
+                    <input type="text" id="demoQuery" placeholder="Enter destination (e.g., Paris, Tokyo)" 
+                        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                </div>
+                <button id="demoSearchBtn" class="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition">
+                    Search
+                </button>
+            </div>
+            <div id="resultStats" class="text-sm text-gray-600 mb-2"></div>
+            <div id="demoResults" class="bg-gray-50 p-4 rounded-lg min-h-[100px] overflow-auto max-h-[300px]">
+                <p class="text-gray-500">Results will appear here...</p>
+            </div>
+        </section>
+        
+        <!-- API Documentation Section -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-semibold mb-4">API Documentation</h2>
+            
+            <h3 class="text-xl font-medium mb-3">Getting Started</h3>
+            <p class="mb-4">
+                The Destination Search API allows you to search for destinations across multiple data sources. 
+                It provides a simple interface for finding cities, countries, and other locations for your travel planning.
+            </p>
+            
+            <h3 class="text-xl font-medium mb-3">API Reference</h3>
+            <p class="mb-4">Use the following endpoints to search for destinations:</p>
+            
+            <div class="mb-6">
+                <div class="flex gap-2 mb-2">
+                    <div class="code-tab active" data-target="database">Database</div>
+                    <div class="code-tab" data-target="google">Google Places</div>
+                    <div class="code-tab" data-target="openstreetmap">OpenStreetMap</div>
+                </div>
+                
+                <div id="database-content" class="tab-panel active code-block">
+                    <p class="mb-2"><strong>Endpoint:</strong> <code>/api/destinations/database/</code></p>
+                    <p class="mb-2"><strong>Method:</strong> GET</p>
+                    <p class="mb-2"><strong>Parameters:</strong></p>
+                    <ul class="list-disc pl-6 mb-2">
+                        <li><code>query</code> - Search string (min 2 characters)</li>
+                    </ul>
+                    <p class="mb-2"><strong>Response:</strong></p>
+                    <pre><code>{
+  "status": "success",
+  "results": [
+    {
+      "id": 1,
+      "name": "Paris",
+      "display_name": "Paris, France",
+      "country": "France",
+      "type": "city",
+      "latitude": 48.8566,
+      "longitude": 2.3522,
+      "source": "database"
+    }
+  ]
+}</code></pre>
+                </div>
+                
+                <div id="google-content" class="tab-panel code-block">
+                    <p class="mb-2"><strong>Endpoint:</strong> <code>/api/destinations/google-places/</code></p>
+                    <p class="mb-2"><strong>Method:</strong> GET</p>
+                    <p class="mb-2"><strong>Parameters:</strong></p>
+                    <ul class="list-disc pl-6 mb-2">
+                        <li><code>query</code> - Search string (min 2 characters)</li>
+                        <li><code>mock</code> - Set to "true" for test mode (optional)</li>
+                    </ul>
+                    <p class="mb-2"><strong>Response:</strong></p>
+                    <pre><code>{
+  "status": "success",
+  "results": [
+    {
+      "id": null,
+      "name": "Paris",
+      "display_name": "Paris, France",
+      "country": "France", 
+      "type": "city",
+      "latitude": 48.8566,
+      "longitude": 2.3522,
+      "place_id": "ChIJD7fiBh9u5kcRYJSMaMOCCwQ",
+      "source": "google_places"
+    }
+  ]
+}</code></pre>
+                </div>
+                
+                <div id="openstreetmap-content" class="tab-panel code-block">
+                    <p class="mb-2"><strong>Endpoint:</strong> <code>/api/destinations/openstreetmap/</code></p>
+                    <p class="mb-2"><strong>Method:</strong> GET</p>
+                    <p class="mb-2"><strong>Parameters:</strong></p>
+                    <ul class="list-disc pl-6 mb-2">
+                        <li><code>query</code> - Search string (min 2 characters)</li>
+                        <li><code>mock</code> - Set to "true" for test mode (optional)</li>
+                    </ul>
+                    <p class="mb-2"><strong>Response:</strong></p>
+                    <pre><code>{
+  "status": "success",
+  "results": [
+    {
+      "id": null,
+      "name": "Paris",
+      "display_name": "Paris, France",
+      "country": "France",
+      "type": "city",
+      "latitude": 48.8566,
+      "longitude": 2.3522,
+      "osm_id": "7444",
+      "source": "openstreetmap"
+    }
+  ]
+}</code></pre>
+                </div>
+            </div>
+        </section>
+        
+        <!-- API Explorer Section -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-semibold mb-4">API Explorer</h2>
+            <p class="mb-4">Try out specific endpoints directly:</p>
+            
+            <div class="flex flex-col md:flex-row gap-4 mb-6">
+                <div class="flex-grow">
+                    <input type="text" id="explorerQuery" placeholder="Enter destination (e.g., Paris, Tokyo)" 
+                        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                </div>
+                <select id="explorerEndpoint" class="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <option value="database">Database</option>
+                    <option value="google">Google Places</option>
+                    <option value="openstreetmap">OpenStreetMap</option>
+                </select>
+                <button id="explorerSearchBtn" class="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition">
+                    Search
+                </button>
+            </div>
+            
+            <div id="explorerResults" class="code-block min-h-[100px] overflow-auto max-h-[300px]">
+                <p class="text-gray-500">API response will appear here...</p>
+            </div>
+        </section>
+        
+        <!-- Implementation Examples Section -->
+        <section class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-2xl font-semibold mb-4">Implementation Examples</h2>
+            
+            <h3 class="text-xl font-medium mb-3">Search with Autocomplete</h3>
+            <p class="mb-4">Example of how to use the client-side library for autocomplete search:</p>
+            
+            <div class="code-block">
+                <pre><code>// Initialize search with default settings
+const searchResults = await DestinationSearch.search('paris');
+
+// Search with custom options
+const customResults = await DestinationSearch.search('tokyo', {
+    sources: ['database', 'openstreetmap'],
+    limit: 5,
+    timeout: 3000,
+    cacheLifetime: 60000
+});
+
+// Search with a specific source
+const databaseResults = await DestinationSearch.searchDatabase('london');
+</code></pre>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab switching functionality
+            const tabs = document.querySelectorAll('.code-tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active class from all tabs and panels
+                    document.querySelectorAll('.code-tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+                    
+                    // Add active class to clicked tab
+                    tab.classList.add('active');
+                    
+                    // Add active class to corresponding panel
+                    const target = tab.getAttribute('data-target');
+                    document.getElementById(`${target}-content`).classList.add('active');
+                });
+            });
+            
+            // Demo search functionality
+            const demoSearchBtn = document.getElementById('demoSearchBtn');
+            const demoQuery = document.getElementById('demoQuery');
+            const demoResults = document.getElementById('demoResults');
+            const resultStats = document.getElementById('resultStats');
+            
+            demoSearchBtn.addEventListener('click', async () => {
+                const query = demoQuery.value.trim();
+                if (!query) return;
+                
+                demoResults.innerHTML = '<p class="text-gray-500">Searching...</p>';
+                
+                try {
+                    const results = await DestinationSearch.search(query);
+                    
+                    if (results.length === 0) {
+                        demoResults.innerHTML = '<p class="text-gray-500">No results found</p>';
+                        resultStats.textContent = 'No results found';
+                        return;
+                    }
+                    
+                    resultStats.textContent = `Found ${results.length} results`;
+                    
+                    const resultsHTML = results.map(result => `
+                        <div class="p-3 border-b last:border-b-0">
+                            <div class="font-medium">${result.display_name}</div>
+                            <div class="text-sm text-gray-600">
+                                ${result.type || 'location'} • Source: ${result.source}
+                            </div>
+                            <div class="text-xs text-gray-500">
+                                Lat: ${result.latitude.toFixed(4)}, Lng: ${result.longitude.toFixed(4)}
+                            </div>
+                        </div>
+                    `).join('');
+                    
+                    demoResults.innerHTML = resultsHTML;
+                } catch (error) {
+                    demoResults.innerHTML = `<p class="text-red-500">Error: ${error.message}</p>`;
+                    resultStats.textContent = 'Search failed';
+                }
+            });
+            
+            // API Explorer functionality
+            const explorerSearchBtn = document.getElementById('explorerSearchBtn');
+            const explorerQuery = document.getElementById('explorerQuery');
+            const explorerEndpoint = document.getElementById('explorerEndpoint');
+            const explorerResults = document.getElementById('explorerResults');
+            
+            explorerSearchBtn.addEventListener('click', async () => {
+                const query = explorerQuery.value.trim();
+                if (!query) return;
+                
+                explorerResults.innerHTML = '<p class="text-gray-500">Loading...</p>';
+                
+                try {
+                    const endpoint = explorerEndpoint.value;
+                    let apiUrl;
+                    
+                    switch (endpoint) {
+                        case 'database':
+                            apiUrl = `/api/destinations/database/?query=${encodeURIComponent(query)}`;
+                            break;
+                        case 'google':
+                            apiUrl = `/api/destinations/google-places/?query=${encodeURIComponent(query)}`;
+                            break;
+                        case 'openstreetmap':
+                            apiUrl = `/api/destinations/openstreetmap/?query=${encodeURIComponent(query)}`;
+                            break;
+                        default:
+                            throw new Error('Invalid endpoint selected');
+                    }
+                    
+                    const response = await fetch(apiUrl);
+                    const data = await response.json();
+                    
+                    explorerResults.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+                } catch (error) {
+                    explorerResults.innerHTML = `<p class="text-red-500">Error: ${error.message}</p>`;
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

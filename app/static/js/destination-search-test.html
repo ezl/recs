@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destination Search Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .test-section {
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .test-control {
+            margin-bottom: 10px;
+        }
+        .test-results {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+            max-height: 300px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+        button {
+            padding: 5px 10px;
+            margin-right: 5px;
+        }
+        input[type="text"] {
+            padding: 5px;
+            width: 200px;
+        }
+        select {
+            padding: 5px;
+        }
+        h2 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Destination Search Test Page</h1>
+    <p>This page tests the destination-search.js client library.</p>
+
+    <div class="test-section">
+        <h2>Simple Search</h2>
+        <div class="test-control">
+            <input type="text" id="searchQuery" placeholder="Enter destination...">
+            <select id="searchSource">
+                <option value="all">All Sources</option>
+                <option value="database">Database Only</option>
+                <option value="google">Google Only</option>
+                <option value="openstreetmap">OpenStreetMap Only</option>
+            </select>
+            <button id="searchButton">Search</button>
+            <button id="clearCacheButton">Clear Cache</button>
+        </div>
+        <div class="test-results" id="searchResults">Results will appear here...</div>
+    </div>
+
+    <div class="test-section">
+        <h2>Advanced Options Test</h2>
+        <div class="test-control">
+            <input type="text" id="advancedQuery" placeholder="Enter destination...">
+            <input type="number" id="advancedLimit" placeholder="Result limit" min="1" max="20" value="8">
+            <input type="number" id="advancedTimeout" placeholder="Timeout (ms)" min="500" max="10000" value="5000">
+            <button id="advancedButton">Search with Options</button>
+        </div>
+        <div class="test-results" id="advancedResults">Results will appear here...</div>
+    </div>
+
+    <script src="/static/js/destination-search.js"></script>
+    <script>
+        // Simple search test
+        document.getElementById('searchButton').addEventListener('click', async function() {
+            const query = document.getElementById('searchQuery').value;
+            const sourceSelect = document.getElementById('searchSource');
+            const sourceValue = sourceSelect.options[sourceSelect.selectedIndex].value;
+            const resultsDiv = document.getElementById('searchResults');
+            
+            resultsDiv.textContent = 'Searching...';
+            
+            try {
+                let results;
+                if (sourceValue === 'all') {
+                    results = await DestinationSearch.searchAll(query);
+                } else if (sourceValue === 'database') {
+                    results = await DestinationSearch.searchLocal(query);
+                } else {
+                    results = await DestinationSearch.search(query, {
+                        sources: [sourceValue]
+                    });
+                }
+                
+                resultsDiv.textContent = JSON.stringify(results, null, 2);
+            } catch (error) {
+                resultsDiv.textContent = `Error: ${error.message}`;
+            }
+        });
+        
+        // Clear cache button
+        document.getElementById('clearCacheButton').addEventListener('click', function() {
+            DestinationSearch.clearCache();
+            alert('Cache cleared!');
+        });
+        
+        // Advanced options test
+        document.getElementById('advancedButton').addEventListener('click', async function() {
+            const query = document.getElementById('advancedQuery').value;
+            const limit = parseInt(document.getElementById('advancedLimit').value);
+            const timeout = parseInt(document.getElementById('advancedTimeout').value);
+            const resultsDiv = document.getElementById('advancedResults');
+            
+            resultsDiv.textContent = 'Searching with custom options...';
+            
+            try {
+                const results = await DestinationSearch.search(query, {
+                    limit: limit,
+                    timeout: timeout,
+                    sources: ['database', 'google', 'openstreetmap']
+                });
+                
+                resultsDiv.textContent = JSON.stringify(results, null, 2);
+            } catch (error) {
+                resultsDiv.textContent = `Error: ${error.message}`;
+            }
+        });
+    </script>
+</body>
+</html> 

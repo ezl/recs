@@ -1,5 +1,5 @@
 import os
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, render_template, send_from_directory
 from app.database import db
 from app.database.models import Destination
 from app.services.google_places_service import GooglePlacesService
@@ -163,4 +163,18 @@ def search_destinations_openstreetmap():
     return jsonify({
         "status": "success",
         "results": results
-    }), 200 
+    }), 200
+
+@destination_bp.route('/destination-search-test')
+def destination_search_test():
+    """
+    Route to serve the destination search test page
+    """
+    return send_from_directory('static/js', 'destination-search-test.html')
+
+@destination_bp.route('/destination-search-demo')
+def destination_search_demo():
+    """
+    Route to serve the comprehensive destination search demo page with documentation
+    """
+    return send_from_directory('static/js', 'destination-search-demo.html') 
