@@ -160,12 +160,14 @@ class GooglePlacesService:
         if not place_details:
             return None
             
-        # Extract country from address components
+        # Extract country and country code from address components
         country = None
+        country_code = None
         address_components = place_details.get('address_components', [])
         for component in address_components:
             if 'country' in component.get('types', []):
                 country = component.get('long_name')
+                country_code = component.get('short_name')
                 break
         
         # Get location data
@@ -194,6 +196,7 @@ class GooglePlacesService:
             'name': name,
             'display_name': display_name,
             'country': country,
+            'country_code': country_code,
             'type': place_type,
             'latitude': location.get('lat'),
             'longitude': location.get('lng'),

@@ -230,9 +230,13 @@ class DestinationAutocomplete {
      * @private
      */
     _renderResultItem(result) {
+        // Use only country_code for flag
+        const flag = countryCodeToFlagEmoji(result.country_code);
         return `
             <div class="destination-item-content">
-                <div class="destination-item-name">${result.display_name || result.name}</div>
+                <div class="destination-item-name">${result.display_name || result.name}
+                  <span class="destination-item-flag" style="margin-left: 0.5em;">${flag}</span>
+                </div>
                 <div class="destination-item-details">
                     ${result.type ? `<span class="destination-item-type">${result.type}</span>` : ''}
                     <span class="destination-item-source">${result.source}</span>
@@ -505,4 +509,11 @@ class DestinationAutocomplete {
 // Check if we're in a CommonJS environment
 if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
     module.exports = DestinationAutocomplete;
+}
+
+function countryCodeToFlagEmoji(code) {
+    if (!code) return '';
+    return code
+        .toUpperCase()
+        .replace(/./g, char => String.fromCodePoint(127397 + char.charCodeAt()));
 } 

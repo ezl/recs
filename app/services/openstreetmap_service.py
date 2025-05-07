@@ -101,18 +101,17 @@ class OpenStreetMapService:
         osm_id = place.get('osm_id')
         name = place.get('display_name', '').split(',')[0]  # Get the first part of display_name
         display_name = place.get('display_name', '')
-        
-        # Get address details
         address = place.get('address', {})
         country = address.get('country')
-        
-        # Determine type based on OSM type
+        # Extract country_code from place (if present)
+        country_code = place.get('country_code') or address.get('country_code')
+        if country_code:
+            country_code = country_code.upper()
+        else:
+            country_code = None
         place_type = cls._determine_place_type(place)
-        
-        # Extract coordinates
         lat = place.get('lat')
         lon = place.get('lon')
-        
         if lat and lon:
             try:
                 latitude = float(lat)
@@ -123,12 +122,12 @@ class OpenStreetMapService:
         else:
             latitude = None
             longitude = None
-        
         return {
-            'id': None,  # External results don't have database IDs
+            'id': None,
             'name': name,
             'display_name': display_name,
             'country': country,
+            'country_code': country_code,
             'type': place_type,
             'latitude': latitude,
             'longitude': longitude,
