@@ -127,10 +127,15 @@ const DestinationSearch = (function() {
                 throw new Error(`API error from ${source}: ${data.message || 'Unknown error'}`);
             }
             
+            // Filter for cities and countries for Google and OpenStreetMap
+            let filteredResults = data.results;
+            if (source === 'google' || source === 'openstreetmap') {
+                filteredResults = data.results.filter(item => item.type === 'city' || item.type === 'country');
+            }
             // Cache the results
-            cache.set(query, source, data.results);
+            cache.set(query, source, filteredResults);
             
-            return data.results;
+            return filteredResults;
         } catch (error) {
             console.warn(`Error fetching from ${source}:`, error.message);
             return [];

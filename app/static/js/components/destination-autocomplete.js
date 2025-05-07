@@ -411,13 +411,7 @@ class DestinationAutocomplete {
         // Hide dropdown
         this._hideDropdown();
         
-        // Clear if configured
-        if (this.config.clearOnSelect) {
-            setTimeout(() => {
-                this.inputElement.value = '';
-            }, 100);
-        }
-        
+        // Do NOT clear the input after selection (Option A)
         // Call onSelect callback if provided
         if (typeof this.config.onSelect === 'function') {
             this.config.onSelect(result);
