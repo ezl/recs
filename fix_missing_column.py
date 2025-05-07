@@ -83,6 +83,18 @@ def fix_missing_columns():
             else:
                 logger.info("Column 'is_place_based' already exists.")
             
+            # Check and add destination_id column to trips table
+            trips_columns = inspector.get_columns('trips')
+            trips_column_names = [column['name'] for column in trips_columns]
+            if 'destination_id' not in trips_column_names:
+                logger.info("Column 'destination_id' is missing from trips. Adding it now...")
+                with db.engine.begin() as conn:
+                    conn.execute(text("ALTER TABLE trips ADD COLUMN destination_id INTEGER"))
+                    logger.info("Column destination_id added successfully to trips table.")
+                fixed_something = True
+            else:
+                logger.info("Column 'destination_id' already exists in trips.")
+            
             if fixed_something:
                 logger.info("Database columns fix completed successfully!")
             else:
