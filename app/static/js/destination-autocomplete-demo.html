@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destination Autocomplete Demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="/static/css/destination-autocomplete.css" rel="stylesheet">
+    <script src="/static/js/destination-search.js"></script>
+    <script src="/static/js/components/destination-autocomplete.js"></script>
+    <style>
+        .demo-section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border-radius: 8px;
+            background-color: white;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .code-block {
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-8 text-center">Destination Autocomplete Component</h1>
+        
+        <!-- Basic Example -->
+        <section class="demo-section">
+            <h2 class="text-2xl font-semibold mb-4">Basic Example</h2>
+            <p class="mb-4">Start typing a destination name (e.g., "Paris", "Tokyo", "New York"):</p>
+            
+            <div class="max-w-md mx-auto">
+                <input type="text" id="basicExample" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            </div>
+            
+            <div class="mt-4 p-4 bg-gray-50 rounded-lg">
+                <h3 class="font-medium mb-2">Selected Destination:</h3>
+                <pre id="basicResult" class="text-sm text-gray-600">None selected</pre>
+            </div>
+            
+            <div class="code-block text-sm mt-4">
+                <pre>
+// Initialize the autocomplete on an input
+const autocomplete = new DestinationAutocomplete('#basicExample', {
+    onSelect: function(result) {
+        // Handle the selected result
+        console.log('Selected:', result);
+    }
+});
+                </pre>
+            </div>
+        </section>
+        
+        <!-- Custom Options -->
+        <section class="demo-section">
+            <h2 class="text-2xl font-semibold mb-4">Custom Configuration</h2>
+            <p class="mb-4">This example uses custom configuration options:</p>
+            
+            <div class="max-w-md mx-auto">
+                <input type="text" id="customExample" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            </div>
+            
+            <div class="mt-4 p-4 bg-gray-50 rounded-lg">
+                <h3 class="font-medium mb-2">Selected Destination:</h3>
+                <pre id="customResult" class="text-sm text-gray-600">None selected</pre>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                <div class="source-options p-4 bg-indigo-50 rounded-lg">
+                    <h3 class="font-medium mb-2">Data Sources:</h3>
+                    <div>
+                        <label class="inline-flex items-center mr-4">
+                            <input type="checkbox" class="source-checkbox" value="database" checked>
+                            <span class="ml-2">Database</span>
+                        </label>
+                        <label class="inline-flex items-center mr-4">
+                            <input type="checkbox" class="source-checkbox" value="google" checked>
+                            <span class="ml-2">Google Places</span>
+                        </label>
+                        <label class="inline-flex items-center">
+                            <input type="checkbox" class="source-checkbox" value="openstreetmap" checked>
+                            <span class="ml-2">OpenStreetMap</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="options p-4 bg-indigo-50 rounded-lg">
+                    <h3 class="font-medium mb-2">Other Options:</h3>
+                    <div class="grid grid-cols-2 gap-2">
+                        <label class="flex items-center">
+                            <span class="mr-2">Debounce:</span>
+                            <input type="number" id="debounceTime" value="300" min="0" max="2000" class="w-16 px-2 py-1 border rounded">
+                            <span class="ml-1">ms</span>
+                        </label>
+                        <label class="flex items-center">
+                            <span class="mr-2">Min Chars:</span>
+                            <input type="number" id="minChars" value="2" min="1" max="5" class="w-12 px-2 py-1 border rounded">
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="code-block text-sm mt-4">
+                <pre>
+// Initialize with custom options
+const autocomplete = new DestinationAutocomplete('#customExample', {
+    minChars: 2,
+    debounceTime: 300,
+    sources: ['database', 'google', 'openstreetmap'],
+    clearOnSelect: false,
+    onSelect: function(result) {
+        document.getElementById('customResult').textContent = 
+            JSON.stringify(result, null, 2);
+    }
+});
+                </pre>
+            </div>
+        </section>
+        
+        <!-- Integration Examples -->
+        <section class="demo-section">
+            <h2 class="text-2xl font-semibold mb-4">Form Integration</h2>
+            <p class="mb-4">Example of integrating the autocomplete in a form:</p>
+            
+            <form id="demoForm" class="max-w-md mx-auto">
+                <div class="mb-4">
+                    <label for="formDestination" class="block text-sm font-medium text-gray-700 mb-1">Destination</label>
+                    <input type="text" id="formDestination" name="destination" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <input type="hidden" id="destinationId" name="destination_id">
+                </div>
+                
+                <div class="mb-4">
+                    <label for="formDates" class="block text-sm font-medium text-gray-700 mb-1">Travel Dates</label>
+                    <input type="text" id="formDates" name="dates" placeholder="Select dates" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                </div>
+                
+                <div class="mb-4">
+                    <label for="formNotes" class="block text-sm font-medium text-gray-700 mb-1">Notes</label>
+                    <textarea id="formNotes" name="notes" rows="3" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
+                </div>
+                
+                <button type="submit" class="w-full bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition">Submit</button>
+            </form>
+            
+            <div class="mt-4 p-4 bg-gray-50 rounded-lg">
+                <h3 class="font-medium mb-2">Form Data:</h3>
+                <pre id="formResult" class="text-sm text-gray-600">Form not submitted yet</pre>
+            </div>
+            
+            <div class="code-block text-sm mt-4">
+                <pre>
+// Form integration example
+const formAutocomplete = new DestinationAutocomplete('#formDestination', {
+    clearOnSelect: false,
+    onSelect: function(result) {
+        // Set hidden field with destination ID if available
+        document.getElementById('destinationId').value = 
+            result.id || '';
+    }
+});
+
+// Form submission handler
+document.getElementById('demoForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    
+    const formData = new FormData(this);
+    const formObject = {};
+    
+    formData.forEach((value, key) => {
+        formObject[key] = value;
+    });
+    
+    document.getElementById('formResult').textContent = 
+        JSON.stringify(formObject, null, 2);
+});
+                </pre>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Basic example
+            const basicAutocomplete = new DestinationAutocomplete('#basicExample', {
+                onSelect: function(result) {
+                    document.getElementById('basicResult').textContent = 
+                        JSON.stringify(result, null, 2);
+                }
+            });
+            
+            // Custom example
+            const customAutocomplete = new DestinationAutocomplete('#customExample', {
+                clearOnSelect: false,
+                onSelect: function(result) {
+                    document.getElementById('customResult').textContent = 
+                        JSON.stringify(result, null, 2);
+                }
+            });
+            
+            // Update custom example options
+            const sourceCheckboxes = document.querySelectorAll('.source-checkbox');
+            sourceCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', updateCustomSources);
+            });
+            
+            function updateCustomSources() {
+                const selected = Array.from(sourceCheckboxes)
+                    .filter(checkbox => checkbox.checked)
+                    .map(checkbox => checkbox.value);
+                
+                if (selected.length > 0) {
+                    customAutocomplete.setSources(selected);
+                }
+            }
+            
+            // Debounce time
+            document.getElementById('debounceTime').addEventListener('change', function() {
+                const value = parseInt(this.value);
+                if (!isNaN(value) && value >= 0) {
+                    customAutocomplete.config.debounceTime = value;
+                }
+            });
+            
+            // Min chars
+            document.getElementById('minChars').addEventListener('change', function() {
+                const value = parseInt(this.value);
+                if (!isNaN(value) && value > 0) {
+                    customAutocomplete.config.minChars = value;
+                }
+            });
+            
+            // Form example
+            const formAutocomplete = new DestinationAutocomplete('#formDestination', {
+                clearOnSelect: false,
+                onSelect: function(result) {
+                    // Set hidden field with destination ID if available
+                    document.getElementById('destinationId').value = result.id || '';
+                }
+            });
+            
+            // Form submission
+            document.getElementById('demoForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                const formData = new FormData(this);
+                const formObject = {};
+                
+                formData.forEach((value, key) => {
+                    formObject[key] = value;
+                });
+                
+                document.getElementById('formResult').textContent = 
+                    JSON.stringify(formObject, null, 2);
+            });
+        });
+    </script>
+</body>
+</html> 

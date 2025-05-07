@@ -177,4 +177,11 @@ def destination_search_demo():
     """
     Route to serve the comprehensive destination search demo page with documentation
     """
-    return send_from_directory('static/js', 'destination-search-demo.html') 
+    return send_from_directory('static/js', 'destination-search-demo.html')
+
+@destination_bp.route('/destination-autocomplete-demo')
+def destination_autocomplete_demo():
+    """
+    Route to serve the destination autocomplete component demo page
+    """
+    return send_from_directory('static/js', 'destination-autocomplete-demo.html') 
