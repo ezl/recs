@@ -5,6 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Recs | Get Travel Recommendations{% endblock %}</title>
     
+    <!-- OpenGraph Meta Tags -->
+    <meta property="og:title" content="{% block og_title %}Recs: Trip Recommendations From Friends{% endblock %}" />
+    <meta property="og:description" content="{% block og_description %}Gather and share travel recommendations with friends in one place.{% endblock %}" />
+    <meta property="og:image" content="{% block og_image %}https://www.recs.cc/static/images/trip-hero.png{% endblock %}" />
+    <meta property="og:url" content="{{ request.url }}" />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{% block og_title %}Recs: Get Trip Recommendations From Friends{% endblock %}" />
+    <meta name="twitter:description" content="{% block og_description %}Gather and share travel recommendations with friends in one place.{% endblock %}" />
+    <meta name="twitter:image" content="{% block og_image %}https://www.recs.cc/static/images/trip-hero.png{% endblock %}" />
+    
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
