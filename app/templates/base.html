@@ -14,9 +14,9 @@
 
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="{% block og_title %}Recs: Get Trip Recommendations From Friends{% endblock %}" />
-    <meta name="twitter:description" content="{% block og_description %}Gather and share travel recommendations with friends in one place.{% endblock %}" />
-    <meta name="twitter:image" content="{% block og_image %}https://www.recs.cc/static/images/trip-hero.png{% endblock %}" />
+    <meta name="twitter:title" content="{{ self.og_title() }}" />
+    <meta name="twitter:description" content="{{ self.og_description() }}" />
+    <meta name="twitter:image" content="{{ self.og_image() }}" />
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
