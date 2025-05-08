@@ -410,7 +410,7 @@ class DestinationAutocomplete {
         if (!result) return;
         
         // Fill input with selected value
-        this.inputElement.value = result.display_name || result.name;
+        this.inputElement.value = result.name || result.display_name;
         
         // Hide dropdown
         this._hideDropdown();
